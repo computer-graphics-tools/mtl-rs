@@ -1,0 +1,10 @@
+unstable_features = true
+
+# Group imports by crate root (e.g. `use objc2::{runtime::ProtocolObject, rc::{Allocated, Retained}};`)
+imports_granularity = "Crate"
+
+# Separate imports into std, external crates, and local groups
+group_imports = "StdExternalCrate"
+
+# Keep imports sorted within groups
+reorder_imports = true

@@ -1,0 +1,7 @@
+mod resource_state_pass_descriptor;
+mod sample_buffer_attachment_descriptor;
+mod sample_buffer_attachment_descriptor_array;
+
+pub use resource_state_pass_descriptor::MTLResourceStatePassDescriptor;
+pub use sample_buffer_attachment_descriptor::MTLResourceStatePassSampleBufferAttachmentDescriptor;
+pub use sample_buffer_attachment_descriptor_array::MTLResourceStatePassSampleBufferAttachmentDescriptorArray;

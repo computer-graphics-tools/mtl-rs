@@ -1,0 +1,29 @@
+{
+  "format_on_save": "on",
+
+  "languages": {
+    "Rust": {
+      "formatter": {
+        "language_server": {
+          "name": "rust-analyzer"
+        }
+      }
+    },
+    "JSON": {
+      "formatter": "language_server"
+    },
+    "Markdown": {
+      "formatter": "language_server"
+    }
+  },
+
+  "lsp": {
+    "rust-analyzer": {
+      "settings": {
+        "rustfmt": {
+          "extraArgs": ["+nightly"]
+        }
+      }
+    }
+  }
+}

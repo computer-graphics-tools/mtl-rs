@@ -1,0 +1,9 @@
+mod command_encoder;
+mod pass_descriptor;
+mod sample_buffer_attachment_descriptor;
+mod sample_buffer_attachment_descriptor_array;
+
+pub use command_encoder::MTLAccelerationStructureCommandEncoder;
+pub use pass_descriptor::MTLAccelerationStructurePassDescriptor;
+pub use sample_buffer_attachment_descriptor::MTLAccelerationStructurePassSampleBufferAttachmentDescriptor;
+pub use sample_buffer_attachment_descriptor_array::MTLAccelerationStructurePassSampleBufferAttachmentDescriptorArray;

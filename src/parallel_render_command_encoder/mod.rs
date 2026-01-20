@@ -1,0 +1,3 @@
+mod parallel_render_command_encoder;
+
+pub use parallel_render_command_encoder::MTLParallelRenderCommandEncoder;

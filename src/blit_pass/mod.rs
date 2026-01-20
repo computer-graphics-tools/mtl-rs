@@ -1,0 +1,7 @@
+mod blit_pass_descriptor;
+mod sample_buffer_attachment_descriptor;
+mod sample_buffer_attachment_descriptor_array;
+
+pub use blit_pass_descriptor::MTLBlitPassDescriptor;
+pub use sample_buffer_attachment_descriptor::MTLBlitPassSampleBufferAttachmentDescriptor;
+pub use sample_buffer_attachment_descriptor_array::MTLBlitPassSampleBufferAttachmentDescriptorArray;

@@ -1,0 +1,23 @@
+mod acceleration_structure_descriptor;
+mod bounding_box_geometry_descriptor;
+mod curve_geometry_descriptor;
+mod geometry_descriptor;
+mod indirect_instance_acceleration_structure_descriptor;
+mod instance_acceleration_structure_descriptor;
+mod motion_bounding_box_geometry_descriptor;
+mod motion_curve_geometry_descriptor;
+mod motion_triangle_geometry_descriptor;
+mod primitive_acceleration_structure_descriptor;
+mod triangle_geometry_descriptor;
+
+pub use acceleration_structure_descriptor::*;
+pub use bounding_box_geometry_descriptor::*;
+pub use curve_geometry_descriptor::*;
+pub use geometry_descriptor::*;
+pub use indirect_instance_acceleration_structure_descriptor::*;
+pub use instance_acceleration_structure_descriptor::*;
+pub use motion_bounding_box_geometry_descriptor::*;
+pub use motion_curve_geometry_descriptor::*;
+pub use motion_triangle_geometry_descriptor::*;
+pub use primitive_acceleration_structure_descriptor::*;
+pub use triangle_geometry_descriptor::*;
