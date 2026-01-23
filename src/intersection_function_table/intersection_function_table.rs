@@ -15,7 +15,7 @@ extern_protocol!(
     pub unsafe trait MTLIntersectionFunctionTable: MTLResource {
         #[unsafe(method(setBuffer:offset:atIndex:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_buffer(
+        fn set_buffer(
             &self,
             buffer: Option<&ProtocolObject<dyn MTLBuffer>>,
             offset: usize,
@@ -25,7 +25,7 @@ extern_protocol!(
         /// Safety: `buffers` and `offsets` must be valid pointers.
         #[unsafe(method(setBuffers:offsets:withRange:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_buffers(
+        fn set_buffers(
             &self,
             buffers: NonNull<*const ProtocolObject<dyn MTLBuffer>>,
             offsets: NonNull<usize>,
@@ -37,7 +37,7 @@ extern_protocol!(
         /// Availability: macOS 13.0+, iOS 16.0+
         #[unsafe(method(gpuResourceID))]
         #[unsafe(method_family = none)]
-        unsafe fn gpu_resource_id(&self) -> MTLResourceID;
+        fn gpu_resource_id(&self) -> MTLResourceID;
 
         #[unsafe(method(setFunction:atIndex:))]
         #[unsafe(method_family = none)]
@@ -50,7 +50,7 @@ extern_protocol!(
         /// Safety: `functions` must be a valid pointer.
         #[unsafe(method(setFunctions:withRange:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_functions_with_range(
+        fn set_functions_with_range(
             &self,
             functions: NonNull<*const ProtocolObject<dyn MTLFunctionHandle>>,
             range: NSRange,
@@ -58,7 +58,7 @@ extern_protocol!(
 
         #[unsafe(method(setOpaqueTriangleIntersectionFunctionWithSignature:atIndex:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_opaque_triangle_intersection_function_with_signature_at_index(
+        fn set_opaque_triangle_intersection_function_with_signature_at_index(
             &self,
             signature: MTLIntersectionFunctionSignature,
             index: usize,
@@ -66,7 +66,7 @@ extern_protocol!(
 
         #[unsafe(method(setOpaqueTriangleIntersectionFunctionWithSignature:withRange:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_opaque_triangle_intersection_function_with_signature_with_range(
+        fn set_opaque_triangle_intersection_function_with_signature_with_range(
             &self,
             signature: MTLIntersectionFunctionSignature,
             range: NSRange,
@@ -74,7 +74,7 @@ extern_protocol!(
 
         #[unsafe(method(setOpaqueCurveIntersectionFunctionWithSignature:atIndex:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_opaque_curve_intersection_function_with_signature_at_index(
+        fn set_opaque_curve_intersection_function_with_signature_at_index(
             &self,
             signature: MTLIntersectionFunctionSignature,
             index: usize,
@@ -82,7 +82,7 @@ extern_protocol!(
 
         #[unsafe(method(setOpaqueCurveIntersectionFunctionWithSignature:withRange:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_opaque_curve_intersection_function_with_signature_with_range(
+        fn set_opaque_curve_intersection_function_with_signature_with_range(
             &self,
             signature: MTLIntersectionFunctionSignature,
             range: NSRange,
@@ -90,7 +90,7 @@ extern_protocol!(
 
         #[unsafe(method(setVisibleFunctionTable:atBufferIndex:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_visible_function_table_at_buffer_index(
+        fn set_visible_function_table_at_buffer_index(
             &self,
             function_table: Option<&ProtocolObject<dyn MTLVisibleFunctionTable>>,
             buffer_index: usize,
@@ -99,7 +99,7 @@ extern_protocol!(
         /// Safety: `function_tables` must be a valid pointer.
         #[unsafe(method(setVisibleFunctionTables:withBufferRange:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_visible_function_tables_with_buffer_range(
+        fn set_visible_function_tables_with_buffer_range(
             &self,
             function_tables: NonNull<*const ProtocolObject<dyn MTLVisibleFunctionTable>>,
             buffer_range: NSRange,

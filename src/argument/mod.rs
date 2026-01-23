@@ -17,8 +17,8 @@ pub use argument_descriptor::MTLArgumentDescriptor;
 pub use argument_type::MTLArgumentType;
 pub use array_type::MTLArrayType;
 pub use binding::{
-    MTLBinding, MTLBufferBinding, MTLObjectPayloadBinding, MTLTensorBinding, MTLTextureBinding,
-    MTLThreadgroupBinding,
+    MTLBinding, MTLBindingExt, MTLBufferBinding, MTLObjectPayloadBinding, MTLTensorBinding,
+    MTLTextureBinding, MTLThreadgroupBinding,
 };
 pub use binding_access::{MTLArgumentAccess, MTLBindingAccess};
 pub use binding_type::MTLBindingType;

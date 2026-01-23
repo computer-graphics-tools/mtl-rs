@@ -11,7 +11,7 @@ extern_protocol!(
         /// Called when additional scratch memory is required by a load command.
         #[unsafe(method(newScratchBufferWithMinimumSize:))]
         #[unsafe(method_family = new)]
-        unsafe fn new_scratch_buffer_with_minimum_size(
+        fn new_scratch_buffer_with_minimum_size(
             &self,
             minimum_size: usize,
         ) -> Option<Retained<ProtocolObject<dyn MTLIOScratchBuffer>>>;

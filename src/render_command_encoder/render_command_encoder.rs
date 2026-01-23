@@ -23,7 +23,7 @@ extern_protocol!(
 
         #[unsafe(method(setViewports:count:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_viewports(&self, viewports: NonNull<MTLViewport>, count: usize);
+        fn set_viewports(&self, viewports: NonNull<MTLViewport>, count: usize);
 
         #[unsafe(method(setFrontFacingWinding:))]
         #[unsafe(method_family = none)]
@@ -47,7 +47,7 @@ extern_protocol!(
 
         #[unsafe(method(setScissorRects:count:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_scissor_rects(&self, rects: NonNull<MTLScissorRect>, count: usize);
+        fn set_scissor_rects(&self, rects: NonNull<MTLScissorRect>, count: usize);
 
         #[unsafe(method(setBlendColorRed:green:blue:alpha:))]
         #[unsafe(method_family = none)]
@@ -67,7 +67,7 @@ extern_protocol!(
 
         #[unsafe(method(setColorAttachmentMap:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_color_attachment_map(
+        fn set_color_attachment_map(
             &self,
             mapping: Option<&MTLLogicalToPhysicalColorAttachmentMap>,
         );

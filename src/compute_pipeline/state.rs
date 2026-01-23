@@ -33,7 +33,7 @@ extern_protocol!(
         /// Handle of the GPU resource suitable for storing in an Argument Buffer
         #[unsafe(method(gpuResourceID))]
         #[unsafe(method_family = none)]
-        unsafe fn gpu_resource_id(&self) -> MTLResourceID;
+        fn gpu_resource_id(&self) -> MTLResourceID;
 
         /// Provides access to this compute pipeline's reflection.
         /// Reflection is `None` if you create the pipeline state directly from the `MTLDevice` protocol.

@@ -11,11 +11,11 @@ extern_protocol!(
         /// Handle of the GPU resource suitable for storing in an Argument Buffer
         #[unsafe(method(gpuResourceID))]
         #[unsafe(method_family = none)]
-        unsafe fn gpu_resource_id(&self) -> MTLResourceID;
+        fn gpu_resource_id(&self) -> MTLResourceID;
 
         #[unsafe(method(setFunction:atIndex:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_function_at_index(
+        fn set_function_at_index(
             &self,
             function: Option<&ProtocolObject<dyn MTLFunctionHandle>>,
             index: usize,
@@ -24,7 +24,7 @@ extern_protocol!(
         /// Safety: `functions` must be a valid pointer.
         #[unsafe(method(setFunctions:withRange:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_functions_with_range(
+        fn set_functions_with_range(
             &self,
             functions: NonNull<*const ProtocolObject<dyn MTLFunctionHandle>>,
             range: NSRange,

@@ -154,12 +154,12 @@ extern_protocol!(
         /// Queries the number of entries in the heap.
         #[unsafe(method(count))]
         #[unsafe(method_family = none)]
-        unsafe fn count(&self) -> usize;
+        fn count(&self) -> usize;
 
         /// Queries the type of the heap.
         #[unsafe(method(type))]
         #[unsafe(method_family = none)]
-        unsafe fn r#type(&self) -> MTL4CounterHeapType;
+        fn r#type(&self) -> MTL4CounterHeapType;
     }
 );
 

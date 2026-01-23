@@ -11,11 +11,21 @@ pub struct MTLSize {
 
 unsafe impl Encode for MTLSize {
     const ENCODING: Encoding = Encoding::Struct(
-        "{MTLSize=QQQ}",
+        "?",
         &[usize::ENCODING, usize::ENCODING, usize::ENCODING],
     );
 }
 
 unsafe impl RefEncode for MTLSize {
     const ENCODING_REF: Encoding = Encoding::Pointer(&Self::ENCODING);
+}
+
+impl MTLSize {
+    pub const fn new(width: usize, height: usize, depth: usize) -> Self {
+        Self {
+            width,
+            height,
+            depth,
+        }
+    }
 }

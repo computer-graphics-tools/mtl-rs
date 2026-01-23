@@ -28,24 +28,24 @@ extern_protocol!(
         /// Setter for `label`.
         #[unsafe(method(setLabel:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_label(&self, label: Option<&NSString>);
+        fn set_label(&self, label: Option<&NSString>);
 
         /// Associated device: this scope will capture Metal commands from the associated device.
         #[unsafe(method(device))]
         #[unsafe(method_family = none)]
-        unsafe fn device(&self) -> Retained<ProtocolObject<dyn MTLDevice>>;
+        fn device(&self) -> Retained<ProtocolObject<dyn MTLDevice>>;
 
         /// If set, this scope will only capture Metal commands from the associated command queue.
         /// Defaults to `None` (all command queues from the associated device are captured).
         #[unsafe(method(commandQueue))]
         #[unsafe(method_family = none)]
-        unsafe fn command_queue(&self) -> Option<Retained<ProtocolObject<dyn MTLCommandQueue>>>;
+        fn command_queue(&self) -> Option<Retained<ProtocolObject<dyn MTLCommandQueue>>>;
 
         /// If set, this scope will only capture Metal commands from the associated Metal 4 command queue.
         /// Defaults to `None` (all command queues from the associated device are captured).
         #[unsafe(method(mtl4CommandQueue))]
         #[unsafe(method_family = none)]
-        unsafe fn mtl4_command_queue(
+        fn mtl4_command_queue(
             &self,
         ) -> Option<Retained<ProtocolObject<dyn crate::MTL4CommandQueue>>>;
     }

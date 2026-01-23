@@ -10,15 +10,15 @@ extern_protocol!(
     pub unsafe trait MTLFunctionLog: NSObjectProtocol {
         #[unsafe(method(r#type))]
         #[unsafe(method_family = none)]
-        unsafe fn r#type(&self) -> MTLFunctionLogType;
+        fn r#type(&self) -> MTLFunctionLogType;
 
         #[unsafe(method(function))]
         #[unsafe(method_family = none)]
-        unsafe fn function(&self) -> Option<Retained<ProtocolObject<dyn MTLFunction>>>;
+        fn function(&self) -> Option<Retained<ProtocolObject<dyn MTLFunction>>>;
 
         #[unsafe(method(debugLocation))]
         #[unsafe(method_family = none)]
-        unsafe fn debug_location(
+        fn debug_location(
             &self,
         ) -> Option<Retained<ProtocolObject<dyn MTLFunctionLogDebugLocation>>>;
     }

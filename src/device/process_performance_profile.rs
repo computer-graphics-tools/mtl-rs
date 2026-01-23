@@ -55,11 +55,11 @@ pub unsafe trait NSProcessInfoDeviceCertification:
     extern_methods!(
         #[unsafe(method(isDeviceCertifiedFor:))]
         #[unsafe(method_family = none)]
-        unsafe fn is_device_certified_for(&self, performance_tier: DeviceCertification) -> bool;
+        fn is_device_certified_for(&self, performance_tier: DeviceCertification) -> bool;
 
         #[unsafe(method(hasPerformanceProfile:))]
         #[unsafe(method_family = none)]
-        unsafe fn has_performance_profile(
+        fn has_performance_profile(
             &self,
             performance_profile: ProcessPerformanceProfile,
         ) -> bool;

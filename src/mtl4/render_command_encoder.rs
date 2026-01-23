@@ -68,12 +68,12 @@ extern_protocol!(
         /// Sets the width of a tile for this render pass.
         #[unsafe(method(tileWidth))]
         #[unsafe(method_family = none)]
-        unsafe fn tile_width(&self) -> usize;
+        fn tile_width(&self) -> usize;
 
         /// Sets the height of a tile for this render pass.
         #[unsafe(method(tileHeight))]
         #[unsafe(method_family = none)]
-        unsafe fn tile_height(&self) -> usize;
+        fn tile_height(&self) -> usize;
 
         /// Sets the mapping from logical shader color output to physical render pass color attachments.
         ///
@@ -87,7 +87,7 @@ extern_protocol!(
         /// - Parameter mapping: Mapping from logical shader outputs to physical outputs.
         #[unsafe(method(setColorAttachmentMap:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_color_attachment_map(
+        fn set_color_attachment_map(
             &self,
             mapping: Option<&MTLLogicalToPhysicalColorAttachmentMap>,
         );
@@ -97,7 +97,7 @@ extern_protocol!(
         /// - Parameter pipelineState: a non-`nil` ``MTLRenderPipelineState`` instance.
         #[unsafe(method(setRenderPipelineState:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_render_pipeline_state(
+        fn set_render_pipeline_state(
             &self,
             pipeline_state: &ProtocolObject<dyn MTLRenderPipelineState>,
         );
@@ -110,7 +110,7 @@ extern_protocol!(
         /// - Parameter viewport: ``MTLViewport`` to set.
         #[unsafe(method(setViewport:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_viewport(&self, viewport: MTLViewport);
+        fn set_viewport(&self, viewport: MTLViewport);
 
         /// Sets an array of viewports to transform vertices from normalized device coordinates to window coordinates.
         ///
@@ -129,7 +129,7 @@ extern_protocol!(
         /// `viewports` must be a valid pointer.
         #[unsafe(method(setViewports:count:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_viewports_count(&self, viewports: NonNull<MTLViewport>, count: usize);
+        fn set_viewports_count(&self, viewports: NonNull<MTLViewport>, count: usize);
 
         /// Sets the vertex amplification count and its view mapping for each amplification ID.
         ///
@@ -149,7 +149,7 @@ extern_protocol!(
         /// `view_mappings` must be a valid pointer or null.
         #[unsafe(method(setVertexAmplificationCount:viewMappings:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_vertex_amplification_count_view_mappings(
+        fn set_vertex_amplification_count_view_mappings(
             &self,
             count: usize,
             view_mappings: *const MTLVertexAmplificationViewMapping,
@@ -160,14 +160,14 @@ extern_protocol!(
         /// - Parameter cullMode: ``MTLCullMode`` to set.
         #[unsafe(method(setCullMode:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_cull_mode(&self, cull_mode: MTLCullMode);
+        fn set_cull_mode(&self, cull_mode: MTLCullMode);
 
         /// Controls the behavior for fragments outside of the near or far planes.
         ///
         /// - Parameter depthClipMode: ``MTLDepthClipMode`` to set.
         #[unsafe(method(setDepthClipMode:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_depth_clip_mode(&self, depth_clip_mode: MTLDepthClipMode);
+        fn set_depth_clip_mode(&self, depth_clip_mode: MTLDepthClipMode);
 
         /// Configures the adjustments a render pass applies to depth values from fragment shader functions
         /// by a scaling factor and bias.
@@ -180,7 +180,7 @@ extern_protocol!(
         /// or negative bias, respectively. Set this value to `0` to disable bias clamping.
         #[unsafe(method(setDepthBias:slopeScale:clamp:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_depth_bias_slope_scale_clamp(
+        fn set_depth_bias_slope_scale_clamp(
             &self,
             depth_bias: c_float,
             slope_scale: c_float,
@@ -199,7 +199,7 @@ extern_protocol!(
         /// - maxBound: A maximum bound for depth testing, which discards fragments with a stored depth that is greater than `maxBound`.
         #[unsafe(method(setDepthTestMinBound:maxBound:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_depth_test_min_bound_max_bound(&self, min_bound: c_float, max_bound: c_float);
+        fn set_depth_test_min_bound_max_bound(&self, min_bound: c_float, max_bound: c_float);
 
         /// Sets a scissor rectangle to discard fragments outside a specific area.
         ///
@@ -209,7 +209,7 @@ extern_protocol!(
         /// within the current render attachment.
         #[unsafe(method(setScissorRect:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_scissor_rect(&self, rect: MTLScissorRect);
+        fn set_scissor_rect(&self, rect: MTLScissorRect);
 
         /// Sets an array of scissor rectangles for a fragment scissor test.
         ///
@@ -226,7 +226,7 @@ extern_protocol!(
         /// `scissor_rects` must be a valid pointer.
         #[unsafe(method(setScissorRects:count:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_scissor_rects_count(
+        fn set_scissor_rects_count(
             &self,
             scissor_rects: NonNull<MTLScissorRect>,
             count: usize,
@@ -238,7 +238,7 @@ extern_protocol!(
         /// rasterize triangles or triangle strips.
         #[unsafe(method(setTriangleFillMode:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_triangle_fill_mode(&self, fill_mode: MTLTriangleFillMode);
+        fn set_triangle_fill_mode(&self, fill_mode: MTLTriangleFillMode);
 
         /// Configures each pixel component value, including alpha, for the render pipeline’s constant blend color.
         ///
@@ -249,7 +249,7 @@ extern_protocol!(
         /// - alpha: A value for the alpha component for the blend color constant.
         #[unsafe(method(setBlendColorRed:green:blue:alpha:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_blend_color_red_green_blue_alpha(
+        fn set_blend_color_red_green_blue_alpha(
             &self,
             red: c_float,
             green: c_float,
@@ -262,7 +262,7 @@ extern_protocol!(
         /// - Parameter depthStencilState: the ``MTLDepthStencilState`` instance to set.
         #[unsafe(method(setDepthStencilState:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_depth_stencil_state(
+        fn set_depth_stencil_state(
             &self,
             depth_stencil_state: Option<&ProtocolObject<dyn MTLDepthStencilState>>,
         );
@@ -274,7 +274,7 @@ extern_protocol!(
         /// - Parameter referenceValue: A stencil test comparison value.
         #[unsafe(method(setStencilReferenceValue:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_stencil_reference_value(&self, reference_value: u32);
+        fn set_stencil_reference_value(&self, reference_value: u32);
 
         /// Configures the encoder with different stencil test reference values for front-facing and back-facing primitives.
         ///
@@ -288,7 +288,7 @@ extern_protocol!(
         /// to back-facing primitives.
         #[unsafe(method(setStencilFrontReferenceValue:backReferenceValue:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_stencil_front_reference_value_back_reference_value(
+        fn set_stencil_front_reference_value_back_reference_value(
             &self,
             front_reference_value: u32,
             back_reference_value: u32,
@@ -307,7 +307,7 @@ extern_protocol!(
         /// the result of a visibility test at `offset`, which needs to be a multiple of `8`.
         #[unsafe(method(setVisibilityResultMode:offset:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_visibility_result_mode_offset(
+        fn set_visibility_result_mode_offset(
             &self,
             mode: MTLVisibilityResultMode,
             offset: usize,
@@ -321,7 +321,7 @@ extern_protocol!(
         /// - colorAttachmentIndex: The index of a color attachment.
         #[unsafe(method(setColorStoreAction:atIndex:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_color_store_action_at_index(
+        fn set_color_store_action_at_index(
             &self,
             store_action: MTLStoreAction,
             color_attachment_index: usize,
@@ -333,7 +333,7 @@ extern_protocol!(
         /// can’t be ``MTLStoreAction/MTLStoreActionUnknown``.
         #[unsafe(method(setDepthStoreAction:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_depth_store_action(&self, store_action: MTLStoreAction);
+        fn set_depth_store_action(&self, store_action: MTLStoreAction);
 
         /// Configures the store action for the stencil attachment.
         ///
@@ -341,7 +341,7 @@ extern_protocol!(
         /// can’t be ``MTLStoreAction/MTLStoreActionUnknown``.
         #[unsafe(method(setStencilStoreAction:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_stencil_store_action(&self, store_action: MTLStoreAction);
+        fn set_stencil_store_action(&self, store_action: MTLStoreAction);
 
         /// Encodes a draw command that renders an instance of a geometric primitive.
         ///
@@ -357,7 +357,7 @@ extern_protocol!(
         /// - vertexCount: An integer that represents the number of vertices of `primitiveType` the command draws.
         #[unsafe(method(drawPrimitives:vertexStart:vertexCount:))]
         #[unsafe(method_family = none)]
-        unsafe fn draw_primitives_vertex_start_vertex_count(
+        fn draw_primitives_vertex_start_vertex_count(
             &self,
             primitive_type: MTLPrimitiveType,
             vertex_start: usize,
@@ -384,7 +384,7 @@ extern_protocol!(
         /// with `vertexCount` vertices.
         #[unsafe(method(drawPrimitives:vertexStart:vertexCount:instanceCount:))]
         #[unsafe(method_family = none)]
-        unsafe fn draw_primitives_vertex_start_vertex_count_instance_count(
+        fn draw_primitives_vertex_start_vertex_count_instance_count(
             &self,
             primitive_type: MTLPrimitiveType,
             vertex_start: usize,
@@ -415,7 +415,7 @@ extern_protocol!(
         /// the `instance_id` attribute.
         #[unsafe(method(drawPrimitives:vertexStart:vertexCount:instanceCount:baseInstance:))]
         #[unsafe(method_family = none)]
-        unsafe fn draw_primitives_vertex_start_vertex_count_instance_count_base_instance(
+        fn draw_primitives_vertex_start_vertex_count_instance_count_base_instance(
             &self,
             primitive_type: MTLPrimitiveType,
             vertex_start: usize,
@@ -449,7 +449,7 @@ extern_protocol!(
         /// continues to execute them assigning a value of `0` to the `vertex_id` attribute.
         #[unsafe(method(drawIndexedPrimitives:indexCount:indexType:indexBuffer:indexBufferLength:))]
         #[unsafe(method_family = none)]
-        unsafe fn draw_indexed_primitives_index_count_index_type_index_buffer_index_buffer_length(
+        fn draw_indexed_primitives_index_count_index_type_index_buffer_index_buffer_length(
             &self,
             primitive_type: MTLPrimitiveType,
             index_count: usize,
@@ -489,7 +489,7 @@ extern_protocol!(
         /// vertices.
         #[unsafe(method(drawIndexedPrimitives:indexCount:indexType:indexBuffer:indexBufferLength:instanceCount:))]
         #[unsafe(method_family = none)]
-        unsafe fn draw_indexed_primitives_index_count_index_type_index_buffer_index_buffer_length_instance_count(
+        fn draw_indexed_primitives_index_count_index_type_index_buffer_index_buffer_length_instance_count(
             &self,
             primitive_type: MTLPrimitiveType,
             index_count: usize,
@@ -536,7 +536,7 @@ extern_protocol!(
         /// - baseInstance: The lowest value the command passes to your vertex shader’s parameter with the `instance_id` attribute.
         #[unsafe(method(drawIndexedPrimitives:indexCount:indexType:indexBuffer:indexBufferLength:instanceCount:baseVertex:baseInstance:))]
         #[unsafe(method_family = none)]
-        unsafe fn draw_indexed_primitives_index_count_index_type_index_buffer_index_buffer_length_instance_count_base_vertex_base_instance(
+        fn draw_indexed_primitives_index_count_index_type_index_buffer_index_buffer_length_instance_count_base_vertex_base_instance(
             &self,
             primitive_type: MTLPrimitiveType,
             index_count: usize,
@@ -569,7 +569,7 @@ extern_protocol!(
         /// alignment of this address is 4 bytes.
         #[unsafe(method(drawPrimitives:indirectBuffer:))]
         #[unsafe(method_family = none)]
-        unsafe fn draw_primitives_indirect_buffer(
+        fn draw_primitives_indirect_buffer(
             &self,
             primitive_type: MTLPrimitiveType,
             indirect_buffer: MTLGPUAddress,
@@ -612,7 +612,7 @@ extern_protocol!(
         /// ``MTLDrawIndexedPrimitivesIndirectArguments`` structure. This address requires 4-byte alignment.
         #[unsafe(method(drawIndexedPrimitives:indexType:indexBuffer:indexBufferLength:indirectBuffer:))]
         #[unsafe(method_family = none)]
-        unsafe fn draw_indexed_primitives_index_type_index_buffer_index_buffer_length_indirect_buffer(
+        fn draw_indexed_primitives_index_type_index_buffer_index_buffer_length_indirect_buffer(
             &self,
             primitive_type: MTLPrimitiveType,
             index_type: MTLIndexType,
@@ -646,7 +646,7 @@ extern_protocol!(
         /// ``MTLIndirectCommandBufferExecutionRange`` structure. This address requires 4-byte alignment.
         #[unsafe(method(executeCommandsInBuffer:indirectBuffer:))]
         #[unsafe(method_family = none)]
-        unsafe fn execute_commands_in_buffer_indirect_buffer(
+        fn execute_commands_in_buffer_indirect_buffer(
             &self,
             indirect_command_buffer: &ProtocolObject<dyn MTLIndirectCommandBuffer>,
             indirect_range_buffer: MTLGPUAddress,
@@ -660,7 +660,7 @@ extern_protocol!(
         /// in the shader function.
         #[unsafe(method(setObjectThreadgroupMemoryLength:atIndex:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_object_threadgroup_memory_length_at_index(&self, length: usize, index: usize);
+        fn set_object_threadgroup_memory_length_at_index(&self, length: usize, index: usize);
 
         /// Encodes a draw command that invokes a mesh shader and, optionally, an object shader with a grid of threadgroups.
         ///
@@ -672,7 +672,7 @@ extern_protocol!(
         /// threadgroup.
         #[unsafe(method(drawMeshThreadgroups:threadsPerObjectThreadgroup:threadsPerMeshThreadgroup:))]
         #[unsafe(method_family = none)]
-        unsafe fn draw_mesh_threadgroups_threads_per_object_threadgroup_threads_per_mesh_threadgroup(
+        fn draw_mesh_threadgroups_threads_per_object_threadgroup_threads_per_mesh_threadgroup(
             &self,
             threadgroups_per_grid: MTLSize,
             threads_per_object_threadgroup: MTLSize,
@@ -692,7 +692,7 @@ extern_protocol!(
         /// threadgroup.
         #[unsafe(method(drawMeshThreads:threadsPerObjectThreadgroup:threadsPerMeshThreadgroup:))]
         #[unsafe(method_family = none)]
-        unsafe fn draw_mesh_threads_threads_per_object_threadgroup_threads_per_mesh_threadgroup(
+        fn draw_mesh_threads_threads_per_object_threadgroup_threads_per_mesh_threadgroup(
             &self,
             threads_per_grid: MTLSize,
             threads_per_object_threadgroup: MTLSize,
@@ -717,7 +717,7 @@ extern_protocol!(
         /// threadgroup.
         #[unsafe(method(drawMeshThreadgroupsWithIndirectBuffer:threadsPerObjectThreadgroup:threadsPerMeshThreadgroup:))]
         #[unsafe(method_family = none)]
-        unsafe fn draw_mesh_threadgroups_with_indirect_buffer_threads_per_object_threadgroup_threads_per_mesh_threadgroup(
+        fn draw_mesh_threadgroups_with_indirect_buffer_threads_per_object_threadgroup_threads_per_mesh_threadgroup(
             &self,
             indirect_buffer: MTLGPUAddress,
             threads_per_object_threadgroup: MTLSize,
@@ -733,7 +733,7 @@ extern_protocol!(
         /// Set ``MTLSize/depth`` to `1`.
         #[unsafe(method(dispatchThreadsPerTile:))]
         #[unsafe(method_family = none)]
-        unsafe fn dispatch_threads_per_tile(&self, threads_per_tile: MTLSize);
+        fn dispatch_threads_per_tile(&self, threads_per_tile: MTLSize);
 
         /// Configures the size of a threadgroup memory buffer for a threadgroup argument in the fragment and tile shader functions.
         ///
@@ -745,7 +745,7 @@ extern_protocol!(
         /// in the shader function.
         #[unsafe(method(setThreadgroupMemoryLength:offset:atIndex:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_threadgroup_memory_length_offset_at_index(
+        fn set_threadgroup_memory_length_offset_at_index(
             &self,
             length: usize,
             offset: usize,
@@ -762,7 +762,7 @@ extern_protocol!(
         /// - stages: A ``MTLRenderStages`` bitmask that specifies the shader stages with visibility over the table.
         #[unsafe(method(setArgumentTable:atStages:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_argument_table_at_stages(
+        fn set_argument_table_at_stages(
             &self,
             argument_table: &ProtocolObject<dyn MTL4ArgumentTable>,
             stages: MTLRenderStages,
@@ -774,7 +774,7 @@ extern_protocol!(
         /// interprets as front facing.
         #[unsafe(method(setFrontFacingWinding:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_front_facing_winding(&self, front_facing_winding: MTLWinding);
+        fn set_front_facing_winding(&self, front_facing_winding: MTLWinding);
 
         /// Writes a GPU timestamp into the given ``MTL4CounterHeap`` at `index` after `stage` completes.
         ///
@@ -793,7 +793,7 @@ extern_protocol!(
         /// - index: The index value into which Metal writes this timestamp.
         #[unsafe(method(writeTimestampWithGranularity:afterStage:intoHeap:atIndex:))]
         #[unsafe(method_family = none)]
-        unsafe fn write_timestamp_with_granularity_after_stage_into_heap_at_index(
+        fn write_timestamp_with_granularity_after_stage_into_heap_at_index(
             &self,
             granularity: MTL4TimestampGranularity,
             stage: MTLRenderStages,

@@ -20,7 +20,7 @@ extern_protocol!(
         /// Returns a new command buffer used to encode work into this queue.
         #[unsafe(method(commandBufferWithDescriptor:))]
         #[unsafe(method_family = none)]
-        unsafe fn command_buffer_with_descriptor(
+        fn command_buffer_with_descriptor(
             &self,
             descriptor: &MTLCommandBufferDescriptor,
         ) -> Option<Retained<ProtocolObject<dyn MTLCommandBuffer>>>;
@@ -28,7 +28,7 @@ extern_protocol!(
         /// Returns a new command buffer that does not maintain strong references to resources used within it.
         #[unsafe(method(commandBufferWithUnretainedReferences))]
         #[unsafe(method_family = none)]
-        unsafe fn command_buffer_with_unretained_references(
+        fn command_buffer_with_unretained_references(
             &self,
         ) -> Option<Retained<ProtocolObject<dyn MTLCommandBuffer>>>;
 
@@ -36,7 +36,7 @@ extern_protocol!(
         #[deprecated]
         #[unsafe(method(insertDebugCaptureBoundary))]
         #[unsafe(method_family = none)]
-        unsafe fn insert_debug_capture_boundary(&self);
+        fn insert_debug_capture_boundary(&self);
     }
 );
 

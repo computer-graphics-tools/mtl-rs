@@ -34,6 +34,6 @@ extern_protocol!(
         /// Availability: macOS 26.0+, iOS 26.0+
         #[unsafe(method(gpuResourceID))]
         #[unsafe(method_family = none)]
-        unsafe fn gpu_resource_id(&self) -> crate::types::MTLResourceID;
+        fn gpu_resource_id(&self) -> crate::types::MTLResourceID;
     }
 );

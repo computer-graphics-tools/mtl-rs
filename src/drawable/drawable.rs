@@ -20,7 +20,7 @@ extern_protocol!(
         /// The `presentation_time` must be a valid host time value.
         #[unsafe(method(presentAtTime:))]
         #[unsafe(method_family = none)]
-        unsafe fn present_at_time(&self, presentation_time: f64);
+        fn present_at_time(&self, presentation_time: f64);
 
         /// Present this drawable while setting a minimum duration in seconds
         /// before allowing this drawable to appear on the display.
@@ -32,7 +32,7 @@ extern_protocol!(
         /// Availability: macOS 10.15.4+, iOS 10.3+, Mac Catalyst 13.4+
         #[unsafe(method(presentAfterMinimumDuration:))]
         #[unsafe(method_family = none)]
-        unsafe fn present_after_minimum_duration(&self, duration: f64);
+        fn present_after_minimum_duration(&self, duration: f64);
 
         /// The host time that this drawable was presented on screen.
         /// Returns 0 if a frame has not been presented or has been skipped.
@@ -40,7 +40,7 @@ extern_protocol!(
         /// Availability: macOS 10.15.4+, iOS 10.3+, Mac Catalyst 13.4+
         #[unsafe(method(presentedTime))]
         #[unsafe(method_family = none)]
-        unsafe fn presented_time(&self) -> f64;
+        fn presented_time(&self) -> f64;
 
         /// The monotonically incremented ID for all drawable objects created
         /// from the same CAMetalLayer object. The value starts from 0.

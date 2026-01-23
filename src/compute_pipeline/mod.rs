@@ -4,4 +4,4 @@ mod state;
 
 pub use descriptor::MTLComputePipelineDescriptor;
 pub use reflection::MTLComputePipelineReflection;
-pub use state::MTLComputePipelineState;
+pub use state::{MTLComputePipelineState, MTLComputePipelineStateExt};

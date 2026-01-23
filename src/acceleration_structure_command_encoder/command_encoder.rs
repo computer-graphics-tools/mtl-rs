@@ -74,7 +74,7 @@ extern_protocol!(
         /// - scratch_buffer_offset: Byte offset into the scratch buffer.
         #[unsafe(method(refitAccelerationStructure:descriptor:destination:scratchBuffer:scratchBufferOffset:))]
         #[unsafe(method_family = none)]
-        unsafe fn refit_acceleration_structure(
+        fn refit_acceleration_structure(
             &self,
             source_acceleration_structure: &ProtocolObject<dyn MTLAccelerationStructure>,
             descriptor: &crate::acceleration_structure::MTLAccelerationStructureDescriptor,
@@ -102,7 +102,7 @@ extern_protocol!(
         /// - options: Refit options to apply.
         #[unsafe(method(refitAccelerationStructure:descriptor:destination:scratchBuffer:scratchBufferOffset:options:))]
         #[unsafe(method_family = none)]
-        unsafe fn refit_acceleration_structure_with_options(
+        fn refit_acceleration_structure_with_options(
             &self,
             source_acceleration_structure: &ProtocolObject<dyn MTLAccelerationStructure>,
             descriptor: &crate::acceleration_structure::MTLAccelerationStructureDescriptor,
@@ -125,7 +125,7 @@ extern_protocol!(
         /// least the compacted size.
         #[unsafe(method(copyAccelerationStructure:toAccelerationStructure:))]
         #[unsafe(method_family = none)]
-        unsafe fn copy_acceleration_structure(
+        fn copy_acceleration_structure(
             &self,
             source_acceleration_structure: &ProtocolObject<dyn MTLAccelerationStructure>,
             destination_acceleration_structure: &ProtocolObject<dyn MTLAccelerationStructure>,
@@ -162,7 +162,7 @@ extern_protocol!(
         /// - size_data_type: `MTLDataTypeUInt` (32-bit) or `MTLDataTypeULong` (64-bit).
         #[unsafe(method(writeCompactedAccelerationStructureSize:toBuffer:offset:sizeDataType:))]
         #[unsafe(method_family = none)]
-        unsafe fn write_compacted_acceleration_structure_size_with_type(
+        fn write_compacted_acceleration_structure_size_with_type(
             &self,
             acceleration_structure: &ProtocolObject<dyn MTLAccelerationStructure>,
             buffer: &ProtocolObject<dyn MTLBuffer>,
@@ -239,7 +239,7 @@ extern_protocol!(
         /// non-null `ProtocolObject<dyn MTLResource>` pointers of length `count`.
         #[unsafe(method(useResources:count:usage:))]
         #[unsafe(method_family = none)]
-        unsafe fn use_resources(
+        fn use_resources(
             &self,
             resources: NonNull<NonNull<ProtocolObject<dyn MTLResource>>>,
             count: usize,
@@ -281,7 +281,7 @@ extern_protocol!(
         /// non-null `ProtocolObject<dyn MTLHeap>` pointers of length `count`.
         #[unsafe(method(useHeaps:count:))]
         #[unsafe(method_family = none)]
-        unsafe fn use_heaps(
+        fn use_heaps(
             &self,
             heaps: NonNull<NonNull<ProtocolObject<dyn MTLHeap>>>,
             count: usize,
@@ -308,7 +308,7 @@ extern_protocol!(
         /// - barrier: Whether to insert a barrier before sampling.
         #[unsafe(method(sampleCountersInBuffer:atSampleIndex:withBarrier:))]
         #[unsafe(method_family = none)]
-        unsafe fn sample_counters_in_buffer(
+        fn sample_counters_in_buffer(
             &self,
             sample_buffer: &ProtocolObject<dyn MTLCounterSampleBuffer>,
             sample_index: usize,

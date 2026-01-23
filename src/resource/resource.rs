@@ -1,10 +1,10 @@
 use objc2::{Message, extern_protocol, msg_send, rc::Retained, runtime::ProtocolObject};
 use objc2_foundation::NSString;
 
-use super::{
-    MTLCPUCacheMode, MTLHazardTrackingMode, MTLPurgeableState, MTLResourceOptions, MTLStorageMode,
+use crate::{
+    MTLAllocation, MTLBuffer, MTLCPUCacheMode, MTLDevice, MTLHazardTrackingMode, MTLPurgeableState,
+    MTLResourceOptions, MTLStorageMode, MTLTexture,
 };
-use crate::{allocation::MTLAllocation, device::MTLDevice};
 
 extern_protocol!(
     /// Common APIs available for MTLBuffer and MTLTexture instances
@@ -96,6 +96,36 @@ pub trait MTLResourceExt: MTLResource + Message {
 }
 
 impl MTLResourceExt for ProtocolObject<dyn MTLResource> {
+    fn label(&self) -> Option<String> {
+        let label: Option<Retained<NSString>> = unsafe { msg_send![self, label] };
+        label.map(|label| label.to_string())
+    }
+    fn set_label(&self, label: Option<&str>) {
+        unsafe {
+            let _: () = msg_send![
+                self,
+                setLabel: label.map(NSString::from_str).as_deref()
+            ];
+        }
+    }
+}
+
+impl MTLResourceExt for ProtocolObject<dyn MTLBuffer> {
+    fn label(&self) -> Option<String> {
+        let label: Option<Retained<NSString>> = unsafe { msg_send![self, label] };
+        label.map(|label| label.to_string())
+    }
+    fn set_label(&self, label: Option<&str>) {
+        unsafe {
+            let _: () = msg_send![
+                self,
+                setLabel: label.map(NSString::from_str).as_deref()
+            ];
+        }
+    }
+}
+
+impl MTLResourceExt for ProtocolObject<dyn MTLTexture> {
     fn label(&self) -> Option<String> {
         let label: Option<Retained<NSString>> = unsafe { msg_send![self, label] };
         label.map(|label| label.to_string())

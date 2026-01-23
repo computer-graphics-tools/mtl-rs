@@ -58,7 +58,7 @@ extern_protocol!(
         /// If this texture was created from an IOSurface, this returns a reference to that IOSurface. iosurface is nil if this texture was not created from an IOSurface.
         #[unsafe(method(iosurface))]
         #[unsafe(method_family = none)]
-        unsafe fn iosurface(&self) -> Option<Retained<IOSurfaceRef>>;
+        fn iosurface(&self) -> Option<Retained<IOSurfaceRef>>;
 
         /// If this texture was created from an IOSurface, this returns the plane of the IOSurface from which the texture was created. iosurfacePlane is 0 if this texture was not created from an IOSurface.
         #[unsafe(method(iosurfacePlane))]
@@ -162,12 +162,12 @@ extern_protocol!(
         /// See the compressionType property on MTLTextureDescriptor
         #[unsafe(method(compressionType))]
         #[unsafe(method_family = none)]
-        unsafe fn compression_type(&self) -> MTLTextureCompressionType;
+        fn compression_type(&self) -> MTLTextureCompressionType;
 
         /// Handle of the GPU resource suitable for storing in an Argument Buffer
         #[unsafe(method(gpuResourceID))]
         #[unsafe(method_family = none)]
-        unsafe fn gpu_resource_id(&self) -> MTLResourceID;
+        fn gpu_resource_id(&self) -> MTLResourceID;
 
         /// Convenience for getBytes:bytesPerRow:bytesPerImage:fromRegion:mipmapLevel:slice: that doesn't require slice related arguments
         ///
@@ -176,7 +176,7 @@ extern_protocol!(
         /// `pixel_bytes` must be a valid pointer.
         #[unsafe(method(getBytes:bytesPerRow:fromRegion:mipmapLevel:))]
         #[unsafe(method_family = none)]
-        unsafe fn get_bytes(
+        fn get_bytes(
             &self,
             pixel_bytes: NonNull<c_void>,
             bytes_per_row: usize,
@@ -191,7 +191,7 @@ extern_protocol!(
         /// `pixel_bytes` must be a valid pointer.
         #[unsafe(method(getBytes:bytesPerRow:bytesPerImage:fromRegion:mipmapLevel:slice:))]
         #[unsafe(method_family = none)]
-        unsafe fn get_bytes_bytes_with_bytes_per_image_slice(
+        fn get_bytes_bytes_with_bytes_per_image_slice(
             &self,
             pixel_bytes: NonNull<c_void>,
             bytes_per_row: usize,
@@ -208,7 +208,7 @@ extern_protocol!(
         /// `pixel_bytes` must be a valid pointer.
         #[unsafe(method(replaceRegion:mipmapLevel:withBytes:bytesPerRow:))]
         #[unsafe(method_family = none)]
-        unsafe fn replace_region(
+        fn replace_region(
             &self,
             region: MTLRegion,
             level: usize,
@@ -223,7 +223,7 @@ extern_protocol!(
         /// `pixel_bytes` must be a valid pointer.
         #[unsafe(method(replaceRegion:mipmapLevel:slice:withBytes:bytesPerRow:bytesPerImage:))]
         #[unsafe(method_family = none)]
-        unsafe fn replace_region_with_slice_bytes_per_image(
+        fn replace_region_with_slice_bytes_per_image(
             &self,
             region: MTLRegion,
             level: usize,
@@ -244,7 +244,7 @@ extern_protocol!(
         /// Create a new texture which shares the same storage as the source texture, but with a different (but compatible) pixel format, texture type, levels, slices and swizzle.
         #[unsafe(method(newTextureViewWithPixelFormat:textureType:levels:slices:swizzle:))]
         #[unsafe(method_family = new)]
-        unsafe fn new_texture_view_with_pixel_format_texture_type_levels_slices_swizzle(
+        fn new_texture_view_with_pixel_format_texture_type_levels_slices_swizzle(
             &self,
             pixel_format: MTLPixelFormat,
             texture_type: MTLTextureType,
@@ -267,7 +267,7 @@ extern_protocol!(
         /// within the peer group.  The receiver must use MTLStorageModePrivate or be backed by an IOSurface.
         #[unsafe(method(newRemoteTextureViewForDevice:))]
         #[unsafe(method_family = new)]
-        unsafe fn new_remote_texture_view_for_device(
+        fn new_remote_texture_view_for_device(
             &self,
             device: &ProtocolObject<dyn MTLDevice>,
         ) -> Option<Retained<ProtocolObject<dyn MTLTexture>>>;
@@ -287,7 +287,7 @@ extern_protocol!(
 #[allow(unused)]
 pub trait TextureExt: MTLTexture + Message {
     /// Create a new texture which shares the same storage as the source texture, but with a different (but compatible) pixel format, texture type, levels and slices.
-    unsafe fn new_texture_view_with_pixel_format_texture_type_levels_slices(
+    fn new_texture_view_with_pixel_format_texture_type_levels_slices(
         &self,
         pixel_format: MTLPixelFormat,
         texture_type: MTLTextureType,
@@ -297,7 +297,7 @@ pub trait TextureExt: MTLTexture + Message {
 }
 
 impl TextureExt for ProtocolObject<dyn MTLTexture> {
-    unsafe fn new_texture_view_with_pixel_format_texture_type_levels_slices(
+    fn new_texture_view_with_pixel_format_texture_type_levels_slices(
         &self,
         pixel_format: MTLPixelFormat,
         texture_type: MTLTextureType,

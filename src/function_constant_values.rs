@@ -37,7 +37,7 @@ impl MTLFunctionConstantValues {
         /// Safety: `value` must be a valid pointer to a value of the specified `type`.
         #[unsafe(method(setConstantValue:type:atIndex:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_constant_value_type_at_index(
+        pub fn set_constant_value_type_at_index(
             &self,
             value: NonNull<c_void>,
             r#type: MTLDataType,

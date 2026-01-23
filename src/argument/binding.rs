@@ -66,11 +66,11 @@ extern_protocol!(
 
         #[unsafe(method(bufferStructType))]
         #[unsafe(method_family = none)]
-        unsafe fn buffer_struct_type(&self) -> Option<Retained<crate::argument::MTLStructType>>;
+        fn buffer_struct_type(&self) -> Option<Retained<crate::argument::MTLStructType>>;
 
         #[unsafe(method(bufferPointerType))]
         #[unsafe(method_family = none)]
-        unsafe fn buffer_pointer_type(&self) -> Option<Retained<crate::argument::MTLPointerType>>;
+        fn buffer_pointer_type(&self) -> Option<Retained<crate::argument::MTLPointerType>>;
     }
 );
 

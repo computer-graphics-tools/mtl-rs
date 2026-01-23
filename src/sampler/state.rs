@@ -19,6 +19,6 @@ extern_protocol!(
         /// Handle of the GPU resource suitable for storing in an Argument Buffer
         #[unsafe(method(gpuResourceID))]
         #[unsafe(method_family = none)]
-        unsafe fn gpu_resource_id(&self) -> MTLResourceID;
+        fn gpu_resource_id(&self) -> MTLResourceID;
     }
 );

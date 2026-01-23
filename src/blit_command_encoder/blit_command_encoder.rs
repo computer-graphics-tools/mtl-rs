@@ -25,7 +25,7 @@ extern_protocol!(
         /// See the discussion of -synchronizeResource.   -synchronizeTexture:slice:mipmapLevel performs the same role, except it may flush only a subset of the texture storage, rather than the entire texture.
         #[unsafe(method(synchronizeTexture:slice:level:))]
         #[unsafe(method_family = none)]
-        unsafe fn synchronize_texture_slice_level(
+        fn synchronize_texture_slice_level(
             &self,
             texture: &ProtocolObject<dyn MTLTexture>,
             slice: usize,
@@ -35,7 +35,7 @@ extern_protocol!(
         /// Copy a rectangle of pixels between textures.
         #[unsafe(method(copyFromTexture:sourceSlice:sourceLevel:sourceOrigin:sourceSize:toTexture:destinationSlice:destinationLevel:destinationOrigin:))]
         #[unsafe(method_family = none)]
-        unsafe fn copy_from_texture_to_texture(
+        fn copy_from_texture_to_texture(
             &self,
             source_texture: &ProtocolObject<dyn MTLTexture>,
             source_slice: usize,
@@ -51,7 +51,7 @@ extern_protocol!(
         /// Copy an image from a buffer into a texture.
         #[unsafe(method(copyFromBuffer:sourceOffset:sourceBytesPerRow:sourceBytesPerImage:sourceSize:toTexture:destinationSlice:destinationLevel:destinationOrigin:))]
         #[unsafe(method_family = none)]
-        unsafe fn copy_from_buffer_to_texture(
+        fn copy_from_buffer_to_texture(
             &self,
             source_buffer: &ProtocolObject<dyn MTLBuffer>,
             source_offset: usize,
@@ -67,7 +67,7 @@ extern_protocol!(
         /// Copy an image from a buffer into a texture.
         #[unsafe(method(copyFromBuffer:sourceOffset:sourceBytesPerRow:sourceBytesPerImage:sourceSize:toTexture:destinationSlice:destinationLevel:destinationOrigin:options:))]
         #[unsafe(method_family = none)]
-        unsafe fn copy_from_buffer_to_texture_with_options(
+        fn copy_from_buffer_to_texture_with_options(
             &self,
             source_buffer: &ProtocolObject<dyn MTLBuffer>,
             source_offset: usize,
@@ -84,7 +84,7 @@ extern_protocol!(
         /// Copy an image from a texture into a buffer.
         #[unsafe(method(copyFromTexture:sourceSlice:sourceLevel:sourceOrigin:sourceSize:toBuffer:destinationOffset:destinationBytesPerRow:destinationBytesPerImage:))]
         #[unsafe(method_family = none)]
-        unsafe fn copy_from_texture_to_buffer(
+        fn copy_from_texture_to_buffer(
             &self,
             source_texture: &ProtocolObject<dyn MTLTexture>,
             source_slice: usize,
@@ -100,7 +100,7 @@ extern_protocol!(
         /// Copy an image from a texture into a buffer.
         #[unsafe(method(copyFromTexture:sourceSlice:sourceLevel:sourceOrigin:sourceSize:toBuffer:destinationOffset:destinationBytesPerRow:destinationBytesPerImage:options:))]
         #[unsafe(method_family = none)]
-        unsafe fn copy_from_texture_to_buffer_with_options(
+        fn copy_from_texture_to_buffer_with_options(
             &self,
             source_texture: &ProtocolObject<dyn MTLTexture>,
             source_slice: usize,
@@ -140,7 +140,7 @@ extern_protocol!(
         /// The destinationTexture must have at least destinationSlice + sliceCount array slices
         #[unsafe(method(copyFromTexture:sourceSlice:sourceLevel:toTexture:destinationSlice:destinationLevel:sliceCount:levelCount:))]
         #[unsafe(method_family = none)]
-        unsafe fn copy_surfaces_between_textures(
+        fn copy_surfaces_between_textures(
             &self,
             source_texture: &ProtocolObject<dyn MTLTexture>,
             source_slice: usize,
@@ -164,7 +164,7 @@ extern_protocol!(
         /// Then invokes the method above using the computed parameters.
         #[unsafe(method(copyFromTexture:toTexture:))]
         #[unsafe(method_family = none)]
-        unsafe fn copy_from_texture_to_texture_simple(
+        fn copy_from_texture_to_texture_simple(
             &self,
             source_texture: &ProtocolObject<dyn MTLTexture>,
             destination_texture: &ProtocolObject<dyn MTLTexture>,
@@ -173,7 +173,7 @@ extern_protocol!(
         /// Basic memory copy between buffers.
         #[unsafe(method(copyFromBuffer:sourceOffset:toBuffer:destinationOffset:size:))]
         #[unsafe(method_family = none)]
-        unsafe fn copy_buffer_to_buffer(
+        fn copy_buffer_to_buffer(
             &self,
             source_buffer: &ProtocolObject<dyn MTLBuffer>,
             source_offset: usize,
@@ -200,7 +200,7 @@ extern_protocol!(
         #[optional]
         #[unsafe(method(getTextureAccessCounters:region:mipLevel:slice:resetCounters:countersBuffer:countersBufferOffset:))]
         #[unsafe(method_family = none)]
-        unsafe fn get_texture_access_counters(
+        fn get_texture_access_counters(
             &self,
             texture: &ProtocolObject<dyn MTLTexture>,
             region: MTLRegion,
@@ -215,7 +215,7 @@ extern_protocol!(
         #[optional]
         #[unsafe(method(resetTextureAccessCounters:region:mipLevel:slice:))]
         #[unsafe(method_family = none)]
-        unsafe fn reset_texture_access_counters(
+        fn reset_texture_access_counters(
             &self,
             texture: &ProtocolObject<dyn MTLTexture>,
             region: MTLRegion,
@@ -231,7 +231,7 @@ extern_protocol!(
         /// Optimizes a subset of the texture data to ensure the best possible performance when accessing content on the GPU at the expense of CPU-access performance.
         #[unsafe(method(optimizeContentsForGPUAccess:slice:level:))]
         #[unsafe(method_family = none)]
-        unsafe fn optimize_contents_for_gpu_access_slice_level(
+        fn optimize_contents_for_gpu_access_slice_level(
             &self,
             texture: &ProtocolObject<dyn MTLTexture>,
             slice: usize,
@@ -241,12 +241,12 @@ extern_protocol!(
         /// Optimizes the texture data to ensure the best possible performance when accessing content on the CPU at the expense of GPU-access performance.
         #[unsafe(method(optimizeContentsForCPUAccess:))]
         #[unsafe(method_family = none)]
-        unsafe fn optimize_contents_for_cpu_access(&self, texture: &ProtocolObject<dyn MTLTexture>);
+        fn optimize_contents_for_cpu_access(&self, texture: &ProtocolObject<dyn MTLTexture>);
 
         /// Optimizes a subset of the texture data to ensure the best possible performance when accessing content on the CPU at the expense of GPU-access performance.
         #[unsafe(method(optimizeContentsForCPUAccess:slice:level:))]
         #[unsafe(method_family = none)]
-        unsafe fn optimize_contents_for_cpu_access_slice_level(
+        fn optimize_contents_for_cpu_access_slice_level(
             &self,
             texture: &ProtocolObject<dyn MTLTexture>,
             slice: usize,
@@ -256,7 +256,7 @@ extern_protocol!(
         /// reset commands in a indirect command buffer using the GPU
         #[unsafe(method(resetCommandsInBuffer:withRange:))]
         #[unsafe(method_family = none)]
-        unsafe fn reset_commands_in_buffer(
+        fn reset_commands_in_buffer(
             &self,
             buffer: &ProtocolObject<dyn MTLIndirectCommandBuffer>,
             range: NSRange,
@@ -265,7 +265,7 @@ extern_protocol!(
         /// copy a region of a buffer into a destination buffer starting at destinationIndex using the GPU
         #[unsafe(method(copyIndirectCommandBuffer:sourceRange:destination:destinationIndex:))]
         #[unsafe(method_family = none)]
-        unsafe fn copy_indirect_command_buffer(
+        fn copy_indirect_command_buffer(
             &self,
             source: &ProtocolObject<dyn MTLIndirectCommandBuffer>,
             source_range: NSRange,
@@ -276,7 +276,7 @@ extern_protocol!(
         /// Encodes a command that can improve the performance of a range of commands within an indirect command buffer.
         #[unsafe(method(optimizeIndirectCommandBuffer:withRange:))]
         #[unsafe(method_family = none)]
-        unsafe fn optimize_indirect_command_buffer(
+        fn optimize_indirect_command_buffer(
             &self,
             indirect_command_buffer: &ProtocolObject<dyn MTLIndirectCommandBuffer>,
             range: NSRange,
@@ -298,7 +298,7 @@ extern_protocol!(
         /// this method is not available and will generate an error if called.
         #[unsafe(method(sampleCountersInBuffer:atSampleIndex:withBarrier:))]
         #[unsafe(method_family = none)]
-        unsafe fn sample_counters_in_buffer(
+        fn sample_counters_in_buffer(
             &self,
             sample_buffer: &ProtocolObject<dyn MTLCounterSampleBuffer>,
             sample_index: usize,
@@ -315,7 +315,7 @@ extern_protocol!(
         /// MTLCounterErrorValue.
         #[unsafe(method(resolveCounters:inRange:destinationBuffer:destinationOffset:))]
         #[unsafe(method_family = none)]
-        unsafe fn resolve_counters(
+        fn resolve_counters(
             &self,
             sample_buffer: &ProtocolObject<dyn MTLCounterSampleBuffer>,
             range: NSRange,
@@ -335,7 +335,7 @@ extern_protocol!(
         ///    - destinationDimensions: An array of sizes, in elements, of the slice of `destinationTensor` that this command copies data to.
         #[unsafe(method(copyFromTensor:sourceOrigin:sourceDimensions:toTensor:destinationOrigin:destinationDimensions:))]
         #[unsafe(method_family = none)]
-        unsafe fn copy_between_tensors(
+        fn copy_between_tensors(
             &self,
             source_tensor: &ProtocolObject<dyn MTLTensor>,
             source_origin: &crate::tensor::MTLTensorExtents,

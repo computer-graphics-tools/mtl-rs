@@ -13,7 +13,7 @@ extern_protocol!(
         /// Returns the GPU device that this command allocator belongs to.
         #[unsafe(method(device))]
         #[unsafe(method_family = none)]
-        unsafe fn device(&self) -> Retained<ProtocolObject<dyn MTLDevice>>;
+        fn device(&self) -> Retained<ProtocolObject<dyn MTLDevice>>;
 
         /// Queries the size of the internal memory heaps of this command allocator that support encoding
         /// commands into command buffers.
@@ -21,12 +21,12 @@ extern_protocol!(
         /// - Returns: a size in bytes.
         #[unsafe(method(allocatedSize))]
         #[unsafe(method_family = none)]
-        unsafe fn allocated_size(&self) -> u64;
+        fn allocated_size(&self) -> u64;
 
         /// Marks the command allocator's heaps for reuse.
         #[unsafe(method(reset))]
         #[unsafe(method_family = none)]
-        unsafe fn reset(&self);
+        fn reset(&self);
     }
 );
 

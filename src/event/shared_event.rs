@@ -15,7 +15,7 @@ extern_protocol!(
         /// Register a callback for when the event reaches a value.
         #[unsafe(method(notifyListener:atValue:block:))]
         #[unsafe(method_family = none)]
-        unsafe fn notify_listener_at_value_block(
+        fn notify_listener_at_value_block(
             &self,
             listener: &MTLSharedEventListener,
             value: u64,
@@ -25,12 +25,12 @@ extern_protocol!(
         /// Convenience method for creating a shared event handle that may be passed to other processes via XPC.
         #[unsafe(method(newSharedEventHandle))]
         #[unsafe(method_family = new)]
-        unsafe fn new_shared_event_handle(&self) -> Retained<MTLSharedEventHandle>;
+        fn new_shared_event_handle(&self) -> Retained<MTLSharedEventHandle>;
 
         /// Synchronously wait for the signaled value to be >= `value`, with a timeout in milliseconds.
         #[unsafe(method(waitUntilSignaledValue:timeoutMS:))]
         #[unsafe(method_family = none)]
-        unsafe fn wait_until_signaled_value_timeout_ms(
+        fn wait_until_signaled_value_timeout_ms(
             &self,
             value: u64,
             milliseconds: u64,
@@ -39,11 +39,11 @@ extern_protocol!(
         /// Read the current signaled value.
         #[unsafe(method(signaledValue))]
         #[unsafe(method_family = none)]
-        unsafe fn signaled_value(&self) -> u64;
+        fn signaled_value(&self) -> u64;
 
         /// Set the event's signaled value.
         #[unsafe(method(setSignaledValue:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_signaled_value(&self, signaled_value: u64);
+        fn set_signaled_value(&self, signaled_value: u64);
     }
 );

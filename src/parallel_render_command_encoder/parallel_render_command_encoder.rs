@@ -21,7 +21,7 @@ extern_protocol!(
         /// Finalize color store action for a given color attachment.
         #[unsafe(method(setColorStoreAction:atIndex:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_color_store_action_at_index(
+        fn set_color_store_action_at_index(
             &self,
             store_action: MTLStoreAction,
             color_attachment_index: usize,
@@ -30,17 +30,17 @@ extern_protocol!(
         /// Finalize depth store action.
         #[unsafe(method(setDepthStoreAction:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_depth_store_action(&self, store_action: MTLStoreAction);
+        fn set_depth_store_action(&self, store_action: MTLStoreAction);
 
         /// Finalize stencil store action.
         #[unsafe(method(setStencilStoreAction:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_stencil_store_action(&self, store_action: MTLStoreAction);
+        fn set_stencil_store_action(&self, store_action: MTLStoreAction);
 
         /// Finalize color store action options for a given color attachment.
         #[unsafe(method(setColorStoreActionOptions:atIndex:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_color_store_action_options_at_index(
+        fn set_color_store_action_options_at_index(
             &self,
             store_action_options: MTLStoreActionOptions,
             color_attachment_index: usize,
@@ -49,17 +49,11 @@ extern_protocol!(
         /// Finalize depth store action options.
         #[unsafe(method(setDepthStoreActionOptions:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_depth_store_action_options(
-            &self,
-            store_action_options: MTLStoreActionOptions,
-        );
+        fn set_depth_store_action_options(&self, store_action_options: MTLStoreActionOptions);
 
         /// Finalize stencil store action options.
         #[unsafe(method(setStencilStoreActionOptions:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_stencil_store_action_options(
-            &self,
-            store_action_options: MTLStoreActionOptions,
-        );
+        fn set_stencil_store_action_options(&self, store_action_options: MTLStoreActionOptions);
     }
 );

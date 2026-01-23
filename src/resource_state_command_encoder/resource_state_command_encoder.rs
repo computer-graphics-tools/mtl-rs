@@ -13,7 +13,7 @@ extern_protocol!(
         #[optional]
         #[unsafe(method(updateTextureMappings:mode:regions:mipLevels:slices:numRegions:))]
         #[unsafe(method_family = none)]
-        unsafe fn update_texture_mappings(
+        fn update_texture_mappings(
             &self,
             texture: &ProtocolObject<dyn MTLTexture>,
             mode: MTLSparseTextureMappingMode,
@@ -27,7 +27,7 @@ extern_protocol!(
         #[optional]
         #[unsafe(method(updateTextureMapping:mode:region:mipLevel:slice:))]
         #[unsafe(method_family = none)]
-        unsafe fn update_texture_mapping(
+        fn update_texture_mapping(
             &self,
             texture: &ProtocolObject<dyn MTLTexture>,
             mode: MTLSparseTextureMappingMode,
@@ -40,7 +40,7 @@ extern_protocol!(
         #[optional]
         #[unsafe(method(updateTextureMapping:mode:indirectBuffer:indirectBufferOffset:))]
         #[unsafe(method_family = none)]
-        unsafe fn update_texture_mapping_indirect(
+        fn update_texture_mapping_indirect(
             &self,
             texture: &ProtocolObject<dyn MTLTexture>,
             mode: MTLSparseTextureMappingMode,
@@ -52,19 +52,19 @@ extern_protocol!(
         #[optional]
         #[unsafe(method(updateFence:))]
         #[unsafe(method_family = none)]
-        unsafe fn update_fence(&self, fence: &ProtocolObject<dyn MTLFence>);
+        fn update_fence(&self, fence: &ProtocolObject<dyn MTLFence>);
 
         /// Prevent further GPU work until the fence is reached.
         #[optional]
         #[unsafe(method(waitForFence:))]
         #[unsafe(method_family = none)]
-        unsafe fn wait_for_fence(&self, fence: &ProtocolObject<dyn MTLFence>);
+        fn wait_for_fence(&self, fence: &ProtocolObject<dyn MTLFence>);
 
         /// Move sparse page mappings between textures from the same heap.
         #[optional]
         #[unsafe(method(moveTextureMappingsFromTexture:sourceSlice:sourceLevel:sourceOrigin:sourceSize:toTexture:destinationSlice:destinationLevel:destinationOrigin:))]
         #[unsafe(method_family = none)]
-        unsafe fn move_texture_mappings(
+        fn move_texture_mappings(
             &self,
             source_texture: &ProtocolObject<dyn MTLTexture>,
             source_slice: usize,

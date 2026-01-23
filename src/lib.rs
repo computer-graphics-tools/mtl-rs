@@ -61,6 +61,7 @@ mod types;
 mod vertex_descriptor;
 mod visible_function_table;
 
+pub mod prelude;
 pub use acceleration_structure::*;
 pub use acceleration_structure_command_encoder::*;
 pub use acceleration_structure_types::*;

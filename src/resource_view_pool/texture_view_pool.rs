@@ -9,7 +9,7 @@ extern_protocol!(
         /// Copies a default texture view to a slot in this texture view pool at an index provided.
         #[unsafe(method(setTextureView:atIndex:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_texture_view_at_index(
+        fn set_texture_view_at_index(
             &self,
             texture: &ProtocolObject<dyn MTLTexture>,
             index: usize,
@@ -18,7 +18,7 @@ extern_protocol!(
         /// Creates a new lightweight texture view.
         #[unsafe(method(setTextureView:descriptor:atIndex:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_texture_view_with_descriptor_at_index(
+        fn set_texture_view_with_descriptor_at_index(
             &self,
             texture: &ProtocolObject<dyn MTLTexture>,
             descriptor: &MTLTextureDescriptor,
@@ -28,7 +28,7 @@ extern_protocol!(
         /// Creates a new lightweight texture view of a buffer.
         #[unsafe(method(setTextureViewFromBuffer:descriptor:offset:bytesPerRow:atIndex:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_texture_view_from_buffer(
+        fn set_texture_view_from_buffer(
             &self,
             buffer: &ProtocolObject<dyn MTLBuffer>,
             descriptor: &MTLTextureDescriptor,

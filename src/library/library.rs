@@ -17,12 +17,12 @@ extern_protocol!(
 
         #[unsafe(method(type))]
         #[unsafe(method_family = none)]
-        unsafe fn r#type(&self) -> MTLLibraryType;
+        fn r#type(&self) -> MTLLibraryType;
 
         /// Synchronously creates a new function object from a descriptor.
         #[unsafe(method(newFunctionWithDescriptor:error:))]
         #[unsafe(method_family = new)]
-        unsafe fn new_function_with_descriptor_error(
+        fn new_function_with_descriptor_error(
             &self,
             descriptor: &MTLFunctionDescriptor,
             error: *mut *mut NSError,
@@ -46,7 +46,7 @@ pub trait MTLLibraryExt: MTLLibrary + Message {
     ) -> Option<Retained<ProtocolObject<dyn MTLFunction>>>;
 
     /// Returns a function obtained by applying constant values to the named function (synchronous).
-    unsafe fn new_function_with_name_constant_values_error(
+    fn new_function_with_name_constant_values_error(
         &self,
         name: &str,
         constant_values: &MTLFunctionConstantValues,
@@ -62,7 +62,7 @@ pub trait MTLLibraryExt: MTLLibrary + Message {
     );
 
     /// Returns a reflection object for a function by name.
-    unsafe fn reflection_for_function_with_name(
+    fn reflection_for_function_with_name(
         &self,
         function_name: &str,
     ) -> Option<Retained<MTLFunctionReflection>>;
@@ -88,7 +88,7 @@ pub trait MTLLibraryExt: MTLLibrary + Message {
     );
 
     /// Synchronously creates a new intersection function object.
-    unsafe fn new_intersection_function_with_descriptor_error(
+    fn new_intersection_function_with_descriptor_error(
         &self,
         descriptor: &MTLIntersectionFunctionDescriptor,
         error: *mut *mut NSError,
@@ -116,19 +116,21 @@ impl MTLLibraryExt for ProtocolObject<dyn MTLLibrary> {
     }
 
     /// Returns a function obtained by applying constant values to the named function (synchronous).
-    unsafe fn new_function_with_name_constant_values_error(
+    fn new_function_with_name_constant_values_error(
         &self,
         name: &str,
         constant_values: &MTLFunctionConstantValues,
         error: *mut *mut NSError,
     ) -> Option<Retained<ProtocolObject<dyn MTLFunction>>> {
         let ns_name = NSString::from_str(name);
-        msg_send![
-            self,
-            newFunctionWithName: &*ns_name,
-            constantValues: constant_values,
-            error: error
-        ]
+        unsafe {
+            msg_send![
+                self,
+                newFunctionWithName: &*ns_name,
+                constantValues: constant_values,
+                error: error
+            ]
+        }
     }
 
     /// Asynchronously creates a function by applying constant values to the named function.
@@ -149,12 +151,12 @@ impl MTLLibraryExt for ProtocolObject<dyn MTLLibrary> {
         }
     }
 
-    unsafe fn reflection_for_function_with_name(
+    fn reflection_for_function_with_name(
         &self,
         function_name: &str,
     ) -> Option<Retained<MTLFunctionReflection>> {
         let ns_name = NSString::from_str(function_name);
-        msg_send![self, reflectionForFunctionWithName: &*ns_name]
+        unsafe { msg_send![self, reflectionForFunctionWithName: &*ns_name] }
     }
 
     fn function_names(&self) -> Box<[String]> {
@@ -199,11 +201,13 @@ impl MTLLibraryExt for ProtocolObject<dyn MTLLibrary> {
         }
     }
 
-    unsafe fn new_intersection_function_with_descriptor_error(
+    fn new_intersection_function_with_descriptor_error(
         &self,
         descriptor: &MTLIntersectionFunctionDescriptor,
         error: *mut *mut NSError,
     ) -> Option<Retained<ProtocolObject<dyn MTLFunction>>> {
-        msg_send![self, newIntersectionFunctionWithDescriptor: descriptor, error: error]
+        unsafe {
+            msg_send![self, newIntersectionFunctionWithDescriptor: descriptor, error: error]
+        }
     }
 }

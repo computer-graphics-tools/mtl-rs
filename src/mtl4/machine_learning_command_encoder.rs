@@ -19,7 +19,7 @@ extern_protocol!(
         /// - pipelineState: A Machine Learning pipeline state instance.
         #[unsafe(method(setPipelineState:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_pipeline_state(
+        fn set_pipeline_state(
             &self,
             pipeline_state: &ProtocolObject<dyn MTL4MachineLearningPipelineState>,
         );
@@ -31,7 +31,7 @@ extern_protocol!(
         /// - argumentTable: An argument table to set on the command encoder's Machine Learning stage.
         #[unsafe(method(setArgumentTable:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_argument_table(&self, argument_table: &ProtocolObject<dyn MTL4ArgumentTable>);
+        fn set_argument_table(&self, argument_table: &ProtocolObject<dyn MTL4ArgumentTable>);
 
         /// Dispatches a machine learning network using the current pipeline state and argument table.
         ///
@@ -43,6 +43,6 @@ extern_protocol!(
         /// - heap: a heap that Metal can use to allocate intermediate tensors.
         #[unsafe(method(dispatchNetworkWithIntermediatesHeap:))]
         #[unsafe(method_family = none)]
-        unsafe fn dispatch_network_with_intermediates_heap(&self, heap: &ProtocolObject<dyn MTLHeap>);
+        fn dispatch_network_with_intermediates_heap(&self, heap: &ProtocolObject<dyn MTLHeap>);
     }
 );

@@ -59,7 +59,7 @@ extern_protocol!(
         ///    - For any `i` larger than zero, `strides[i]` is greater than or equal to `strides[i-1] * dimensions[i-1]`.
         #[unsafe(method(replaceSliceOrigin:sliceDimensions:withBytes:strides:))]
         #[unsafe(method_family = none)]
-        unsafe fn replace_slice_origin_slice_dimensions_with_bytes_strides(
+        fn replace_slice_origin_slice_dimensions_with_bytes_strides(
             &self,
             slice_origin: &MTLTensorExtents,
             slice_dimensions: &MTLTensorExtents,
@@ -78,7 +78,7 @@ extern_protocol!(
         ///  - sliceDimensions: An array of sizes, in elements, of the slice this method reads data from.
         #[unsafe(method(getBytes:strides:fromSliceOrigin:sliceDimensions:))]
         #[unsafe(method_family = none)]
-        unsafe fn get_bytes_strides_from_slice_origin_slice_dimensions(
+        fn get_bytes_strides_from_slice_origin_slice_dimensions(
             &self,
             bytes: NonNull<c_void>,
             strides: &MTLTensorExtents,

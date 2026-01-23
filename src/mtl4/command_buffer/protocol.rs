@@ -13,12 +13,12 @@ extern_protocol!(
         /// Returns the GPU device that this command buffer belongs to.
         #[unsafe(method(device))]
         #[unsafe(method_family = none)]
-        unsafe fn device(&self) -> Retained<ProtocolObject<dyn MTLDevice>>;
+        fn device(&self) -> Retained<ProtocolObject<dyn MTLDevice>>;
 
         /// Prepares a command buffer for encoding.
         #[unsafe(method(beginCommandBufferWithAllocator:))]
         #[unsafe(method_family = none)]
-        unsafe fn begin_command_buffer_with_allocator(
+        fn begin_command_buffer_with_allocator(
             &self,
             allocator: &ProtocolObject<dyn MTL4CommandAllocator>,
         );
@@ -26,7 +26,7 @@ extern_protocol!(
         /// Prepares a command buffer for encoding with additional options.
         #[unsafe(method(beginCommandBufferWithAllocator:options:))]
         #[unsafe(method_family = none)]
-        unsafe fn begin_command_buffer_with_allocator_options(
+        fn begin_command_buffer_with_allocator_options(
             &self,
             allocator: &ProtocolObject<dyn MTL4CommandAllocator>,
             options: &MTL4CommandBufferOptions,
@@ -35,12 +35,12 @@ extern_protocol!(
         /// Closes a command buffer to prepare it for submission to a command queue.
         #[unsafe(method(endCommandBuffer))]
         #[unsafe(method_family = none)]
-        unsafe fn end_command_buffer(&self);
+        fn end_command_buffer(&self);
 
         /// Creates a render command encoder from a render pass descriptor.
         #[unsafe(method(renderCommandEncoderWithDescriptor:))]
         #[unsafe(method_family = none)]
-        unsafe fn render_command_encoder_with_descriptor(
+        fn render_command_encoder_with_descriptor(
             &self,
             descriptor: &MTL4RenderPassDescriptor,
         ) -> Option<Retained<ProtocolObject<dyn MTL4RenderCommandEncoder>>>;
@@ -48,7 +48,7 @@ extern_protocol!(
         /// Creates a render command encoder from a render pass descriptor with additional options.
         #[unsafe(method(renderCommandEncoderWithDescriptor:options:))]
         #[unsafe(method_family = none)]
-        unsafe fn render_command_encoder_with_descriptor_options(
+        fn render_command_encoder_with_descriptor_options(
             &self,
             descriptor: &MTL4RenderPassDescriptor,
             options: MTL4RenderEncoderOptions,
@@ -57,21 +57,21 @@ extern_protocol!(
         /// Creates a compute command encoder.
         #[unsafe(method(computeCommandEncoder))]
         #[unsafe(method_family = none)]
-        unsafe fn compute_command_encoder(
+        fn compute_command_encoder(
             &self,
         ) -> Option<Retained<ProtocolObject<dyn MTL4ComputeCommandEncoder>>>;
 
         /// Creates a machine learning command encoder.
         #[unsafe(method(machineLearningCommandEncoder))]
         #[unsafe(method_family = none)]
-        unsafe fn machine_learning_command_encoder(
+        fn machine_learning_command_encoder(
             &self,
         ) -> Option<Retained<ProtocolObject<dyn MTL4MachineLearningCommandEncoder>>>;
 
         /// Marks a residency set as part of the command buffer's execution.
         #[unsafe(method(useResidencySet:))]
         #[unsafe(method_family = none)]
-        unsafe fn use_residency_set(&self, residency_set: &ProtocolObject<dyn MTLResidencySet>);
+        fn use_residency_set(&self, residency_set: &ProtocolObject<dyn MTLResidencySet>);
 
         /// Marks an array of residency sets as part of the command buffer's execution.
         ///
@@ -80,7 +80,7 @@ extern_protocol!(
         /// `residency_sets` must be a valid pointer.
         #[unsafe(method(useResidencySets:count:))]
         #[unsafe(method_family = none)]
-        unsafe fn use_residency_sets_count(
+        fn use_residency_sets_count(
             &self,
             residency_sets: core::ptr::NonNull<
                 core::ptr::NonNull<ProtocolObject<dyn MTLResidencySet>>,
@@ -91,12 +91,12 @@ extern_protocol!(
         /// Pops the latest string from the stack of debug groups for this command buffer.
         #[unsafe(method(popDebugGroup))]
         #[unsafe(method_family = none)]
-        unsafe fn pop_debug_group(&self);
+        fn pop_debug_group(&self);
 
         /// Writes a GPU timestamp into the given counter heap.
         #[unsafe(method(writeTimestampIntoHeap:atIndex:))]
         #[unsafe(method_family = none)]
-        unsafe fn write_timestamp_into_heap_at_index(
+        fn write_timestamp_into_heap_at_index(
             &self,
             counter_heap: &ProtocolObject<dyn MTL4CounterHeap>,
             index: NSUInteger,
@@ -105,7 +105,7 @@ extern_protocol!(
         /// Encodes a command that resolves an opaque counter heap into a buffer.
         #[unsafe(method(resolveCounterHeap:withRange:intoBuffer:waitFence:updateFence:))]
         #[unsafe(method_family = none)]
-        unsafe fn resolve_counter_heap_with_range_into_buffer_wait_fence_update_fence(
+        fn resolve_counter_heap_with_range_into_buffer_wait_fence_update_fence(
             &self,
             counter_heap: &ProtocolObject<dyn MTL4CounterHeap>,
             range: NSRange,

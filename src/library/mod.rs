@@ -19,7 +19,8 @@ pub use function_completion_handler::LibraryFunctionCompletionHandler;
 pub use function_reflection::MTLFunctionReflection;
 pub use function_type::MTLFunctionType;
 pub use language_version::MLTLanguageVersion;
-pub use library::MTLLibrary;
+pub use library::{MTLLibrary, MTLLibraryExt};
+
 pub use library_error::MTLLibraryError;
 pub use library_type::MTLLibraryType;
 pub use math_floating_point_functions::MTLMathFloatingPointFunctions;

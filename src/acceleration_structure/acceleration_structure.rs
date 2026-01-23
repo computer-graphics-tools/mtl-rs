@@ -9,11 +9,11 @@ extern_protocol!(
         /// Size of the acceleration structure in bytes.
         #[unsafe(method(size))]
         #[unsafe(method_family = none)]
-        unsafe fn size(&self) -> usize;
+        fn size(&self) -> usize;
 
         /// Handle of the GPU resource suitable for storing in an Argument Buffer.
         #[unsafe(method(gpuResourceID))]
         #[unsafe(method_family = none)]
-        unsafe fn gpu_resource_id(&self) -> MTLResourceID;
+        fn gpu_resource_id(&self) -> MTLResourceID;
     }
 );

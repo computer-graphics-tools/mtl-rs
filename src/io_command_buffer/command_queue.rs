@@ -11,19 +11,19 @@ extern_protocol!(
         /// Insert a barrier to order prior and subsequent command buffers.
         #[unsafe(method(enqueueBarrier))]
         #[unsafe(method_family = none)]
-        unsafe fn enqueue_barrier(&self);
+        fn enqueue_barrier(&self);
 
         /// Vend an autoreleased command buffer for encoding IO commands.
         #[unsafe(method(commandBuffer))]
         #[unsafe(method_family = none)]
-        unsafe fn command_buffer(&self) -> Retained<ProtocolObject<dyn MTLIOCommandBuffer>>;
+        fn command_buffer(&self) -> Retained<ProtocolObject<dyn MTLIOCommandBuffer>>;
 
         /// Vend an autoreleased command buffer that does not retain referenced objects.
         ///
         /// For correct execution, the application must retain objects referenced by commands.
         #[unsafe(method(commandBufferWithUnretainedReferences))]
         #[unsafe(method_family = none)]
-        unsafe fn command_buffer_with_unretained_references(
+        fn command_buffer_with_unretained_references(
             &self,
         ) -> Retained<ProtocolObject<dyn MTLIOCommandBuffer>>;
     }

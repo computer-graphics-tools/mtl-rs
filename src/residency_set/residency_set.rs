@@ -40,7 +40,7 @@ extern_protocol!(
         /// Safety: `allocations` must be a valid pointer.
         #[unsafe(method(addAllocations:count:))]
         #[unsafe(method_family = none)]
-        unsafe fn add_allocations(
+        fn add_allocations(
             &self,
             allocations: NonNull<NonNull<ProtocolObject<dyn MTLAllocation>>>,
             count: usize,
@@ -56,7 +56,7 @@ extern_protocol!(
         /// Safety: `allocations` must be a valid pointer.
         #[unsafe(method(removeAllocations:count:))]
         #[unsafe(method_family = none)]
-        unsafe fn remove_allocations(
+        fn remove_allocations(
             &self,
             allocations: NonNull<NonNull<ProtocolObject<dyn MTLAllocation>>>,
             count: usize,

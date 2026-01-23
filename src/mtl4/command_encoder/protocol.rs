@@ -14,12 +14,12 @@ extern_protocol!(
         /// This property may return undefined results if you call it after calling ``endEncoding``.
         #[unsafe(method(commandBuffer))]
         #[unsafe(method_family = none)]
-        unsafe fn command_buffer(&self) -> Option<Retained<ProtocolObject<dyn MTL4CommandBuffer>>>;
+        fn command_buffer(&self) -> Option<Retained<ProtocolObject<dyn MTL4CommandBuffer>>>;
 
         /// Encodes a consumer barrier on work you commit to the same command queue.
         #[unsafe(method(barrierAfterQueueStages:beforeStages:visibilityOptions:))]
         #[unsafe(method_family = none)]
-        unsafe fn barrier_after_queue_stages_before_stages_visibility_options(
+        fn barrier_after_queue_stages_before_stages_visibility_options(
             &self,
             after_queue_stages: MTLRenderStages,
             before_stages: MTLRenderStages,
@@ -29,7 +29,7 @@ extern_protocol!(
         /// Encodes a producer barrier on work committed to the same command queue.
         #[unsafe(method(barrierAfterStages:beforeQueueStages:visibilityOptions:))]
         #[unsafe(method_family = none)]
-        unsafe fn barrier_after_stages_before_queue_stages_visibility_options(
+        fn barrier_after_stages_before_queue_stages_visibility_options(
             &self,
             after_stages: MTLRenderStages,
             before_queue_stages: MTLRenderStages,
@@ -39,7 +39,7 @@ extern_protocol!(
         /// Encodes an intra-pass barrier.
         #[unsafe(method(barrierAfterEncoderStages:beforeEncoderStages:visibilityOptions:))]
         #[unsafe(method_family = none)]
-        unsafe fn barrier_after_encoder_stages_before_encoder_stages_visibility_options(
+        fn barrier_after_encoder_stages_before_encoder_stages_visibility_options(
             &self,
             after_encoder_stages: MTLRenderStages,
             before_encoder_stages: MTLRenderStages,
@@ -49,7 +49,7 @@ extern_protocol!(
         /// Encodes a command to update a GPU fence.
         #[unsafe(method(updateFence:afterEncoderStages:))]
         #[unsafe(method_family = none)]
-        unsafe fn update_fence_after_encoder_stages(
+        fn update_fence_after_encoder_stages(
             &self,
             fence: &ProtocolObject<dyn MTLFence>,
             after_encoder_stages: MTLRenderStages,
@@ -58,7 +58,7 @@ extern_protocol!(
         /// Encodes a command to wait on a GPU fence.
         #[unsafe(method(waitForFence:beforeEncoderStages:))]
         #[unsafe(method_family = none)]
-        unsafe fn wait_for_fence_before_encoder_stages(
+        fn wait_for_fence_before_encoder_stages(
             &self,
             fence: &ProtocolObject<dyn MTLFence>,
             before_encoder_stages: MTLRenderStages,
@@ -67,12 +67,12 @@ extern_protocol!(
         /// Pops the latest debug group string from this encoder's stack of debug groups.
         #[unsafe(method(popDebugGroup))]
         #[unsafe(method_family = none)]
-        unsafe fn pop_debug_group(&self);
+        fn pop_debug_group(&self);
 
         /// Declares that all command generation from this encoder is complete.
         #[unsafe(method(endEncoding))]
         #[unsafe(method_family = none)]
-        unsafe fn end_encoding(&self);
+        fn end_encoding(&self);
     }
 );
 

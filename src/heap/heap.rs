@@ -86,12 +86,12 @@ extern_protocol!(
         /// The type of the heap. The default value is HeapType::Automatic.
         #[unsafe(method(type))]
         #[unsafe(method_family = none)]
-        unsafe fn r#type(&self) -> super::MTLHeapType;
+        fn r#type(&self) -> super::MTLHeapType;
 
         /// Create a new buffer backed by heap memory at the specified placement offset.
         #[unsafe(method(newBufferWithLength:options:offset:))]
         #[unsafe(method_family = new)]
-        unsafe fn new_buffer_with_offset(
+        fn new_buffer_with_offset(
             &self,
             length: usize,
             options: MTLResourceOptions,
@@ -101,7 +101,7 @@ extern_protocol!(
         /// Create a new texture backed by heap memory at the specified placement offset.
         #[unsafe(method(newTextureWithDescriptor:offset:))]
         #[unsafe(method_family = new)]
-        unsafe fn new_texture_with_offset(
+        fn new_texture_with_offset(
             &self,
             descriptor: &MTLTextureDescriptor,
             offset: usize,
@@ -110,7 +110,7 @@ extern_protocol!(
         /// Create a new acceleration structure backed by heap memory.
         #[unsafe(method(newAccelerationStructureWithSize:))]
         #[unsafe(method_family = new)]
-        unsafe fn new_acceleration_structure_with_size(
+        fn new_acceleration_structure_with_size(
             &self,
             size: usize,
         ) -> Option<Retained<ProtocolObject<dyn MTLAccelerationStructure>>>;
@@ -119,7 +119,7 @@ extern_protocol!(
         /// This is a convenience method which creates the acceleration structure backed by heap memory.
         #[unsafe(method(newAccelerationStructureWithDescriptor:))]
         #[unsafe(method_family = new)]
-        unsafe fn new_acceleration_structure_with_descriptor(
+        fn new_acceleration_structure_with_descriptor(
             &self,
             descriptor: &MTLAccelerationStructureDescriptor,
         ) -> Option<Retained<ProtocolObject<dyn MTLAccelerationStructure>>>;
@@ -127,7 +127,7 @@ extern_protocol!(
         /// Create a new acceleration structure backed by heap memory at the specified placement offset.
         #[unsafe(method(newAccelerationStructureWithSize:offset:))]
         #[unsafe(method_family = new)]
-        unsafe fn new_acceleration_structure_with_size_offset(
+        fn new_acceleration_structure_with_size_offset(
             &self,
             size: usize,
             offset: usize,
@@ -137,7 +137,7 @@ extern_protocol!(
         /// This is a convenience method which computes the acceleration structure size based on the descriptor.
         #[unsafe(method(newAccelerationStructureWithDescriptor:offset:))]
         #[unsafe(method_family = new)]
-        unsafe fn new_acceleration_structure_with_descriptor_offset(
+        fn new_acceleration_structure_with_descriptor_offset(
             &self,
             descriptor: &MTLAccelerationStructureDescriptor,
             offset: usize,

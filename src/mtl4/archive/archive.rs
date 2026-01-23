@@ -15,7 +15,7 @@ extern_protocol!(
         /// Creates a compute pipeline state from the archive with a descriptor.
         #[unsafe(method(newComputePipelineStateWithDescriptor:error:_))]
         #[unsafe(method_family = new)]
-        unsafe fn new_compute_pipeline_state_with_descriptor(
+        fn new_compute_pipeline_state_with_descriptor(
             &self,
             descriptor: &MTL4ComputePipelineDescriptor,
         ) -> Result<Retained<ProtocolObject<dyn MTLComputePipelineState>>, Retained<NSError>>;
@@ -23,7 +23,7 @@ extern_protocol!(
         /// Creates a compute pipeline state from the archive with a compute descriptor and a dynamic linking descriptor.
         #[unsafe(method(newComputePipelineStateWithDescriptor:dynamicLinkingDescriptor:error:_))]
         #[unsafe(method_family = new)]
-        unsafe fn new_compute_pipeline_state_with_descriptor_dynamic_linking_descriptor(
+        fn new_compute_pipeline_state_with_descriptor_dynamic_linking_descriptor(
             &self,
             descriptor: &MTL4ComputePipelineDescriptor,
             dynamic_linking_descriptor: &MTL4PipelineStageDynamicLinkingDescriptor,
@@ -32,7 +32,7 @@ extern_protocol!(
         /// Creates a render pipeline state from the archive with a descriptor.
         #[unsafe(method(newRenderPipelineStateWithDescriptor:error:_))]
         #[unsafe(method_family = new)]
-        unsafe fn new_render_pipeline_state_with_descriptor(
+        fn new_render_pipeline_state_with_descriptor(
             &self,
             descriptor: &MTL4PipelineDescriptor,
         ) -> Result<Retained<ProtocolObject<dyn MTLRenderPipelineState>>, Retained<NSError>>;
@@ -40,7 +40,7 @@ extern_protocol!(
         /// Creates a render pipeline state from the archive with a render descriptor and a dynamic linking descriptor.
         #[unsafe(method(newRenderPipelineStateWithDescriptor:dynamicLinkingDescriptor:error:_))]
         #[unsafe(method_family = new)]
-        unsafe fn new_render_pipeline_state_with_descriptor_dynamic_linking_descriptor(
+        fn new_render_pipeline_state_with_descriptor_dynamic_linking_descriptor(
             &self,
             descriptor: &MTL4PipelineDescriptor,
             dynamic_linking_descriptor: &MTL4RenderPipelineDynamicLinkingDescriptor,
@@ -49,7 +49,7 @@ extern_protocol!(
         /// Method used to create a binary function, with a given descriptor, from the contents of the archive.
         #[unsafe(method(newBinaryFunctionWithDescriptor:error:_))]
         #[unsafe(method_family = new)]
-        unsafe fn new_binary_function_with_descriptor(
+        fn new_binary_function_with_descriptor(
             &self,
             descriptor: &MTL4BinaryFunctionDescriptor,
         ) -> Result<Retained<ProtocolObject<dyn MTL4BinaryFunction>>, Retained<NSError>>;

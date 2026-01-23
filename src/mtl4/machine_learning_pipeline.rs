@@ -186,12 +186,12 @@ extern_protocol!(
         /// Returns the device the pipeline state belongs to.
         #[unsafe(method(device))]
         #[unsafe(method_family = none)]
-        unsafe fn device(&self) -> Retained<ProtocolObject<dyn MTLDevice>>;
+        fn device(&self) -> Retained<ProtocolObject<dyn MTLDevice>>;
 
         /// Returns reflection information for this machine learning pipeline state.
         #[unsafe(method(reflection))]
         #[unsafe(method_family = none)]
-        unsafe fn reflection(&self) -> Option<Retained<MTL4MachineLearningPipelineReflection>>;
+        fn reflection(&self) -> Option<Retained<MTL4MachineLearningPipelineReflection>>;
 
         /// Obtain the size of the heap, in bytes, this pipeline requires during the execution.
         ///
@@ -202,7 +202,7 @@ extern_protocol!(
         /// a heap at least as large as this property requests.
         #[unsafe(method(intermediatesHeapSize))]
         #[unsafe(method_family = none)]
-        unsafe fn intermediates_heap_size(&self) -> usize;
+        fn intermediates_heap_size(&self) -> usize;
     }
 );
 

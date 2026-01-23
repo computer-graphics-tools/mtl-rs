@@ -8,15 +8,15 @@ extern_protocol!(
     pub unsafe trait MTLFunctionLogDebugLocation: NSObjectProtocol {
         #[unsafe(method(URL))]
         #[unsafe(method_family = none)]
-        unsafe fn url(&self) -> Option<Retained<NSURL>>;
+        fn url(&self) -> Option<Retained<NSURL>>;
 
         #[unsafe(method(line))]
         #[unsafe(method_family = none)]
-        unsafe fn line(&self) -> usize;
+        fn line(&self) -> usize;
 
         #[unsafe(method(column))]
         #[unsafe(method_family = none)]
-        unsafe fn column(&self) -> usize;
+        fn column(&self) -> usize;
     }
 );
 

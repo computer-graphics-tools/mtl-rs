@@ -79,7 +79,7 @@ extern_protocol!(
         /// Availability: macOS 15.0+, iOS 18.0+
         #[unsafe(method(addLibraryWithDescriptor:error:_))]
         #[unsafe(method_family = none)]
-        unsafe fn add_library_with_descriptor(
+        fn add_library_with_descriptor(
             &self,
             descriptor: &MTLStitchedLibraryDescriptor,
         ) -> Result<(), Retained<NSError>>;
@@ -102,7 +102,7 @@ extern_protocol!(
         /// Availability: macOS 12.0+, iOS 15.0+
         #[unsafe(method(addFunctionWithDescriptor:library:error:_))]
         #[unsafe(method_family = none)]
-        unsafe fn add_function_with_descriptor_library(
+        fn add_function_with_descriptor_library(
             &self,
             descriptor: &MTLFunctionDescriptor,
             library: &ProtocolObject<dyn MTLLibrary>,

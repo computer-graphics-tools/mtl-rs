@@ -17,22 +17,22 @@ extern_protocol!(
         /// Availability: macOS 13.0+, iOS 16.0+
         #[unsafe(method(gpuResourceID))]
         #[unsafe(method_family = none)]
-        unsafe fn gpu_resource_id(&self) -> MTLResourceID;
+        fn gpu_resource_id(&self) -> MTLResourceID;
 
         #[unsafe(method(resetWithRange:))]
         #[unsafe(method_family = none)]
-        unsafe fn reset_with_range(&self, range: NSRange);
+        fn reset_with_range(&self, range: NSRange);
 
         #[unsafe(method(indirectRenderCommandAtIndex:))]
         #[unsafe(method_family = none)]
-        unsafe fn indirect_render_command_at_index(
+        fn indirect_render_command_at_index(
             &self,
             command_index: usize,
         ) -> Retained<ProtocolObject<dyn MTLIndirectRenderCommand>>;
 
         #[unsafe(method(indirectComputeCommandAtIndex:))]
         #[unsafe(method_family = none)]
-        unsafe fn indirect_compute_command_at_index(
+        fn indirect_compute_command_at_index(
             &self,
             command_index: usize,
         ) -> Retained<ProtocolObject<dyn MTLIndirectComputeCommand>>;

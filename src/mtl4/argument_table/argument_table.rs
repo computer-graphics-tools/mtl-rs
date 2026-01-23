@@ -11,12 +11,12 @@ extern_protocol!(
         /// Binds a GPU address to a buffer binding slot.
         #[unsafe(method(setAddress:atIndex:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_address_at_index(&self, gpu_address: MTLGPUAddress, binding_index: usize);
+        fn set_address_at_index(&self, gpu_address: MTLGPUAddress, binding_index: usize);
 
         /// Binds a GPU address to a buffer binding slot, providing a dynamic vertex stride.
         #[unsafe(method(setAddress:attributeStride:atIndex:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_address_attribute_stride_at_index(
+        fn set_address_attribute_stride_at_index(
             &self,
             gpu_address: MTLGPUAddress,
             stride: usize,
@@ -26,7 +26,7 @@ extern_protocol!(
         /// Binds a resource to a buffer binding slot.
         #[unsafe(method(setResource:atBufferIndex:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_resource_at_buffer_index(
+        fn set_resource_at_buffer_index(
             &self,
             resource_id: MTLResourceID,
             binding_index: usize,
@@ -35,12 +35,12 @@ extern_protocol!(
         /// Binds a texture to a texture binding slot.
         #[unsafe(method(setTexture:atIndex:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_texture_at_index(&self, resource_id: MTLResourceID, binding_index: usize);
+        fn set_texture_at_index(&self, resource_id: MTLResourceID, binding_index: usize);
 
         /// Binds a sampler state to a sampler state binding slot.
         #[unsafe(method(setSamplerState:atIndex:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_sampler_state_at_index(
+        fn set_sampler_state_at_index(
             &self,
             resource_id: MTLResourceID,
             binding_index: usize,
@@ -49,7 +49,7 @@ extern_protocol!(
         /// The device from which you created this argument table.
         #[unsafe(method(device))]
         #[unsafe(method_family = none)]
-        unsafe fn device(&self) -> Retained<ProtocolObject<dyn MTLDevice>>;
+        fn device(&self) -> Retained<ProtocolObject<dyn MTLDevice>>;
     }
 );
 

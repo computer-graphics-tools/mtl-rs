@@ -86,7 +86,7 @@ extern_protocol!(
         /// * for dimensions greater than `2`, make sure `strides[dim] = strides[dim -1] * dimensions[dim - 1]`
         #[unsafe(method(newTensorWithDescriptor:offset:error:))]
         #[unsafe(method_family = new)]
-        unsafe fn new_tensor_with_descriptor_offset_error(
+        fn new_tensor_with_descriptor_offset_error(
             &self,
             descriptor: &MTLTensorDescriptor,
             offset: usize,

@@ -1,7 +1,7 @@
 use objc2::{Message, extern_protocol, msg_send, rc::Retained, runtime::ProtocolObject};
 use objc2_foundation::{NSObjectProtocol, NSString};
 
-use crate::{MTLDevice, MTLRenderStages};
+use crate::{MTLComputeCommandEncoder, MTLDevice, MTLRenderCommandEncoder, MTLRenderStages};
 
 extern_protocol!(
     /// MTLCommandEncoder is the common interface for objects that write commands into MTLCommandBuffers.
@@ -11,7 +11,7 @@ extern_protocol!(
         /// The device this resource was created against.
         #[unsafe(method(device))]
         #[unsafe(method_family = none)]
-        unsafe fn device(&self) -> Retained<ProtocolObject<dyn MTLDevice>>;
+        fn device(&self) -> Retained<ProtocolObject<dyn MTLDevice>>;
 
         /// Declare that all command generation from this encoder is complete, and detach from the MTLCommandBuffer.
         #[unsafe(method(endEncoding))]
@@ -30,33 +30,38 @@ extern_protocol!(
         ///
         /// You can specify `afterQueueStages` and `beforeStages` that contain `MTLStages` unrelated to the current command encoder.
         ///
-        /// - Parameters:
-        ///   - afterQueueStages: `MTLStages` mask that represents the stages of work to wait for.
-        ///   - beforeStages: `MTLStages` mask that represents the stages of work that wait.
+        /// Availability: macOS 26.0+, iOS 26.0+
         #[unsafe(method(barrierAfterQueueStages:beforeStages:))]
         #[unsafe(method_family = none)]
-        unsafe fn barrier_after_queue_stages_before_stages(
+        fn barrier_after_queue_stages_before_stages(
             &self,
             after_queue_stages: MTLRenderStages,
             before_stages: MTLRenderStages,
         );
-
-        /// Pop the latest named string off of the stack.
-        #[unsafe(method(popDebugGroup))]
-        #[unsafe(method_family = none)]
-        fn pop_debug_group(&self);
     }
 );
 
 #[allow(unused)]
 pub trait MTLCommandEncoderExt: MTLCommandEncoder + Message {
+    /// The device this resource was created against.
+    fn device(&self) -> Retained<ProtocolObject<dyn MTLDevice>>;
+    /// A string to help identify this object.
     fn label(&self) -> Option<String>;
+    /// Sets a string to help identify this object.
     fn set_label(&self, label: Option<&str>);
+    /// Inserts a debug string into the command buffer. This does not change any API behavior, but can be useful when debugging.
     fn insert_debug_signpost(&self, string: &str);
+    /// Push a new named string onto a stack of string labels.
     fn push_debug_group(&self, string: &str);
+    /// Pop the latest named string off of the stack.
+    fn pop_debug_group(&self);
 }
 
 impl MTLCommandEncoderExt for ProtocolObject<dyn MTLCommandEncoder> {
+    fn device(&self) -> Retained<ProtocolObject<dyn MTLDevice>> {
+        unsafe { msg_send![self, device] }
+    }
+
     fn label(&self) -> Option<String> {
         let label: Option<Retained<NSString>> = unsafe { msg_send![self, label] };
         label.map(|s| s.to_string())
@@ -77,6 +82,82 @@ impl MTLCommandEncoderExt for ProtocolObject<dyn MTLCommandEncoder> {
     fn push_debug_group(&self, string: &str) {
         unsafe {
             let _: () = msg_send![self, pushDebugGroup: &*NSString::from_str(string)];
+        }
+    }
+
+    fn pop_debug_group(&self) {
+        unsafe {
+            let _: () = msg_send![self, popDebugGroup];
+        }
+    }
+}
+
+impl MTLCommandEncoderExt for ProtocolObject<dyn MTLComputeCommandEncoder> {
+    fn device(&self) -> Retained<ProtocolObject<dyn MTLDevice>> {
+        unsafe { msg_send![self, device] }
+    }
+
+    fn label(&self) -> Option<String> {
+        let label: Option<Retained<NSString>> = unsafe { msg_send![self, label] };
+        label.map(|s| s.to_string())
+    }
+
+    fn set_label(&self, label: Option<&str>) {
+        unsafe {
+            let _: () = msg_send![self, setLabel: label.map(NSString::from_str).as_deref()];
+        }
+    }
+
+    fn insert_debug_signpost(&self, string: &str) {
+        unsafe {
+            let _: () = msg_send![self, insertDebugSignpost: &*NSString::from_str(string)];
+        }
+    }
+
+    fn push_debug_group(&self, string: &str) {
+        unsafe {
+            let _: () = msg_send![self, pushDebugGroup: &*NSString::from_str(string)];
+        }
+    }
+
+    fn pop_debug_group(&self) {
+        unsafe {
+            let _: () = msg_send![self, popDebugGroup];
+        }
+    }
+}
+
+impl MTLCommandEncoderExt for ProtocolObject<dyn MTLRenderCommandEncoder> {
+    fn device(&self) -> Retained<ProtocolObject<dyn MTLDevice>> {
+        unsafe { msg_send![self, device] }
+    }
+
+    fn label(&self) -> Option<String> {
+        let label: Option<Retained<NSString>> = unsafe { msg_send![self, label] };
+        label.map(|s| s.to_string())
+    }
+
+    fn set_label(&self, label: Option<&str>) {
+        unsafe {
+            let _: () = msg_send![self, setLabel: label.map(NSString::from_str).as_deref()];
+        }
+    }
+
+    fn insert_debug_signpost(&self, string: &str) {
+        unsafe {
+            let _: () = msg_send![self, insertDebugSignpost: &*NSString::from_str(string)];
+        }
+    }
+
+    fn push_debug_group(&self, string: &str) {
+        unsafe {
+            let _: () = msg_send![self, pushDebugGroup: &*NSString::from_str(string)];
+        }
+    }
+
+    fn pop_debug_group(&self) {
+        unsafe {
+            let _: () = msg_send![self, popDebugGroup];
         }
     }
 }

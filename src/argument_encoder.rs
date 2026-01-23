@@ -24,7 +24,7 @@ extern_protocol!(
         /// The device this argument encoder was created against.
         #[unsafe(method(device))]
         #[unsafe(method_family = none)]
-        unsafe fn device(&self) -> Retained<ProtocolObject<dyn MTLDevice>>;
+        fn device(&self) -> Retained<ProtocolObject<dyn MTLDevice>>;
 
         /// A string to help identify this object.
         #[unsafe(method(label))]
@@ -49,7 +49,7 @@ extern_protocol!(
         /// Sets the destination buffer and offset at which the arguments will be encoded.
         #[unsafe(method(setArgumentBuffer:offset:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_argument_buffer(
+        fn set_argument_buffer(
             &self,
             argument_buffer: Option<&ProtocolObject<dyn MTLBuffer>>,
             offset: usize,
@@ -59,7 +59,7 @@ extern_protocol!(
         /// that arguments will be encoded into.
         #[unsafe(method(setArgumentBuffer:startOffset:arrayElement:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_argument_buffer_with_array_element(
+        fn set_argument_buffer_with_array_element(
             &self,
             argument_buffer: Option<&ProtocolObject<dyn MTLBuffer>>,
             start_offset: usize,
@@ -69,7 +69,7 @@ extern_protocol!(
         /// Set a buffer at the given bind point index.
         #[unsafe(method(setBuffer:offset:atIndex:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_buffer(
+        fn set_buffer(
             &self,
             buffer: Option<&ProtocolObject<dyn MTLBuffer>>,
             offset: usize,
@@ -81,7 +81,7 @@ extern_protocol!(
         /// Safety: `buffers` and `offsets` must be valid pointers.
         #[unsafe(method(setBuffers:offsets:withRange:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_buffers(
+        fn set_buffers(
             &self,
             buffers: NonNull<*const ProtocolObject<dyn MTLBuffer>>,
             offsets: NonNull<usize>,
@@ -91,7 +91,7 @@ extern_protocol!(
         /// Set a texture at the given bind point index.
         #[unsafe(method(setTexture:atIndex:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_texture(
+        fn set_texture(
             &self,
             texture: Option<&ProtocolObject<dyn MTLTexture>>,
             index: usize,
@@ -102,7 +102,7 @@ extern_protocol!(
         /// Safety: `textures` must be a valid pointer.
         #[unsafe(method(setTextures:withRange:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_textures(
+        fn set_textures(
             &self,
             textures: NonNull<*const ProtocolObject<dyn MTLTexture>>,
             range: NSRange,
@@ -111,7 +111,7 @@ extern_protocol!(
         /// Set a sampler at the given bind point index.
         #[unsafe(method(setSamplerState:atIndex:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_sampler_state(
+        fn set_sampler_state(
             &self,
             sampler: Option<&ProtocolObject<dyn MTLSamplerState>>,
             index: usize,
@@ -122,7 +122,7 @@ extern_protocol!(
         /// Safety: `samplers` must be a valid pointer.
         #[unsafe(method(setSamplerStates:withRange:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_sampler_states(
+        fn set_sampler_states(
             &self,
             samplers: NonNull<*const ProtocolObject<dyn MTLSamplerState>>,
             range: NSRange,
@@ -134,14 +134,14 @@ extern_protocol!(
         /// backing storage are alive.
         #[unsafe(method(constantDataAtIndex:))]
         #[unsafe(method_family = none)]
-        unsafe fn constant_data_at_index(&self, index: usize) -> NonNull<c_void>;
+        fn constant_data_at_index(&self, index: usize) -> NonNull<c_void>;
 
         /// Sets a render pipeline state at a given bind point index.
         ///
         /// Availability: macOS 10.14+, iOS 13.0+
         #[unsafe(method(setRenderPipelineState:atIndex:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_render_pipeline_state(
+        fn set_render_pipeline_state(
             &self,
             pipeline: Option<&ProtocolObject<dyn MTLRenderPipelineState>>,
             index: usize,
@@ -154,7 +154,7 @@ extern_protocol!(
         /// Availability: macOS 10.14+, iOS 13.0+
         #[unsafe(method(setRenderPipelineStates:withRange:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_render_pipeline_states(
+        fn set_render_pipeline_states(
             &self,
             pipelines: NonNull<*const ProtocolObject<dyn MTLRenderPipelineState>>,
             range: NSRange,
@@ -165,7 +165,7 @@ extern_protocol!(
         /// Availability: macOS 11.0+, iOS 13.0+
         #[unsafe(method(setComputePipelineState:atIndex:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_compute_pipeline_state(
+        fn set_compute_pipeline_state(
             &self,
             pipeline: Option<&ProtocolObject<dyn MTLComputePipelineState>>,
             index: usize,
@@ -178,7 +178,7 @@ extern_protocol!(
         /// Availability: macOS 11.0+, iOS 13.0+
         #[unsafe(method(setComputePipelineStates:withRange:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_compute_pipeline_states(
+        fn set_compute_pipeline_states(
             &self,
             pipelines: NonNull<*const ProtocolObject<dyn MTLComputePipelineState>>,
             range: NSRange,
@@ -189,7 +189,7 @@ extern_protocol!(
         /// Availability: macOS 10.14+, iOS 12.0+
         #[unsafe(method(setIndirectCommandBuffer:atIndex:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_indirect_command_buffer(
+        fn set_indirect_command_buffer(
             &self,
             indirect_command_buffer: Option<&ProtocolObject<dyn MTLIndirectCommandBuffer>>,
             index: usize,
@@ -202,7 +202,7 @@ extern_protocol!(
         /// Availability: macOS 10.14+, iOS 12.0+
         #[unsafe(method(setIndirectCommandBuffers:withRange:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_indirect_command_buffers(
+        fn set_indirect_command_buffers(
             &self,
             buffers: NonNull<*const ProtocolObject<dyn MTLIndirectCommandBuffer>>,
             range: NSRange,
@@ -213,7 +213,7 @@ extern_protocol!(
         /// Availability: macOS 11.0+, iOS 14.0+, tvOS 16.0+
         #[unsafe(method(setAccelerationStructure:atIndex:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_acceleration_structure(
+        fn set_acceleration_structure(
             &self,
             acceleration_structure: Option<&ProtocolObject<dyn MTLAccelerationStructure>>,
             index: usize,
@@ -223,7 +223,7 @@ extern_protocol!(
         /// Returns `None` if the resource at `index` is not an argument buffer.
         #[unsafe(method(newArgumentEncoderForBufferAtIndex:))]
         #[unsafe(method_family = new)]
-        unsafe fn new_argument_encoder_for_buffer_at_index(
+        fn new_argument_encoder_for_buffer_at_index(
             &self,
             index: usize,
         ) -> Option<Retained<ProtocolObject<dyn super::MTLArgumentEncoder>>>;
@@ -233,7 +233,7 @@ extern_protocol!(
         /// Availability: macOS 11.0+, iOS 14.0+, tvOS 16.0+
         #[unsafe(method(setVisibleFunctionTable:atIndex:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_visible_function_table(
+        fn set_visible_function_table(
             &self,
             visible_function_table: Option<&ProtocolObject<dyn crate::MTLVisibleFunctionTable>>,
             index: usize,
@@ -246,7 +246,7 @@ extern_protocol!(
         /// Availability: macOS 11.0+, iOS 14.0+, tvOS 16.0+
         #[unsafe(method(setVisibleFunctionTables:withRange:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_visible_function_tables(
+        fn set_visible_function_tables(
             &self,
             visible_function_tables: NonNull<
                 *const ProtocolObject<dyn crate::MTLVisibleFunctionTable>,
@@ -259,7 +259,7 @@ extern_protocol!(
         /// Availability: macOS 11.0+, iOS 14.0+, tvOS 16.0+
         #[unsafe(method(setIntersectionFunctionTable:atIndex:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_intersection_function_table(
+        fn set_intersection_function_table(
             &self,
             intersection_function_table: Option<
                 &ProtocolObject<dyn crate::MTLIntersectionFunctionTable>,
@@ -274,7 +274,7 @@ extern_protocol!(
         /// Availability: macOS 11.0+, iOS 14.0+, tvOS 16.0+
         #[unsafe(method(setIntersectionFunctionTables:withRange:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_intersection_function_tables(
+        fn set_intersection_function_tables(
             &self,
             intersection_function_tables: NonNull<
                 *const ProtocolObject<dyn crate::MTLIntersectionFunctionTable>,
@@ -287,7 +287,7 @@ extern_protocol!(
         /// Availability: macOS 26.0+, iOS 26.0+
         #[unsafe(method(setDepthStencilState:atIndex:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_depth_stencil_state(
+        fn set_depth_stencil_state(
             &self,
             depth_stencil_state: Option<&ProtocolObject<dyn MTLDepthStencilState>>,
             index: usize,
@@ -300,7 +300,7 @@ extern_protocol!(
         /// Availability: macOS 26.0+, iOS 26.0+
         #[unsafe(method(setDepthStencilStates:withRange:))]
         #[unsafe(method_family = none)]
-        unsafe fn set_depth_stencil_states(
+        fn set_depth_stencil_states(
             &self,
             depth_stencil_states: NonNull<*const ProtocolObject<dyn MTLDepthStencilState>>,
             range: NSRange,
