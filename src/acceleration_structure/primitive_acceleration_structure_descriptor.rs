@@ -39,7 +39,7 @@ impl MTLPrimitiveAccelerationStructureDescriptor {
         /// must be motion versions and have motionKeyframeCount of primitive buffers.
         #[unsafe(method(geometryDescriptors))]
         #[unsafe(method_family = none)]
-        pub unsafe fn geometry_descriptors(
+        pub fn geometry_descriptors(
             &self,
         ) -> Option<Retained<NSArray<MTLAccelerationStructureGeometryDescriptor>>>;
 
@@ -55,12 +55,12 @@ impl MTLPrimitiveAccelerationStructureDescriptor {
         /// motionStartTime. If not set defaults to MTLMotionBorderModeClamp.
         #[unsafe(method(motionStartBorderMode))]
         #[unsafe(method_family = none)]
-        pub unsafe fn motion_start_border_mode(&self) -> MTLMotionBorderMode;
+        pub fn motion_start_border_mode(&self) -> MTLMotionBorderMode;
 
         /// Setter for [`motionStartBorderMode`][Self::motionStartBorderMode].
         #[unsafe(method(setMotionStartBorderMode:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_motion_start_border_mode(
+        pub fn set_motion_start_border_mode(
             &self,
             motion_start_border_mode: MTLMotionBorderMode,
         );
@@ -69,12 +69,12 @@ impl MTLPrimitiveAccelerationStructureDescriptor {
         /// motionEndTime. If not set defaults to MTLMotionBorderModeClamp.
         #[unsafe(method(motionEndBorderMode))]
         #[unsafe(method_family = none)]
-        pub unsafe fn motion_end_border_mode(&self) -> MTLMotionBorderMode;
+        pub fn motion_end_border_mode(&self) -> MTLMotionBorderMode;
 
         /// Setter for [`motionEndBorderMode`][Self::motionEndBorderMode].
         #[unsafe(method(setMotionEndBorderMode:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_motion_end_border_mode(
+        pub fn set_motion_end_border_mode(
             &self,
             motion_end_border_mode: MTLMotionBorderMode,
         );
@@ -82,32 +82,32 @@ impl MTLPrimitiveAccelerationStructureDescriptor {
         /// Motion start time of this geometry. If not set defaults to 0.0f.
         #[unsafe(method(motionStartTime))]
         #[unsafe(method_family = none)]
-        pub unsafe fn motion_start_time(&self) -> c_float;
+        pub fn motion_start_time(&self) -> c_float;
 
         /// Setter for [`motionStartTime`][Self::motionStartTime].
         #[unsafe(method(setMotionStartTime:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_motion_start_time(&self, motion_start_time: c_float);
+        pub fn set_motion_start_time(&self, motion_start_time: c_float);
 
         /// Motion end time of this geometry. If not set defaults to 1.0f.
         #[unsafe(method(motionEndTime))]
         #[unsafe(method_family = none)]
-        pub unsafe fn motion_end_time(&self) -> c_float;
+        pub fn motion_end_time(&self) -> c_float;
 
         /// Setter for [`motionEndTime`][Self::motionEndTime].
         #[unsafe(method(setMotionEndTime:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_motion_end_time(&self, motion_end_time: c_float);
+        pub fn set_motion_end_time(&self, motion_end_time: c_float);
 
         /// Motion keyframe count. Is 1 by default which means no motion.
         #[unsafe(method(motionKeyframeCount))]
         #[unsafe(method_family = none)]
-        pub unsafe fn motion_keyframe_count(&self) -> usize;
+        pub fn motion_keyframe_count(&self) -> usize;
 
         /// Setter for [`motionKeyframeCount`][Self::motionKeyframeCount].
         #[unsafe(method(setMotionKeyframeCount:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_motion_keyframe_count(&self, motion_keyframe_count: usize);
+        pub fn set_motion_keyframe_count(&self, motion_keyframe_count: usize);
 
         #[unsafe(method(descriptor))]
         #[unsafe(method_family = none)]
@@ -120,10 +120,10 @@ impl MTLPrimitiveAccelerationStructureDescriptor {
     extern_methods!(
         #[unsafe(method(init))]
         #[unsafe(method_family = init)]
-        pub unsafe fn init(this: Allocated<Self>) -> Retained<Self>;
+        pub fn init(this: Allocated<Self>) -> Retained<Self>;
 
         #[unsafe(method(new))]
         #[unsafe(method_family = new)]
-        pub unsafe fn new() -> Retained<Self>;
+        pub fn new() -> Retained<Self>;
     );
 }

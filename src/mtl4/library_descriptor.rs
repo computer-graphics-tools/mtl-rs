@@ -34,38 +34,38 @@ impl MTL4LibraryDescriptor {
         /// Metal library.
         #[unsafe(method(source))]
         #[unsafe(method_family = none)]
-        pub unsafe fn source(&self) -> Option<Retained<NSString>>;
+        pub fn source(&self) -> Option<Retained<NSString>>;
 
         /// Setter for [`source`][Self::source].
         ///
         /// This is [copied][objc2_foundation::NSCopying::copy] when set.
         #[unsafe(method(setSource:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_source(&self, source: Option<&NSString>);
+        pub fn set_source(&self, source: Option<&NSString>);
 
         /// Provides compile-time options for the Metal library.
         #[unsafe(method(options))]
         #[unsafe(method_family = none)]
-        pub unsafe fn options(&self) -> Option<Retained<MTLCompileOptions>>;
+        pub fn options(&self) -> Option<Retained<MTLCompileOptions>>;
 
         /// Setter for [`options`][Self::options].
         ///
         /// This is [copied][objc2_foundation::NSCopying::copy] when set.
         #[unsafe(method(setOptions:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_options(&self, options: Option<&MTLCompileOptions>);
+        pub fn set_options(&self, options: Option<&MTLCompileOptions>);
 
         /// Assigns an optional name to the Metal library.
         #[unsafe(method(name))]
         #[unsafe(method_family = none)]
-        pub unsafe fn name(&self) -> Option<Retained<NSString>>;
+        pub fn name(&self) -> Option<Retained<NSString>>;
 
         /// Setter for [`name`][Self::name].
         ///
         /// This is [copied][objc2_foundation::NSCopying::copy] when set.
         #[unsafe(method(setName:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_name(&self, name: Option<&NSString>);
+        pub fn set_name(&self, name: Option<&NSString>);
     );
 }
 
@@ -74,10 +74,10 @@ impl MTL4LibraryDescriptor {
     extern_methods!(
         #[unsafe(method(init))]
         #[unsafe(method_family = init)]
-        pub unsafe fn init(this: Allocated<Self>) -> Retained<Self>;
+        pub fn init(this: Allocated<Self>) -> Retained<Self>;
 
         #[unsafe(method(new))]
         #[unsafe(method_family = new)]
-        pub unsafe fn new() -> Retained<Self>;
+        pub fn new() -> Retained<Self>;
     );
 }

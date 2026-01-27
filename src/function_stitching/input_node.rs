@@ -41,16 +41,16 @@ impl MTLFunctionStitchingInputNode {
     extern_methods!(
         #[unsafe(method(argumentIndex))]
         #[unsafe(method_family = none)]
-        pub unsafe fn argument_index(&self) -> usize;
+        pub fn argument_index(&self) -> usize;
 
         /// Setter for [`argument_index`][Self::argument_index].
         #[unsafe(method(setArgumentIndex:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_argument_index(&self, argument_index: usize);
+        pub fn set_argument_index(&self, argument_index: usize);
 
         #[unsafe(method(initWithArgumentIndex:))]
         #[unsafe(method_family = init)]
-        pub unsafe fn init_with_argument_index(
+        pub fn init_with_argument_index(
             this: Allocated<Self>,
             argument: usize,
         ) -> Retained<Self>;

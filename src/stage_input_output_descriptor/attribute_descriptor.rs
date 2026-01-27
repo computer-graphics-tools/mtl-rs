@@ -32,7 +32,7 @@ impl MTLAttributeDescriptor {
         /// Setter for [`format`][Self::format].
         #[unsafe(method(setFormat:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_format(&self, format: MTLAttributeFormat);
+        pub fn set_format(&self, format: MTLAttributeFormat);
 
         /// Byte offset of this attribute within the vertex.
         #[unsafe(method(offset))]
@@ -42,7 +42,7 @@ impl MTLAttributeDescriptor {
         /// Setter for [`offset`][Self::offset].
         #[unsafe(method(setOffset:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_offset(&self, offset: usize);
+        pub fn set_offset(&self, offset: usize);
 
         /// The index of the buffer from which this attribute reads.
         #[unsafe(method(bufferIndex))]
@@ -52,6 +52,6 @@ impl MTLAttributeDescriptor {
         /// Setter for [`buffer_index`][Self::buffer_index].
         #[unsafe(method(setBufferIndex:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_buffer_index(&self, buffer_index: usize);
+        pub fn set_buffer_index(&self, buffer_index: usize);
     );
 }

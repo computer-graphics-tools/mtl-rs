@@ -38,12 +38,12 @@ impl MTL4CommandBufferOptions {
         /// Shader functions log messages until the command buffer ends.
         #[unsafe(method(logState))]
         #[unsafe(method_family = none)]
-        pub unsafe fn log_state(&self) -> Option<Retained<ProtocolObject<dyn MTLLogState>>>;
+        pub fn log_state(&self) -> Option<Retained<ProtocolObject<dyn MTLLogState>>>;
 
         /// Setter for [`logState`][Self::logState].
         #[unsafe(method(setLogState:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_log_state(&self, log_state: Option<&ProtocolObject<dyn MTLLogState>>);
+        pub fn set_log_state(&self, log_state: Option<&ProtocolObject<dyn MTLLogState>>);
     );
 }
 
@@ -52,10 +52,10 @@ impl MTL4CommandBufferOptions {
     extern_methods!(
         #[unsafe(method(init))]
         #[unsafe(method_family = init)]
-        pub unsafe fn init(this: Allocated<Self>) -> Retained<Self>;
+        pub fn init(this: Allocated<Self>) -> Retained<Self>;
 
         #[unsafe(method(new))]
         #[unsafe(method_family = new)]
-        pub unsafe fn new() -> Retained<Self>;
+        pub fn new() -> Retained<Self>;
     );
 }

@@ -35,7 +35,7 @@ impl MTLBufferLayoutDescriptor {
         /// Setter for [`stride`][Self::stride].
         #[unsafe(method(setStride:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_stride(&self, stride: usize);
+        pub fn set_stride(&self, stride: usize);
 
         #[unsafe(method(stepFunction))]
         #[unsafe(method_family = none)]
@@ -44,7 +44,7 @@ impl MTLBufferLayoutDescriptor {
         /// Setter for [`step_function`][Self::step_function].
         #[unsafe(method(setStepFunction:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_step_function(&self, step_function: MTLStepFunction);
+        pub fn set_step_function(&self, step_function: MTLStepFunction);
 
         #[unsafe(method(stepRate))]
         #[unsafe(method_family = none)]
@@ -53,7 +53,7 @@ impl MTLBufferLayoutDescriptor {
         /// Setter for [`step_rate`][Self::step_rate].
         #[unsafe(method(setStepRate:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_step_rate(&self, step_rate: usize);
+        pub fn set_step_rate(&self, step_rate: usize);
     );
 }
 
@@ -62,10 +62,10 @@ impl MTLBufferLayoutDescriptor {
     extern_methods!(
         #[unsafe(method(init))]
         #[unsafe(method_family = init)]
-        pub unsafe fn init(this: Allocated<Self>) -> Retained<Self>;
+        pub fn init(this: Allocated<Self>) -> Retained<Self>;
 
         #[unsafe(method(new))]
         #[unsafe(method_family = new)]
-        pub unsafe fn new() -> Retained<Self>;
+        pub fn new() -> Retained<Self>;
     );
 }

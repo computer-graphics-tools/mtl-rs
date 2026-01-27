@@ -31,39 +31,39 @@ impl MTLCounterSampleBufferDescriptor {
     extern_methods!(
         #[unsafe(method(counterSet))]
         #[unsafe(method_family = none)]
-        pub unsafe fn counter_set(&self) -> Option<Retained<ProtocolObject<dyn MTLCounterSet>>>;
+        pub fn counter_set(&self) -> Option<Retained<ProtocolObject<dyn MTLCounterSet>>>;
 
         #[unsafe(method(setCounterSet:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_counter_set(
+        pub fn set_counter_set(
             &self,
             counter_set: Option<&ProtocolObject<dyn MTLCounterSet>>,
         );
 
         #[unsafe(method(label))]
         #[unsafe(method_family = none)]
-        pub unsafe fn label(&self) -> Retained<NSString>;
+        pub fn label(&self) -> Retained<NSString>;
 
         #[unsafe(method(setLabel:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_label(&self, label: &NSString);
+        pub fn set_label(&self, label: &NSString);
 
         /// The storage mode for the sample buffer. Only `Shared` and `Private` may be used.
         #[unsafe(method(storageMode))]
         #[unsafe(method_family = none)]
-        pub unsafe fn storage_mode(&self) -> MTLStorageMode;
+        pub fn storage_mode(&self) -> MTLStorageMode;
 
         #[unsafe(method(setStorageMode:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_storage_mode(&self, mode: MTLStorageMode);
+        pub fn set_storage_mode(&self, mode: MTLStorageMode);
 
         #[unsafe(method(sampleCount))]
         #[unsafe(method_family = none)]
-        pub unsafe fn sample_count(&self) -> usize;
+        pub fn sample_count(&self) -> usize;
 
         #[unsafe(method(setSampleCount:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_sample_count(&self, sample_count: usize);
+        pub fn set_sample_count(&self, sample_count: usize);
     );
 }
 
@@ -71,10 +71,10 @@ impl MTLCounterSampleBufferDescriptor {
     extern_methods!(
         #[unsafe(method(init))]
         #[unsafe(method_family = init)]
-        pub unsafe fn init(this: Allocated<Self>) -> Retained<Self>;
+        pub fn init(this: Allocated<Self>) -> Retained<Self>;
 
         #[unsafe(method(new))]
         #[unsafe(method_family = new)]
-        pub unsafe fn new() -> Retained<Self>;
+        pub fn new() -> Retained<Self>;
     );
 }

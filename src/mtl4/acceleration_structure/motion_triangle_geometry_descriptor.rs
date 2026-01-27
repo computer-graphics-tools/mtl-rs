@@ -42,12 +42,12 @@ impl MTL4AccelerationStructureMotionTriangleGeometryDescriptor {
         /// the vertex buffers it references.
         #[unsafe(method(vertexBuffers))]
         #[unsafe(method_family = none)]
-        pub unsafe fn vertex_buffers(&self) -> MTL4BufferRange;
+        pub fn vertex_buffers(&self) -> MTL4BufferRange;
 
         /// Setter for [`vertexBuffers`][Self::vertexBuffers].
         #[unsafe(method(setVertexBuffers:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_vertex_buffers(&self, vertex_buffers: MTL4BufferRange);
+        pub fn set_vertex_buffers(&self, vertex_buffers: MTL4BufferRange);
 
         /// Defines the format of the vertices in the vertex buffers.
         ///
@@ -55,12 +55,12 @@ impl MTL4AccelerationStructureMotionTriangleGeometryDescriptor {
         /// floating point numbers.
         #[unsafe(method(vertexFormat))]
         #[unsafe(method_family = none)]
-        pub unsafe fn vertex_format(&self) -> MTLAttributeFormat;
+        pub fn vertex_format(&self) -> MTLAttributeFormat;
 
         /// Setter for [`vertexFormat`][Self::vertexFormat].
         #[unsafe(method(setVertexFormat:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_vertex_format(&self, vertex_format: MTLAttributeFormat);
+        pub fn set_vertex_format(&self, vertex_format: MTLAttributeFormat);
 
         /// Sets the stride, in bytes, between vertices in all the vertex buffer.
         ///
@@ -72,12 +72,12 @@ impl MTL4AccelerationStructureMotionTriangleGeometryDescriptor {
         /// Defaults to `0`, which signals the stride matches the size of the ``vertexFormat`` data.
         #[unsafe(method(vertexStride))]
         #[unsafe(method_family = none)]
-        pub unsafe fn vertex_stride(&self) -> NSUInteger;
+        pub fn vertex_stride(&self) -> NSUInteger;
 
         /// Setter for [`vertexStride`][Self::vertexStride].
         #[unsafe(method(setVertexStride:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_vertex_stride(&self, vertex_stride: NSUInteger);
+        pub fn set_vertex_stride(&self, vertex_stride: NSUInteger);
 
         /// Assigns an optional index buffer containing references to vertices in the vertex buffers you reference through the
         /// vertex buffers property.
@@ -86,34 +86,34 @@ impl MTL4AccelerationStructureMotionTriangleGeometryDescriptor {
         /// index buffer.
         #[unsafe(method(indexBuffer))]
         #[unsafe(method_family = none)]
-        pub unsafe fn index_buffer(&self) -> MTL4BufferRange;
+        pub fn index_buffer(&self) -> MTL4BufferRange;
 
         /// Setter for [`indexBuffer`][Self::indexBuffer].
         #[unsafe(method(setIndexBuffer:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_index_buffer(&self, index_buffer: MTL4BufferRange);
+        pub fn set_index_buffer(&self, index_buffer: MTL4BufferRange);
 
         /// Specifies the size of the indices the `indexBuffer` contains, which is typically either 16 or 32-bits for each index.
         #[unsafe(method(indexType))]
         #[unsafe(method_family = none)]
-        pub unsafe fn index_type(&self) -> MTLIndexType;
+        pub fn index_type(&self) -> MTLIndexType;
 
         /// Setter for [`indexType`][Self::indexType].
         #[unsafe(method(setIndexType:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_index_type(&self, index_type: MTLIndexType);
+        pub fn set_index_type(&self, index_type: MTLIndexType);
 
         /// Declares the number of triangles in the vertex buffers that the buffer in the vertex buffers property references.
         ///
         /// All keyframes share the same triangle count.
         #[unsafe(method(triangleCount))]
         #[unsafe(method_family = none)]
-        pub unsafe fn triangle_count(&self) -> NSUInteger;
+        pub fn triangle_count(&self) -> NSUInteger;
 
         /// Setter for [`triangleCount`][Self::triangleCount].
         #[unsafe(method(setTriangleCount:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_triangle_count(&self, triangle_count: NSUInteger);
+        pub fn set_triangle_count(&self, triangle_count: NSUInteger);
 
         /// Assings an optional reference to a buffer containing a `float4x3` transformation matrix.
         ///
@@ -124,12 +124,12 @@ impl MTL4AccelerationStructureMotionTriangleGeometryDescriptor {
         /// the input `vertexBuffer`.
         #[unsafe(method(transformationMatrixBuffer))]
         #[unsafe(method_family = none)]
-        pub unsafe fn transformation_matrix_buffer(&self) -> MTL4BufferRange;
+        pub fn transformation_matrix_buffer(&self) -> MTL4BufferRange;
 
         /// Setter for [`transformationMatrixBuffer`][Self::transformationMatrixBuffer].
         #[unsafe(method(setTransformationMatrixBuffer:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_transformation_matrix_buffer(
+        pub fn set_transformation_matrix_buffer(
             &self,
             transformation_matrix_buffer: MTL4BufferRange,
         );
@@ -142,12 +142,12 @@ impl MTL4AccelerationStructureMotionTriangleGeometryDescriptor {
         /// Defaults to `MTLMatrixLayoutColumnMajor`.
         #[unsafe(method(transformationMatrixLayout))]
         #[unsafe(method_family = none)]
-        pub unsafe fn transformation_matrix_layout(&self) -> MTLMatrixLayout;
+        pub fn transformation_matrix_layout(&self) -> MTLMatrixLayout;
 
         /// Setter for [`transformationMatrixLayout`][Self::transformationMatrixLayout].
         #[unsafe(method(setTransformationMatrixLayout:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_transformation_matrix_layout(
+        pub fn set_transformation_matrix_layout(
             &self,
             transformation_matrix_layout: MTLMatrixLayout,
         );
@@ -159,10 +159,10 @@ impl MTL4AccelerationStructureMotionTriangleGeometryDescriptor {
     extern_methods!(
         #[unsafe(method(init))]
         #[unsafe(method_family = init)]
-        pub unsafe fn init(this: Allocated<Self>) -> Retained<Self>;
+        pub fn init(this: Allocated<Self>) -> Retained<Self>;
 
         #[unsafe(method(new))]
         #[unsafe(method_family = new)]
-        pub unsafe fn new() -> Retained<Self>;
+        pub fn new() -> Retained<Self>;
     );
 }

@@ -44,12 +44,12 @@ impl MTL4PrimitiveAccelerationStructureDescriptor {
         /// The default value of this property is `MTLMotionBorderModeClamp`.
         #[unsafe(method(motionStartBorderMode))]
         #[unsafe(method_family = none)]
-        pub unsafe fn motion_start_border_mode(&self) -> MTLMotionBorderMode;
+        pub fn motion_start_border_mode(&self) -> MTLMotionBorderMode;
 
         /// Setter for [`motionStartBorderMode`][Self::motionStartBorderMode].
         #[unsafe(method(setMotionStartBorderMode:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_motion_start_border_mode(
+        pub fn set_motion_start_border_mode(
             &self,
             motion_start_border_mode: MTLMotionBorderMode,
         );
@@ -61,12 +61,12 @@ impl MTL4PrimitiveAccelerationStructureDescriptor {
         /// Its default value is `MTLMotionBorderModeClamp`.
         #[unsafe(method(motionEndBorderMode))]
         #[unsafe(method_family = none)]
-        pub unsafe fn motion_end_border_mode(&self) -> MTLMotionBorderMode;
+        pub fn motion_end_border_mode(&self) -> MTLMotionBorderMode;
 
         /// Setter for [`motionEndBorderMode`][Self::motionEndBorderMode].
         #[unsafe(method(setMotionEndBorderMode:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_motion_end_border_mode(
+        pub fn set_motion_end_border_mode(
             &self,
             motion_end_border_mode: MTLMotionBorderMode,
         );
@@ -76,36 +76,36 @@ impl MTL4PrimitiveAccelerationStructureDescriptor {
         /// The default value of this property is `0.0f`.
         #[unsafe(method(motionStartTime))]
         #[unsafe(method_family = none)]
-        pub unsafe fn motion_start_time(&self) -> c_float;
+        pub fn motion_start_time(&self) -> c_float;
 
         /// Setter for [`motionStartTime`][Self::motionStartTime].
         #[unsafe(method(setMotionStartTime:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_motion_start_time(&self, motion_start_time: c_float);
+        pub fn set_motion_start_time(&self, motion_start_time: c_float);
 
         /// Configures the motion end time for this geometry.
         ///
         /// The default value of this property is `1.0f`.
         #[unsafe(method(motionEndTime))]
         #[unsafe(method_family = none)]
-        pub unsafe fn motion_end_time(&self) -> c_float;
+        pub fn motion_end_time(&self) -> c_float;
 
         /// Setter for [`motionEndTime`][Self::motionEndTime].
         #[unsafe(method(setMotionEndTime:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_motion_end_time(&self, motion_end_time: c_float);
+        pub fn set_motion_end_time(&self, motion_end_time: c_float);
 
         /// Sets the motion keyframe count.
         ///
         /// This property's default is `1`, indicating no motion.
         #[unsafe(method(motionKeyframeCount))]
         #[unsafe(method_family = none)]
-        pub unsafe fn motion_keyframe_count(&self) -> NSUInteger;
+        pub fn motion_keyframe_count(&self) -> NSUInteger;
 
         /// Setter for [`motionKeyframeCount`][Self::motionKeyframeCount].
         #[unsafe(method(setMotionKeyframeCount:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_motion_keyframe_count(&self, motion_keyframe_count: NSUInteger);
+        pub fn set_motion_keyframe_count(&self, motion_keyframe_count: NSUInteger);
     );
 }
 
@@ -114,11 +114,11 @@ impl MTL4PrimitiveAccelerationStructureDescriptor {
     extern_methods!(
         #[unsafe(method(init))]
         #[unsafe(method_family = init)]
-        pub unsafe fn init(this: Allocated<Self>) -> Retained<Self>;
+        pub fn init(this: Allocated<Self>) -> Retained<Self>;
 
         #[unsafe(method(new))]
         #[unsafe(method_family = new)]
-        pub unsafe fn new() -> Retained<Self>;
+        pub fn new() -> Retained<Self>;
     );
 }
 

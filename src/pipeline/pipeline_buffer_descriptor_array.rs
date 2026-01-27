@@ -20,14 +20,14 @@ impl MTLPipelineBufferDescriptorArray {
     extern_methods!(
         #[unsafe(method(objectAtIndexedSubscript:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn object_at_indexed_subscript(
+        pub fn object_at_indexed_subscript(
             &self,
             buffer_index: usize,
         ) -> Retained<MTLPipelineBufferDescriptor>;
 
         #[unsafe(method(setObject:atIndexedSubscript:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_object_at_indexed_subscript(
+        pub fn set_object_at_indexed_subscript(
             &self,
             buffer: Option<&MTLPipelineBufferDescriptor>,
             buffer_index: usize,

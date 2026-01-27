@@ -32,14 +32,14 @@ impl MTLRasterizationRateMapDescriptor {
         /// Convenience descriptor creation without layers.
         #[unsafe(method(rasterizationRateMapDescriptorWithScreenSize:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn rasterization_rate_map_descriptor_with_screen_size(
+        pub fn rasterization_rate_map_descriptor_with_screen_size(
             screen_size: MTLSize,
         ) -> Retained<MTLRasterizationRateMapDescriptor>;
 
         /// Convenience descriptor creation for a single layer.
         #[unsafe(method(rasterizationRateMapDescriptorWithScreenSize:layer:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn rasterization_rate_map_descriptor_with_screen_size_layer(
+        pub fn rasterization_rate_map_descriptor_with_screen_size_layer(
             screen_size: MTLSize,
             layer: &MTLRasterizationRateLayerDescriptor,
         ) -> Retained<MTLRasterizationRateMapDescriptor>;
@@ -47,7 +47,7 @@ impl MTLRasterizationRateMapDescriptor {
         /// Returns the layer descriptor for the given index, if any.
         #[unsafe(method(layerAtIndex:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn layer_at_index(
+        pub fn layer_at_index(
             &self,
             layer_index: usize,
         ) -> Option<Retained<MTLRasterizationRateLayerDescriptor>>;
@@ -55,7 +55,7 @@ impl MTLRasterizationRateMapDescriptor {
         /// Sets the layer descriptor for the given index.
         #[unsafe(method(setLayer:atIndex:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_layer_at_index(
+        pub fn set_layer_at_index(
             &self,
             layer: Option<&MTLRasterizationRateLayerDescriptor>,
             layer_index: usize,
@@ -64,22 +64,22 @@ impl MTLRasterizationRateMapDescriptor {
         /// Access the modifiable array of layers.
         #[unsafe(method(layers))]
         #[unsafe(method_family = none)]
-        pub unsafe fn layers(&self) -> Retained<MTLRasterizationRateLayerArray>;
+        pub fn layers(&self) -> Retained<MTLRasterizationRateLayerArray>;
 
         /// The screen size in pixels of the region where variable rasterization is applied.
         #[unsafe(method(screenSize))]
         #[unsafe(method_family = none)]
-        pub unsafe fn screen_size(&self) -> MTLSize;
+        pub fn screen_size(&self) -> MTLSize;
 
         /// Setter for [`screen_size`][Self::screen_size].
         #[unsafe(method(setScreenSize:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_screen_size(&self, screen_size: MTLSize);
+        pub fn set_screen_size(&self, screen_size: MTLSize);
 
         /// Number of subsequent non-nil layers starting at index 0.
         #[unsafe(method(layerCount))]
         #[unsafe(method_family = none)]
-        pub unsafe fn layer_count(&self) -> usize;
+        pub fn layer_count(&self) -> usize;
     );
 }
 
@@ -88,11 +88,11 @@ impl MTLRasterizationRateMapDescriptor {
     extern_methods!(
         #[unsafe(method(init))]
         #[unsafe(method_family = init)]
-        pub unsafe fn init(this: Allocated<Self>) -> Retained<Self>;
+        pub fn init(this: Allocated<Self>) -> Retained<Self>;
 
         #[unsafe(method(new))]
         #[unsafe(method_family = new)]
-        pub unsafe fn new() -> Retained<Self>;
+        pub fn new() -> Retained<Self>;
     );
 }
 

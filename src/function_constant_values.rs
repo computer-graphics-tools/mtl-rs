@@ -49,7 +49,7 @@ impl MTLFunctionConstantValues {
         /// Safety: `values` must be a valid pointer to an array of values of the specified `type` large enough to cover `range`.
         #[unsafe(method(setConstantValues:type:withRange:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_constant_values_type_with_range(
+        pub fn set_constant_values_type_with_range(
             &self,
             values: NonNull<c_void>,
             r#type: MTLDataType,
@@ -61,7 +61,7 @@ impl MTLFunctionConstantValues {
         /// Safety: `value` must be a valid pointer to a value of the specified `type`.
         #[unsafe(method(setConstantValue:type:withName:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_constant_value_type_with_name(
+        pub fn set_constant_value_type_with_name(
             &self,
             value: NonNull<c_void>,
             r#type: MTLDataType,

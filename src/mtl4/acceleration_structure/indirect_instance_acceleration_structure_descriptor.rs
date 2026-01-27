@@ -58,12 +58,12 @@ impl MTL4IndirectInstanceAccelerationStructureDescriptor {
         /// You are responsible for ensuring the buffer address the range contains is not zero.
         #[unsafe(method(instanceDescriptorBuffer))]
         #[unsafe(method_family = none)]
-        pub unsafe fn instance_descriptor_buffer(&self) -> MTL4BufferRange;
+        pub fn instance_descriptor_buffer(&self) -> MTL4BufferRange;
 
         /// Setter for [`instanceDescriptorBuffer`][Self::instanceDescriptorBuffer].
         #[unsafe(method(setInstanceDescriptorBuffer:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_instance_descriptor_buffer(
+        pub fn set_instance_descriptor_buffer(
             &self,
             instance_descriptor_buffer: MTL4BufferRange,
         );
@@ -76,12 +76,12 @@ impl MTL4IndirectInstanceAccelerationStructureDescriptor {
         /// Defaults to `0`, indicating the instance descriptors are tightly packed.
         #[unsafe(method(instanceDescriptorStride))]
         #[unsafe(method_family = none)]
-        pub unsafe fn instance_descriptor_stride(&self) -> NSUInteger;
+        pub fn instance_descriptor_stride(&self) -> NSUInteger;
 
         /// Setter for [`instanceDescriptorStride`][Self::instanceDescriptorStride].
         #[unsafe(method(setInstanceDescriptorStride:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_instance_descriptor_stride(&self, instance_descriptor_stride: NSUInteger);
+        pub fn set_instance_descriptor_stride(&self, instance_descriptor_stride: NSUInteger);
 
         /// Controls the maximum number of instance descriptors the instance descriptor buffer can reference.
         ///
@@ -89,12 +89,12 @@ impl MTL4IndirectInstanceAccelerationStructureDescriptor {
         /// via a buffer reference in ``instanceCountBuffer``, is less than or equal to this number.
         #[unsafe(method(maxInstanceCount))]
         #[unsafe(method_family = none)]
-        pub unsafe fn max_instance_count(&self) -> NSUInteger;
+        pub fn max_instance_count(&self) -> NSUInteger;
 
         /// Setter for [`maxInstanceCount`][Self::maxInstanceCount].
         #[unsafe(method(setMaxInstanceCount:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_max_instance_count(&self, max_instance_count: NSUInteger);
+        pub fn set_max_instance_count(&self, max_instance_count: NSUInteger);
 
         /// Provides a reference to a buffer containing the number of instances in the instance descriptor buffer, formatted as a
         /// 32-bit unsigned integer.
@@ -103,12 +103,12 @@ impl MTL4IndirectInstanceAccelerationStructureDescriptor {
         /// via this buffer reference , is less than or equal to the value of property ``maxInstanceCount``.
         #[unsafe(method(instanceCountBuffer))]
         #[unsafe(method_family = none)]
-        pub unsafe fn instance_count_buffer(&self) -> MTL4BufferRange;
+        pub fn instance_count_buffer(&self) -> MTL4BufferRange;
 
         /// Setter for [`instanceCountBuffer`][Self::instanceCountBuffer].
         #[unsafe(method(setInstanceCountBuffer:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_instance_count_buffer(&self, instance_count_buffer: MTL4BufferRange);
+        pub fn set_instance_count_buffer(&self, instance_count_buffer: MTL4BufferRange);
 
         /// Controls the type of instance descriptor that the instance descriptor buffer references.
         ///
@@ -118,14 +118,14 @@ impl MTL4IndirectInstanceAccelerationStructureDescriptor {
         /// `MTLAccelerationStructureInstanceDescriptorTypeIndirect` or `MTLAccelerationStructureInstanceDescriptorTypeIndirectMotion`.
         #[unsafe(method(instanceDescriptorType))]
         #[unsafe(method_family = none)]
-        pub unsafe fn instance_descriptor_type(
+        pub fn instance_descriptor_type(
             &self,
         ) -> MTLAccelerationStructureInstanceDescriptorType;
 
         /// Setter for [`instanceDescriptorType`][Self::instanceDescriptorType].
         #[unsafe(method(setInstanceDescriptorType:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_instance_descriptor_type(
+        pub fn set_instance_descriptor_type(
             &self,
             instance_descriptor_type: MTLAccelerationStructureInstanceDescriptorType,
         );
@@ -139,12 +139,12 @@ impl MTL4IndirectInstanceAccelerationStructureDescriptor {
         /// You are responsible for ensuring the buffer address the range references is not zero when using motion instance descriptors.
         #[unsafe(method(motionTransformBuffer))]
         #[unsafe(method_family = none)]
-        pub unsafe fn motion_transform_buffer(&self) -> MTL4BufferRange;
+        pub fn motion_transform_buffer(&self) -> MTL4BufferRange;
 
         /// Setter for [`motionTransformBuffer`][Self::motionTransformBuffer].
         #[unsafe(method(setMotionTransformBuffer:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_motion_transform_buffer(&self, motion_transform_buffer: MTL4BufferRange);
+        pub fn set_motion_transform_buffer(&self, motion_transform_buffer: MTL4BufferRange);
 
         /// Controls the maximum number of motion transforms in the motion transform buffer.
         ///
@@ -152,12 +152,12 @@ impl MTL4IndirectInstanceAccelerationStructureDescriptor {
         /// ``motionTransformCountBuffer`` references is less than or equal to this number.
         #[unsafe(method(maxMotionTransformCount))]
         #[unsafe(method_family = none)]
-        pub unsafe fn max_motion_transform_count(&self) -> NSUInteger;
+        pub fn max_motion_transform_count(&self) -> NSUInteger;
 
         /// Setter for [`maxMotionTransformCount`][Self::maxMotionTransformCount].
         #[unsafe(method(setMaxMotionTransformCount:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_max_motion_transform_count(&self, max_motion_transform_count: NSUInteger);
+        pub fn set_max_motion_transform_count(&self, max_motion_transform_count: NSUInteger);
 
         /// Associates a buffer reference containing the number of motion transforms in the motion transform buffer, formatted as a
         /// 32-bit unsigned integer.
@@ -166,12 +166,12 @@ impl MTL4IndirectInstanceAccelerationStructureDescriptor {
         /// references is less than or equal to the value of property ``maxMotionTransformCount``.
         #[unsafe(method(motionTransformCountBuffer))]
         #[unsafe(method_family = none)]
-        pub unsafe fn motion_transform_count_buffer(&self) -> MTL4BufferRange;
+        pub fn motion_transform_count_buffer(&self) -> MTL4BufferRange;
 
         /// Setter for [`motionTransformCountBuffer`][Self::motionTransformCountBuffer].
         #[unsafe(method(setMotionTransformCountBuffer:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_motion_transform_count_buffer(
+        pub fn set_motion_transform_count_buffer(
             &self,
             motion_transform_count_buffer: MTL4BufferRange,
         );
@@ -184,12 +184,12 @@ impl MTL4IndirectInstanceAccelerationStructureDescriptor {
         /// Defaults to `MTLMatrixLayoutColumnMajor`.
         #[unsafe(method(instanceTransformationMatrixLayout))]
         #[unsafe(method_family = none)]
-        pub unsafe fn instance_transformation_matrix_layout(&self) -> MTLMatrixLayout;
+        pub fn instance_transformation_matrix_layout(&self) -> MTLMatrixLayout;
 
         /// Setter for [`instanceTransformationMatrixLayout`][Self::instanceTransformationMatrixLayout].
         #[unsafe(method(setInstanceTransformationMatrixLayout:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_instance_transformation_matrix_layout(
+        pub fn set_instance_transformation_matrix_layout(
             &self,
             instance_transformation_matrix_layout: MTLMatrixLayout,
         );
@@ -200,24 +200,24 @@ impl MTL4IndirectInstanceAccelerationStructureDescriptor {
         /// rotation by a quaternion (instead as of part of the matrix), allowing for correct motion interpolation.
         #[unsafe(method(motionTransformType))]
         #[unsafe(method_family = none)]
-        pub unsafe fn motion_transform_type(&self) -> MTLTransformType;
+        pub fn motion_transform_type(&self) -> MTLTransformType;
 
         /// Setter for [`motionTransformType`][Self::motionTransformType].
         #[unsafe(method(setMotionTransformType:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_motion_transform_type(&self, motion_transform_type: MTLTransformType);
+        pub fn set_motion_transform_type(&self, motion_transform_type: MTLTransformType);
 
         /// Sets the stride for motion transform.
         ///
         /// Defaults to `0`, indicating that transforms are tightly packed according to the motion transform type.
         #[unsafe(method(motionTransformStride))]
         #[unsafe(method_family = none)]
-        pub unsafe fn motion_transform_stride(&self) -> NSUInteger;
+        pub fn motion_transform_stride(&self) -> NSUInteger;
 
         /// Setter for [`motionTransformStride`][Self::motionTransformStride].
         #[unsafe(method(setMotionTransformStride:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_motion_transform_stride(&self, motion_transform_stride: NSUInteger);
+        pub fn set_motion_transform_stride(&self, motion_transform_stride: NSUInteger);
     );
 }
 
@@ -226,10 +226,10 @@ impl MTL4IndirectInstanceAccelerationStructureDescriptor {
     extern_methods!(
         #[unsafe(method(init))]
         #[unsafe(method_family = init)]
-        pub unsafe fn init(this: Allocated<Self>) -> Retained<Self>;
+        pub fn init(this: Allocated<Self>) -> Retained<Self>;
 
         #[unsafe(method(new))]
         #[unsafe(method_family = new)]
-        pub unsafe fn new() -> Retained<Self>;
+        pub fn new() -> Retained<Self>;
     );
 }

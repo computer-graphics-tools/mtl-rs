@@ -76,12 +76,12 @@ impl MTLHeapDescriptor {
         /// Availability: macOS 13.0+, iOS 16.0+
         #[unsafe(method(sparsePageSize))]
         #[unsafe(method_family = none)]
-        pub unsafe fn sparse_page_size(&self) -> MTLSparsePageSize;
+        pub fn sparse_page_size(&self) -> MTLSparsePageSize;
 
         /// Setter for [`sparsePageSize`][Self::sparsePageSize].
         #[unsafe(method(setSparsePageSize:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_sparse_page_size(&self, sparse_page_size: MTLSparsePageSize);
+        pub fn set_sparse_page_size(&self, sparse_page_size: MTLSparsePageSize);
 
         /// Set hazard tracking mode for the heap. The default value is `HazardTrackingMode::Default`.
         ///
@@ -122,7 +122,7 @@ impl MTLHeapDescriptor {
         /// Availability: macOS 10.15+, iOS 13.0+
         #[unsafe(method(type))]
         #[unsafe(method_family = none)]
-        pub unsafe fn r#type(&self) -> MTLHeapType;
+        pub fn r#type(&self) -> MTLHeapType;
 
         /// Setter for [`type`][Self::type].
         #[unsafe(method(setType:))]
@@ -141,12 +141,12 @@ impl MTLHeapDescriptor {
         /// Availability: macOS 26.0+, iOS 26.0+
         #[unsafe(method(maxCompatiblePlacementSparsePageSize))]
         #[unsafe(method_family = none)]
-        pub unsafe fn max_compatible_placement_sparse_page_size(&self) -> MTLSparsePageSize;
+        pub fn max_compatible_placement_sparse_page_size(&self) -> MTLSparsePageSize;
 
         /// Setter for [`maxCompatiblePlacementSparsePageSize`][Self::maxCompatiblePlacementSparsePageSize].
         #[unsafe(method(setMaxCompatiblePlacementSparsePageSize:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_max_compatible_placement_sparse_page_size(
+        pub fn set_max_compatible_placement_sparse_page_size(
             &self,
             page_size: MTLSparsePageSize,
         );
@@ -158,10 +158,10 @@ impl MTLHeapDescriptor {
     extern_methods!(
         #[unsafe(method(init))]
         #[unsafe(method_family = init)]
-        pub unsafe fn init(this: Allocated<Self>) -> Retained<Self>;
+        pub fn init(this: Allocated<Self>) -> Retained<Self>;
 
         #[unsafe(method(new))]
         #[unsafe(method_family = new)]
-        pub unsafe fn new() -> Retained<Self>;
+        pub fn new() -> Retained<Self>;
     );
 }

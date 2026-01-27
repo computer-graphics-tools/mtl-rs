@@ -200,7 +200,7 @@ impl MTLRenderPipelineDescriptor {
         /// Setter for [`max_vertex_amplification_count`][Self::max_vertex_amplification_count].
         #[unsafe(method(setMaxVertexAmplificationCount:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_max_vertex_amplification_count(&self, value: usize);
+        pub fn set_max_vertex_amplification_count(&self, value: usize);
 
         /// The array of color attachment descriptors.
         #[unsafe(method(colorAttachments))]
@@ -237,7 +237,7 @@ impl MTLRenderPipelineDescriptor {
         /// Setter for [`input_primitive_topology`][Self::input_primitive_topology].
         #[unsafe(method(setInputPrimitiveTopology:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_input_primitive_topology(&self, topo: MTLPrimitiveTopologyClass);
+        pub fn set_input_primitive_topology(&self, topo: MTLPrimitiveTopologyClass);
 
         /// The vertex descriptor.
         #[unsafe(method(vertexDescriptor))]
@@ -267,12 +267,12 @@ impl MTLRenderPipelineDescriptor {
         /// The shader validation mode.
         #[unsafe(method(shaderValidation))]
         #[unsafe(method_family = none)]
-        pub unsafe fn shader_validation(&self) -> MTLShaderValidation;
+        pub fn shader_validation(&self) -> MTLShaderValidation;
 
         /// Setter for [`shader_validation`][Self::shader_validation].
         #[unsafe(method(setShaderValidation:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_shader_validation(&self, v: MTLShaderValidation);
+        pub fn set_shader_validation(&self, v: MTLShaderValidation);
     );
 }
 
@@ -280,7 +280,7 @@ impl MTLRenderPipelineDescriptor {
     extern_methods!(
         #[unsafe(method(init))]
         #[unsafe(method_family = init)]
-        pub unsafe fn init(this: Allocated<Self>) -> Retained<Self>;
+        pub fn init(this: Allocated<Self>) -> Retained<Self>;
 
         #[unsafe(method(new))]
         #[unsafe(method_family = new)]

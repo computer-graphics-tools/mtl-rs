@@ -110,24 +110,24 @@ impl MTL4CounterHeapDescriptor {
         /// Assigns the type of data that the heap contains.
         #[unsafe(method(type))]
         #[unsafe(method_family = none)]
-        pub unsafe fn r#type(&self) -> MTL4CounterHeapType;
+        pub fn r#type(&self) -> MTL4CounterHeapType;
 
         /// Setter for [`type`][Self::type].
         #[unsafe(method(setType:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_type(&self, r#type: MTL4CounterHeapType);
+        pub fn set_type(&self, r#type: MTL4CounterHeapType);
 
         /// Assigns the number of entries in the heap.
         ///
         /// Each entry represents one item in the heap. The size of the individual entries depends on the heap type.
         #[unsafe(method(count))]
         #[unsafe(method_family = none)]
-        pub unsafe fn count(&self) -> usize;
+        pub fn count(&self) -> usize;
 
         /// Setter for [`count`][Self::count].
         #[unsafe(method(setCount:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_count(&self, count: usize);
+        pub fn set_count(&self, count: usize);
     );
 }
 
@@ -136,11 +136,11 @@ impl MTL4CounterHeapDescriptor {
     extern_methods!(
         #[unsafe(method(init))]
         #[unsafe(method_family = init)]
-        pub unsafe fn init(this: Allocated<Self>) -> Retained<Self>;
+        pub fn init(this: Allocated<Self>) -> Retained<Self>;
 
         #[unsafe(method(new))]
         #[unsafe(method_family = new)]
-        pub unsafe fn new() -> Retained<Self>;
+        pub fn new() -> Retained<Self>;
     );
 }
 

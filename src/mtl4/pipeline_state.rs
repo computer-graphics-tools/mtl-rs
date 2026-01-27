@@ -166,22 +166,22 @@ impl MTL4PipelineOptions {
         /// Controls whether to enable or disable Metal Shader Validation for the pipeline.
         #[unsafe(method(shaderValidation))]
         #[unsafe(method_family = none)]
-        pub unsafe fn shader_validation(&self) -> MTLShaderValidation;
+        pub fn shader_validation(&self) -> MTLShaderValidation;
 
         /// Setter for [`shaderValidation`][Self::shaderValidation].
         #[unsafe(method(setShaderValidation:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_shader_validation(&self, shader_validation: MTLShaderValidation);
+        pub fn set_shader_validation(&self, shader_validation: MTLShaderValidation);
 
         /// Controls whether to include Metal shader reflection in this pipeline.
         #[unsafe(method(shaderReflection))]
         #[unsafe(method_family = none)]
-        pub unsafe fn shader_reflection(&self) -> MTL4ShaderReflection;
+        pub fn shader_reflection(&self) -> MTL4ShaderReflection;
 
         /// Setter for [`shaderReflection`][Self::shaderReflection].
         #[unsafe(method(setShaderReflection:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_shader_reflection(&self, shader_reflection: MTL4ShaderReflection);
+        pub fn set_shader_reflection(&self, shader_reflection: MTL4ShaderReflection);
     );
 }
 
@@ -190,11 +190,11 @@ impl MTL4PipelineOptions {
     extern_methods!(
         #[unsafe(method(init))]
         #[unsafe(method_family = init)]
-        pub unsafe fn init(this: Allocated<Self>) -> Retained<Self>;
+        pub fn init(this: Allocated<Self>) -> Retained<Self>;
 
         #[unsafe(method(new))]
         #[unsafe(method_family = new)]
-        pub unsafe fn new() -> Retained<Self>;
+        pub fn new() -> Retained<Self>;
     );
 }
 
@@ -224,12 +224,12 @@ impl MTL4PipelineDescriptor {
         /// Provides compile-time options when you build the pipeline.
         #[unsafe(method(options))]
         #[unsafe(method_family = none)]
-        pub unsafe fn options(&self) -> Option<Retained<MTL4PipelineOptions>>;
+        pub fn options(&self) -> Option<Retained<MTL4PipelineOptions>>;
 
         /// Setter for [`options`][Self::options].
         #[unsafe(method(setOptions:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_options(&self, options: Option<&MTL4PipelineOptions>);
+        pub fn set_options(&self, options: Option<&MTL4PipelineOptions>);
     );
 }
 
@@ -255,10 +255,10 @@ impl MTL4PipelineDescriptor {
     extern_methods!(
         #[unsafe(method(init))]
         #[unsafe(method_family = init)]
-        pub unsafe fn init(this: Allocated<Self>) -> Retained<Self>;
+        pub fn init(this: Allocated<Self>) -> Retained<Self>;
 
         #[unsafe(method(new))]
         #[unsafe(method_family = new)]
-        pub unsafe fn new() -> Retained<Self>;
+        pub fn new() -> Retained<Self>;
     );
 }

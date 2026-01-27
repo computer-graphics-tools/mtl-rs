@@ -34,48 +34,48 @@ impl MTL4ArgumentTableDescriptor {
         /// The maximum value of this parameter is 31.
         #[unsafe(method(maxBufferBindCount))]
         #[unsafe(method_family = none)]
-        pub unsafe fn max_buffer_bind_count(&self) -> usize;
+        pub fn max_buffer_bind_count(&self) -> usize;
 
         /// Setter for [`maxBufferBindCount`][Self::maxBufferBindCount].
         #[unsafe(method(setMaxBufferBindCount:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_max_buffer_bind_count(&self, max_buffer_bind_count: usize);
+        pub fn set_max_buffer_bind_count(&self, max_buffer_bind_count: usize);
 
         /// Determines the number of texture-binding slots for the argument table.
         ///
         /// The maximum value of this parameter is 128.
         #[unsafe(method(maxTextureBindCount))]
         #[unsafe(method_family = none)]
-        pub unsafe fn max_texture_bind_count(&self) -> usize;
+        pub fn max_texture_bind_count(&self) -> usize;
 
         /// Setter for [`maxTextureBindCount`][Self::maxTextureBindCount].
         #[unsafe(method(setMaxTextureBindCount:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_max_texture_bind_count(&self, max_texture_bind_count: usize);
+        pub fn set_max_texture_bind_count(&self, max_texture_bind_count: usize);
 
         /// Determines the number of sampler state-binding slots for the argument table.
         ///
         /// The maximum value of this parameter is 16.
         #[unsafe(method(maxSamplerStateBindCount))]
         #[unsafe(method_family = none)]
-        pub unsafe fn max_sampler_state_bind_count(&self) -> usize;
+        pub fn max_sampler_state_bind_count(&self) -> usize;
 
         /// Setter for [`maxSamplerStateBindCount`][Self::maxSamplerStateBindCount].
         #[unsafe(method(setMaxSamplerStateBindCount:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_max_sampler_state_bind_count(&self, max_sampler_state_bind_count: usize);
+        pub fn set_max_sampler_state_bind_count(&self, max_sampler_state_bind_count: usize);
 
         /// Configures whether Metal initializes the bindings to nil values upon creation of argument table.
         ///
         /// The default value of this property is false.
         #[unsafe(method(initializeBindings))]
         #[unsafe(method_family = none)]
-        pub unsafe fn initialize_bindings(&self) -> bool;
+        pub fn initialize_bindings(&self) -> bool;
 
         /// Setter for [`initializeBindings`][Self::initializeBindings].
         #[unsafe(method(setInitializeBindings:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_initialize_bindings(&self, initialize_bindings: bool);
+        pub fn set_initialize_bindings(&self, initialize_bindings: bool);
 
         /// Controls whether Metal should reserve memory for attribute strides in the argument table.
         ///
@@ -85,12 +85,12 @@ impl MTL4ArgumentTableDescriptor {
         /// The default value of this property is false.
         #[unsafe(method(supportAttributeStrides))]
         #[unsafe(method_family = none)]
-        pub unsafe fn support_attribute_strides(&self) -> bool;
+        pub fn support_attribute_strides(&self) -> bool;
 
         /// Setter for [`supportAttributeStrides`][Self::supportAttributeStrides].
         #[unsafe(method(setSupportAttributeStrides:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_support_attribute_strides(&self, support_attribute_strides: bool);
+        pub fn set_support_attribute_strides(&self, support_attribute_strides: bool);
     );
 }
 
@@ -99,11 +99,11 @@ impl MTL4ArgumentTableDescriptor {
     extern_methods!(
         #[unsafe(method(init))]
         #[unsafe(method_family = init)]
-        pub unsafe fn init(this: Allocated<Self>) -> Retained<Self>;
+        pub fn init(this: Allocated<Self>) -> Retained<Self>;
 
         #[unsafe(method(new))]
         #[unsafe(method_family = new)]
-        pub unsafe fn new() -> Retained<Self>;
+        pub fn new() -> Retained<Self>;
     );
 }
 

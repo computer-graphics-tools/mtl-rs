@@ -43,7 +43,7 @@ impl MTLCaptureDescriptor {
         /// Safety: `capture_object` should be of the correct type.
         #[unsafe(method(setCaptureObject:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_capture_object(&self, capture_object: Option<&AnyObject>);
+        pub fn set_capture_object(&self, capture_object: Option<&AnyObject>);
 
         /// The destination where you want the GPU trace to be captured to.
         #[unsafe(method(destination))]

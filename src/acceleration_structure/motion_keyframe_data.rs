@@ -27,26 +27,26 @@ impl MTLMotionKeyframeData {
         /// Buffer containing the data of a single keyframe. Multiple keyframes can be interleaved in one MTLBuffer.
         #[unsafe(method(buffer))]
         #[unsafe(method_family = none)]
-        pub unsafe fn buffer(&self) -> Option<Retained<ProtocolObject<dyn MTLBuffer>>>;
+        pub fn buffer(&self) -> Option<Retained<ProtocolObject<dyn MTLBuffer>>>;
 
         /// Setter for [`buffer`][Self::buffer].
         #[unsafe(method(setBuffer:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_buffer(&self, buffer: Option<&ProtocolObject<dyn MTLBuffer>>);
+        pub fn set_buffer(&self, buffer: Option<&ProtocolObject<dyn MTLBuffer>>);
 
         /// Buffer offset. Must be a multiple of 4 bytes.
         #[unsafe(method(offset))]
         #[unsafe(method_family = none)]
-        pub unsafe fn offset(&self) -> usize;
+        pub fn offset(&self) -> usize;
 
         /// Setter for [`offset`][Self::offset].
         #[unsafe(method(setOffset:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_offset(&self, offset: usize);
+        pub fn set_offset(&self, offset: usize);
 
         #[unsafe(method(data))]
         #[unsafe(method_family = none)]
-        pub unsafe fn data() -> Retained<Self>;
+        pub fn data() -> Retained<Self>;
     );
 }
 
@@ -55,10 +55,10 @@ impl MTLMotionKeyframeData {
     extern_methods!(
         #[unsafe(method(init))]
         #[unsafe(method_family = init)]
-        pub unsafe fn init(this: Allocated<Self>) -> Retained<Self>;
+        pub fn init(this: Allocated<Self>) -> Retained<Self>;
 
         #[unsafe(method(new))]
         #[unsafe(method_family = new)]
-        pub unsafe fn new() -> Retained<Self>;
+        pub fn new() -> Retained<Self>;
     );
 }

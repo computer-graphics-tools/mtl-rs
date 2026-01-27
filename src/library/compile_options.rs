@@ -38,26 +38,26 @@ impl MTLCompileOptions {
 
         #[unsafe(method(setPreprocessorMacros:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_preprocessor_macros(
+        pub fn set_preprocessor_macros(
             &self,
             macros: Option<&NSDictionary<NSString, NSObject>>,
         );
 
         #[unsafe(method(mathMode))]
         #[unsafe(method_family = none)]
-        pub unsafe fn math_mode(&self) -> MTLMathMode;
+        pub fn math_mode(&self) -> MTLMathMode;
 
         #[unsafe(method(setMathMode:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_math_mode(&self, math_mode: MTLMathMode);
+        pub fn set_math_mode(&self, math_mode: MTLMathMode);
 
         #[unsafe(method(mathFloatingPointFunctions))]
         #[unsafe(method_family = none)]
-        pub unsafe fn math_floating_point_functions(&self) -> MTLMathFloatingPointFunctions;
+        pub fn math_floating_point_functions(&self) -> MTLMathFloatingPointFunctions;
 
         #[unsafe(method(setMathFloatingPointFunctions:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_math_floating_point_functions(&self, val: MTLMathFloatingPointFunctions);
+        pub fn set_math_floating_point_functions(&self, val: MTLMathFloatingPointFunctions);
 
         #[unsafe(method(languageVersion))]
         #[unsafe(method_family = none)]
@@ -85,51 +85,51 @@ impl MTLCompileOptions {
 
         #[unsafe(method(optimizationLevel))]
         #[unsafe(method_family = none)]
-        pub unsafe fn optimization_level(&self) -> MTLLibraryOptimizationLevel;
+        pub fn optimization_level(&self) -> MTLLibraryOptimizationLevel;
 
         #[unsafe(method(setOptimizationLevel:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_optimization_level(&self, v: MTLLibraryOptimizationLevel);
+        pub fn set_optimization_level(&self, v: MTLLibraryOptimizationLevel);
 
         #[unsafe(method(compileSymbolVisibility))]
         #[unsafe(method_family = none)]
-        pub unsafe fn compile_symbol_visibility(&self) -> MTLCompileSymbolVisibility;
+        pub fn compile_symbol_visibility(&self) -> MTLCompileSymbolVisibility;
 
         #[unsafe(method(setCompileSymbolVisibility:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_compile_symbol_visibility(&self, v: MTLCompileSymbolVisibility);
+        pub fn set_compile_symbol_visibility(&self, v: MTLCompileSymbolVisibility);
 
         #[unsafe(method(allowReferencingUndefinedSymbols))]
         #[unsafe(method_family = none)]
-        pub unsafe fn allow_referencing_undefined_symbols(&self) -> bool;
+        pub fn allow_referencing_undefined_symbols(&self) -> bool;
 
         #[unsafe(method(setAllowReferencingUndefinedSymbols:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_allow_referencing_undefined_symbols(&self, v: bool);
+        pub fn set_allow_referencing_undefined_symbols(&self, v: bool);
 
         #[unsafe(method(maxTotalThreadsPerThreadgroup))]
         #[unsafe(method_family = none)]
-        pub unsafe fn max_total_threads_per_threadgroup(&self) -> usize;
+        pub fn max_total_threads_per_threadgroup(&self) -> usize;
 
         #[unsafe(method(setMaxTotalThreadsPerThreadgroup:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_max_total_threads_per_threadgroup(&self, v: usize);
+        pub fn set_max_total_threads_per_threadgroup(&self, v: usize);
 
         #[unsafe(method(requiredThreadsPerThreadgroup))]
         #[unsafe(method_family = none)]
-        pub unsafe fn required_threads_per_threadgroup(&self) -> MTLSize;
+        pub fn required_threads_per_threadgroup(&self) -> MTLSize;
 
         #[unsafe(method(setRequiredThreadsPerThreadgroup:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_required_threads_per_threadgroup(&self, v: MTLSize);
+        pub fn set_required_threads_per_threadgroup(&self, v: MTLSize);
 
         #[unsafe(method(enableLogging))]
         #[unsafe(method_family = none)]
-        pub unsafe fn enable_logging(&self) -> bool;
+        pub fn enable_logging(&self) -> bool;
 
         #[unsafe(method(setEnableLogging:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_enable_logging(&self, v: bool);
+        pub fn set_enable_logging(&self, v: bool);
     );
 }
 

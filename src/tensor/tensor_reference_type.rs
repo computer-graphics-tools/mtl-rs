@@ -16,12 +16,12 @@ impl MTLTensorReferenceType {
         /// The underlying data format of the tensor.
         #[unsafe(method(tensorDataType))]
         #[unsafe(method_family = none)]
-        pub unsafe fn tensor_data_type(&self) -> MTLTensorDataType;
+        pub fn tensor_data_type(&self) -> MTLTensorDataType;
 
         /// The data format used for indexing into the tensor.
         #[unsafe(method(indexType))]
         #[unsafe(method_family = none)]
-        pub unsafe fn index_type(&self) -> MTLDataType;
+        pub fn index_type(&self) -> MTLDataType;
 
         /// The array of sizes, in elements, one for each dimension of this tensor.
         ///
@@ -29,11 +29,11 @@ impl MTLTensorReferenceType {
         /// rank the shader function specifies, and each extent value is -1.
         #[unsafe(method(dimensions))]
         #[unsafe(method_family = none)]
-        pub unsafe fn dimensions(&self) -> Option<Retained<MTLTensorExtents>>;
+        pub fn dimensions(&self) -> Option<Retained<MTLTensorExtents>>;
 
         /// A value that represents the read/write permissions of the tensor.
         #[unsafe(method(access))]
         #[unsafe(method_family = none)]
-        pub unsafe fn access(&self) -> MTLBindingAccess;
+        pub fn access(&self) -> MTLBindingAccess;
     );
 }

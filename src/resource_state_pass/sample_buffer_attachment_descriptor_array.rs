@@ -22,14 +22,14 @@ impl MTLResourceStatePassSampleBufferAttachmentDescriptorArray {
     extern_methods!(
         #[unsafe(method(objectAtIndexedSubscript:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn object_at_indexed_subscript(
+        pub fn object_at_indexed_subscript(
             &self,
             attachment_index: usize,
         ) -> Retained<MTLResourceStatePassSampleBufferAttachmentDescriptor>;
 
         #[unsafe(method(setObject:atIndexedSubscript:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_object_at_indexed_subscript(
+        pub fn set_object_at_indexed_subscript(
             &self,
             attachment: Option<&MTLResourceStatePassSampleBufferAttachmentDescriptor>,
             attachment_index: usize,
@@ -42,10 +42,10 @@ impl MTLResourceStatePassSampleBufferAttachmentDescriptorArray {
     extern_methods!(
         #[unsafe(method(init))]
         #[unsafe(method_family = init)]
-        pub unsafe fn init(this: Allocated<Self>) -> Retained<Self>;
+        pub fn init(this: Allocated<Self>) -> Retained<Self>;
 
         #[unsafe(method(new))]
         #[unsafe(method_family = new)]
-        pub unsafe fn new() -> Retained<Self>;
+        pub fn new() -> Retained<Self>;
     );
 }

@@ -98,11 +98,11 @@ impl MTLSamplerDescriptor {
 
         #[unsafe(method(reductionMode))]
         #[unsafe(method_family = none)]
-        pub unsafe fn reduction_mode(&self) -> MTLSamplerReductionMode;
+        pub fn reduction_mode(&self) -> MTLSamplerReductionMode;
 
         #[unsafe(method(setReductionMode:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_reduction_mode(&self, mode: MTLSamplerReductionMode);
+        pub fn set_reduction_mode(&self, mode: MTLSamplerReductionMode);
 
         #[unsafe(method(normalizedCoordinates))]
         #[unsafe(method_family = none)]
@@ -138,11 +138,11 @@ impl MTLSamplerDescriptor {
 
         #[unsafe(method(lodBias))]
         #[unsafe(method_family = none)]
-        pub unsafe fn lod_bias(&self) -> c_float;
+        pub fn lod_bias(&self) -> c_float;
 
         #[unsafe(method(setLodBias:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_lod_bias(&self, v: c_float);
+        pub fn set_lod_bias(&self, v: c_float);
 
         #[unsafe(method(supportArgumentBuffers))]
         #[unsafe(method_family = none)]

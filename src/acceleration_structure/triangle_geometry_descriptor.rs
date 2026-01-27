@@ -37,7 +37,7 @@ impl MTLAccelerationStructureTriangleGeometryDescriptor {
         /// according to the vertex format. Must not be nil.
         #[unsafe(method(vertexBuffer))]
         #[unsafe(method_family = none)]
-        pub unsafe fn vertex_buffer(&self) -> Option<Retained<ProtocolObject<dyn MTLBuffer>>>;
+        pub fn vertex_buffer(&self) -> Option<Retained<ProtocolObject<dyn MTLBuffer>>>;
 
         /// Setter for [`vertexBuffer`][Self::vertexBuffer].
         #[unsafe(method(setVertexBuffer:))]
@@ -48,29 +48,29 @@ impl MTLAccelerationStructureTriangleGeometryDescriptor {
         /// platform's buffer offset alignment.
         #[unsafe(method(vertexBufferOffset))]
         #[unsafe(method_family = none)]
-        pub unsafe fn vertex_buffer_offset(&self) -> usize;
+        pub fn vertex_buffer_offset(&self) -> usize;
 
         /// Setter for [`vertexBufferOffset`][Self::vertexBufferOffset].
         #[unsafe(method(setVertexBufferOffset:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_vertex_buffer_offset(&self, vertex_buffer_offset: usize);
+        pub fn set_vertex_buffer_offset(&self, vertex_buffer_offset: usize);
 
         /// Format type of the vertex buffer.
         /// Defaults to MTLAttributeFormatFloat3 (packed).
         #[unsafe(method(vertexFormat))]
         #[unsafe(method_family = none)]
-        pub unsafe fn vertex_format(&self) -> MTLAttributeFormat;
+        pub fn vertex_format(&self) -> MTLAttributeFormat;
 
         /// Setter for [`vertexFormat`][Self::vertexFormat].
         #[unsafe(method(setVertexFormat:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_vertex_format(&self, vertex_format: MTLAttributeFormat);
+        pub fn set_vertex_format(&self, vertex_format: MTLAttributeFormat);
 
         /// Stride, in bytes, between vertices in the vertex buffer. Must be a multiple of the vertex format data type size and must be aligned to
         /// the vertex format data type's alignment. Defaults to 0, which will result in a stride of the vertex format data size.
         #[unsafe(method(vertexStride))]
         #[unsafe(method_family = none)]
-        pub unsafe fn vertex_stride(&self) -> usize;
+        pub fn vertex_stride(&self) -> usize;
 
         /// Setter for [`vertexStride`][Self::vertexStride].
         #[unsafe(method(setVertexStride:))]
@@ -80,7 +80,7 @@ impl MTLAccelerationStructureTriangleGeometryDescriptor {
         /// Optional index buffer containing references to vertices in the vertex buffer. May be nil.
         #[unsafe(method(indexBuffer))]
         #[unsafe(method_family = none)]
-        pub unsafe fn index_buffer(&self) -> Option<Retained<ProtocolObject<dyn MTLBuffer>>>;
+        pub fn index_buffer(&self) -> Option<Retained<ProtocolObject<dyn MTLBuffer>>>;
 
         /// Setter for [`indexBuffer`][Self::indexBuffer].
         #[unsafe(method(setIndexBuffer:))]
@@ -91,27 +91,27 @@ impl MTLAccelerationStructureTriangleGeometryDescriptor {
         /// the index data type's alignment and the platform's buffer offset alignment.
         #[unsafe(method(indexBufferOffset))]
         #[unsafe(method_family = none)]
-        pub unsafe fn index_buffer_offset(&self) -> usize;
+        pub fn index_buffer_offset(&self) -> usize;
 
         /// Setter for [`indexBufferOffset`][Self::indexBufferOffset].
         #[unsafe(method(setIndexBufferOffset:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_index_buffer_offset(&self, index_buffer_offset: usize);
+        pub fn set_index_buffer_offset(&self, index_buffer_offset: usize);
 
         /// Index type
         #[unsafe(method(indexType))]
         #[unsafe(method_family = none)]
-        pub unsafe fn index_type(&self) -> MTLIndexType;
+        pub fn index_type(&self) -> MTLIndexType;
 
         /// Setter for [`indexType`][Self::indexType].
         #[unsafe(method(setIndexType:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_index_type(&self, index_type: MTLIndexType);
+        pub fn set_index_type(&self, index_type: MTLIndexType);
 
         /// Number of triangles
         #[unsafe(method(triangleCount))]
         #[unsafe(method_family = none)]
-        pub unsafe fn triangle_count(&self) -> usize;
+        pub fn triangle_count(&self) -> usize;
 
         /// Setter for [`triangleCount`][Self::triangleCount].
         #[unsafe(method(setTriangleCount:))]
@@ -122,14 +122,14 @@ impl MTLAccelerationStructureTriangleGeometryDescriptor {
         /// When set to nil, transformation matrix is not applied to vertex data.
         #[unsafe(method(transformationMatrixBuffer))]
         #[unsafe(method_family = none)]
-        pub unsafe fn transformation_matrix_buffer(
+        pub fn transformation_matrix_buffer(
             &self,
         ) -> Option<Retained<ProtocolObject<dyn MTLBuffer>>>;
 
         /// Setter for [`transformationMatrixBuffer`][Self::transformationMatrixBuffer].
         #[unsafe(method(setTransformationMatrixBuffer:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_transformation_matrix_buffer(
+        pub fn set_transformation_matrix_buffer(
             &self,
             transformation_matrix_buffer: Option<&ProtocolObject<dyn MTLBuffer>>,
         );
@@ -137,12 +137,12 @@ impl MTLAccelerationStructureTriangleGeometryDescriptor {
         /// Transformation matrix buffer offset. Must be a multiple of 4 bytes. Defaults to 0.
         #[unsafe(method(transformationMatrixBufferOffset))]
         #[unsafe(method_family = none)]
-        pub unsafe fn transformation_matrix_buffer_offset(&self) -> usize;
+        pub fn transformation_matrix_buffer_offset(&self) -> usize;
 
         /// Setter for [`transformationMatrixBufferOffset`][Self::transformationMatrixBufferOffset].
         #[unsafe(method(setTransformationMatrixBufferOffset:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_transformation_matrix_buffer_offset(
+        pub fn set_transformation_matrix_buffer_offset(
             &self,
             transformation_matrix_buffer_offset: usize,
         );
@@ -151,12 +151,12 @@ impl MTLAccelerationStructureTriangleGeometryDescriptor {
         /// matrix buffer. Defaults to MTLMatrixLayoutColumnMajor.
         #[unsafe(method(transformationMatrixLayout))]
         #[unsafe(method_family = none)]
-        pub unsafe fn transformation_matrix_layout(&self) -> MTLMatrixLayout;
+        pub fn transformation_matrix_layout(&self) -> MTLMatrixLayout;
 
         /// Setter for [`transformationMatrixLayout`][Self::transformationMatrixLayout].
         #[unsafe(method(setTransformationMatrixLayout:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_transformation_matrix_layout(
+        pub fn set_transformation_matrix_layout(
             &self,
             transformation_matrix_layout: MTLMatrixLayout,
         );
@@ -172,10 +172,10 @@ impl MTLAccelerationStructureTriangleGeometryDescriptor {
     extern_methods!(
         #[unsafe(method(init))]
         #[unsafe(method_family = init)]
-        pub unsafe fn init(this: Allocated<Self>) -> Retained<Self>;
+        pub fn init(this: Allocated<Self>) -> Retained<Self>;
 
         #[unsafe(method(new))]
         #[unsafe(method_family = new)]
-        pub unsafe fn new() -> Retained<Self>;
+        pub fn new() -> Retained<Self>;
     );
 }

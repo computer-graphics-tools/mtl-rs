@@ -29,22 +29,22 @@ impl MTLResourceStatePassSampleBufferAttachmentDescriptor {
         /// The sample index to use to store the sample taken at the start of encoder processing.
         #[unsafe(method(startOfEncoderSampleIndex))]
         #[unsafe(method_family = none)]
-        pub unsafe fn start_of_encoder_sample_index(&self) -> usize;
+        pub fn start_of_encoder_sample_index(&self) -> usize;
 
         /// Setter for [`start_of_encoder_sample_index`][Self::start_of_encoder_sample_index].
         #[unsafe(method(setStartOfEncoderSampleIndex:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_start_of_encoder_sample_index(&self, index: usize);
+        pub fn set_start_of_encoder_sample_index(&self, index: usize);
 
         /// The sample index to use to store the sample taken at the end of encoder processing.
         #[unsafe(method(endOfEncoderSampleIndex))]
         #[unsafe(method_family = none)]
-        pub unsafe fn end_of_encoder_sample_index(&self) -> usize;
+        pub fn end_of_encoder_sample_index(&self) -> usize;
 
         /// Setter for [`end_of_encoder_sample_index`][Self::end_of_encoder_sample_index].
         #[unsafe(method(setEndOfEncoderSampleIndex:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_end_of_encoder_sample_index(&self, index: usize);
+        pub fn set_end_of_encoder_sample_index(&self, index: usize);
     );
 }
 
@@ -53,10 +53,10 @@ impl MTLResourceStatePassSampleBufferAttachmentDescriptor {
     extern_methods!(
         #[unsafe(method(init))]
         #[unsafe(method_family = init)]
-        pub unsafe fn init(this: Allocated<Self>) -> Retained<Self>;
+        pub fn init(this: Allocated<Self>) -> Retained<Self>;
 
         #[unsafe(method(new))]
         #[unsafe(method_family = new)]
-        pub unsafe fn new() -> Retained<Self>;
+        pub fn new() -> Retained<Self>;
     );
 }

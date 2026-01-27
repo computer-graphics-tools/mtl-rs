@@ -56,7 +56,7 @@ impl MTLAccelerationStructurePassSampleBufferAttachmentDescriptor {
         /// taken for that action.
         #[unsafe(method(sampleBuffer))]
         #[unsafe(method_family = none)]
-        pub unsafe fn sample_buffer(
+        pub fn sample_buffer(
             &self,
         ) -> Option<Retained<ProtocolObject<dyn MTLCounterSampleBuffer>>>;
 
@@ -65,7 +65,7 @@ impl MTLAccelerationStructurePassSampleBufferAttachmentDescriptor {
         /// `MTLCounterDontSample`.
         #[unsafe(method(setSampleBuffer:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_sample_buffer(
+        pub fn set_sample_buffer(
             &self,
             sample_buffer: Option<&ProtocolObject<dyn MTLCounterSampleBuffer>>,
         );
@@ -77,11 +77,11 @@ impl MTLAccelerationStructurePassSampleBufferAttachmentDescriptor {
         /// will fail.
         #[unsafe(method(startOfEncoderSampleIndex))]
         #[unsafe(method_family = none)]
-        pub unsafe fn start_of_encoder_sample_index(&self) -> usize;
+        pub fn start_of_encoder_sample_index(&self) -> usize;
 
         #[unsafe(method(setStartOfEncoderSampleIndex:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_start_of_encoder_sample_index(&self, value: usize);
+        pub fn set_start_of_encoder_sample_index(&self, value: usize);
 
         /// Sample index used to store the sample taken at the end of command
         /// encoder processing. Set to `MTLCounterDontSample` to omit.
@@ -90,11 +90,11 @@ impl MTLAccelerationStructurePassSampleBufferAttachmentDescriptor {
         /// will fail.
         #[unsafe(method(endOfEncoderSampleIndex))]
         #[unsafe(method_family = none)]
-        pub unsafe fn end_of_encoder_sample_index(&self) -> usize;
+        pub fn end_of_encoder_sample_index(&self) -> usize;
 
         #[unsafe(method(setEndOfEncoderSampleIndex:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_end_of_encoder_sample_index(&self, value: usize);
+        pub fn set_end_of_encoder_sample_index(&self, value: usize);
     );
 }
 
@@ -102,10 +102,10 @@ impl MTLAccelerationStructurePassSampleBufferAttachmentDescriptor {
     extern_methods!(
         #[unsafe(method(init))]
         #[unsafe(method_family = init)]
-        pub unsafe fn init(this: Allocated<Self>) -> Retained<Self>;
+        pub fn init(this: Allocated<Self>) -> Retained<Self>;
 
         #[unsafe(method(new))]
         #[unsafe(method_family = new)]
-        pub unsafe fn new() -> Retained<Self>;
+        pub fn new() -> Retained<Self>;
     );
 }

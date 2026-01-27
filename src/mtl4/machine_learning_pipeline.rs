@@ -37,7 +37,7 @@ impl MTL4MachineLearningPipelineDescriptor {
         /// Assigns the function that the machine learning pipeline you create from this descriptor executes.
         #[unsafe(method(machineLearningFunctionDescriptor))]
         #[unsafe(method_family = none)]
-        pub unsafe fn machine_learning_function_descriptor(
+        pub fn machine_learning_function_descriptor(
             &self,
         ) -> Option<Retained<MTL4FunctionDescriptor>>;
 
@@ -46,7 +46,7 @@ impl MTL4MachineLearningPipelineDescriptor {
         /// This is [copied][objc2_foundation::NSCopying::copy] when set.
         #[unsafe(method(setMachineLearningFunctionDescriptor:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_machine_learning_function_descriptor(
+        pub fn set_machine_learning_function_descriptor(
             &self,
             machine_learning_function_descriptor: Option<&MTL4FunctionDescriptor>,
         );
@@ -58,7 +58,7 @@ impl MTL4MachineLearningPipelineDescriptor {
         /// - bufferIndex: Index of the tensor to modify.
         #[unsafe(method(setInputDimensions:atBufferIndex:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_input_dimensions_at_buffer_index(
+        pub fn set_input_dimensions_at_buffer_index(
             &self,
             dimensions: Option<&MTLTensorExtents>,
             buffer_index: NSInteger,
@@ -67,7 +67,7 @@ impl MTL4MachineLearningPipelineDescriptor {
         /// Obtains the dimensions of the input tensor at `bufferIndex` if set, `nil` otherwise.
         #[unsafe(method(inputDimensionsAtBufferIndex:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn input_dimensions_at_buffer_index(
+        pub fn input_dimensions_at_buffer_index(
             &self,
             buffer_index: NSInteger,
         ) -> Option<Retained<MTLTensorExtents>>;
@@ -75,7 +75,7 @@ impl MTL4MachineLearningPipelineDescriptor {
         /// Resets the descriptor to its default values.
         #[unsafe(method(reset))]
         #[unsafe(method_family = none)]
-        pub unsafe fn reset(&self);
+        pub fn reset(&self);
     );
 }
 
@@ -84,11 +84,11 @@ impl MTL4MachineLearningPipelineDescriptor {
     extern_methods!(
         #[unsafe(method(init))]
         #[unsafe(method_family = init)]
-        pub unsafe fn init(this: Allocated<Self>) -> Retained<Self>;
+        pub fn init(this: Allocated<Self>) -> Retained<Self>;
 
         #[unsafe(method(new))]
         #[unsafe(method_family = new)]
-        pub unsafe fn new() -> Retained<Self>;
+        pub fn new() -> Retained<Self>;
     );
 }
 
@@ -157,7 +157,7 @@ impl MTL4MachineLearningPipelineReflection {
         /// Describes every input and output of the pipeline.
         #[unsafe(method(bindings))]
         #[unsafe(method_family = none)]
-        pub unsafe fn bindings(&self) -> Retained<NSArray<ProtocolObject<dyn MTLBinding>>>;
+        pub fn bindings(&self) -> Retained<NSArray<ProtocolObject<dyn MTLBinding>>>;
     );
 }
 
@@ -166,11 +166,11 @@ impl MTL4MachineLearningPipelineReflection {
     extern_methods!(
         #[unsafe(method(init))]
         #[unsafe(method_family = init)]
-        pub unsafe fn init(this: Allocated<Self>) -> Retained<Self>;
+        pub fn init(this: Allocated<Self>) -> Retained<Self>;
 
         #[unsafe(method(new))]
         #[unsafe(method_family = new)]
-        pub unsafe fn new() -> Retained<Self>;
+        pub fn new() -> Retained<Self>;
     );
 }
 

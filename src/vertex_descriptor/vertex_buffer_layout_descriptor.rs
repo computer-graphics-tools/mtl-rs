@@ -35,7 +35,7 @@ impl MTLVertexBufferLayoutDescriptor {
         /// Setter for [`stride`][Self::stride].
         #[unsafe(method(setStride:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_stride(&self, stride: usize);
+        pub fn set_stride(&self, stride: usize);
 
         #[unsafe(method(stepFunction))]
         #[unsafe(method_family = none)]
@@ -44,7 +44,7 @@ impl MTLVertexBufferLayoutDescriptor {
         /// Setter for [`stepFunction`][Self::stepFunction].
         #[unsafe(method(setStepFunction:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_step_function(&self, step_function: MTLVertexStepFunction);
+        pub fn set_step_function(&self, step_function: MTLVertexStepFunction);
 
         #[unsafe(method(stepRate))]
         #[unsafe(method_family = none)]
@@ -53,7 +53,7 @@ impl MTLVertexBufferLayoutDescriptor {
         /// Setter for [`stepRate`][Self::stepRate].
         #[unsafe(method(setStepRate:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_step_rate(&self, step_rate: usize);
+        pub fn set_step_rate(&self, step_rate: usize);
     );
 }
 

@@ -28,7 +28,7 @@ impl MTL4CommitOptions {
         /// `block` must be a valid pointer.
         #[unsafe(method(addFeedbackHandler:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn add_feedback_handler(&self, block: MTL4CommitFeedbackHandler);
+        pub fn add_feedback_handler(&self, block: MTL4CommitFeedbackHandler);
     );
 }
 
@@ -37,11 +37,11 @@ impl MTL4CommitOptions {
     extern_methods!(
         #[unsafe(method(init))]
         #[unsafe(method_family = init)]
-        pub unsafe fn init(this: Allocated<Self>) -> Retained<Self>;
+        pub fn init(this: Allocated<Self>) -> Retained<Self>;
 
         #[unsafe(method(new))]
         #[unsafe(method_family = new)]
-        pub unsafe fn new() -> Retained<Self>;
+        pub fn new() -> Retained<Self>;
     );
 }
 
@@ -71,14 +71,14 @@ impl MTL4CommandQueueDescriptor {
         /// Assigns an optional label to the command queue instance for debugging purposes.
         #[unsafe(method(label))]
         #[unsafe(method_family = none)]
-        pub unsafe fn label(&self) -> Option<Retained<NSString>>;
+        pub fn label(&self) -> Option<Retained<NSString>>;
 
         /// Setter for [`label`][Self::label].
         ///
         /// This is [copied][objc2_foundation::NSCopying::copy] when set.
         #[unsafe(method(setLabel:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_label(&self, label: Option<&NSString>);
+        pub fn set_label(&self, label: Option<&NSString>);
 
         /// Assigns a dispatch queue to which Metal submits feedback notification blocks.
         ///
@@ -87,7 +87,7 @@ impl MTL4CommandQueueDescriptor {
         /// This is not retained internally, you must ensure the object is still alive.
         #[unsafe(method(feedbackQueue))]
         #[unsafe(method_family = none)]
-        pub unsafe fn feedback_queue(&self) -> Option<Retained<dispatch2::DispatchQueue>>;
+        pub fn feedback_queue(&self) -> Option<Retained<dispatch2::DispatchQueue>>;
 
         /// Setter for [`feedbackQueue`][Self::feedbackQueue].
         ///
@@ -96,7 +96,7 @@ impl MTL4CommandQueueDescriptor {
         /// This is unretained, you must ensure the object is kept alive while in use.
         #[unsafe(method(setFeedbackQueue:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_feedback_queue(&self, feedback_queue: Option<&dispatch2::DispatchQueue>);
+        pub fn set_feedback_queue(&self, feedback_queue: Option<&dispatch2::DispatchQueue>);
     );
 }
 
@@ -105,11 +105,11 @@ impl MTL4CommandQueueDescriptor {
     extern_methods!(
         #[unsafe(method(init))]
         #[unsafe(method_family = init)]
-        pub unsafe fn init(this: Allocated<Self>) -> Retained<Self>;
+        pub fn init(this: Allocated<Self>) -> Retained<Self>;
 
         #[unsafe(method(new))]
         #[unsafe(method_family = new)]
-        pub unsafe fn new() -> Retained<Self>;
+        pub fn new() -> Retained<Self>;
     );
 }
 

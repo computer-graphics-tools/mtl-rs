@@ -29,13 +29,13 @@ impl MTLIntersectionFunctionTableDescriptor {
         /// Availability: macOS 11.0+, iOS 14.0+, tvOS 16.0+
         #[unsafe(method(intersectionFunctionTableDescriptor))]
         #[unsafe(method_family = none)]
-        pub unsafe fn intersection_function_table_descriptor()
+        pub fn intersection_function_table_descriptor()
         -> Retained<MTLIntersectionFunctionTableDescriptor>;
 
         /// The number of functions in the table.
         #[unsafe(method(functionCount))]
         #[unsafe(method_family = none)]
-        pub unsafe fn function_count(&self) -> usize;
+        pub fn function_count(&self) -> usize;
 
         /// Setter for [`function_count`][Self::function_count].
         #[unsafe(method(setFunctionCount:))]

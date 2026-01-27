@@ -43,7 +43,7 @@ impl MTLStageInputOutputDescriptor {
         /// Setter for [`index_buffer_index`][Self::index_buffer_index].
         #[unsafe(method(setIndexBufferIndex:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_index_buffer_index(&self, index_buffer_index: usize);
+        pub fn set_index_buffer_index(&self, index_buffer_index: usize);
 
         #[unsafe(method(reset))]
         #[unsafe(method_family = none)]

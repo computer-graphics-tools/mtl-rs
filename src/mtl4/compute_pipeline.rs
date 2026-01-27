@@ -36,7 +36,7 @@ impl MTL4ComputePipelineDescriptor {
         /// represents a function from a Metal library.
         #[unsafe(method(computeFunctionDescriptor))]
         #[unsafe(method_family = none)]
-        pub unsafe fn compute_function_descriptor(
+        pub fn compute_function_descriptor(
             &self,
         ) -> Option<Retained<MTL4FunctionDescriptor>>;
 
@@ -45,7 +45,7 @@ impl MTL4ComputePipelineDescriptor {
         /// This is [copied][objc2_foundation::NSCopying::copy] when set.
         #[unsafe(method(setComputeFunctionDescriptor:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_compute_function_descriptor(
+        pub fn set_compute_function_descriptor(
             &self,
             compute_function_descriptor: Option<&MTL4FunctionDescriptor>,
         );
@@ -54,12 +54,12 @@ impl MTL4ComputePipelineDescriptor {
         /// corresponding thread execution width.
         #[unsafe(method(threadGroupSizeIsMultipleOfThreadExecutionWidth))]
         #[unsafe(method_family = none)]
-        pub unsafe fn thread_group_size_is_multiple_of_thread_execution_width(&self) -> bool;
+        pub fn thread_group_size_is_multiple_of_thread_execution_width(&self) -> bool;
 
         /// Setter for [`threadGroupSizeIsMultipleOfThreadExecutionWidth`][Self::threadGroupSizeIsMultipleOfThreadExecutionWidth].
         #[unsafe(method(setThreadGroupSizeIsMultipleOfThreadExecutionWidth:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_thread_group_size_is_multiple_of_thread_execution_width(
+        pub fn set_thread_group_size_is_multiple_of_thread_execution_width(
             &self,
             thread_group_size_is_multiple_of_thread_execution_width: bool,
         );
@@ -68,12 +68,12 @@ impl MTL4ComputePipelineDescriptor {
         /// compute function.
         #[unsafe(method(maxTotalThreadsPerThreadgroup))]
         #[unsafe(method_family = none)]
-        pub unsafe fn max_total_threads_per_threadgroup(&self) -> usize;
+        pub fn max_total_threads_per_threadgroup(&self) -> usize;
 
         /// Setter for [`maxTotalThreadsPerThreadgroup`][Self::maxTotalThreadsPerThreadgroup].
         #[unsafe(method(setMaxTotalThreadsPerThreadgroup:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_max_total_threads_per_threadgroup(
+        pub fn set_max_total_threads_per_threadgroup(
             &self,
             max_total_threads_per_threadgroup: usize,
         );
@@ -88,12 +88,12 @@ impl MTL4ComputePipelineDescriptor {
         /// This property's default value is `0`, which disables its effect.
         #[unsafe(method(requiredThreadsPerThreadgroup))]
         #[unsafe(method_family = none)]
-        pub unsafe fn required_threads_per_threadgroup(&self) -> MTLSize;
+        pub fn required_threads_per_threadgroup(&self) -> MTLSize;
 
         /// Setter for [`requiredThreadsPerThreadgroup`][Self::requiredThreadsPerThreadgroup].
         #[unsafe(method(setRequiredThreadsPerThreadgroup:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_required_threads_per_threadgroup(
+        pub fn set_required_threads_per_threadgroup(
             &self,
             required_threads_per_threadgroup: MTLSize,
         );
@@ -101,17 +101,17 @@ impl MTL4ComputePipelineDescriptor {
         /// A boolean value indicating whether the compute pipeline supports linking binary functions.
         #[unsafe(method(supportBinaryLinking))]
         #[unsafe(method_family = none)]
-        pub unsafe fn support_binary_linking(&self) -> bool;
+        pub fn support_binary_linking(&self) -> bool;
 
         /// Setter for [`supportBinaryLinking`][Self::supportBinaryLinking].
         #[unsafe(method(setSupportBinaryLinking:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_support_binary_linking(&self, support_binary_linking: bool);
+        pub fn set_support_binary_linking(&self, support_binary_linking: bool);
 
         /// An object that contains information about functions to link to the compute pipeline.
         #[unsafe(method(staticLinkingDescriptor))]
         #[unsafe(method_family = none)]
-        pub unsafe fn static_linking_descriptor(
+        pub fn static_linking_descriptor(
             &self,
         ) -> Option<Retained<MTL4StaticLinkingDescriptor>>;
 
@@ -120,7 +120,7 @@ impl MTL4ComputePipelineDescriptor {
         /// This is [copied][objc2_foundation::NSCopying::copy] when set.
         #[unsafe(method(setStaticLinkingDescriptor:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_static_linking_descriptor(
+        pub fn set_static_linking_descriptor(
             &self,
             static_linking_descriptor: Option<&MTL4StaticLinkingDescriptor>,
         );
@@ -128,14 +128,14 @@ impl MTL4ComputePipelineDescriptor {
         /// A value indicating whether the pipeline supports Metal indirect command buffers.
         #[unsafe(method(supportIndirectCommandBuffers))]
         #[unsafe(method_family = none)]
-        pub unsafe fn support_indirect_command_buffers(
+        pub fn support_indirect_command_buffers(
             &self,
         ) -> MTL4IndirectCommandBufferSupportState;
 
         /// Setter for [`supportIndirectCommandBuffers`][Self::supportIndirectCommandBuffers].
         #[unsafe(method(setSupportIndirectCommandBuffers:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_support_indirect_command_buffers(
+        pub fn set_support_indirect_command_buffers(
             &self,
             support_indirect_command_buffers: MTL4IndirectCommandBufferSupportState,
         );
@@ -143,7 +143,7 @@ impl MTL4ComputePipelineDescriptor {
         /// Resets the descriptor to its default values.
         #[unsafe(method(reset))]
         #[unsafe(method_family = none)]
-        pub unsafe fn reset(&self);
+        pub fn reset(&self);
     );
 }
 
@@ -152,10 +152,10 @@ impl MTL4ComputePipelineDescriptor {
     extern_methods!(
         #[unsafe(method(init))]
         #[unsafe(method_family = init)]
-        pub unsafe fn init(this: Allocated<Self>) -> Retained<Self>;
+        pub fn init(this: Allocated<Self>) -> Retained<Self>;
 
         #[unsafe(method(new))]
         #[unsafe(method_family = new)]
-        pub unsafe fn new() -> Retained<Self>;
+        pub fn new() -> Retained<Self>;
     );
 }

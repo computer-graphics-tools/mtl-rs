@@ -63,48 +63,48 @@ impl MTL4RenderPipelineColorAttachmentDescriptor {
         /// This property defaults to ``MTLPixelFormatInvalid``.
         #[unsafe(method(pixelFormat))]
         #[unsafe(method_family = none)]
-        pub unsafe fn pixel_format(&self) -> MTLPixelFormat;
+        pub fn pixel_format(&self) -> MTLPixelFormat;
 
         /// Setter for [`pixelFormat`][Self::pixelFormat].
         #[unsafe(method(setPixelFormat:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_pixel_format(&self, pixel_format: MTLPixelFormat);
+        pub fn set_pixel_format(&self, pixel_format: MTLPixelFormat);
 
         /// Configure the blend state for color attachments the pipeline state uses.
         ///
         /// This property's default value is ``MTL4BlendStateDisabled``.
         #[unsafe(method(blendingState))]
         #[unsafe(method_family = none)]
-        pub unsafe fn blending_state(&self) -> MTL4BlendState;
+        pub fn blending_state(&self) -> MTL4BlendState;
 
         /// Setter for [`blendingState`][Self::blendingState].
         #[unsafe(method(setBlendingState:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_blending_state(&self, blending_state: MTL4BlendState);
+        pub fn set_blending_state(&self, blending_state: MTL4BlendState);
 
         /// Configures the source RGB blend factor.
         ///
         /// This property defaults to ``MTLBlendFactorOne``.
         #[unsafe(method(sourceRGBBlendFactor))]
         #[unsafe(method_family = none)]
-        pub unsafe fn source_rgb_blend_factor(&self) -> MTLBlendFactor;
+        pub fn source_rgb_blend_factor(&self) -> MTLBlendFactor;
 
         /// Setter for [`sourceRGBBlendFactor`][Self::sourceRGBBlendFactor].
         #[unsafe(method(setSourceRGBBlendFactor:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_source_rgb_blend_factor(&self, source_rgb_blend_factor: MTLBlendFactor);
+        pub fn set_source_rgb_blend_factor(&self, source_rgb_blend_factor: MTLBlendFactor);
 
         /// Configures the destination RGB blend factor.
         ///
         /// This property defaults to ``MTLBlendFactorZero``.
         #[unsafe(method(destinationRGBBlendFactor))]
         #[unsafe(method_family = none)]
-        pub unsafe fn destination_rgb_blend_factor(&self) -> MTLBlendFactor;
+        pub fn destination_rgb_blend_factor(&self) -> MTLBlendFactor;
 
         /// Setter for [`destinationRGBBlendFactor`][Self::destinationRGBBlendFactor].
         #[unsafe(method(setDestinationRGBBlendFactor:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_destination_rgb_blend_factor(
+        pub fn set_destination_rgb_blend_factor(
             &self,
             destination_rgb_blend_factor: MTLBlendFactor,
         );
@@ -114,24 +114,24 @@ impl MTL4RenderPipelineColorAttachmentDescriptor {
         /// This property defaults to ``MTLBlendOperationAdd``.
         #[unsafe(method(rgbBlendOperation))]
         #[unsafe(method_family = none)]
-        pub unsafe fn rgb_blend_operation(&self) -> MTLBlendOperation;
+        pub fn rgb_blend_operation(&self) -> MTLBlendOperation;
 
         /// Setter for [`rgbBlendOperation`][Self::rgbBlendOperation].
         #[unsafe(method(setRgbBlendOperation:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_rgb_blend_operation(&self, rgb_blend_operation: MTLBlendOperation);
+        pub fn set_rgb_blend_operation(&self, rgb_blend_operation: MTLBlendOperation);
 
         /// Configures the source-alpha blend factor.
         ///
         /// This property defaults to ``MTLBlendFactorOne``.
         #[unsafe(method(sourceAlphaBlendFactor))]
         #[unsafe(method_family = none)]
-        pub unsafe fn source_alpha_blend_factor(&self) -> MTLBlendFactor;
+        pub fn source_alpha_blend_factor(&self) -> MTLBlendFactor;
 
         /// Setter for [`sourceAlphaBlendFactor`][Self::sourceAlphaBlendFactor].
         #[unsafe(method(setSourceAlphaBlendFactor:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_source_alpha_blend_factor(
+        pub fn set_source_alpha_blend_factor(
             &self,
             source_alpha_blend_factor: MTLBlendFactor,
         );
@@ -141,12 +141,12 @@ impl MTL4RenderPipelineColorAttachmentDescriptor {
         /// This property defaults to ``MTLBlendFactorZero``.
         #[unsafe(method(destinationAlphaBlendFactor))]
         #[unsafe(method_family = none)]
-        pub unsafe fn destination_alpha_blend_factor(&self) -> MTLBlendFactor;
+        pub fn destination_alpha_blend_factor(&self) -> MTLBlendFactor;
 
         /// Setter for [`destinationAlphaBlendFactor`][Self::destinationAlphaBlendFactor].
         #[unsafe(method(setDestinationAlphaBlendFactor:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_destination_alpha_blend_factor(
+        pub fn set_destination_alpha_blend_factor(
             &self,
             destination_alpha_blend_factor: MTLBlendFactor,
         );
@@ -156,29 +156,29 @@ impl MTL4RenderPipelineColorAttachmentDescriptor {
         /// This property defaults to ``MTLBlendOperationAdd``.
         #[unsafe(method(alphaBlendOperation))]
         #[unsafe(method_family = none)]
-        pub unsafe fn alpha_blend_operation(&self) -> MTLBlendOperation;
+        pub fn alpha_blend_operation(&self) -> MTLBlendOperation;
 
         /// Setter for [`alphaBlendOperation`][Self::alphaBlendOperation].
         #[unsafe(method(setAlphaBlendOperation:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_alpha_blend_operation(&self, alpha_blend_operation: MTLBlendOperation);
+        pub fn set_alpha_blend_operation(&self, alpha_blend_operation: MTLBlendOperation);
 
         /// Configures the color write mask.
         ///
         /// This property defaults to ``MTLColorWriteMaskAll``.
         #[unsafe(method(writeMask))]
         #[unsafe(method_family = none)]
-        pub unsafe fn write_mask(&self) -> MTLColorWriteMask;
+        pub fn write_mask(&self) -> MTLColorWriteMask;
 
         /// Setter for [`writeMask`][Self::writeMask].
         #[unsafe(method(setWriteMask:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_write_mask(&self, write_mask: MTLColorWriteMask);
+        pub fn set_write_mask(&self, write_mask: MTLColorWriteMask);
 
         /// Resets this descriptor to its default state.
         #[unsafe(method(reset))]
         #[unsafe(method_family = none)]
-        pub unsafe fn reset(&self);
+        pub fn reset(&self);
     );
 }
 
@@ -187,11 +187,11 @@ impl MTL4RenderPipelineColorAttachmentDescriptor {
     extern_methods!(
         #[unsafe(method(init))]
         #[unsafe(method_family = init)]
-        pub unsafe fn init(this: Allocated<Self>) -> Retained<Self>;
+        pub fn init(this: Allocated<Self>) -> Retained<Self>;
 
         #[unsafe(method(new))]
         #[unsafe(method_family = new)]
-        pub unsafe fn new() -> Retained<Self>;
+        pub fn new() -> Retained<Self>;
     );
 }
 
@@ -223,7 +223,7 @@ impl MTL4RenderPipelineColorAttachmentDescriptorArray {
         /// - Parameter attachmentIndex: Index of the attachment to access.
         #[unsafe(method(objectAtIndexedSubscript:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn object_at_indexed_subscript(
+        pub fn object_at_indexed_subscript(
             &self,
             attachment_index: usize,
         ) -> Retained<MTL4RenderPipelineColorAttachmentDescriptor>;
@@ -240,7 +240,7 @@ impl MTL4RenderPipelineColorAttachmentDescriptorArray {
         /// - attachmentIndex: the index of the attachment within the array.
         #[unsafe(method(setObject:atIndexedSubscript:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_object_at_indexed_subscript(
+        pub fn set_object_at_indexed_subscript(
             &self,
             attachment: Option<&MTL4RenderPipelineColorAttachmentDescriptor>,
             attachment_index: usize,
@@ -249,7 +249,7 @@ impl MTL4RenderPipelineColorAttachmentDescriptorArray {
         /// Resets the elements of the descriptor array
         #[unsafe(method(reset))]
         #[unsafe(method_family = none)]
-        pub unsafe fn reset(&self);
+        pub fn reset(&self);
     );
 }
 
@@ -258,11 +258,11 @@ impl MTL4RenderPipelineColorAttachmentDescriptorArray {
     extern_methods!(
         #[unsafe(method(init))]
         #[unsafe(method_family = init)]
-        pub unsafe fn init(this: Allocated<Self>) -> Retained<Self>;
+        pub fn init(this: Allocated<Self>) -> Retained<Self>;
 
         #[unsafe(method(new))]
         #[unsafe(method_family = new)]
-        pub unsafe fn new() -> Retained<Self>;
+        pub fn new() -> Retained<Self>;
     );
 }
 
@@ -292,7 +292,7 @@ impl MTL4RenderPipelineBinaryFunctionsDescriptor {
         /// Provides an array of binary functions representing additional binary vertex shader functions.
         #[unsafe(method(vertexAdditionalBinaryFunctions))]
         #[unsafe(method_family = none)]
-        pub unsafe fn vertex_additional_binary_functions(
+        pub fn vertex_additional_binary_functions(
             &self,
         ) -> Option<Retained<NSArray<ProtocolObject<dyn MTL4BinaryFunction>>>>;
 
@@ -301,7 +301,7 @@ impl MTL4RenderPipelineBinaryFunctionsDescriptor {
         /// This is [copied][objc2_foundation::NSCopying::copy] when set.
         #[unsafe(method(setVertexAdditionalBinaryFunctions:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_vertex_additional_binary_functions(
+        pub fn set_vertex_additional_binary_functions(
             &self,
             vertex_additional_binary_functions: Option<
                 &NSArray<ProtocolObject<dyn MTL4BinaryFunction>>,
@@ -311,7 +311,7 @@ impl MTL4RenderPipelineBinaryFunctionsDescriptor {
         /// Provides an array of binary functions representing additional binary fragment shader functions.
         #[unsafe(method(fragmentAdditionalBinaryFunctions))]
         #[unsafe(method_family = none)]
-        pub unsafe fn fragment_additional_binary_functions(
+        pub fn fragment_additional_binary_functions(
             &self,
         ) -> Option<Retained<NSArray<ProtocolObject<dyn MTL4BinaryFunction>>>>;
 
@@ -320,7 +320,7 @@ impl MTL4RenderPipelineBinaryFunctionsDescriptor {
         /// This is [copied][objc2_foundation::NSCopying::copy] when set.
         #[unsafe(method(setFragmentAdditionalBinaryFunctions:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_fragment_additional_binary_functions(
+        pub fn set_fragment_additional_binary_functions(
             &self,
             fragment_additional_binary_functions: Option<
                 &NSArray<ProtocolObject<dyn MTL4BinaryFunction>>,
@@ -330,7 +330,7 @@ impl MTL4RenderPipelineBinaryFunctionsDescriptor {
         /// Provides an array of binary functions representing additional binary tile shader functions.
         #[unsafe(method(tileAdditionalBinaryFunctions))]
         #[unsafe(method_family = none)]
-        pub unsafe fn tile_additional_binary_functions(
+        pub fn tile_additional_binary_functions(
             &self,
         ) -> Option<Retained<NSArray<ProtocolObject<dyn MTL4BinaryFunction>>>>;
 
@@ -339,7 +339,7 @@ impl MTL4RenderPipelineBinaryFunctionsDescriptor {
         /// This is [copied][objc2_foundation::NSCopying::copy] when set.
         #[unsafe(method(setTileAdditionalBinaryFunctions:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_tile_additional_binary_functions(
+        pub fn set_tile_additional_binary_functions(
             &self,
             tile_additional_binary_functions: Option<
                 &NSArray<ProtocolObject<dyn MTL4BinaryFunction>>,
@@ -349,7 +349,7 @@ impl MTL4RenderPipelineBinaryFunctionsDescriptor {
         /// Provides an array of binary functions representing additional binary object shader functions.
         #[unsafe(method(objectAdditionalBinaryFunctions))]
         #[unsafe(method_family = none)]
-        pub unsafe fn object_additional_binary_functions(
+        pub fn object_additional_binary_functions(
             &self,
         ) -> Option<Retained<NSArray<ProtocolObject<dyn MTL4BinaryFunction>>>>;
 
@@ -358,7 +358,7 @@ impl MTL4RenderPipelineBinaryFunctionsDescriptor {
         /// This is [copied][objc2_foundation::NSCopying::copy] when set.
         #[unsafe(method(setObjectAdditionalBinaryFunctions:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_object_additional_binary_functions(
+        pub fn set_object_additional_binary_functions(
             &self,
             object_additional_binary_functions: Option<
                 &NSArray<ProtocolObject<dyn MTL4BinaryFunction>>,
@@ -368,7 +368,7 @@ impl MTL4RenderPipelineBinaryFunctionsDescriptor {
         /// Provides an array of binary functions representing additional binary mesh shader functions.
         #[unsafe(method(meshAdditionalBinaryFunctions))]
         #[unsafe(method_family = none)]
-        pub unsafe fn mesh_additional_binary_functions(
+        pub fn mesh_additional_binary_functions(
             &self,
         ) -> Option<Retained<NSArray<ProtocolObject<dyn MTL4BinaryFunction>>>>;
 
@@ -377,7 +377,7 @@ impl MTL4RenderPipelineBinaryFunctionsDescriptor {
         /// This is [copied][objc2_foundation::NSCopying::copy] when set.
         #[unsafe(method(setMeshAdditionalBinaryFunctions:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_mesh_additional_binary_functions(
+        pub fn set_mesh_additional_binary_functions(
             &self,
             mesh_additional_binary_functions: Option<
                 &NSArray<ProtocolObject<dyn MTL4BinaryFunction>>,
@@ -387,7 +387,7 @@ impl MTL4RenderPipelineBinaryFunctionsDescriptor {
         /// Resets this descriptor to its default state.
         #[unsafe(method(reset))]
         #[unsafe(method_family = none)]
-        pub unsafe fn reset(&self);
+        pub fn reset(&self);
     );
 }
 
@@ -396,11 +396,11 @@ impl MTL4RenderPipelineBinaryFunctionsDescriptor {
     extern_methods!(
         #[unsafe(method(init))]
         #[unsafe(method_family = init)]
-        pub unsafe fn init(this: Allocated<Self>) -> Retained<Self>;
+        pub fn init(this: Allocated<Self>) -> Retained<Self>;
 
         #[unsafe(method(new))]
         #[unsafe(method_family = new)]
-        pub unsafe fn new() -> Retained<Self>;
+        pub fn new() -> Retained<Self>;
     );
 }
 
@@ -433,7 +433,7 @@ impl MTL4RenderPipelineDescriptor {
         /// Assigns the shader function that this pipeline executes for each vertex.
         #[unsafe(method(vertexFunctionDescriptor))]
         #[unsafe(method_family = none)]
-        pub unsafe fn vertex_function_descriptor(&self)
+        pub fn vertex_function_descriptor(&self)
         -> Option<Retained<MTL4FunctionDescriptor>>;
 
         /// Setter for [`vertexFunctionDescriptor`][Self::vertexFunctionDescriptor].
@@ -441,7 +441,7 @@ impl MTL4RenderPipelineDescriptor {
         /// This is [copied][objc2_foundation::NSCopying::copy] when set.
         #[unsafe(method(setVertexFunctionDescriptor:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_vertex_function_descriptor(
+        pub fn set_vertex_function_descriptor(
             &self,
             vertex_function_descriptor: Option<&MTL4FunctionDescriptor>,
         );
@@ -452,7 +452,7 @@ impl MTL4RenderPipelineDescriptor {
         /// ``rasterizationEnabled`` to false.
         #[unsafe(method(fragmentFunctionDescriptor))]
         #[unsafe(method_family = none)]
-        pub unsafe fn fragment_function_descriptor(
+        pub fn fragment_function_descriptor(
             &self,
         ) -> Option<Retained<MTL4FunctionDescriptor>>;
 
@@ -461,7 +461,7 @@ impl MTL4RenderPipelineDescriptor {
         /// This is [copied][objc2_foundation::NSCopying::copy] when set.
         #[unsafe(method(setFragmentFunctionDescriptor:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_fragment_function_descriptor(
+        pub fn set_fragment_function_descriptor(
             &self,
             fragment_function_descriptor: Option<&MTL4FunctionDescriptor>,
         );
@@ -472,34 +472,34 @@ impl MTL4RenderPipelineDescriptor {
         /// in your vertex arrays via the `[[stage_in]]` attribute in Metal Shading Language.
         #[unsafe(method(vertexDescriptor))]
         #[unsafe(method_family = none)]
-        pub unsafe fn vertex_descriptor(&self) -> Option<Retained<MTLVertexDescriptor>>;
+        pub fn vertex_descriptor(&self) -> Option<Retained<MTLVertexDescriptor>>;
 
         /// Setter for [`vertexDescriptor`][Self::vertexDescriptor].
         ///
         /// This is [copied][objc2_foundation::NSCopying::copy] when set.
         #[unsafe(method(setVertexDescriptor:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_vertex_descriptor(&self, vertex_descriptor: Option<&MTLVertexDescriptor>);
+        pub fn set_vertex_descriptor(&self, vertex_descriptor: Option<&MTLVertexDescriptor>);
 
         /// Controls the number of samples this pipeline applies for each fragment.
         #[unsafe(method(rasterSampleCount))]
         #[unsafe(method_family = none)]
-        pub unsafe fn raster_sample_count(&self) -> usize;
+        pub fn raster_sample_count(&self) -> usize;
 
         /// Setter for [`rasterSampleCount`][Self::rasterSampleCount].
         #[unsafe(method(setRasterSampleCount:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_raster_sample_count(&self, raster_sample_count: usize);
+        pub fn set_raster_sample_count(&self, raster_sample_count: usize);
 
         /// Indicates whether to read and use the alpha channel fragment output of color attachments to compute a sample coverage mask.
         #[unsafe(method(alphaToCoverageState))]
         #[unsafe(method_family = none)]
-        pub unsafe fn alpha_to_coverage_state(&self) -> MTL4AlphaToCoverageState;
+        pub fn alpha_to_coverage_state(&self) -> MTL4AlphaToCoverageState;
 
         /// Setter for [`alphaToCoverageState`][Self::alphaToCoverageState].
         #[unsafe(method(setAlphaToCoverageState:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_alpha_to_coverage_state(
+        pub fn set_alpha_to_coverage_state(
             &self,
             alpha_to_coverage_state: MTL4AlphaToCoverageState,
         );
@@ -507,12 +507,12 @@ impl MTL4RenderPipelineDescriptor {
         /// Indicates whether the pipeline forces alpha channel values of color attachments to the largest representable value.
         #[unsafe(method(alphaToOneState))]
         #[unsafe(method_family = none)]
-        pub unsafe fn alpha_to_one_state(&self) -> MTL4AlphaToOneState;
+        pub fn alpha_to_one_state(&self) -> MTL4AlphaToOneState;
 
         /// Setter for [`alphaToOneState`][Self::alphaToOneState].
         #[unsafe(method(setAlphaToOneState:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_alpha_to_one_state(&self, alpha_to_one_state: MTL4AlphaToOneState);
+        pub fn set_alpha_to_one_state(&self, alpha_to_one_state: MTL4AlphaToOneState);
 
         /// Determines whether the pipeline rasterizes primitives.
         ///
@@ -525,12 +525,12 @@ impl MTL4RenderPipelineDescriptor {
         /// don't provide a fragment shader function via function ``fragmentFunctionDescriptor``.
         #[unsafe(method(isRasterizationEnabled))]
         #[unsafe(method_family = none)]
-        pub unsafe fn is_rasterization_enabled(&self) -> bool;
+        pub fn is_rasterization_enabled(&self) -> bool;
 
         /// Setter for [`isRasterizationEnabled`][Self::isRasterizationEnabled].
         #[unsafe(method(setRasterizationEnabled:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_rasterization_enabled(&self, rasterization_enabled: bool);
+        pub fn set_rasterization_enabled(&self, rasterization_enabled: bool);
 
         /// Determines the maximum value that can you can pass as the pipeline's amplification count.
         ///
@@ -538,12 +538,12 @@ impl MTL4RenderPipelineDescriptor {
         /// when using vertex amplification with this pipeline.
         #[unsafe(method(maxVertexAmplificationCount))]
         #[unsafe(method_family = none)]
-        pub unsafe fn max_vertex_amplification_count(&self) -> usize;
+        pub fn max_vertex_amplification_count(&self) -> usize;
 
         /// Setter for [`maxVertexAmplificationCount`][Self::maxVertexAmplificationCount].
         #[unsafe(method(setMaxVertexAmplificationCount:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_max_vertex_amplification_count(
+        pub fn set_max_vertex_amplification_count(
             &self,
             max_vertex_amplification_count: usize,
         );
@@ -551,19 +551,19 @@ impl MTL4RenderPipelineDescriptor {
         /// Accesses an array containing descriptions of the color attachments this pipeline writes to.
         #[unsafe(method(colorAttachments))]
         #[unsafe(method_family = none)]
-        pub unsafe fn color_attachments(
+        pub fn color_attachments(
             &self,
         ) -> Retained<MTL4RenderPipelineColorAttachmentDescriptorArray>;
 
         /// Assigns type of primitive topology this pipeline renders.
         #[unsafe(method(inputPrimitiveTopology))]
         #[unsafe(method_family = none)]
-        pub unsafe fn input_primitive_topology(&self) -> MTLPrimitiveTopologyClass;
+        pub fn input_primitive_topology(&self) -> MTLPrimitiveTopologyClass;
 
         /// Setter for [`inputPrimitiveTopology`][Self::inputPrimitiveTopology].
         #[unsafe(method(setInputPrimitiveTopology:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_input_primitive_topology(
+        pub fn set_input_primitive_topology(
             &self,
             input_primitive_topology: MTLPrimitiveTopologyClass,
         );
@@ -573,7 +573,7 @@ impl MTL4RenderPipelineDescriptor {
         /// Use this property to link extra shader functions to the vertex stage of the render pipeline.
         #[unsafe(method(vertexStaticLinkingDescriptor))]
         #[unsafe(method_family = none)]
-        pub unsafe fn vertex_static_linking_descriptor(
+        pub fn vertex_static_linking_descriptor(
             &self,
         ) -> Retained<MTL4StaticLinkingDescriptor>;
 
@@ -582,7 +582,7 @@ impl MTL4RenderPipelineDescriptor {
         /// This is [copied][objc2_foundation::NSCopying::copy] when set.
         #[unsafe(method(setVertexStaticLinkingDescriptor:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_vertex_static_linking_descriptor(
+        pub fn set_vertex_static_linking_descriptor(
             &self,
             vertex_static_linking_descriptor: Option<&MTL4StaticLinkingDescriptor>,
         );
@@ -592,7 +592,7 @@ impl MTL4RenderPipelineDescriptor {
         /// Use this property to link extra shader functions to the fragment stage of the render pipeline.
         #[unsafe(method(fragmentStaticLinkingDescriptor))]
         #[unsafe(method_family = none)]
-        pub unsafe fn fragment_static_linking_descriptor(
+        pub fn fragment_static_linking_descriptor(
             &self,
         ) -> Retained<MTL4StaticLinkingDescriptor>;
 
@@ -601,7 +601,7 @@ impl MTL4RenderPipelineDescriptor {
         /// This is [copied][objc2_foundation::NSCopying::copy] when set.
         #[unsafe(method(setFragmentStaticLinkingDescriptor:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_fragment_static_linking_descriptor(
+        pub fn set_fragment_static_linking_descriptor(
             &self,
             fragment_static_linking_descriptor: Option<&MTL4StaticLinkingDescriptor>,
         );
@@ -610,23 +610,23 @@ impl MTL4RenderPipelineDescriptor {
         /// adding binary functions to the vertex shader function’s callable functions list.
         #[unsafe(method(supportVertexBinaryLinking))]
         #[unsafe(method_family = none)]
-        pub unsafe fn support_vertex_binary_linking(&self) -> bool;
+        pub fn support_vertex_binary_linking(&self) -> bool;
 
         /// Setter for [`supportVertexBinaryLinking`][Self::supportVertexBinaryLinking].
         #[unsafe(method(setSupportVertexBinaryLinking:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_support_vertex_binary_linking(&self, support_vertex_binary_linking: bool);
+        pub fn set_support_vertex_binary_linking(&self, support_vertex_binary_linking: bool);
 
         /// Indicates whether you can use the pipeline to create new pipelines by
         /// adding binary functions to the fragment shader function’s callable functions list.
         #[unsafe(method(supportFragmentBinaryLinking))]
         #[unsafe(method_family = none)]
-        pub unsafe fn support_fragment_binary_linking(&self) -> bool;
+        pub fn support_fragment_binary_linking(&self) -> bool;
 
         /// Setter for [`supportFragmentBinaryLinking`][Self::supportFragmentBinaryLinking].
         #[unsafe(method(setSupportFragmentBinaryLinking:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_support_fragment_binary_linking(
+        pub fn set_support_fragment_binary_linking(
             &self,
             support_fragment_binary_linking: bool,
         );
@@ -637,14 +637,14 @@ impl MTL4RenderPipelineDescriptor {
         /// physical color attachments.
         #[unsafe(method(colorAttachmentMappingState))]
         #[unsafe(method_family = none)]
-        pub unsafe fn color_attachment_mapping_state(
+        pub fn color_attachment_mapping_state(
             &self,
         ) -> MTL4LogicalToPhysicalColorAttachmentMappingState;
 
         /// Setter for [`colorAttachmentMappingState`][Self::colorAttachmentMappingState].
         #[unsafe(method(setColorAttachmentMappingState:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_color_attachment_mapping_state(
+        pub fn set_color_attachment_mapping_state(
             &self,
             color_attachment_mapping_state: MTL4LogicalToPhysicalColorAttachmentMappingState,
         );
@@ -652,14 +652,14 @@ impl MTL4RenderPipelineDescriptor {
         /// Indicates whether the pipeline supports indirect command buffers.
         #[unsafe(method(supportIndirectCommandBuffers))]
         #[unsafe(method_family = none)]
-        pub unsafe fn support_indirect_command_buffers(
+        pub fn support_indirect_command_buffers(
             &self,
         ) -> MTL4IndirectCommandBufferSupportState;
 
         /// Setter for [`supportIndirectCommandBuffers`][Self::supportIndirectCommandBuffers].
         #[unsafe(method(setSupportIndirectCommandBuffers:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_support_indirect_command_buffers(
+        pub fn set_support_indirect_command_buffers(
             &self,
             support_indirect_command_buffers: MTL4IndirectCommandBufferSupportState,
         );
@@ -667,7 +667,7 @@ impl MTL4RenderPipelineDescriptor {
         /// Resets this descriptor to its default state.
         #[unsafe(method(reset))]
         #[unsafe(method_family = none)]
-        pub unsafe fn reset(&self);
+        pub fn reset(&self);
     );
 }
 
@@ -676,10 +676,10 @@ impl MTL4RenderPipelineDescriptor {
     extern_methods!(
         #[unsafe(method(init))]
         #[unsafe(method_family = init)]
-        pub unsafe fn init(this: Allocated<Self>) -> Retained<Self>;
+        pub fn init(this: Allocated<Self>) -> Retained<Self>;
 
         #[unsafe(method(new))]
         #[unsafe(method_family = new)]
-        pub unsafe fn new() -> Retained<Self>;
+        pub fn new() -> Retained<Self>;
     );
 }

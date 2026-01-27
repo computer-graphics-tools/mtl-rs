@@ -29,7 +29,7 @@ impl MTLVisibleFunctionTableDescriptor {
         /// Create an autoreleased visible function table descriptor
         #[unsafe(method(visibleFunctionTableDescriptor))]
         #[unsafe(method_family = none)]
-        pub unsafe fn visible_function_table_descriptor()
+        pub fn visible_function_table_descriptor()
         -> Retained<MTLVisibleFunctionTableDescriptor>;
 
         /// The number of functions in the table.
@@ -40,7 +40,7 @@ impl MTLVisibleFunctionTableDescriptor {
         /// Setter for [`function_count`][Self::function_count].
         #[unsafe(method(setFunctionCount:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_function_count(&self, function_count: usize);
+        pub fn set_function_count(&self, function_count: usize);
     );
 }
 
@@ -49,10 +49,10 @@ impl MTLVisibleFunctionTableDescriptor {
     extern_methods!(
         #[unsafe(method(init))]
         #[unsafe(method_family = init)]
-        pub unsafe fn init(this: Allocated<Self>) -> Retained<Self>;
+        pub fn init(this: Allocated<Self>) -> Retained<Self>;
 
         #[unsafe(method(new))]
         #[unsafe(method_family = new)]
-        pub unsafe fn new() -> Retained<Self>;
+        pub fn new() -> Retained<Self>;
     );
 }

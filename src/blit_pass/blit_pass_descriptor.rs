@@ -33,7 +33,7 @@ impl MTLBlitPassDescriptor {
         /// Create an autoreleased default frame buffer descriptor.
         #[unsafe(method(blitPassDescriptor))]
         #[unsafe(method_family = none)]
-        pub unsafe fn blit_pass_descriptor() -> Retained<MTLBlitPassDescriptor>;
+        pub fn blit_pass_descriptor() -> Retained<MTLBlitPassDescriptor>;
 
         /// An array of sample buffers and associated sample indices.
         #[unsafe(method(sampleBufferAttachments))]
@@ -48,10 +48,10 @@ impl MTLBlitPassDescriptor {
     extern_methods!(
         #[unsafe(method(init))]
         #[unsafe(method_family = init)]
-        pub unsafe fn init(this: Allocated<Self>) -> Retained<Self>;
+        pub fn init(this: Allocated<Self>) -> Retained<Self>;
 
         #[unsafe(method(new))]
         #[unsafe(method_family = new)]
-        pub unsafe fn new() -> Retained<Self>;
+        pub fn new() -> Retained<Self>;
     );
 }

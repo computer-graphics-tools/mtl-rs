@@ -49,7 +49,7 @@ impl MTLCompressionContext {
     /// Create a new compression context that writes to the file at `path`.
     ///
     /// Safety: `path` must be a valid, null-terminated C string pointer.
-    pub unsafe fn create(
+    pub fn create(
         path: NonNull<c_char>,
         method: MTLIOCompressionMethod,
         chunk_size: usize,
@@ -63,7 +63,7 @@ impl MTLCompressionContext {
     /// Availability: macOS 13.0+, iOS 16.0+
     ///
     /// Safety: `data` must be valid for reads of `size` bytes for the duration of the call.
-    pub unsafe fn append_data(&mut self, data: NonNull<c_void>, size: usize) {
+    pub fn append_data(&mut self, data: NonNull<c_void>, size: usize) {
         unsafe { mtlio_compression_context_append_data(self.0, data, size) };
     }
 
@@ -71,7 +71,7 @@ impl MTLCompressionContext {
     ///
     /// Availability: macOS 13.0+, iOS 16.0+
     /// The handle becomes invalid after this call.
-    pub unsafe fn flush_and_destroy(self) -> MTLCompressionStatus {
+    pub fn flush_and_destroy(self) -> MTLCompressionStatus {
         let status = unsafe { mtlio_flush_and_destroy_compression_context(self.0) };
         core::mem::forget(self);
         status

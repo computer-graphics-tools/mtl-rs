@@ -40,12 +40,12 @@ impl MTL4AccelerationStructureBoundingBoxGeometryDescriptor {
         /// You are responsible for ensuring the buffer address of the range is not zero.
         #[unsafe(method(boundingBoxBuffer))]
         #[unsafe(method_family = none)]
-        pub unsafe fn bounding_box_buffer(&self) -> MTL4BufferRange;
+        pub fn bounding_box_buffer(&self) -> MTL4BufferRange;
 
         /// Setter for [`boundingBoxBuffer`][Self::boundingBoxBuffer].
         #[unsafe(method(setBoundingBoxBuffer:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_bounding_box_buffer(&self, bounding_box_buffer: MTL4BufferRange);
+        pub fn set_bounding_box_buffer(&self, bounding_box_buffer: MTL4BufferRange);
 
         /// Assigns the stride, in bytes, between bounding boxes in the bounding box buffer `boundingBoxBuffer` references.
         ///
@@ -54,22 +54,22 @@ impl MTL4AccelerationStructureBoundingBoxGeometryDescriptor {
         /// This property defaults to `24` bytes.
         #[unsafe(method(boundingBoxStride))]
         #[unsafe(method_family = none)]
-        pub unsafe fn bounding_box_stride(&self) -> NSUInteger;
+        pub fn bounding_box_stride(&self) -> NSUInteger;
 
         /// Setter for [`boundingBoxStride`][Self::boundingBoxStride].
         #[unsafe(method(setBoundingBoxStride:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_bounding_box_stride(&self, bounding_box_stride: NSUInteger);
+        pub fn set_bounding_box_stride(&self, bounding_box_stride: NSUInteger);
 
         /// Describes the number of bounding boxes the `boundingBoxBuffer` contains.
         #[unsafe(method(boundingBoxCount))]
         #[unsafe(method_family = none)]
-        pub unsafe fn bounding_box_count(&self) -> NSUInteger;
+        pub fn bounding_box_count(&self) -> NSUInteger;
 
         /// Setter for [`boundingBoxCount`][Self::boundingBoxCount].
         #[unsafe(method(setBoundingBoxCount:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_bounding_box_count(&self, bounding_box_count: NSUInteger);
+        pub fn set_bounding_box_count(&self, bounding_box_count: NSUInteger);
     );
 }
 
@@ -78,10 +78,10 @@ impl MTL4AccelerationStructureBoundingBoxGeometryDescriptor {
     extern_methods!(
         #[unsafe(method(init))]
         #[unsafe(method_family = init)]
-        pub unsafe fn init(this: Allocated<Self>) -> Retained<Self>;
+        pub fn init(this: Allocated<Self>) -> Retained<Self>;
 
         #[unsafe(method(new))]
         #[unsafe(method_family = new)]
-        pub unsafe fn new() -> Retained<Self>;
+        pub fn new() -> Retained<Self>;
     );
 }

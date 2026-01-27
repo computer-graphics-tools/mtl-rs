@@ -33,14 +33,14 @@ impl MTLAccelerationStructureMotionBoundingBoxGeometryDescriptor {
         /// Bounding box buffer containing MTLAxisAlignedBoundingBoxes similar to what MTLAccelerationStructureBoundingBoxGeometryDescriptor has but array of the values.
         #[unsafe(method(boundingBoxBuffers))]
         #[unsafe(method_family = none)]
-        pub unsafe fn bounding_box_buffers(&self) -> Retained<NSArray<MTLMotionKeyframeData>>;
+        pub fn bounding_box_buffers(&self) -> Retained<NSArray<MTLMotionKeyframeData>>;
 
         /// Setter for [`boundingBoxBuffers`][Self::boundingBoxBuffers].
         ///
         /// This is [copied][objc2_foundation::NSCopying::copy] when set.
         #[unsafe(method(setBoundingBoxBuffers:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_bounding_box_buffers(
+        pub fn set_bounding_box_buffers(
             &self,
             bounding_box_buffers: &NSArray<MTLMotionKeyframeData>,
         );
@@ -49,22 +49,22 @@ impl MTLAccelerationStructureMotionBoundingBoxGeometryDescriptor {
         /// bytes and must be a multiple of 4 bytes. Defaults to 24 bytes.
         #[unsafe(method(boundingBoxStride))]
         #[unsafe(method_family = none)]
-        pub unsafe fn bounding_box_stride(&self) -> usize;
+        pub fn bounding_box_stride(&self) -> usize;
 
         /// Setter for [`boundingBoxStride`][Self::boundingBoxStride].
         #[unsafe(method(setBoundingBoxStride:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_bounding_box_stride(&self, bounding_box_stride: usize);
+        pub fn set_bounding_box_stride(&self, bounding_box_stride: usize);
 
         /// Number of bounding boxes
         #[unsafe(method(boundingBoxCount))]
         #[unsafe(method_family = none)]
-        pub unsafe fn bounding_box_count(&self) -> usize;
+        pub fn bounding_box_count(&self) -> usize;
 
         /// Setter for [`boundingBoxCount`][Self::boundingBoxCount].
         #[unsafe(method(setBoundingBoxCount:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_bounding_box_count(&self, bounding_box_count: usize);
+        pub fn set_bounding_box_count(&self, bounding_box_count: usize);
 
         #[unsafe(method(descriptor))]
         #[unsafe(method_family = none)]
@@ -77,10 +77,10 @@ impl MTLAccelerationStructureMotionBoundingBoxGeometryDescriptor {
     extern_methods!(
         #[unsafe(method(init))]
         #[unsafe(method_family = init)]
-        pub unsafe fn init(this: Allocated<Self>) -> Retained<Self>;
+        pub fn init(this: Allocated<Self>) -> Retained<Self>;
 
         #[unsafe(method(new))]
         #[unsafe(method_family = new)]
-        pub unsafe fn new() -> Retained<Self>;
+        pub fn new() -> Retained<Self>;
     );
 }

@@ -32,14 +32,14 @@ impl MTL4TileRenderPipelineDescriptor {
         /// Configures the tile function that the render pipeline executes for each tile in the tile shader stage.
         #[unsafe(method(tileFunctionDescriptor))]
         #[unsafe(method_family = none)]
-        pub unsafe fn tile_function_descriptor(&self) -> Option<Retained<MTL4FunctionDescriptor>>;
+        pub fn tile_function_descriptor(&self) -> Option<Retained<MTL4FunctionDescriptor>>;
 
         /// Setter for [`tileFunctionDescriptor`][Self::tileFunctionDescriptor].
         ///
         /// This is [copied][objc2_foundation::NSCopying::copy] when set.
         #[unsafe(method(setTileFunctionDescriptor:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_tile_function_descriptor(
+        pub fn set_tile_function_descriptor(
             &self,
             tile_function_descriptor: Option<&MTL4FunctionDescriptor>,
         );
@@ -47,30 +47,30 @@ impl MTL4TileRenderPipelineDescriptor {
         /// Configures the number of samples per pixel used for multisampling.
         #[unsafe(method(rasterSampleCount))]
         #[unsafe(method_family = none)]
-        pub unsafe fn raster_sample_count(&self) -> usize;
+        pub fn raster_sample_count(&self) -> usize;
 
         /// Setter for [`rasterSampleCount`][Self::rasterSampleCount].
         #[unsafe(method(setRasterSampleCount:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_raster_sample_count(&self, raster_sample_count: usize);
+        pub fn set_raster_sample_count(&self, raster_sample_count: usize);
 
         /// Access an array of descriptors that configure the properties of each color attachment in the tile render
         /// pipeline.
         #[unsafe(method(colorAttachments))]
         #[unsafe(method_family = none)]
-        pub unsafe fn color_attachments(
+        pub fn color_attachments(
             &self,
         ) -> Retained<MTLTileRenderPipelineColorAttachmentDescriptorArray>;
 
         /// Indicating whether the size of the threadgroup matches the size of a tile in the render pipeline.
         #[unsafe(method(threadgroupSizeMatchesTileSize))]
         #[unsafe(method_family = none)]
-        pub unsafe fn threadgroup_size_matches_tile_size(&self) -> bool;
+        pub fn threadgroup_size_matches_tile_size(&self) -> bool;
 
         /// Setter for [`threadgroupSizeMatchesTileSize`][Self::threadgroupSizeMatchesTileSize].
         #[unsafe(method(setThreadgroupSizeMatchesTileSize:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_threadgroup_size_matches_tile_size(
+        pub fn set_threadgroup_size_matches_tile_size(
             &self,
             threadgroup_size_matches_tile_size: bool,
         );
@@ -79,12 +79,12 @@ impl MTL4TileRenderPipelineDescriptor {
         /// the tile render pipeline.
         #[unsafe(method(maxTotalThreadsPerThreadgroup))]
         #[unsafe(method_family = none)]
-        pub unsafe fn max_total_threads_per_threadgroup(&self) -> usize;
+        pub fn max_total_threads_per_threadgroup(&self) -> usize;
 
         /// Setter for [`maxTotalThreadsPerThreadgroup`][Self::maxTotalThreadsPerThreadgroup].
         #[unsafe(method(setMaxTotalThreadsPerThreadgroup:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_max_total_threads_per_threadgroup(
+        pub fn set_max_total_threads_per_threadgroup(
             &self,
             max_total_threads_per_threadgroup: usize,
         );
@@ -99,12 +99,12 @@ impl MTL4TileRenderPipelineDescriptor {
         /// Setting this value to a size of 0 in every dimension disables this property.
         #[unsafe(method(requiredThreadsPerThreadgroup))]
         #[unsafe(method_family = none)]
-        pub unsafe fn required_threads_per_threadgroup(&self) -> MTLSize;
+        pub fn required_threads_per_threadgroup(&self) -> MTLSize;
 
         /// Setter for [`requiredThreadsPerThreadgroup`][Self::requiredThreadsPerThreadgroup].
         #[unsafe(method(setRequiredThreadsPerThreadgroup:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_required_threads_per_threadgroup(
+        pub fn set_required_threads_per_threadgroup(
             &self,
             required_threads_per_threadgroup: MTLSize,
         );
@@ -113,14 +113,14 @@ impl MTL4TileRenderPipelineDescriptor {
         /// when Metal builds it.
         #[unsafe(method(staticLinkingDescriptor))]
         #[unsafe(method_family = none)]
-        pub unsafe fn static_linking_descriptor(&self) -> Retained<MTL4StaticLinkingDescriptor>;
+        pub fn static_linking_descriptor(&self) -> Retained<MTL4StaticLinkingDescriptor>;
 
         /// Setter for [`staticLinkingDescriptor`][Self::staticLinkingDescriptor].
         ///
         /// This is [copied][objc2_foundation::NSCopying::copy] when set.
         #[unsafe(method(setStaticLinkingDescriptor:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_static_linking_descriptor(
+        pub fn set_static_linking_descriptor(
             &self,
             static_linking_descriptor: Option<&MTL4StaticLinkingDescriptor>,
         );
@@ -128,17 +128,17 @@ impl MTL4TileRenderPipelineDescriptor {
         /// Indicates whether the pipeline supports linking binary functions.
         #[unsafe(method(supportBinaryLinking))]
         #[unsafe(method_family = none)]
-        pub unsafe fn support_binary_linking(&self) -> bool;
+        pub fn support_binary_linking(&self) -> bool;
 
         /// Setter for [`supportBinaryLinking`][Self::supportBinaryLinking].
         #[unsafe(method(setSupportBinaryLinking:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_support_binary_linking(&self, support_binary_linking: bool);
+        pub fn set_support_binary_linking(&self, support_binary_linking: bool);
 
         /// Resets the descriptor to the default state.
         #[unsafe(method(reset))]
         #[unsafe(method_family = none)]
-        pub unsafe fn reset(&self);
+        pub fn reset(&self);
     );
 }
 
@@ -147,10 +147,10 @@ impl MTL4TileRenderPipelineDescriptor {
     extern_methods!(
         #[unsafe(method(init))]
         #[unsafe(method_family = init)]
-        pub unsafe fn init(this: Allocated<Self>) -> Retained<Self>;
+        pub fn init(this: Allocated<Self>) -> Retained<Self>;
 
         #[unsafe(method(new))]
         #[unsafe(method_family = new)]
-        pub unsafe fn new() -> Retained<Self>;
+        pub fn new() -> Retained<Self>;
     );
 }

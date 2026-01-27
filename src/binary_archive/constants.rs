@@ -9,6 +9,6 @@ unsafe extern "C" {
 
 #[allow(unused)]
 /// Bridged error domain symbol for `MTLBinaryArchive`.
-pub unsafe fn binary_archive_domain() -> &'static NSErrorDomain {
+pub fn binary_archive_domain() -> &'static NSErrorDomain {
     unsafe { MTLBinaryArchiveDomain }
 }

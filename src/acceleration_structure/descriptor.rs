@@ -31,12 +31,12 @@ impl MTLAccelerationStructureDescriptor {
     extern_methods!(
         #[unsafe(method(usage))]
         #[unsafe(method_family = none)]
-        pub unsafe fn usage(&self) -> MTLAccelerationStructureUsage;
+        pub fn usage(&self) -> MTLAccelerationStructureUsage;
 
         /// Setter for [`usage`][Self::usage].
         #[unsafe(method(setUsage:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_usage(&self, usage: MTLAccelerationStructureUsage);
+        pub fn set_usage(&self, usage: MTLAccelerationStructureUsage);
     );
 }
 
@@ -45,10 +45,10 @@ impl MTLAccelerationStructureDescriptor {
     extern_methods!(
         #[unsafe(method(init))]
         #[unsafe(method_family = init)]
-        pub unsafe fn init(this: Allocated<Self>) -> Retained<Self>;
+        pub fn init(this: Allocated<Self>) -> Retained<Self>;
 
         #[unsafe(method(new))]
         #[unsafe(method_family = new)]
-        pub unsafe fn new() -> Retained<Self>;
+        pub fn new() -> Retained<Self>;
     );
 }

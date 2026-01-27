@@ -32,42 +32,42 @@ impl MTLFunctionStitchingGraph {
     extern_methods!(
         #[unsafe(method(nodes))]
         #[unsafe(method_family = none)]
-        pub unsafe fn nodes(&self) -> Retained<NSArray<MTLFunctionStitchingFunctionNode>>;
+        pub fn nodes(&self) -> Retained<NSArray<MTLFunctionStitchingFunctionNode>>;
 
         /// Setter for [`nodes`][Self::nodes].
         #[unsafe(method(setNodes:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_nodes(&self, nodes: &NSArray<MTLFunctionStitchingFunctionNode>);
+        pub fn set_nodes(&self, nodes: &NSArray<MTLFunctionStitchingFunctionNode>);
 
         #[unsafe(method(outputNode))]
         #[unsafe(method_family = none)]
-        pub unsafe fn output_node(&self) -> Option<Retained<MTLFunctionStitchingFunctionNode>>;
+        pub fn output_node(&self) -> Option<Retained<MTLFunctionStitchingFunctionNode>>;
 
         /// Setter for [`output_node`][Self::output_node].
         #[unsafe(method(setOutputNode:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_output_node(
+        pub fn set_output_node(
             &self,
             output_node: Option<&MTLFunctionStitchingFunctionNode>,
         );
 
         #[unsafe(method(attributes))]
         #[unsafe(method_family = none)]
-        pub unsafe fn attributes(
+        pub fn attributes(
             &self,
         ) -> Retained<NSArray<ProtocolObject<dyn super::MTLFunctionStitchingAttribute>>>;
 
         /// Setter for [`attributes`][Self::attributes].
         #[unsafe(method(setAttributes:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_attributes(
+        pub fn set_attributes(
             &self,
             attributes: &NSArray<ProtocolObject<dyn super::MTLFunctionStitchingAttribute>>,
         );
 
         #[unsafe(method(initWithFunctionName:nodes:outputNode:attributes:))]
         #[unsafe(method_family = init)]
-        pub unsafe fn init_with_function_name_nodes_output_node_attributes(
+        pub fn init_with_function_name_nodes_output_node_attributes(
             this: Allocated<Self>,
             function_name: &NSString,
             nodes: &NSArray<MTLFunctionStitchingFunctionNode>,

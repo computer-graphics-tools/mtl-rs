@@ -15,7 +15,7 @@ Add to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-mtl-rs = "0.1.0"
+mtl-rs = "0.1.1"
 ```
 
 ## Usage
@@ -32,11 +32,6 @@ fn main() {
     println!("Max threadgroup size: {:?}", device.max_threads_per_threadgroup());
 }
 ```
-
-## Platforms
-
-- macOS (x86_64, aarch64)
-- iOS (aarch64)
 
 ## License
 

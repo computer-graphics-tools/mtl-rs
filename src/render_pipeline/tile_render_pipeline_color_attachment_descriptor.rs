@@ -31,12 +31,12 @@ impl MTLTileRenderPipelineColorAttachmentDescriptor {
         /// Pixel format.  Defaults to MTLPixelFormatInvalid
         #[unsafe(method(pixelFormat))]
         #[unsafe(method_family = none)]
-        pub unsafe fn pixel_format(&self) -> MTLPixelFormat;
+        pub fn pixel_format(&self) -> MTLPixelFormat;
 
         /// Setter for [`pixelFormat`][Self::pixelFormat].
         #[unsafe(method(setPixelFormat:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_pixel_format(&self, pixel_format: MTLPixelFormat);
+        pub fn set_pixel_format(&self, pixel_format: MTLPixelFormat);
     );
 }
 
@@ -45,10 +45,10 @@ impl MTLTileRenderPipelineColorAttachmentDescriptor {
     extern_methods!(
         #[unsafe(method(init))]
         #[unsafe(method_family = init)]
-        pub unsafe fn init(this: Allocated<Self>) -> Retained<Self>;
+        pub fn init(this: Allocated<Self>) -> Retained<Self>;
 
         #[unsafe(method(new))]
         #[unsafe(method_family = new)]
-        pub unsafe fn new() -> Retained<Self>;
+        pub fn new() -> Retained<Self>;
     );
 }

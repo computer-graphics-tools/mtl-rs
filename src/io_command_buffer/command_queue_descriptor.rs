@@ -33,54 +33,54 @@ impl MTLIOCommandQueueDescriptor {
         /// Maximum number of command buffers in flight.
         #[unsafe(method(maxCommandBufferCount))]
         #[unsafe(method_family = none)]
-        pub unsafe fn max_command_buffer_count(&self) -> usize;
+        pub fn max_command_buffer_count(&self) -> usize;
 
         /// Setter for [`max_command_buffer_count`][Self::max_command_buffer_count].
         #[unsafe(method(setMaxCommandBufferCount:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_max_command_buffer_count(&self, count: usize);
+        pub fn set_max_command_buffer_count(&self, count: usize);
 
         /// Priority of this queue.
         #[unsafe(method(priority))]
         #[unsafe(method_family = none)]
-        pub unsafe fn priority(&self) -> MTLIOPriority;
+        pub fn priority(&self) -> MTLIOPriority;
 
         /// Setter for [`priority`][Self::priority].
         #[unsafe(method(setPriority:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_priority(&self, priority: MTLIOPriority);
+        pub fn set_priority(&self, priority: MTLIOPriority);
 
         /// Type (serial or concurrent) of queue.
         #[unsafe(method(r#type))]
         #[unsafe(method_family = none)]
-        pub unsafe fn queue_type(&self) -> MTLIOCommandQueueType;
+        pub fn queue_type(&self) -> MTLIOCommandQueueType;
 
         /// Setter for [`queue_type`][Self::queue_type].
         #[unsafe(method(setType:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_queue_type(&self, t: MTLIOCommandQueueType);
+        pub fn set_queue_type(&self, t: MTLIOCommandQueueType);
 
         /// Maximum number of IO commands in flight.
         #[unsafe(method(maxCommandsInFlight))]
         #[unsafe(method_family = none)]
-        pub unsafe fn max_commands_in_flight(&self) -> usize;
+        pub fn max_commands_in_flight(&self) -> usize;
 
         /// Setter for [`max_commands_in_flight`][Self::max_commands_in_flight].
         #[unsafe(method(setMaxCommandsInFlight:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_max_commands_in_flight(&self, count: usize);
+        pub fn set_max_commands_in_flight(&self, count: usize);
 
         /// Optional custom allocator for scratch buffers used by the queue.
         #[unsafe(method(scratchBufferAllocator))]
         #[unsafe(method_family = none)]
-        pub unsafe fn scratch_buffer_allocator(
+        pub fn scratch_buffer_allocator(
             &self,
         ) -> Option<Retained<ProtocolObject<dyn MTLIOScratchBufferAllocator>>>;
 
         /// Setter for [`scratch_buffer_allocator`][Self::scratch_buffer_allocator].
         #[unsafe(method(setScratchBufferAllocator:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_scratch_buffer_allocator(
+        pub fn set_scratch_buffer_allocator(
             &self,
             allocator: Option<&ProtocolObject<dyn MTLIOScratchBufferAllocator>>,
         );
@@ -92,10 +92,10 @@ impl MTLIOCommandQueueDescriptor {
     extern_methods!(
         #[unsafe(method(init))]
         #[unsafe(method_family = init)]
-        pub unsafe fn init(this: Allocated<Self>) -> Retained<Self>;
+        pub fn init(this: Allocated<Self>) -> Retained<Self>;
 
         #[unsafe(method(new))]
         #[unsafe(method_family = new)]
-        pub unsafe fn new() -> Retained<Self>;
+        pub fn new() -> Retained<Self>;
     );
 }

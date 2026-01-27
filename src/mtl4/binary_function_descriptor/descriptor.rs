@@ -60,24 +60,24 @@ impl MTL4BinaryFunctionDescriptor {
         /// Provides the function descriptor corresponding to the function to compile into a binary function.
         #[unsafe(method(functionDescriptor))]
         #[unsafe(method_family = none)]
-        pub unsafe fn function_descriptor(&self) -> Retained<MTL4FunctionDescriptor>;
+        pub fn function_descriptor(&self) -> Retained<MTL4FunctionDescriptor>;
 
         /// Setter for [`functionDescriptor`][Self::functionDescriptor].
         ///
         /// This is [copied][objc2_foundation::NSCopying::copy] when set.
         #[unsafe(method(setFunctionDescriptor:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_function_descriptor(&self, function_descriptor: &MTL4FunctionDescriptor);
+        pub fn set_function_descriptor(&self, function_descriptor: &MTL4FunctionDescriptor);
 
         /// Configure the options to use at binary function creation time.
         #[unsafe(method(options))]
         #[unsafe(method_family = none)]
-        pub unsafe fn options(&self) -> MTL4BinaryFunctionOptions;
+        pub fn options(&self) -> MTL4BinaryFunctionOptions;
 
         /// Setter for [`options`][Self::options].
         #[unsafe(method(setOptions:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_options(&self, options: MTL4BinaryFunctionOptions);
+        pub fn set_options(&self, options: MTL4BinaryFunctionOptions);
     );
 }
 
@@ -86,11 +86,11 @@ impl MTL4BinaryFunctionDescriptor {
     extern_methods!(
         #[unsafe(method(init))]
         #[unsafe(method_family = init)]
-        pub unsafe fn init(this: Allocated<Self>) -> Retained<Self>;
+        pub fn init(this: Allocated<Self>) -> Retained<Self>;
 
         #[unsafe(method(new))]
         #[unsafe(method_family = new)]
-        pub unsafe fn new() -> Retained<Self>;
+        pub fn new() -> Retained<Self>;
     );
 }
 

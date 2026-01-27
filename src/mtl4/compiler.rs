@@ -48,26 +48,26 @@ impl MTL4CompilerDescriptor {
         /// Assigns an optional descriptor label to the compiler for debugging purposes.
         #[unsafe(method(label))]
         #[unsafe(method_family = none)]
-        pub unsafe fn label(&self) -> Option<Retained<NSString>>;
+        pub fn label(&self) -> Option<Retained<NSString>>;
 
         /// Setter for [`label`][Self::label].
         ///
         /// This is [copied][objc2_foundation::NSCopying::copy] when set.
         #[unsafe(method(setLabel:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_label(&self, label: Option<&NSString>);
+        pub fn set_label(&self, label: Option<&NSString>);
 
         /// Assigns a pipeline data set serializer into which this compiler stores data for all pipelines it creates.
         #[unsafe(method(pipelineDataSetSerializer))]
         #[unsafe(method_family = none)]
-        pub unsafe fn pipeline_data_set_serializer(
+        pub fn pipeline_data_set_serializer(
             &self,
         ) -> Option<Retained<ProtocolObject<dyn MTL4PipelineDataSetSerializer>>>;
 
         /// Setter for [`pipelineDataSetSerializer`][Self::pipelineDataSetSerializer].
         #[unsafe(method(setPipelineDataSetSerializer:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_pipeline_data_set_serializer(
+        pub fn set_pipeline_data_set_serializer(
             &self,
             pipeline_data_set_serializer: Option<
                 &ProtocolObject<dyn MTL4PipelineDataSetSerializer>,
@@ -81,11 +81,11 @@ impl MTL4CompilerDescriptor {
     extern_methods!(
         #[unsafe(method(init))]
         #[unsafe(method_family = init)]
-        pub unsafe fn init(this: Allocated<Self>) -> Retained<Self>;
+        pub fn init(this: Allocated<Self>) -> Retained<Self>;
 
         #[unsafe(method(new))]
         #[unsafe(method_family = new)]
-        pub unsafe fn new() -> Retained<Self>;
+        pub fn new() -> Retained<Self>;
     );
 }
 
@@ -115,7 +115,7 @@ impl MTL4CompilerTaskOptions {
         /// In case of a match in the archive, the compiler can skip one or more compilation tasks, speeding up the build process.
         #[unsafe(method(lookupArchives))]
         #[unsafe(method_family = none)]
-        pub unsafe fn lookup_archives(
+        pub fn lookup_archives(
             &self,
         ) -> Option<Retained<NSArray<ProtocolObject<dyn MTL4Archive>>>>;
 
@@ -124,7 +124,7 @@ impl MTL4CompilerTaskOptions {
         /// This is [copied][objc2_foundation::NSCopying::copy] when set.
         #[unsafe(method(setLookupArchives:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_lookup_archives(
+        pub fn set_lookup_archives(
             &self,
             lookup_archives: Option<&NSArray<ProtocolObject<dyn MTL4Archive>>>,
         );
@@ -136,11 +136,11 @@ impl MTL4CompilerTaskOptions {
     extern_methods!(
         #[unsafe(method(init))]
         #[unsafe(method_family = init)]
-        pub unsafe fn init(this: Allocated<Self>) -> Retained<Self>;
+        pub fn init(this: Allocated<Self>) -> Retained<Self>;
 
         #[unsafe(method(new))]
         #[unsafe(method_family = new)]
-        pub unsafe fn new() -> Retained<Self>;
+        pub fn new() -> Retained<Self>;
     );
 }
 

@@ -81,12 +81,12 @@ impl MTL4PipelineDataSetSerializerDescriptor {
         /// serialize to a binary archive by calling ``serializeAsArchiveAndFlushToURL:error::``.
         #[unsafe(method(configuration))]
         #[unsafe(method_family = none)]
-        pub unsafe fn configuration(&self) -> MTL4PipelineDataSetSerializerConfiguration;
+        pub fn configuration(&self) -> MTL4PipelineDataSetSerializerConfiguration;
 
         /// Setter for [`configuration`][Self::configuration].
         #[unsafe(method(setConfiguration:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_configuration(
+        pub fn set_configuration(
             &self,
             configuration: MTL4PipelineDataSetSerializerConfiguration,
         );
@@ -98,11 +98,11 @@ impl MTL4PipelineDataSetSerializerDescriptor {
     extern_methods!(
         #[unsafe(method(init))]
         #[unsafe(method_family = init)]
-        pub unsafe fn init(this: Allocated<Self>) -> Retained<Self>;
+        pub fn init(this: Allocated<Self>) -> Retained<Self>;
 
         #[unsafe(method(new))]
         #[unsafe(method_family = new)]
-        pub unsafe fn new() -> Retained<Self>;
+        pub fn new() -> Retained<Self>;
     );
 }
 

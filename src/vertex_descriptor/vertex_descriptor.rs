@@ -82,7 +82,7 @@ impl MTLVertexAttributeDescriptor {
         /// Setter for [`format`][Self::format].
         #[unsafe(method(setFormat:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_format(&self, format: MTLVertexFormat);
+        pub fn set_format(&self, format: MTLVertexFormat);
 
         /// Byte offset of this attribute within the vertex.
         #[unsafe(method(offset))]
@@ -92,7 +92,7 @@ impl MTLVertexAttributeDescriptor {
         /// Setter for [`offset`][Self::offset].
         #[unsafe(method(setOffset:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_offset(&self, offset: usize);
+        pub fn set_offset(&self, offset: usize);
 
         /// The index of the buffer from which this attribute reads.
         #[unsafe(method(bufferIndex))]
@@ -102,7 +102,7 @@ impl MTLVertexAttributeDescriptor {
         /// Setter for [`bufferIndex`][Self::bufferIndex].
         #[unsafe(method(setBufferIndex:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_buffer_index(&self, buffer_index: usize);
+        pub fn set_buffer_index(&self, buffer_index: usize);
     );
 }
 
@@ -121,14 +121,14 @@ impl MTLVertexAttributeDescriptorArray {
     extern_methods!(
         #[unsafe(method(objectAtIndexedSubscript:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn object_at_indexed_subscript(
+        pub fn object_at_indexed_subscript(
             &self,
             index: usize,
         ) -> Retained<MTLVertexAttributeDescriptor>;
 
         #[unsafe(method(setObject:atIndexedSubscript:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_object_at_indexed_subscript(
+        pub fn set_object_at_indexed_subscript(
             &self,
             attribute_desc: Option<&MTLVertexAttributeDescriptor>,
             index: usize,
@@ -141,10 +141,10 @@ impl MTLVertexDescriptor {
     extern_methods!(
         #[unsafe(method(init))]
         #[unsafe(method_family = init)]
-        pub unsafe fn init(this: Allocated<Self>) -> Retained<Self>;
+        pub fn init(this: Allocated<Self>) -> Retained<Self>;
 
         #[unsafe(method(new))]
         #[unsafe(method_family = new)]
-        pub unsafe fn new() -> Retained<Self>;
+        pub fn new() -> Retained<Self>;
     );
 }

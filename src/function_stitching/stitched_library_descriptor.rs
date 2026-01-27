@@ -33,12 +33,12 @@ impl MTLStitchedLibraryDescriptor {
     extern_methods!(
         #[unsafe(method(functionGraphs))]
         #[unsafe(method_family = none)]
-        pub unsafe fn function_graphs(&self) -> Retained<NSArray<MTLFunctionStitchingGraph>>;
+        pub fn function_graphs(&self) -> Retained<NSArray<MTLFunctionStitchingGraph>>;
 
         /// Setter for [`function_graphs`][Self::function_graphs].
         #[unsafe(method(setFunctionGraphs:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_function_graphs(
+        pub fn set_function_graphs(
             &self,
             function_graphs: &NSArray<MTLFunctionStitchingGraph>,
         );
@@ -46,19 +46,19 @@ impl MTLStitchedLibraryDescriptor {
         /// Functions referenced by the graphs.
         #[unsafe(method(functions))]
         #[unsafe(method_family = none)]
-        pub unsafe fn functions(&self) -> Retained<NSArray<ProtocolObject<dyn MTLFunction>>>;
+        pub fn functions(&self) -> Retained<NSArray<ProtocolObject<dyn MTLFunction>>>;
 
         /// Setter for [`functions`][Self::functions].
         #[unsafe(method(setFunctions:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_functions(&self, functions: &NSArray<ProtocolObject<dyn MTLFunction>>);
+        pub fn set_functions(&self, functions: &NSArray<ProtocolObject<dyn MTLFunction>>);
 
         /// Binary archives to be searched for precompiled stitched libraries during compilation.
         ///
         /// Availability: macOS 15.0+, iOS 18.0+
         #[unsafe(method(binaryArchives))]
         #[unsafe(method_family = none)]
-        pub unsafe fn binary_archives(
+        pub fn binary_archives(
             &self,
         ) -> Retained<NSArray<ProtocolObject<dyn crate::MTLBinaryArchive>>>;
 
@@ -67,7 +67,7 @@ impl MTLStitchedLibraryDescriptor {
         /// Availability: macOS 15.0+, iOS 18.0+
         #[unsafe(method(setBinaryArchives:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_binary_archives(
+        pub fn set_binary_archives(
             &self,
             binary_archives: &NSArray<ProtocolObject<dyn crate::MTLBinaryArchive>>,
         );
@@ -77,12 +77,12 @@ impl MTLStitchedLibraryDescriptor {
         /// Availability: macOS 15.0+, iOS 18.0+
         #[unsafe(method(options))]
         #[unsafe(method_family = none)]
-        pub unsafe fn options(&self) -> MTLStitchedLibraryOptions;
+        pub fn options(&self) -> MTLStitchedLibraryOptions;
 
         /// Setter for [`options`][Self::options].
         #[unsafe(method(setOptions:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_options(&self, options: MTLStitchedLibraryOptions);
+        pub fn set_options(&self, options: MTLStitchedLibraryOptions);
     );
 }
 
@@ -91,10 +91,10 @@ impl MTLStitchedLibraryDescriptor {
     extern_methods!(
         #[unsafe(method(init))]
         #[unsafe(method_family = init)]
-        pub unsafe fn init(this: Allocated<Self>) -> Retained<Self>;
+        pub fn init(this: Allocated<Self>) -> Retained<Self>;
 
         #[unsafe(method(new))]
         #[unsafe(method_family = new)]
-        pub unsafe fn new() -> Retained<Self>;
+        pub fn new() -> Retained<Self>;
     );
 }

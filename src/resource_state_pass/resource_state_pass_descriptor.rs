@@ -27,12 +27,12 @@ impl MTLResourceStatePassDescriptor {
         /// Create a default resource state pass descriptor
         #[unsafe(method(resourceStatePassDescriptor))]
         #[unsafe(method_family = none)]
-        pub unsafe fn resource_state_pass_descriptor() -> Retained<MTLResourceStatePassDescriptor>;
+        pub fn resource_state_pass_descriptor() -> Retained<MTLResourceStatePassDescriptor>;
 
         /// An array of sample buffers and associated sample indices.
         #[unsafe(method(sampleBufferAttachments))]
         #[unsafe(method_family = none)]
-        pub unsafe fn sample_buffer_attachments(
+        pub fn sample_buffer_attachments(
             &self,
         ) -> Retained<MTLResourceStatePassSampleBufferAttachmentDescriptorArray>;
     );

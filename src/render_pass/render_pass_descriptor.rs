@@ -78,7 +78,7 @@ impl MTLRenderPassDescriptor {
 
         #[unsafe(method(setRenderTargetArrayLength:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_render_target_array_length(&self, len: usize);
+        pub fn set_render_target_array_length(&self, len: usize);
 
         /// The per sample size in bytes of the largest explicit imageblock layout in the render pass.
         #[unsafe(method(imageblockSampleLength))]
@@ -87,7 +87,7 @@ impl MTLRenderPassDescriptor {
 
         #[unsafe(method(setImageblockSampleLength:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_imageblock_sample_length(&self, len: usize);
+        pub fn set_imageblock_sample_length(&self, len: usize);
 
         /// The per tile size in bytes of the persistent threadgroup memory allocation.
         #[unsafe(method(threadgroupMemoryLength))]
@@ -96,7 +96,7 @@ impl MTLRenderPassDescriptor {
 
         #[unsafe(method(setThreadgroupMemoryLength:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_threadgroup_memory_length(&self, len: usize);
+        pub fn set_threadgroup_memory_length(&self, len: usize);
 
         /// The width in pixels of the tile.
         #[unsafe(method(tileWidth))]
@@ -147,7 +147,7 @@ impl MTLRenderPassDescriptor {
         /// Safety: `positions` must be a valid pointer or null.
         #[unsafe(method(setSamplePositions:count:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_sample_positions(
+        pub fn set_sample_positions(
             &self,
             positions: *const MTLSamplePosition,
             count: usize,
@@ -157,7 +157,7 @@ impl MTLRenderPassDescriptor {
         /// Safety: `positions` must be a valid pointer or null.
         #[unsafe(method(getSamplePositions:count:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn get_sample_positions(
+        pub fn get_sample_positions(
             &self,
             positions: *mut MTLSamplePosition,
             count: usize,
@@ -188,12 +188,12 @@ impl MTLRenderPassDescriptor {
         /// Specifies if Metal accumulates visibility results between render encoders or resets them.
         #[unsafe(method(visibilityResultType))]
         #[unsafe(method_family = none)]
-        pub unsafe fn visibility_result_type(&self) -> MTLVisibilityResultType;
+        pub fn visibility_result_type(&self) -> MTLVisibilityResultType;
 
         /// Setter for [`visibility_result_type`][Self::visibility_result_type].
         #[unsafe(method(setVisibilityResultType:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_visibility_result_type(&self, v: MTLVisibilityResultType);
+        pub fn set_visibility_result_type(&self, v: MTLVisibilityResultType);
     );
 }
 
@@ -201,10 +201,10 @@ impl MTLRenderPassDescriptor {
     extern_methods!(
         #[unsafe(method(init))]
         #[unsafe(method_family = init)]
-        pub unsafe fn init(this: Allocated<Self>) -> Retained<Self>;
+        pub fn init(this: Allocated<Self>) -> Retained<Self>;
 
         #[unsafe(method(new))]
         #[unsafe(method_family = new)]
-        pub unsafe fn new() -> Retained<Self>;
+        pub fn new() -> Retained<Self>;
     );
 }

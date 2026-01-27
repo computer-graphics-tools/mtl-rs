@@ -16,14 +16,14 @@ impl MTLLogicalToPhysicalColorAttachmentMap {
     extern_methods!(
         #[unsafe(method(setPhysicalIndex:forLogicalIndex:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_physical_for_logical(&self, physical_index: usize, logical_index: usize);
+        pub fn set_physical_for_logical(&self, physical_index: usize, logical_index: usize);
 
         #[unsafe(method(getPhysicalIndexForLogicalIndex:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn physical_for_logical(&self, logical_index: usize) -> usize;
+        pub fn physical_for_logical(&self, logical_index: usize) -> usize;
 
         #[unsafe(method(reset))]
         #[unsafe(method_family = none)]
-        pub unsafe fn reset(&self);
+        pub fn reset(&self);
     );
 }

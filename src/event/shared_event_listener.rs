@@ -47,7 +47,7 @@ impl MTLSharedEventListener {
         /// This instance can be used for short-running notifications without QoS requirements.
         ///
         /// Availability: macOS 26.0+, iOS 26.0+
-        pub unsafe fn shared_listener() -> Retained<MTLSharedEventListener>;
+        pub fn shared_listener() -> Retained<MTLSharedEventListener>;
     );
 }
 

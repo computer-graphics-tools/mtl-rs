@@ -42,21 +42,21 @@ impl MTL4RenderPassDescriptor {
         /// Accesses the array of state information for render attachments that store color data.
         #[unsafe(method(colorAttachments))]
         #[unsafe(method_family = none)]
-        pub unsafe fn color_attachments(
+        pub fn color_attachments(
             &self,
         ) -> Retained<MTLRenderPassColorAttachmentDescriptorArray>;
 
         /// Accesses state information for a render attachment that stores depth data.
         #[unsafe(method(depthAttachment))]
         #[unsafe(method_family = none)]
-        pub unsafe fn depth_attachment(&self) -> Retained<MTLRenderPassDepthAttachmentDescriptor>;
+        pub fn depth_attachment(&self) -> Retained<MTLRenderPassDepthAttachmentDescriptor>;
 
         /// Setter for [`depthAttachment`][Self::depthAttachment].
         ///
         /// This is [copied][objc2_foundation::NSCopying::copy] when set.
         #[unsafe(method(setDepthAttachment:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_depth_attachment(
+        pub fn set_depth_attachment(
             &self,
             depth_attachment: Option<&MTLRenderPassDepthAttachmentDescriptor>,
         );
@@ -64,7 +64,7 @@ impl MTL4RenderPassDescriptor {
         /// Accesses state information for a render attachment that stores stencil data.
         #[unsafe(method(stencilAttachment))]
         #[unsafe(method_family = none)]
-        pub unsafe fn stencil_attachment(
+        pub fn stencil_attachment(
             &self,
         ) -> Retained<MTLRenderPassStencilAttachmentDescriptor>;
 
@@ -73,7 +73,7 @@ impl MTL4RenderPassDescriptor {
         /// This is [copied][objc2_foundation::NSCopying::copy] when set.
         #[unsafe(method(setStencilAttachment:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_stencil_attachment(
+        pub fn set_stencil_attachment(
             &self,
             stencil_attachment: Option<&MTLRenderPassStencilAttachmentDescriptor>,
         );
@@ -81,32 +81,32 @@ impl MTL4RenderPassDescriptor {
         /// Assigns the number of layers that all attachments this descriptor references have.
         #[unsafe(method(renderTargetArrayLength))]
         #[unsafe(method_family = none)]
-        pub unsafe fn render_target_array_length(&self) -> usize;
+        pub fn render_target_array_length(&self) -> usize;
 
         /// Setter for [`renderTargetArrayLength`][Self::renderTargetArrayLength].
         #[unsafe(method(setRenderTargetArrayLength:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_render_target_array_length(&self, render_target_array_length: usize);
+        pub fn set_render_target_array_length(&self, render_target_array_length: usize);
 
         /// Assigns the per-sample size, in bytes, of the largest explicit imageblock layout in the render pass.
         #[unsafe(method(imageblockSampleLength))]
         #[unsafe(method_family = none)]
-        pub unsafe fn imageblock_sample_length(&self) -> usize;
+        pub fn imageblock_sample_length(&self) -> usize;
 
         /// Setter for [`imageblockSampleLength`][Self::imageblockSampleLength].
         #[unsafe(method(setImageblockSampleLength:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_imageblock_sample_length(&self, imageblock_sample_length: usize);
+        pub fn set_imageblock_sample_length(&self, imageblock_sample_length: usize);
 
         /// Assigns the per-tile size, in bytes, of the persistent threadgroup memory allocation of this render pass.
         #[unsafe(method(threadgroupMemoryLength))]
         #[unsafe(method_family = none)]
-        pub unsafe fn threadgroup_memory_length(&self) -> usize;
+        pub fn threadgroup_memory_length(&self) -> usize;
 
         /// Setter for [`threadgroupMemoryLength`][Self::threadgroupMemoryLength].
         #[unsafe(method(setThreadgroupMemoryLength:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_threadgroup_memory_length(&self, threadgroup_memory_length: usize);
+        pub fn set_threadgroup_memory_length(&self, threadgroup_memory_length: usize);
 
         /// The width of the tiles, in pixels, a render pass you create with this descriptor applies to its attachments.
         ///
@@ -119,12 +119,12 @@ impl MTL4RenderPassDescriptor {
         /// for more information about tiles, tile memory, and deferred rendering.
         #[unsafe(method(tileWidth))]
         #[unsafe(method_family = none)]
-        pub unsafe fn tile_width(&self) -> usize;
+        pub fn tile_width(&self) -> usize;
 
         /// Setter for [`tileWidth`][Self::tileWidth].
         #[unsafe(method(setTileWidth:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_tile_width(&self, tile_width: usize);
+        pub fn set_tile_width(&self, tile_width: usize);
 
         /// The height of the tiles, in pixels, a render pass you create with this descriptor applies to its attachments.
         ///
@@ -137,22 +137,22 @@ impl MTL4RenderPassDescriptor {
         /// for more information about tiles, tile memory, and deferred rendering.
         #[unsafe(method(tileHeight))]
         #[unsafe(method_family = none)]
-        pub unsafe fn tile_height(&self) -> usize;
+        pub fn tile_height(&self) -> usize;
 
         /// Setter for [`tileHeight`][Self::tileHeight].
         #[unsafe(method(setTileHeight:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_tile_height(&self, tile_height: usize);
+        pub fn set_tile_height(&self, tile_height: usize);
 
         /// Sets the default raster sample count for the render pass when it references no attachments.
         #[unsafe(method(defaultRasterSampleCount))]
         #[unsafe(method_family = none)]
-        pub unsafe fn default_raster_sample_count(&self) -> usize;
+        pub fn default_raster_sample_count(&self) -> usize;
 
         /// Setter for [`defaultRasterSampleCount`][Self::defaultRasterSampleCount].
         #[unsafe(method(setDefaultRasterSampleCount:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_default_raster_sample_count(&self, default_raster_sample_count: usize);
+        pub fn set_default_raster_sample_count(&self, default_raster_sample_count: usize);
 
         /// Sets the width, in pixels, to which Metal constrains the render target.
         ///
@@ -161,12 +161,12 @@ impl MTL4RenderPassDescriptor {
         /// The default value of this property is `0`.
         #[unsafe(method(renderTargetWidth))]
         #[unsafe(method_family = none)]
-        pub unsafe fn render_target_width(&self) -> usize;
+        pub fn render_target_width(&self) -> usize;
 
         /// Setter for [`renderTargetWidth`][Self::renderTargetWidth].
         #[unsafe(method(setRenderTargetWidth:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_render_target_width(&self, render_target_width: usize);
+        pub fn set_render_target_width(&self, render_target_width: usize);
 
         /// Sets the height, in pixels, to which Metal constrains the render target.
         ///
@@ -175,12 +175,12 @@ impl MTL4RenderPassDescriptor {
         /// The default value of this property is `0`.
         #[unsafe(method(renderTargetHeight))]
         #[unsafe(method_family = none)]
-        pub unsafe fn render_target_height(&self) -> usize;
+        pub fn render_target_height(&self) -> usize;
 
         /// Setter for [`renderTargetHeight`][Self::renderTargetHeight].
         #[unsafe(method(setRenderTargetHeight:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_render_target_height(&self, render_target_height: usize);
+        pub fn set_render_target_height(&self, render_target_height: usize);
 
         /// Assigns an optional variable rasterization rate map that Metal uses in the render pass.
         ///
@@ -190,14 +190,14 @@ impl MTL4RenderPassDescriptor {
         /// When set to `nil`, the default, Metal doesn't use variable rasterization rate.
         #[unsafe(method(rasterizationRateMap))]
         #[unsafe(method_family = none)]
-        pub unsafe fn rasterization_rate_map(
+        pub fn rasterization_rate_map(
             &self,
         ) -> Option<Retained<ProtocolObject<dyn MTLRasterizationRateMap>>>;
 
         /// Setter for [`rasterizationRateMap`][Self::rasterizationRateMap].
         #[unsafe(method(setRasterizationRateMap:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_rasterization_rate_map(
+        pub fn set_rasterization_rate_map(
             &self,
             rasterization_rate_map: Option<&ProtocolObject<dyn MTLRasterizationRateMap>>,
         );
@@ -205,14 +205,14 @@ impl MTL4RenderPassDescriptor {
         /// Configures a buffer into which Metal writes counts of fragments (pixels) passing the depth and stencil tests.
         #[unsafe(method(visibilityResultBuffer))]
         #[unsafe(method_family = none)]
-        pub unsafe fn visibility_result_buffer(
+        pub fn visibility_result_buffer(
             &self,
         ) -> Option<Retained<ProtocolObject<dyn MTLBuffer>>>;
 
         /// Setter for [`visibilityResultBuffer`][Self::visibilityResultBuffer].
         #[unsafe(method(setVisibilityResultBuffer:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_visibility_result_buffer(
+        pub fn set_visibility_result_buffer(
             &self,
             visibility_result_buffer: Option<&ProtocolObject<dyn MTLBuffer>>,
         );
@@ -220,12 +220,12 @@ impl MTL4RenderPassDescriptor {
         /// Determines if Metal accumulates visibility results between render encoders or resets them.
         #[unsafe(method(visibilityResultType))]
         #[unsafe(method_family = none)]
-        pub unsafe fn visibility_result_type(&self) -> MTLVisibilityResultType;
+        pub fn visibility_result_type(&self) -> MTLVisibilityResultType;
 
         /// Setter for [`visibilityResultType`][Self::visibilityResultType].
         #[unsafe(method(setVisibilityResultType:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_visibility_result_type(
+        pub fn set_visibility_result_type(
             &self,
             visibility_result_type: MTLVisibilityResultType,
         );
@@ -242,7 +242,7 @@ impl MTL4RenderPassDescriptor {
         /// `positions` must be a valid pointer or null.
         #[unsafe(method(setSamplePositions:count:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_sample_positions_count(
+        pub fn set_sample_positions_count(
             &self,
             positions: *const MTLSamplePosition,
             count: usize,
@@ -265,7 +265,7 @@ impl MTL4RenderPassDescriptor {
         /// `positions` must be a valid pointer or null.
         #[unsafe(method(getSamplePositions:count:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn get_sample_positions_count(
+        pub fn get_sample_positions_count(
             &self,
             positions: *mut MTLSamplePosition,
             count: usize,
@@ -274,12 +274,12 @@ impl MTL4RenderPassDescriptor {
         /// Controls if the render pass supports color attachment mapping.
         #[unsafe(method(supportColorAttachmentMapping))]
         #[unsafe(method_family = none)]
-        pub unsafe fn support_color_attachment_mapping(&self) -> bool;
+        pub fn support_color_attachment_mapping(&self) -> bool;
 
         /// Setter for [`supportColorAttachmentMapping`][Self::supportColorAttachmentMapping].
         #[unsafe(method(setSupportColorAttachmentMapping:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_support_color_attachment_mapping(
+        pub fn set_support_color_attachment_mapping(
             &self,
             support_color_attachment_mapping: bool,
         );
@@ -291,10 +291,10 @@ impl MTL4RenderPassDescriptor {
     extern_methods!(
         #[unsafe(method(init))]
         #[unsafe(method_family = init)]
-        pub unsafe fn init(this: Allocated<Self>) -> Retained<Self>;
+        pub fn init(this: Allocated<Self>) -> Retained<Self>;
 
         #[unsafe(method(new))]
         #[unsafe(method_family = new)]
-        pub unsafe fn new() -> Retained<Self>;
+        pub fn new() -> Retained<Self>;
     );
 }

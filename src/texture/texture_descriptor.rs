@@ -35,7 +35,7 @@ impl MTLTextureDescriptor {
         /// Create a TextureDescriptor for a common 2D texture.
         #[unsafe(method(texture2DDescriptorWithPixelFormat:width:height:mipmapped:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn texture_2d_descriptor_with_pixel_format_width_height_mipmapped(
+        pub fn texture_2d_descriptor_with_pixel_format_width_height_mipmapped(
             pixel_format: MTLPixelFormat,
             width: usize,
             height: usize,
@@ -45,7 +45,7 @@ impl MTLTextureDescriptor {
         /// Create a TextureDescriptor for a common Cube texture.
         #[unsafe(method(textureCubeDescriptorWithPixelFormat:size:mipmapped:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn texture_cube_descriptor_with_pixel_format_size_mipmapped(
+        pub fn texture_cube_descriptor_with_pixel_format_size_mipmapped(
             pixel_format: MTLPixelFormat,
             size: usize,
             mipmapped: bool,
@@ -54,7 +54,7 @@ impl MTLTextureDescriptor {
         /// Create a TextureDescriptor for a common texture buffer.
         #[unsafe(method(textureBufferDescriptorWithPixelFormat:width:resourceOptions:usage:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn texture_buffer_descriptor_with_pixel_format_width_resource_options_usage(
+        pub fn texture_buffer_descriptor_with_pixel_format_width_resource_options_usage(
             pixel_format: MTLPixelFormat,
             width: usize,
             resource_options: MTLResourceOptions,
@@ -89,7 +89,7 @@ impl MTLTextureDescriptor {
         /// Setter for [`width`][Self::width].
         #[unsafe(method(setWidth:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_width(&self, width: usize);
+        pub fn set_width(&self, width: usize);
 
         /// The height of the texture to create. The default value is 1.
         ///
@@ -101,7 +101,7 @@ impl MTLTextureDescriptor {
         /// Setter for [`height`][Self::height].
         #[unsafe(method(setHeight:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_height(&self, height: usize);
+        pub fn set_height(&self, height: usize);
 
         /// The depth of the texture to create. The default value is 1.
         ///
@@ -113,7 +113,7 @@ impl MTLTextureDescriptor {
         /// Setter for [`depth`][Self::depth].
         #[unsafe(method(setDepth:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_depth(&self, depth: usize);
+        pub fn set_depth(&self, depth: usize);
 
         /// The number of mipmap levels to allocate. The default value is 1.
         ///
@@ -125,7 +125,7 @@ impl MTLTextureDescriptor {
         /// Setter for [`mipmapLevelCount`][Self::mipmapLevelCount].
         #[unsafe(method(setMipmapLevelCount:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_mipmap_level_count(&self, mipmap_level_count: usize);
+        pub fn set_mipmap_level_count(&self, mipmap_level_count: usize);
 
         /// The number of samples in the texture to create. The default value is 1.
         ///
@@ -137,7 +137,7 @@ impl MTLTextureDescriptor {
         /// Setter for [`sampleCount`][Self::sampleCount].
         #[unsafe(method(setSampleCount:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_sample_count(&self, sample_count: usize);
+        pub fn set_sample_count(&self, sample_count: usize);
 
         /// The number of array elements to allocate. The default value is 1.
         ///
@@ -149,7 +149,7 @@ impl MTLTextureDescriptor {
         /// Setter for [`arrayLength`][Self::arrayLength].
         #[unsafe(method(setArrayLength:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_array_length(&self, array_length: usize);
+        pub fn set_array_length(&self, array_length: usize);
 
         /// Options to control memory allocation parameters, etc.
         ///
@@ -232,12 +232,12 @@ impl MTLTextureDescriptor {
         /// Set allowGPUOptimizedContents to `NO` to opt out of both lossless and lossy compression; such textures do not benefit from either reduced bandwidth usage or reduced storage requirements, but have predictable CPU readback performance.
         #[unsafe(method(compressionType))]
         #[unsafe(method_family = none)]
-        pub unsafe fn compression_type(&self) -> MTLTextureCompressionType;
+        pub fn compression_type(&self) -> MTLTextureCompressionType;
 
         /// Setter for [`compressionType`][Self::compressionType].
         #[unsafe(method(setCompressionType:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_compression_type(&self, compression_type: MTLTextureCompressionType);
+        pub fn set_compression_type(&self, compression_type: MTLTextureCompressionType);
 
         /// Channel swizzle to use when reading or sampling from the texture, the default value is MTLTextureSwizzleChannelsDefault.
         #[unsafe(method(swizzle))]
@@ -258,12 +258,12 @@ impl MTLTextureDescriptor {
         /// This value is 0 by default.
         #[unsafe(method(placementSparsePageSize))]
         #[unsafe(method_family = none)]
-        pub unsafe fn placement_sparse_page_size(&self) -> MTLSparsePageSize;
+        pub fn placement_sparse_page_size(&self) -> MTLSparsePageSize;
 
         /// Setter for [`placementSparsePageSize`][Self::placementSparsePageSize].
         #[unsafe(method(setPlacementSparsePageSize:))]
         #[unsafe(method_family = none)]
-        pub unsafe fn set_placement_sparse_page_size(
+        pub fn set_placement_sparse_page_size(
             &self,
             placement_sparse_page_size: MTLSparsePageSize,
         );
@@ -275,10 +275,10 @@ impl MTLTextureDescriptor {
     extern_methods!(
         #[unsafe(method(init))]
         #[unsafe(method_family = init)]
-        pub unsafe fn init(this: Allocated<Self>) -> Retained<Self>;
+        pub fn init(this: Allocated<Self>) -> Retained<Self>;
 
         #[unsafe(method(new))]
         #[unsafe(method_family = new)]
-        pub unsafe fn new() -> Retained<Self>;
+        pub fn new() -> Retained<Self>;
     );
 }
