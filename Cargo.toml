@@ -1,13 +1,18 @@
 [package]
 name = "mtl-rs"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2024"
 license = "MIT"
 authors = ["Eugene Bokhan <eugenebokhan@icloud.com>"]
 description = "Rust bindings for Apple's Metal API"
 readme = "README.md"
 keywords = ["metal", "graphics", "apple", "macos", "ios"]
-categories = ["api-bindings", "graphics", "os::macos-apis", "rendering::graphics-api"]
+categories = [
+    "api-bindings",
+    "graphics",
+    "os::macos-apis",
+    "rendering::graphics-api",
+]
 repository = "https://github.com/computer-graphics-tools/mtl-rs"
 
 [dependencies]
