@@ -1,47 +1,48 @@
 use objc2::{Encode, Encoding, RefEncode};
 
-/// Metal feature sets (ported from `MTLFeatureSet`).
+/// Metal feature sets
+#[allow(non_camel_case_types)]
 #[repr(u64)]
 #[derive(Copy, Clone, Debug, Eq, PartialEq, Hash, PartialOrd, Ord)]
 pub enum MTLFeatureSet {
-    IosGpuFamily1V1 = 0,
-    IosGpuFamily2V1 = 1,
+    iOS_GPUFamily1_v1 = 0,
+    iOS_GPUFamily2_v1 = 1,
 
-    IosGpuFamily1V2 = 2,
-    IosGpuFamily2V2 = 3,
-    IosGpuFamily3V1 = 4,
+    iOS_GPUFamily1_v2 = 2,
+    iOS_GPUFamily2_v2 = 3,
+    iOS_GPUFamily3_v1 = 4,
 
-    IosGpuFamily1V3 = 5,
-    IosGpuFamily2V3 = 6,
-    IosGpuFamily3V2 = 7,
+    iOS_GPUFamily1_v3 = 5,
+    iOS_GPUFamily2_v3 = 6,
+    iOS_GPUFamily3_v2 = 7,
 
-    IosGpuFamily1V4 = 8,
-    IosGpuFamily2V4 = 9,
-    IosGpuFamily3V3 = 10,
-    IosGpuFamily4V1 = 11,
+    iOS_GPUFamily1_v4 = 8,
+    iOS_GPUFamily2_v4 = 9,
+    iOS_GPUFamily3_v3 = 10,
+    iOS_GPUFamily4_v1 = 11,
 
-    IosGpuFamily1V5 = 12,
-    IosGpuFamily2V5 = 13,
-    IosGpuFamily3V4 = 14,
-    IosGpuFamily4V2 = 15,
-    IosGpuFamily5V1 = 16,
+    iOS_GPUFamily1_v5 = 12,
+    iOS_GPUFamily2_v5 = 13,
+    iOS_GPUFamily3_v4 = 14,
+    iOS_GPUFamily4_v2 = 15,
+    iOS_GPUFamily5_v1 = 16,
 
-    MacosGpuFamily1V1 = 10000,
-    MacosGpuFamily1V2 = 10001,
-    MacosReadWriteTextureTier2 = 10002,
+    macOS_GPUFamily1_v1 = 10000,
+    macOS_GPUFamily1_v2 = 10001,
+    macOS_ReadWriteTextureTier2 = 10002,
 
-    MacosGpuFamily1V3 = 10003,
+    macOS_GPUFamily1_v3 = 10003,
 
-    MacosGpuFamily1V4 = 10004,
-    MacosGpuFamily2V1 = 10005,
+    macOS_GPUFamily1_v4 = 10004,
+    macOS_GPUFamily2_v1 = 10005,
 
-    TvosGpuFamily1V1 = 30000,
-    TvosGpuFamily1V2 = 30001,
-    TvosGpuFamily1V3 = 30002,
-    TvosGpuFamily2V1 = 30003,
+    tvOS_GPUFamily1_v1 = 30000,
+    tvOS_GPUFamily1_v2 = 30001,
+    tvOS_GPUFamily1_v3 = 30002,
+    tvOS_GPUFamily2_v1 = 30003,
 
-    TvosGpuFamily1V4 = 30004,
-    TvosGpuFamily2V2 = 30005,
+    tvOS_GPUFamily1_v4 = 30004,
+    tvOS_GPUFamily2_v2 = 30005,
 }
 
 unsafe impl Encode for MTLFeatureSet {
