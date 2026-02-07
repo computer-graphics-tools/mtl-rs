@@ -1,6 +1,6 @@
 [package]
 name = "mtl-rs"
-version = "0.1.4"
+version = "0.1.5"
 edition = "2024"
 license = "MIT"
 authors = ["Eugene Bokhan <eugenebokhan@icloud.com>"]
@@ -16,19 +16,19 @@ categories = [
 repository = "https://github.com/computer-graphics-tools/mtl-rs"
 
 [dependencies]
-core-graphics-types = { version = "0.2.0", default-features = false }
-core-graphics = "0.25.0"
-bytemuck = { version = "1.25.0", features = ["derive"] }
-libc = "0.2.180"
+core-graphics-types = { version = "0.2", default-features = false }
+core-graphics = "0.25"
+bytemuck = { version = "1.25", features = ["derive"] }
+libc = "0.2"
 
-objc2 = { version = "0.6.3" }
-objc2-foundation = { version = "0.3.2" }
-objc2-core-foundation = { version = "0.3.2" }
-objc2-io-surface = { version = "0.3.2" }
-dispatch2 = { version = "0.3.0" }
-block2 = { version = "0.6.2" }
-once_cell = { version = "1.21.3" }
-bitflags = "2.10.0"
+objc2 = { version = "0.6" }
+objc2-foundation = { version = "0.3" }
+objc2-core-foundation = { version = "0.3" }
+objc2-io-surface = { version = "0.3" }
+dispatch2 = { version = "0.3" }
+block2 = { version = "0.6" }
+once_cell = { version = "1.21" }
+bitflags = "2.10"
 
 [lib]
 name = "metal"
