@@ -1,4 +1,6 @@
-use objc2::{extern_protocol, runtime::ProtocolObject};
+use core::ops::Range;
+
+use objc2::{Message, extern_protocol, msg_send, runtime::ProtocolObject};
 use objc2_foundation::NSRange;
 
 use super::MTLBlitOption;
@@ -118,16 +120,6 @@ extern_protocol!(
         #[unsafe(method(generateMipmapsForTexture:))]
         #[unsafe(method_family = none)]
         fn generate_mipmaps_for_texture(&self, texture: &ProtocolObject<dyn MTLTexture>);
-
-        /// Fill a buffer with a fixed value in each byte.
-        #[unsafe(method(fillBuffer:range:value:))]
-        #[unsafe(method_family = none)]
-        fn fill_buffer_range_value(
-            &self,
-            buffer: &ProtocolObject<dyn MTLBuffer>,
-            range: NSRange,
-            value: u8,
-        );
 
         /// Copy whole surfaces between textures.
         /// Convenience function to copy sliceCount * levelCount whole surfaces between textures
@@ -253,35 +245,6 @@ extern_protocol!(
             level: usize,
         );
 
-        /// reset commands in a indirect command buffer using the GPU
-        #[unsafe(method(resetCommandsInBuffer:withRange:))]
-        #[unsafe(method_family = none)]
-        fn reset_commands_in_buffer(
-            &self,
-            buffer: &ProtocolObject<dyn MTLIndirectCommandBuffer>,
-            range: NSRange,
-        );
-
-        /// copy a region of a buffer into a destination buffer starting at destinationIndex using the GPU
-        #[unsafe(method(copyIndirectCommandBuffer:sourceRange:destination:destinationIndex:))]
-        #[unsafe(method_family = none)]
-        fn copy_indirect_command_buffer(
-            &self,
-            source: &ProtocolObject<dyn MTLIndirectCommandBuffer>,
-            source_range: NSRange,
-            destination: &ProtocolObject<dyn MTLIndirectCommandBuffer>,
-            destination_index: usize,
-        );
-
-        /// Encodes a command that can improve the performance of a range of commands within an indirect command buffer.
-        #[unsafe(method(optimizeIndirectCommandBuffer:withRange:))]
-        #[unsafe(method_family = none)]
-        fn optimize_indirect_command_buffer(
-            &self,
-            indirect_command_buffer: &ProtocolObject<dyn MTLIndirectCommandBuffer>,
-            range: NSRange,
-        );
-
         /// Sample hardware counters at this point in the blit encoder and
         /// store the counter sample into the sample buffer at the specified index.
         /// @param sampleBuffer The sample buffer to sample into
@@ -313,16 +276,6 @@ extern_protocol!(
         /// @abstract Resolve the counters from the raw buffer to a processed buffer.
         /// @discussion Samples that encountered an error during resolve will be set to
         /// MTLCounterErrorValue.
-        #[unsafe(method(resolveCounters:inRange:destinationBuffer:destinationOffset:))]
-        #[unsafe(method_family = none)]
-        fn resolve_counters(
-            &self,
-            sample_buffer: &ProtocolObject<dyn MTLCounterSampleBuffer>,
-            range: NSRange,
-            destination_buffer: &ProtocolObject<dyn MTLBuffer>,
-            destination_offset: usize,
-        );
-
         /// Encodes a command to copy data from a slice of one tensor into a slice of another tensor.
         ///
         /// This command applies reshapes if `sourceTensor` and `destinationTensor` are not aliasable.
@@ -346,3 +299,97 @@ extern_protocol!(
         );
     }
 );
+
+pub trait MTLBlitCommandEncoderExt: MTLBlitCommandEncoder + Message {
+    /// Fill a buffer with a fixed value in each byte.
+    fn fill_buffer_range_value(
+        &self,
+        buffer: &ProtocolObject<dyn MTLBuffer>,
+        range: Range<usize>,
+        value: u8,
+    ) where
+        Self: Sized,
+    {
+        unsafe {
+            let _: () = msg_send![self, fillBuffer: buffer, range: NSRange::from(range), value: value];
+        }
+    }
+
+    /// Reset commands in an indirect command buffer using the GPU.
+    fn reset_commands_in_buffer(
+        &self,
+        buffer: &ProtocolObject<dyn MTLIndirectCommandBuffer>,
+        range: Range<usize>,
+    ) where
+        Self: Sized,
+    {
+        unsafe {
+            let _: () = msg_send![
+                self,
+                resetCommandsInBuffer: buffer,
+                withRange: NSRange::from(range)
+            ];
+        }
+    }
+
+    /// Copy a region of commands from one indirect command buffer into another.
+    fn copy_indirect_command_buffer(
+        &self,
+        source: &ProtocolObject<dyn MTLIndirectCommandBuffer>,
+        source_range: Range<usize>,
+        destination: &ProtocolObject<dyn MTLIndirectCommandBuffer>,
+        destination_index: usize,
+    ) where
+        Self: Sized,
+    {
+        unsafe {
+            let _: () = msg_send![
+                self,
+                copyIndirectCommandBuffer: source,
+                sourceRange: NSRange::from(source_range),
+                destination: destination,
+                destinationIndex: destination_index
+            ];
+        }
+    }
+
+    /// Attempt to improve the performance of a range of commands within an indirect command buffer.
+    fn optimize_indirect_command_buffer(
+        &self,
+        indirect_command_buffer: &ProtocolObject<dyn MTLIndirectCommandBuffer>,
+        range: Range<usize>,
+    ) where
+        Self: Sized,
+    {
+        unsafe {
+            let _: () = msg_send![
+                self,
+                optimizeIndirectCommandBuffer: indirect_command_buffer,
+                withRange: NSRange::from(range)
+            ];
+        }
+    }
+
+    /// Resolve counters from a sample buffer to a destination buffer.
+    fn resolve_counters(
+        &self,
+        sample_buffer: &ProtocolObject<dyn MTLCounterSampleBuffer>,
+        range: Range<usize>,
+        destination_buffer: &ProtocolObject<dyn MTLBuffer>,
+        destination_offset: usize,
+    ) where
+        Self: Sized,
+    {
+        unsafe {
+            let _: () = msg_send![
+                self,
+                resolveCounters: sample_buffer,
+                inRange: NSRange::from(range),
+                destinationBuffer: destination_buffer,
+                destinationOffset: destination_offset
+            ];
+        }
+    }
+}
+
+impl<T: MTLBlitCommandEncoder + Message> MTLBlitCommandEncoderExt for T {}

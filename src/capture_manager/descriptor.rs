@@ -1,5 +1,7 @@
+use std::path::{Path, PathBuf};
+
 use objc2::{
-    extern_class, extern_conformance, extern_methods,
+    extern_class, extern_conformance, extern_methods, msg_send,
     rc::{Allocated, Retained},
     runtime::{AnyObject, NSObject},
 };
@@ -54,17 +56,22 @@ impl MTLCaptureDescriptor {
         #[unsafe(method_family = none)]
         pub fn set_destination(&self, destination: MTLCaptureDestination);
 
-        /// URL the GPU Trace document will be captured to.
-        ///
-        /// Must be specified when destination is `MTLCaptureDestination::GPUTraceDocument`.
-        #[unsafe(method(outputURL))]
-        #[unsafe(method_family = none)]
-        pub fn output_url(&self) -> Option<Retained<NSURL>>;
-
-        #[unsafe(method(setOutputURL:))]
-        #[unsafe(method_family = none)]
-        pub fn set_output_url(&self, output_url: Option<&NSURL>);
     );
+
+    /// Filesystem path where the GPU trace document will be captured.
+    ///
+    /// Must be specified when destination is `MTLCaptureDestination::GPUTraceDocument`.
+    pub fn output_path(&self) -> Option<PathBuf> {
+        let output_url: Option<Retained<NSURL>> = unsafe { msg_send![self, outputURL] };
+        output_url.and_then(|url| url.to_file_path())
+    }
+
+    pub fn set_output_path(&self, output_path: Option<&Path>) {
+        let output_url = output_path.and_then(NSURL::from_file_path);
+        unsafe {
+            let _: () = msg_send![self, setOutputURL: output_url.as_deref()];
+        }
+    }
 }
 
 impl MTLCaptureDescriptor {

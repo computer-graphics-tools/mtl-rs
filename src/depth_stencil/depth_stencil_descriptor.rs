@@ -1,5 +1,5 @@
 use objc2::{
-    Message, extern_class, extern_conformance, extern_methods, msg_send,
+    extern_class, extern_conformance, extern_methods, msg_send,
     rc::{Allocated, Retained},
     runtime::NSObject,
 };
@@ -66,6 +66,17 @@ impl MTLDepthStencilDescriptor {
         #[unsafe(method_family = none)]
         pub fn set_back_face_stencil(&self, value: Option<&MTLStencilDescriptor>);
     );
+
+    pub fn label(&self) -> Option<String> {
+        let label: Option<Retained<NSString>> = unsafe { msg_send![self, label] };
+        label.map(|s| s.to_string())
+    }
+
+    pub fn set_label(&self, label: Option<&str>) {
+        unsafe {
+            let _: () = msg_send![self, setLabel: label.map(NSString::from_str).as_deref()];
+        }
+    }
 }
 
 impl MTLDepthStencilDescriptor {
@@ -78,23 +89,4 @@ impl MTLDepthStencilDescriptor {
         #[unsafe(method_family = new)]
         pub fn new() -> Retained<Self>;
     );
-}
-
-#[allow(unused)]
-pub trait MTLDepthStencilDescriptorExt: Message {
-    fn label(&self) -> Option<String>;
-    fn set_label(&self, label: Option<&str>);
-}
-
-impl MTLDepthStencilDescriptorExt for MTLDepthStencilDescriptor {
-    fn label(&self) -> Option<String> {
-        let label: Option<Retained<NSString>> = unsafe { msg_send![self, label] };
-        label.map(|s| s.to_string())
-    }
-
-    fn set_label(&self, label: Option<&str>) {
-        unsafe {
-            let _: () = msg_send![self, setLabel: label.map(NSString::from_str).as_deref()];
-        }
-    }
 }

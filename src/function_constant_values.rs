@@ -1,7 +1,7 @@
-use core::{ffi::c_void, ptr::NonNull};
+use core::{ffi::c_void, ops::Range, ptr::NonNull};
 
 use objc2::{
-    extern_class, extern_conformance, extern_methods,
+    extern_class, extern_conformance, extern_methods, msg_send,
     rc::{Allocated, Retained},
     runtime::NSObject,
 };
@@ -44,30 +44,6 @@ impl MTLFunctionConstantValues {
             index: usize,
         );
 
-        /// Set a range of constant values by index range.
-        ///
-        /// Safety: `values` must be a valid pointer to an array of values of the specified `type` large enough to cover `range`.
-        #[unsafe(method(setConstantValues:type:withRange:))]
-        #[unsafe(method_family = none)]
-        pub fn set_constant_values_type_with_range(
-            &self,
-            values: NonNull<c_void>,
-            r#type: MTLDataType,
-            range: NSRange,
-        );
-
-        /// Set a single constant value by name.
-        ///
-        /// Safety: `value` must be a valid pointer to a value of the specified `type`.
-        #[unsafe(method(setConstantValue:type:withName:))]
-        #[unsafe(method_family = none)]
-        pub fn set_constant_value_type_with_name(
-            &self,
-            value: NonNull<c_void>,
-            r#type: MTLDataType,
-            name: &NSString,
-        );
-
         /// Reset all function constant values.
         #[unsafe(method(reset))]
         #[unsafe(method_family = none)]
@@ -86,4 +62,42 @@ impl MTLFunctionConstantValues {
         #[unsafe(method_family = new)]
         pub fn new() -> Retained<Self>;
     );
+
+    /// Set a range of constant values by index range.
+    ///
+    /// Safety: `values` must be a valid pointer to an array of values of the specified `type` large enough to cover `range`.
+    pub fn set_constant_values_type_with_range(
+        &self,
+        values: NonNull<c_void>,
+        r#type: MTLDataType,
+        range: Range<usize>,
+    ) {
+        unsafe {
+            msg_send![
+                self,
+                setConstantValues: values,
+                type: r#type,
+                withRange: NSRange::from(range),
+            ]
+        }
+    }
+
+    /// Set a single constant value by name.
+    ///
+    /// Safety: `value` must be a valid pointer to a value of the specified `type`.
+    pub fn set_constant_value_type_with_name(
+        &self,
+        value: NonNull<c_void>,
+        r#type: MTLDataType,
+        name: &str,
+    ) {
+        unsafe {
+            msg_send![
+                self,
+                setConstantValue: value,
+                type: r#type,
+                withName: &*NSString::from_str(name),
+            ]
+        }
+    }
 }

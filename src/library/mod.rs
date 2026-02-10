@@ -12,7 +12,7 @@ mod math_floating_point_functions;
 mod math_mode;
 mod optimization_level;
 
-pub use compile_options::MTLCompileOptions;
+pub use compile_options::{MTLCompileOptions, MTLPreprocessorMacroValue};
 pub use compile_symbol_visibility::MTLCompileSymbolVisibility;
 pub use function::MTLFunction;
 pub use function_completion_handler::LibraryFunctionCompletionHandler;

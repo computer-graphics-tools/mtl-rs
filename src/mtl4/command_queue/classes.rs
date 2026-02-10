@@ -68,18 +68,6 @@ extern_conformance!(
 
 impl MTL4CommandQueueDescriptor {
     extern_methods!(
-        /// Assigns an optional label to the command queue instance for debugging purposes.
-        #[unsafe(method(label))]
-        #[unsafe(method_family = none)]
-        pub fn label(&self) -> Option<Retained<NSString>>;
-
-        /// Setter for [`label`][Self::label].
-        ///
-        /// This is [copied][objc2_foundation::NSCopying::copy] when set.
-        #[unsafe(method(setLabel:))]
-        #[unsafe(method_family = none)]
-        pub fn set_label(&self, label: Option<&NSString>);
-
         /// Assigns a dispatch queue to which Metal submits feedback notification blocks.
         ///
         /// # Safety
@@ -115,13 +103,13 @@ impl MTL4CommandQueueDescriptor {
 
 impl MTL4CommandQueueDescriptor {
     /// Optional label for debug purposes.
-    pub fn label_str(&self) -> Option<String> {
+    pub fn label(&self) -> Option<String> {
         let s: Option<Retained<NSString>> = unsafe { msg_send![self, label] };
         s.map(|v| v.to_string())
     }
 
     /// Setter for label.
-    pub fn set_label_str(&self, label: Option<&str>) {
+    pub fn set_label(&self, label: Option<&str>) {
         unsafe {
             let _: () = msg_send![self, setLabel: label.map(NSString::from_str).as_deref()];
         }

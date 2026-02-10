@@ -1,5 +1,5 @@
 use objc2::{
-    extern_class, extern_conformance, extern_methods,
+    extern_class, extern_conformance, extern_methods, msg_send,
     rc::{Allocated, Retained},
     runtime::{NSObject, ProtocolObject},
 };
@@ -40,14 +40,6 @@ impl MTLCounterSampleBufferDescriptor {
             counter_set: Option<&ProtocolObject<dyn MTLCounterSet>>,
         );
 
-        #[unsafe(method(label))]
-        #[unsafe(method_family = none)]
-        pub fn label(&self) -> Retained<NSString>;
-
-        #[unsafe(method(setLabel:))]
-        #[unsafe(method_family = none)]
-        pub fn set_label(&self, label: &NSString);
-
         /// The storage mode for the sample buffer. Only `Shared` and `Private` may be used.
         #[unsafe(method(storageMode))]
         #[unsafe(method_family = none)]
@@ -65,6 +57,17 @@ impl MTLCounterSampleBufferDescriptor {
         #[unsafe(method_family = none)]
         pub fn set_sample_count(&self, sample_count: usize);
     );
+
+    pub fn label(&self) -> String {
+        let label: Retained<NSString> = unsafe { msg_send![self, label] };
+        label.to_string()
+    }
+
+    pub fn set_label(&self, label: &str) {
+        unsafe {
+            let _: () = msg_send![self, setLabel: &*NSString::from_str(label)];
+        }
+    }
 }
 
 impl MTLCounterSampleBufferDescriptor {

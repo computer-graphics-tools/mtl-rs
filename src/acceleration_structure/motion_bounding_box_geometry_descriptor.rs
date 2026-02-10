@@ -1,5 +1,5 @@
 use objc2::{
-    extern_class, extern_conformance, extern_methods,
+    extern_class, extern_conformance, extern_methods, msg_send,
     rc::{Allocated, Retained},
     runtime::NSObject,
 };
@@ -30,21 +30,6 @@ extern_conformance!(
 
 impl MTLAccelerationStructureMotionBoundingBoxGeometryDescriptor {
     extern_methods!(
-        /// Bounding box buffer containing MTLAxisAlignedBoundingBoxes similar to what MTLAccelerationStructureBoundingBoxGeometryDescriptor has but array of the values.
-        #[unsafe(method(boundingBoxBuffers))]
-        #[unsafe(method_family = none)]
-        pub fn bounding_box_buffers(&self) -> Retained<NSArray<MTLMotionKeyframeData>>;
-
-        /// Setter for [`boundingBoxBuffers`][Self::boundingBoxBuffers].
-        ///
-        /// This is [copied][objc2_foundation::NSCopying::copy] when set.
-        #[unsafe(method(setBoundingBoxBuffers:))]
-        #[unsafe(method_family = none)]
-        pub fn set_bounding_box_buffers(
-            &self,
-            bounding_box_buffers: &NSArray<MTLMotionKeyframeData>,
-        );
-
         /// Stride, in bytes, between bounding boxes in the bounding box buffer. Must be at least 24
         /// bytes and must be a multiple of 4 bytes. Defaults to 24 bytes.
         #[unsafe(method(boundingBoxStride))]
@@ -70,6 +55,20 @@ impl MTLAccelerationStructureMotionBoundingBoxGeometryDescriptor {
         #[unsafe(method_family = none)]
         pub fn descriptor() -> Retained<Self>;
     );
+
+    /// Bounding box buffers for each keyframe.
+    pub fn bounding_box_buffers(&self) -> Box<[Retained<MTLMotionKeyframeData>]> {
+        let bounding_box_buffers: Retained<NSArray<MTLMotionKeyframeData>> =
+            unsafe { msg_send![self, boundingBoxBuffers] };
+        bounding_box_buffers.to_vec().into_boxed_slice()
+    }
+
+    pub fn set_bounding_box_buffers(&self, bounding_box_buffers: &[&MTLMotionKeyframeData]) {
+        let bounding_box_buffers = NSArray::from_slice(bounding_box_buffers);
+        unsafe {
+            let _: () = msg_send![self, setBoundingBoxBuffers: &*bounding_box_buffers];
+        }
+    }
 }
 
 /// Methods declared on superclass `NSObject`.

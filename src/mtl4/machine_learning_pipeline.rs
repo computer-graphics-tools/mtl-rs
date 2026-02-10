@@ -122,15 +122,16 @@ impl MTL4MachineLearningPipelineDescriptor {
     /// The range's `length` needs to match the dimensions' `count` property.
     pub fn set_input_dimensions_with_range(
         &self,
-        dimensions: &NSArray<MTLTensorExtents>,
+        dimensions: &[&MTLTensorExtents],
         range: Range<usize>,
     ) {
+        let dimensions = NSArray::from_slice(dimensions);
         let ns_range = NSRange {
             location: range.start,
             length: range.end.saturating_sub(range.start),
         };
         unsafe {
-            let _: () = msg_send![self, setInputDimensions: dimensions, withRange: ns_range];
+            let _: () = msg_send![self, setInputDimensions: &*dimensions, withRange: ns_range];
         }
     }
 }
@@ -153,12 +154,14 @@ extern_conformance!(
 );
 
 impl MTL4MachineLearningPipelineReflection {
-    extern_methods!(
-        /// Describes every input and output of the pipeline.
-        #[unsafe(method(bindings))]
-        #[unsafe(method_family = none)]
-        pub fn bindings(&self) -> Retained<NSArray<ProtocolObject<dyn MTLBinding>>>;
-    );
+    extern_methods!();
+
+    /// Describes every input and output of the pipeline.
+    pub fn bindings(&self) -> Box<[Retained<ProtocolObject<dyn MTLBinding>>]> {
+        let bindings: Retained<NSArray<ProtocolObject<dyn MTLBinding>>> =
+            unsafe { msg_send![self, bindings] };
+        bindings.to_vec().into_boxed_slice()
+    }
 }
 
 /// Methods declared on superclass `NSObject`.

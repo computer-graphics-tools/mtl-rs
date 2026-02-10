@@ -1,13 +1,13 @@
 use objc2::{
-    extern_class, extern_conformance, extern_methods,
+    extern_class, extern_conformance, extern_methods, msg_send,
     rc::{Allocated, Retained},
     runtime::{NSObject, ProtocolObject},
 };
 use objc2_foundation::{CopyingHelper, NSArray, NSCopying, NSObjectProtocol};
 
 use crate::{
-    MTLAccelerationStructureGeometryDescriptor, MTLAttributeFormat, MTLBuffer, MTLIndexType,
-    MTLMotionKeyframeData,
+    MTLAccelerationStructureGeometryDescriptor, MTLAttributeFormat, MTLBuffer, MTLCurveBasis,
+    MTLCurveEndCaps, MTLCurveType, MTLIndexType, MTLMotionKeyframeData,
 };
 
 extern_class!(
@@ -40,20 +40,6 @@ impl MTLAccelerationStructureMotionCurveGeometryDescriptor {
         /// point format's element size and must be aligned to the platform's
         /// buffer offset alignment. Must not be nil when the acceleration
         /// structure is built.
-        #[unsafe(method(controlPointBuffers))]
-        #[unsafe(method_family = none)]
-        pub fn control_point_buffers(&self) -> Retained<NSArray<MTLMotionKeyframeData>>;
-
-        /// Setter for [`controlPointBuffers`][Self::controlPointBuffers].
-        ///
-        /// This is [copied][objc2_foundation::NSCopying::copy] when set.
-        #[unsafe(method(setControlPointBuffers:))]
-        #[unsafe(method_family = none)]
-        pub fn set_control_point_buffers(
-            &self,
-            control_point_buffers: &NSArray<MTLMotionKeyframeData>,
-        );
-
         /// Number of control points in the control point buffers
         #[unsafe(method(controlPointCount))]
         #[unsafe(method_family = none)]
@@ -94,17 +80,6 @@ impl MTLAccelerationStructureMotionCurveGeometryDescriptor {
         /// and must be aligned to the platform's buffer offset alignment. Each radius
         /// must be at least zero. Must not be nil when the acceleration structure
         /// is built.
-        #[unsafe(method(radiusBuffers))]
-        #[unsafe(method_family = none)]
-        pub fn radius_buffers(&self) -> Retained<NSArray<MTLMotionKeyframeData>>;
-
-        /// Setter for [`radiusBuffers`][Self::radiusBuffers].
-        ///
-        /// This is [copied][objc2_foundation::NSCopying::copy] when set.
-        #[unsafe(method(setRadiusBuffers:))]
-        #[unsafe(method_family = none)]
-        pub fn set_radius_buffers(&self, radius_buffers: &NSArray<MTLMotionKeyframeData>);
-
         /// Format of the radii in the radius buffer. Defaults to
         /// MTLAttributeFormatFloat.
         #[unsafe(method(radiusFormat))]
@@ -183,37 +158,63 @@ impl MTLAccelerationStructureMotionCurveGeometryDescriptor {
         /// Curve type. Defaults to MTLCurveTypeRound.
         #[unsafe(method(curveType))]
         #[unsafe(method_family = none)]
-        pub fn curve_type(&self) -> crate::MTLCurveType;
+        pub fn curve_type(&self) -> MTLCurveType;
 
         /// Setter for [`curveType`][Self::curveType].
         #[unsafe(method(setCurveType:))]
         #[unsafe(method_family = none)]
-        pub fn set_curve_type(&self, curve_type: crate::MTLCurveType);
+        pub fn set_curve_type(&self, curve_type: MTLCurveType);
 
         /// Curve basis. Defaults to MTLCurveBasisBSpline.
         #[unsafe(method(curveBasis))]
         #[unsafe(method_family = none)]
-        pub fn curve_basis(&self) -> crate::MTLCurveBasis;
+        pub fn curve_basis(&self) -> MTLCurveBasis;
 
         /// Setter for [`curveBasis`][Self::curveBasis].
         #[unsafe(method(setCurveBasis:))]
         #[unsafe(method_family = none)]
-        pub fn set_curve_basis(&self, curve_basis: crate::MTLCurveBasis);
+        pub fn set_curve_basis(&self, curve_basis: MTLCurveBasis);
 
         /// Type of curve end caps. Defaults to MTLCurveEndCapsNone.
         #[unsafe(method(curveEndCaps))]
         #[unsafe(method_family = none)]
-        pub fn curve_end_caps(&self) -> crate::MTLCurveEndCaps;
+        pub fn curve_end_caps(&self) -> MTLCurveEndCaps;
 
         /// Setter for [`curveEndCaps`][Self::curveEndCaps].
         #[unsafe(method(setCurveEndCaps:))]
         #[unsafe(method_family = none)]
-        pub fn set_curve_end_caps(&self, curve_end_caps: crate::MTLCurveEndCaps);
+        pub fn set_curve_end_caps(&self, curve_end_caps: MTLCurveEndCaps);
 
         #[unsafe(method(descriptor))]
         #[unsafe(method_family = none)]
         pub fn descriptor() -> Retained<Self>;
     );
+
+    pub fn control_point_buffers(&self) -> Box<[Retained<MTLMotionKeyframeData>]> {
+        let control_point_buffers: Retained<NSArray<MTLMotionKeyframeData>> =
+            unsafe { msg_send![self, controlPointBuffers] };
+        control_point_buffers.to_vec().into_boxed_slice()
+    }
+
+    pub fn set_control_point_buffers(&self, control_point_buffers: &[&MTLMotionKeyframeData]) {
+        let control_point_buffers = NSArray::from_slice(control_point_buffers);
+        unsafe {
+            let _: () = msg_send![self, setControlPointBuffers: &*control_point_buffers];
+        }
+    }
+
+    pub fn radius_buffers(&self) -> Box<[Retained<MTLMotionKeyframeData>]> {
+        let radius_buffers: Retained<NSArray<MTLMotionKeyframeData>> =
+            unsafe { msg_send![self, radiusBuffers] };
+        radius_buffers.to_vec().into_boxed_slice()
+    }
+
+    pub fn set_radius_buffers(&self, radius_buffers: &[&MTLMotionKeyframeData]) {
+        let radius_buffers = NSArray::from_slice(radius_buffers);
+        unsafe {
+            let _: () = msg_send![self, setRadiusBuffers: &*radius_buffers];
+        }
+    }
 }
 
 /// Methods declared on superclass `NSObject`.

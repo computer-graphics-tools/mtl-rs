@@ -18,4 +18,4 @@ pub use error::{
 pub use results::{
     MTLCounterResultStageUtilization, MTLCounterResultStatistic, MTLCounterResultTimestamp,
 };
-pub use sample_buffer::MTLCounterSampleBuffer;
+pub use sample_buffer::{MTLCounterSampleBuffer, MTLCounterSampleBufferExt};

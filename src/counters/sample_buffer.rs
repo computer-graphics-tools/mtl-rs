@@ -1,4 +1,6 @@
-use objc2::{extern_protocol, rc::Retained, runtime::ProtocolObject};
+use core::ops::Range;
+
+use objc2::{Message, extern_protocol, msg_send, rc::Retained, runtime::ProtocolObject};
 use objc2_foundation::{NSData, NSObjectProtocol, NSRange, NSString};
 
 use crate::MTLDevice;
@@ -12,19 +14,36 @@ extern_protocol!(
         #[unsafe(method_family = none)]
         fn device(&self) -> Retained<ProtocolObject<dyn MTLDevice>>;
 
-        /// The label set on the descriptor used to create this sample buffer.
-        #[unsafe(method(label))]
-        #[unsafe(method_family = none)]
-        fn label(&self) -> Retained<NSString>;
-
         /// Number of samples in this buffer.
         #[unsafe(method(sampleCount))]
         #[unsafe(method_family = none)]
         fn sample_count(&self) -> usize;
-
-        /// Resolve the counters in the given range to an NSData containing the counter values.
-        #[unsafe(method(resolveCounterRange:))]
-        #[unsafe(method_family = none)]
-        fn resolve_counter_range(&self, range: NSRange) -> Option<Retained<NSData>>;
     }
 );
+
+pub trait MTLCounterSampleBufferExt: MTLCounterSampleBuffer + Message {
+    fn label(&self) -> String
+    where
+        Self: Sized,
+    {
+        let label: Retained<NSString> = unsafe { msg_send![self, label] };
+        label.to_string()
+    }
+
+    fn resolve_counter_range(&self, range: Range<usize>) -> Option<Retained<NSData>>
+    where
+        Self: Sized,
+    {
+        unsafe { msg_send![self, resolveCounterRange: NSRange::from(range)] }
+    }
+
+    fn resolve_counter_range_bytes(&self, range: Range<usize>) -> Option<Box<[u8]>>
+    where
+        Self: Sized,
+    {
+        self.resolve_counter_range(range)
+            .map(|data| data.to_vec().into_boxed_slice())
+    }
+}
+
+impl<T: MTLCounterSampleBuffer + Message> MTLCounterSampleBufferExt for T {}

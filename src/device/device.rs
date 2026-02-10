@@ -1,8 +1,8 @@
-use std::{ffi::c_void, ptr::NonNull};
+use std::{ffi::c_void, path::Path, ptr::NonNull};
 
 use dispatch2::DispatchData;
 use objc2::{Message, extern_protocol, msg_send, rc::Retained, runtime::ProtocolObject};
-use objc2_foundation::{NSArray, NSError, NSObjectProtocol, NSString};
+use objc2_foundation::{NSArray, NSError, NSObjectProtocol, NSString, NSURL};
 
 use super::MTLArchitecture;
 use crate::{
@@ -226,10 +226,10 @@ pub trait MTLDeviceExt: MTLDevice + Message {
         data: &[u8],
     ) -> Result<Retained<ProtocolObject<dyn MTLLibrary>>, Retained<NSError>>;
 
-    /// Load a library from a file URL.
-    fn new_library_with_url(
+    /// Load a library from a file path.
+    fn new_library_with_path(
         &self,
-        url: &objc2_foundation::NSURL,
+        path: &Path,
     ) -> Result<Retained<ProtocolObject<dyn MTLLibrary>>, Retained<NSError>>;
 
     /// Create a compute pipeline state from a function.
@@ -302,10 +302,10 @@ pub trait MTLDeviceExt: MTLDevice + Message {
         library: &ProtocolObject<dyn MTLLibrary>,
     ) -> Result<Retained<ProtocolObject<dyn MTLDynamicLibrary>>, Retained<NSError>>;
 
-    /// Creates a dynamic library from a URL.
-    fn new_dynamic_library_with_url(
+    /// Creates a dynamic library from a file path.
+    fn new_dynamic_library_with_path(
         &self,
-        url: &objc2_foundation::NSURL,
+        path: &Path,
     ) -> Result<Retained<ProtocolObject<dyn MTLDynamicLibrary>>, Retained<NSError>>;
 
     /// Creates a new I/O command queue.
@@ -329,7 +329,7 @@ pub trait MTLDeviceExt: MTLDevice + Message {
     /// Creates an argument encoder with the specified arguments.
     fn new_argument_encoder_with_arguments(
         &self,
-        arguments: &NSArray<MTLArgumentDescriptor>,
+        arguments: &[&MTLArgumentDescriptor],
     ) -> Option<Retained<ProtocolObject<dyn MTLArgumentEncoder>>>;
 
     /// Creates a new log state with the specified descriptor.
@@ -430,13 +430,14 @@ impl MTLDeviceExt for ProtocolObject<dyn MTLDevice> {
         }
     }
 
-    fn new_library_with_url(
+    fn new_library_with_path(
         &self,
-        url: &objc2_foundation::NSURL,
+        path: &Path,
     ) -> Result<Retained<ProtocolObject<dyn MTLLibrary>>, Retained<NSError>> {
+        let url = NSURL::from_file_path(path).expect("path must be a valid file URL path");
         let mut error: *mut NSError = std::ptr::null_mut();
         let result: Option<Retained<ProtocolObject<dyn MTLLibrary>>> =
-            unsafe { msg_send![self, newLibraryWithURL: url, error: &mut error] };
+            unsafe { msg_send![self, newLibraryWithURL: &*url, error: &mut error] };
 
         match result {
             Some(lib) => Ok(lib),
@@ -565,13 +566,14 @@ impl MTLDeviceExt for ProtocolObject<dyn MTLDevice> {
         }
     }
 
-    fn new_dynamic_library_with_url(
+    fn new_dynamic_library_with_path(
         &self,
-        url: &objc2_foundation::NSURL,
+        path: &Path,
     ) -> Result<Retained<ProtocolObject<dyn MTLDynamicLibrary>>, Retained<NSError>> {
+        let url = NSURL::from_file_path(path).expect("path must be a valid file URL path");
         let mut error: *mut NSError = std::ptr::null_mut();
         let result: Option<Retained<ProtocolObject<dyn MTLDynamicLibrary>>> =
-            unsafe { msg_send![self, newDynamicLibraryWithURL: url, error: &mut error] };
+            unsafe { msg_send![self, newDynamicLibraryWithURL: &*url, error: &mut error] };
         match result {
             Some(lib) => Ok(lib),
             None => Err(unsafe { Retained::retain(error).unwrap() }),
@@ -608,9 +610,10 @@ impl MTLDeviceExt for ProtocolObject<dyn MTLDevice> {
 
     fn new_argument_encoder_with_arguments(
         &self,
-        arguments: &NSArray<MTLArgumentDescriptor>,
+        arguments: &[&MTLArgumentDescriptor],
     ) -> Option<Retained<ProtocolObject<dyn MTLArgumentEncoder>>> {
-        unsafe { msg_send![self, newArgumentEncoderWithArguments: arguments] }
+        let arguments = NSArray::from_slice(arguments);
+        unsafe { msg_send![self, newArgumentEncoderWithArguments: &*arguments] }
     }
 
     fn new_log_state_with_descriptor(

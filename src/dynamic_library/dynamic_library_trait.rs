@@ -1,3 +1,5 @@
+use std::path::Path;
+
 use objc2::{Message, extern_protocol, msg_send, rc::Retained, runtime::ProtocolObject};
 use objc2_foundation::{NSError, NSObjectProtocol, NSString, NSURL};
 
@@ -15,13 +17,6 @@ extern_protocol!(
         #[unsafe(method_family = none)]
         fn device(&self) -> Retained<ProtocolObject<dyn MTLDevice>>;
 
-        /// Writes the contents of the dynamic library to a file.
-        ///
-        /// On success, the file contains a representation of the source MTLLibrary used to create the MTLDynamicLibrary,
-        /// as well as compiled code for the current device. Such files may be combined offline to include code for multiple devices.
-        #[unsafe(method(serializeToURL:error:_))]
-        #[unsafe(method_family = none)]
-        fn serialize_to_url(&self, url: &NSURL) -> Result<(), Retained<NSError>>;
     }
 );
 
@@ -33,6 +28,8 @@ pub trait MTLDynamicLibraryExt: MTLDynamicLibrary + Message {
     fn set_label(&self, label: Option<&str>);
     /// The install name of this dynamic library.
     fn install_name(&self) -> String;
+    /// Writes the contents of the dynamic library to a file path.
+    fn serialize_to_path(&self, path: &Path) -> Result<(), Retained<NSError>>;
 }
 
 impl MTLDynamicLibraryExt for ProtocolObject<dyn MTLDynamicLibrary> {
@@ -50,5 +47,16 @@ impl MTLDynamicLibraryExt for ProtocolObject<dyn MTLDynamicLibrary> {
     fn install_name(&self) -> String {
         let s: Retained<NSString> = unsafe { msg_send![self, installName] };
         s.to_string()
+    }
+
+    fn serialize_to_path(&self, path: &Path) -> Result<(), Retained<NSError>> {
+        let url = NSURL::from_file_path(path).expect("path must be a valid file URL path");
+        let mut error: *mut NSError = std::ptr::null_mut();
+        let ok: bool = unsafe { msg_send![self, serializeToURL: &*url, error: &mut error] };
+        if ok {
+            Ok(())
+        } else {
+            Err(unsafe { Retained::retain(error).unwrap() })
+        }
     }
 }

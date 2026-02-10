@@ -1,6 +1,6 @@
 use core::ffi::c_float;
 use objc2::{
-    extern_class, extern_conformance, extern_methods,
+    extern_class, extern_conformance, extern_methods, msg_send,
     rc::{Allocated, Retained},
     runtime::NSObject,
 };
@@ -152,14 +152,18 @@ impl MTLSamplerDescriptor {
         #[unsafe(method_family = none)]
         pub fn set_support_argument_buffers(&self, v: bool);
 
-        #[unsafe(method(label))]
-        #[unsafe(method_family = none)]
-        pub fn label(&self) -> Option<Retained<NSString>>;
-
-        #[unsafe(method(setLabel:))]
-        #[unsafe(method_family = none)]
-        pub fn set_label(&self, label: Option<&NSString>);
     );
+
+    pub fn label(&self) -> Option<String> {
+        let label: Option<Retained<NSString>> = unsafe { msg_send![self, label] };
+        label.map(|label| label.to_string())
+    }
+
+    pub fn set_label(&self, label: Option<&str>) {
+        unsafe {
+            let _: () = msg_send![self, setLabel: label.map(NSString::from_str).as_deref()];
+        }
+    }
 }
 
 /// Methods declared on superclass `NSObject`.

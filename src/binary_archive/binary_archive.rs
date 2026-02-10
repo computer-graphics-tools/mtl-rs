@@ -1,9 +1,12 @@
+use std::path::Path;
+
 use objc2::{Message, extern_protocol, msg_send, rc::Retained, runtime::ProtocolObject};
 use objc2_foundation::{NSError, NSObjectProtocol, NSString, NSURL};
 
 use crate::{
-    MTLComputePipelineDescriptor, MTLFunctionDescriptor, MTLLibrary, MTLRenderPipelineDescriptor,
-    function_stitching::MTLStitchedLibraryDescriptor,
+    MTL4MeshRenderPipelineDescriptor, MTLComputePipelineDescriptor, MTLDevice,
+    MTLFunctionDescriptor, MTLLibrary, MTLRenderPipelineDescriptor,
+    function_stitching::MTLStitchedLibraryDescriptor, render_pipeline::MTLTileRenderPipelineDescriptor,
 };
 
 // Error domain symbol is declared in `binary_archive::types`.
@@ -16,7 +19,7 @@ extern_protocol!(
         /// The device this resource was created against. This resource can only be used with this device.
         #[unsafe(method(device))]
         #[unsafe(method_family = none)]
-        fn device(&self) -> Retained<ProtocolObject<dyn crate::MTLDevice>>;
+        fn device(&self) -> Retained<ProtocolObject<dyn MTLDevice>>;
 
         /// Add the function(s) from a compute pipeline state to the archive.
         ///
@@ -53,7 +56,7 @@ extern_protocol!(
         #[unsafe(method_family = none)]
         fn add_tile_render_pipeline_functions(
             &self,
-            descriptor: &crate::render_pipeline::MTLTileRenderPipelineDescriptor,
+            descriptor: &MTLTileRenderPipelineDescriptor,
         ) -> Result<(), Retained<NSError>>;
 
         /// Add the function(s) from a mesh render pipeline state to the archive.
@@ -67,7 +70,7 @@ extern_protocol!(
         #[unsafe(method_family = none)]
         fn add_mesh_render_pipeline_functions(
             &self,
-            descriptor: &crate::MTL4MeshRenderPipelineDescriptor,
+            descriptor: &MTL4MeshRenderPipelineDescriptor,
         ) -> Result<(), Retained<NSError>>;
 
         /// Add the function(s) from a stitched library to the archive.
@@ -83,15 +86,6 @@ extern_protocol!(
             &self,
             descriptor: &MTLStitchedLibraryDescriptor,
         ) -> Result<(), Retained<NSError>>;
-
-        /// Write the contents of a MTLBinaryArchive to a file.
-        ///
-        /// Persisting the archive to a file allows opening the archive on a subsequent instance of the app, making available the contents without recompiling.
-        ///
-        /// If the function fails, this will be set to describe the failure. This can be (but is not required to be) an error from the `MTLBinaryArchiveDomain` domain. Other possible errors can be file access or I/O related.
-        #[unsafe(method(serializeToURL:error:_))]
-        #[unsafe(method_family = none)]
-        fn serialize_to_url(&self, url: &NSURL) -> Result<(), Retained<NSError>>;
 
         /// Add a `visible` or `intersection` function to the archive.
         ///
@@ -117,6 +111,9 @@ pub trait MTLBinaryArchiveExt: MTLBinaryArchive + Message {
 
     /// Setter for `label`.
     fn set_label(&self, label: Option<&str>);
+
+    /// Write the contents of a `MTLBinaryArchive` to a file path.
+    fn serialize_to_path(&self, path: &Path) -> Result<(), Retained<NSError>>;
 }
 
 impl MTLBinaryArchiveExt for ProtocolObject<dyn MTLBinaryArchive> {
@@ -128,6 +125,17 @@ impl MTLBinaryArchiveExt for ProtocolObject<dyn MTLBinaryArchive> {
     fn set_label(&self, label: Option<&str>) {
         unsafe {
             let _: () = msg_send![self, setLabel: label.map(NSString::from_str).as_deref()];
+        }
+    }
+
+    fn serialize_to_path(&self, path: &Path) -> Result<(), Retained<NSError>> {
+        let url = NSURL::from_file_path(path).expect("path must be a valid file URL path");
+        let mut error: *mut NSError = std::ptr::null_mut();
+        let ok: bool = unsafe { msg_send![self, serializeToURL: &*url, error: &mut error] };
+        if ok {
+            Ok(())
+        } else {
+            Err(unsafe { Retained::retain(error).unwrap() })
         }
     }
 }

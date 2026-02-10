@@ -1,4 +1,4 @@
-use objc2::{Message, extern_class, extern_methods, msg_send, rc::Retained, runtime::NSObject};
+use objc2::{extern_class, extern_methods, msg_send, rc::Retained, runtime::NSObject};
 use objc2_foundation::NSString;
 
 use crate::{
@@ -97,15 +97,8 @@ impl MTLArgument {
         #[unsafe(method_family = none)]
         pub fn array_length(&self) -> usize;
     );
-}
 
-#[allow(unused)]
-pub trait MTLArgumentExt: Message {
-    fn name(&self) -> String;
-}
-
-impl MTLArgumentExt for MTLArgument {
-    fn name(&self) -> String {
+    pub fn name(&self) -> String {
         let ns: Retained<NSString> = unsafe { msg_send![self, name] };
         ns.to_string()
     }

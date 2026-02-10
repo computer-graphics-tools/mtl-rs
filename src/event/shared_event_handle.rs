@@ -1,5 +1,5 @@
 use objc2::{
-    extern_class, extern_conformance, extern_methods,
+    extern_class, extern_conformance, extern_methods, msg_send,
     rc::{Allocated, Retained},
     runtime::NSObject,
 };
@@ -28,11 +28,12 @@ extern_conformance!(
 );
 
 impl MTLSharedEventHandle {
-    extern_methods!(
-        #[unsafe(method(label))]
-        #[unsafe(method_family = none)]
-        pub fn label(&self) -> Option<Retained<NSString>>;
-    );
+    extern_methods!();
+
+    pub fn label(&self) -> Option<String> {
+        let label: Option<Retained<NSString>> = unsafe { msg_send![self, label] };
+        label.map(|label| label.to_string())
+    }
 }
 
 /// Methods declared on superclass `NSObject`.

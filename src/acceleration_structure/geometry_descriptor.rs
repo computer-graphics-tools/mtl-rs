@@ -1,5 +1,5 @@
 use objc2::{
-    Message, extern_class, extern_conformance, extern_methods, msg_send,
+    extern_class, extern_conformance, extern_methods, msg_send,
     rc::{Allocated, Retained},
     runtime::{NSObject, ProtocolObject},
 };
@@ -67,18 +67,6 @@ impl MTLAccelerationStructureGeometryDescriptor {
             allow_duplicate_intersection_function_invocation: bool,
         );
 
-        /// Label
-        #[unsafe(method(label))]
-        #[unsafe(method_family = none)]
-        pub fn label(&self) -> Option<Retained<NSString>>;
-
-        /// Setter for [`label`][Self::label].
-        ///
-        /// This is [copied][objc2_foundation::NSCopying::copy] when set.
-        #[unsafe(method(setLabel:))]
-        #[unsafe(method_family = none)]
-        pub fn set_label(&self, label: Option<&NSString>);
-
         /// Data buffer containing per-primitive data. May be nil.
         #[unsafe(method(primitiveDataBuffer))]
         #[unsafe(method_family = none)]
@@ -128,19 +116,13 @@ impl MTLAccelerationStructureGeometryDescriptor {
     );
 }
 
-#[allow(unused)]
-pub trait MTLAccelerationStructureGeometryDescriptorExt: Message {
-    fn label(&self) -> Option<String>;
-    fn set_label(&self, label: Option<&str>);
-}
-
-impl MTLAccelerationStructureGeometryDescriptorExt for MTLAccelerationStructureGeometryDescriptor {
-    fn label(&self) -> Option<String> {
+impl MTLAccelerationStructureGeometryDescriptor {
+    pub fn label(&self) -> Option<String> {
         let label: Option<Retained<NSString>> = unsafe { msg_send![self, label] };
         label.map(|l| l.to_string())
     }
 
-    fn set_label(&self, label: Option<&str>) {
+    pub fn set_label(&self, label: Option<&str>) {
         unsafe {
             let _: () = msg_send![self, setLabel: label.map(NSString::from_str).as_deref()];
         }

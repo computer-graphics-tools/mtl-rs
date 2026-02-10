@@ -1,5 +1,5 @@
 use objc2::{
-    extern_class, extern_conformance, extern_methods,
+    extern_class, extern_conformance, extern_methods, msg_send,
     rc::{Allocated, Retained},
     runtime::{NSObject, ProtocolObject},
 };
@@ -33,18 +33,6 @@ extern_conformance!(
 
 impl MTLAccelerationStructureMotionTriangleGeometryDescriptor {
     extern_methods!(
-        /// Vertex buffer containing triangle vertices similar to what MTLAccelerationStructureTriangleGeometryDescriptor has but array of the values.
-        #[unsafe(method(vertexBuffers))]
-        #[unsafe(method_family = none)]
-        pub fn vertex_buffers(&self) -> Retained<NSArray<MTLMotionKeyframeData>>;
-
-        /// Setter for [`vertexBuffers`][Self::vertexBuffers].
-        ///
-        /// This is [copied][objc2_foundation::NSCopying::copy] when set.
-        #[unsafe(method(setVertexBuffers:))]
-        #[unsafe(method_family = none)]
-        pub fn set_vertex_buffers(&self, vertex_buffers: &NSArray<MTLMotionKeyframeData>);
-
         /// Format type of the vertex buffers across all keyframes.
         /// Defaults to MTLAttributeFormatFloat3 (packed).
         #[unsafe(method(vertexFormat))]
@@ -156,6 +144,20 @@ impl MTLAccelerationStructureMotionTriangleGeometryDescriptor {
         #[unsafe(method_family = none)]
         pub fn descriptor() -> Retained<Self>;
     );
+
+    /// Vertex buffers containing triangle vertices for each keyframe.
+    pub fn vertex_buffers(&self) -> Box<[Retained<MTLMotionKeyframeData>]> {
+        let vertex_buffers: Retained<NSArray<MTLMotionKeyframeData>> =
+            unsafe { msg_send![self, vertexBuffers] };
+        vertex_buffers.to_vec().into_boxed_slice()
+    }
+
+    pub fn set_vertex_buffers(&self, vertex_buffers: &[&MTLMotionKeyframeData]) {
+        let vertex_buffers = NSArray::from_slice(vertex_buffers);
+        unsafe {
+            let _: () = msg_send![self, setVertexBuffers: &*vertex_buffers];
+        }
+    }
 }
 
 /// Methods declared on superclass `NSObject`.

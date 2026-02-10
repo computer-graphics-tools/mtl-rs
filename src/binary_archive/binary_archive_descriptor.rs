@@ -1,5 +1,7 @@
+use std::path::{Path, PathBuf};
+
 use objc2::{
-    extern_class, extern_conformance, extern_methods,
+    extern_class, extern_conformance, extern_methods, msg_send,
     rc::{Allocated, Retained},
     runtime::NSObject,
 };
@@ -28,20 +30,25 @@ extern_conformance!(
 
 impl MTLBinaryArchiveDescriptor {
     extern_methods!(
-        /// The file URL from which to open a MTLBinaryArchive, or nil to create an empty MTLBinaryArchive.
-        ///
-        /// Availability: macOS 11.0+, iOS 14.0+
-        #[unsafe(method(url))]
-        #[unsafe(method_family = none)]
-        pub fn url(&self) -> Option<Retained<NSURL>>;
-
-        /// Setter for `url`. Copied when set.
-        ///
-        /// Availability: macOS 11.0+, iOS 14.0+
-        #[unsafe(method(setUrl:))]
-        #[unsafe(method_family = none)]
-        pub fn set_url(&self, url: Option<&NSURL>);
     );
+
+    /// The file path from which to open a `MTLBinaryArchive`, or `None` to create an empty archive.
+    ///
+    /// Availability: macOS 11.0+, iOS 14.0+
+    pub fn path(&self) -> Option<PathBuf> {
+        let url: Option<Retained<NSURL>> = unsafe { msg_send![self, url] };
+        url.and_then(|url| url.to_file_path())
+    }
+
+    /// Setter for `path`.
+    ///
+    /// Availability: macOS 11.0+, iOS 14.0+
+    pub fn set_path(&self, path: Option<&Path>) {
+        let url = path.and_then(NSURL::from_file_path);
+        unsafe {
+            let _: () = msg_send![self, setUrl: url.as_deref()];
+        }
+    }
 }
 
 impl MTLBinaryArchiveDescriptor {

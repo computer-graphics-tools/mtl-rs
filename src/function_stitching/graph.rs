@@ -30,15 +30,6 @@ extern_conformance!(
 
 impl MTLFunctionStitchingGraph {
     extern_methods!(
-        #[unsafe(method(nodes))]
-        #[unsafe(method_family = none)]
-        pub fn nodes(&self) -> Retained<NSArray<MTLFunctionStitchingFunctionNode>>;
-
-        /// Setter for [`nodes`][Self::nodes].
-        #[unsafe(method(setNodes:))]
-        #[unsafe(method_family = none)]
-        pub fn set_nodes(&self, nodes: &NSArray<MTLFunctionStitchingFunctionNode>);
-
         #[unsafe(method(outputNode))]
         #[unsafe(method_family = none)]
         pub fn output_node(&self) -> Option<Retained<MTLFunctionStitchingFunctionNode>>;
@@ -51,30 +42,58 @@ impl MTLFunctionStitchingGraph {
             output_node: Option<&MTLFunctionStitchingFunctionNode>,
         );
 
-        #[unsafe(method(attributes))]
-        #[unsafe(method_family = none)]
-        pub fn attributes(
-            &self,
-        ) -> Retained<NSArray<ProtocolObject<dyn super::MTLFunctionStitchingAttribute>>>;
-
-        /// Setter for [`attributes`][Self::attributes].
-        #[unsafe(method(setAttributes:))]
-        #[unsafe(method_family = none)]
-        pub fn set_attributes(
-            &self,
-            attributes: &NSArray<ProtocolObject<dyn super::MTLFunctionStitchingAttribute>>,
-        );
-
-        #[unsafe(method(initWithFunctionName:nodes:outputNode:attributes:))]
-        #[unsafe(method_family = init)]
-        pub fn init_with_function_name_nodes_output_node_attributes(
-            this: Allocated<Self>,
-            function_name: &NSString,
-            nodes: &NSArray<MTLFunctionStitchingFunctionNode>,
-            output_node: Option<&MTLFunctionStitchingFunctionNode>,
-            attributes: &NSArray<ProtocolObject<dyn super::MTLFunctionStitchingAttribute>>,
-        ) -> Retained<Self>;
     );
+
+    pub fn nodes(&self) -> Box<[Retained<MTLFunctionStitchingFunctionNode>]> {
+        let nodes: Retained<NSArray<MTLFunctionStitchingFunctionNode>> = unsafe { msg_send![self, nodes] };
+        nodes.to_vec().into_boxed_slice()
+    }
+
+    pub fn set_nodes(&self, nodes: &[&MTLFunctionStitchingFunctionNode]) {
+        let nodes = NSArray::from_slice(nodes);
+        unsafe {
+            let _: () = msg_send![self, setNodes: &*nodes];
+        }
+    }
+
+    pub fn attributes(
+        &self,
+    ) -> Box<[Retained<ProtocolObject<dyn super::MTLFunctionStitchingAttribute>>]> {
+        let attributes: Retained<NSArray<ProtocolObject<dyn super::MTLFunctionStitchingAttribute>>> =
+            unsafe { msg_send![self, attributes] };
+        attributes.to_vec().into_boxed_slice()
+    }
+
+    pub fn set_attributes(
+        &self,
+        attributes: &[&ProtocolObject<dyn super::MTLFunctionStitchingAttribute>],
+    ) {
+        let attributes = NSArray::from_slice(attributes);
+        unsafe {
+            let _: () = msg_send![self, setAttributes: &*attributes];
+        }
+    }
+
+    pub fn init_with_function_name_nodes_output_node_attributes(
+        this: Allocated<Self>,
+        function_name: &str,
+        nodes: &[&MTLFunctionStitchingFunctionNode],
+        output_node: Option<&MTLFunctionStitchingFunctionNode>,
+        attributes: &[&ProtocolObject<dyn super::MTLFunctionStitchingAttribute>],
+    ) -> Retained<Self> {
+        let function_name = NSString::from_str(function_name);
+        let nodes = NSArray::from_slice(nodes);
+        let attributes = NSArray::from_slice(attributes);
+        unsafe {
+            msg_send![
+                this,
+                initWithFunctionName: &*function_name,
+                nodes: &*nodes,
+                outputNode: output_node,
+                attributes: &*attributes
+            ]
+        }
+    }
 }
 
 #[allow(unused)]

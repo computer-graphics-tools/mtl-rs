@@ -2,7 +2,7 @@
 //! DO NOT EDIT
 use objc2::rc::{Allocated, Retained};
 use objc2::runtime::ProtocolObject;
-use objc2::{extern_class, extern_conformance, extern_methods};
+use objc2::{extern_class, extern_conformance, extern_methods, msg_send};
 use objc2_foundation::{CopyingHelper, NSCopying, NSObject, NSObjectProtocol, NSString};
 
 use crate::*;
@@ -30,18 +30,6 @@ extern_conformance!(
 
 impl MTL4LibraryFunctionDescriptor {
     extern_methods!(
-        /// Assigns a name to the function.
-        #[unsafe(method(name))]
-        #[unsafe(method_family = none)]
-        pub fn name(&self) -> Option<Retained<NSString>>;
-
-        /// Setter for [`name`][Self::name].
-        ///
-        /// This is [copied][objc2_foundation::NSCopying::copy] when set.
-        #[unsafe(method(setName:))]
-        #[unsafe(method_family = none)]
-        pub fn set_name(&self, name: Option<&NSString>);
-
         /// Returns a reference to the library containing the function.
         #[unsafe(method(library))]
         #[unsafe(method_family = none)]
@@ -52,6 +40,17 @@ impl MTL4LibraryFunctionDescriptor {
         #[unsafe(method_family = none)]
         pub fn set_library(&self, library: Option<&ProtocolObject<dyn MTLLibrary>>);
     );
+
+    pub fn name(&self) -> Option<String> {
+        let name: Option<Retained<NSString>> = unsafe { msg_send![self, name] };
+        name.map(|value| value.to_string())
+    }
+
+    pub fn set_name(&self, name: Option<&str>) {
+        unsafe {
+            let _: () = msg_send![self, setName: name.map(NSString::from_str).as_deref()];
+        }
+    }
 }
 
 /// Methods declared on superclass `NSObject`.

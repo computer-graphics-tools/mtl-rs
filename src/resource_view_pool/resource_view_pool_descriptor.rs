@@ -1,5 +1,5 @@
 use objc2::{
-    extern_class, extern_conformance, extern_methods,
+    extern_class, extern_conformance, extern_methods, msg_send,
     rc::{Allocated, Retained},
     runtime::NSObject,
 };
@@ -36,16 +36,18 @@ impl MTLResourceViewPoolDescriptor {
         #[unsafe(method_family = none)]
         pub fn set_resource_view_count(&self, resource_view_count: usize);
 
-        /// Optional label for debugging purposes.
-        #[unsafe(method(label))]
-        #[unsafe(method_family = none)]
-        pub fn label(&self) -> Option<Retained<NSString>>;
-
-        /// Setter for [`label`][Self::label]. Copied when set.
-        #[unsafe(method(setLabel:))]
-        #[unsafe(method_family = none)]
-        pub fn set_label(&self, label: Option<&NSString>);
     );
+
+    pub fn label(&self) -> Option<String> {
+        let label: Option<Retained<NSString>> = unsafe { msg_send![self, label] };
+        label.map(|label| label.to_string())
+    }
+
+    pub fn set_label(&self, label: Option<&str>) {
+        unsafe {
+            let _: () = msg_send![self, setLabel: label.map(NSString::from_str).as_deref()];
+        }
+    }
 }
 
 /// Methods declared on superclass `NSObject`.

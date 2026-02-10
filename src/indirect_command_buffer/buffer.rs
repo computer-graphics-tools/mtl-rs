@@ -1,4 +1,6 @@
-use objc2::{extern_protocol, rc::Retained, runtime::ProtocolObject};
+use core::ops::Range;
+
+use objc2::{Message, extern_protocol, msg_send, rc::Retained, runtime::ProtocolObject};
 use objc2_foundation::{NSObjectProtocol, NSRange};
 
 use crate::{MTLIndirectComputeCommand, MTLIndirectRenderCommand, types::MTLResourceID};
@@ -19,10 +21,6 @@ extern_protocol!(
         #[unsafe(method_family = none)]
         fn gpu_resource_id(&self) -> MTLResourceID;
 
-        #[unsafe(method(resetWithRange:))]
-        #[unsafe(method_family = none)]
-        fn reset_with_range(&self, range: NSRange);
-
         #[unsafe(method(indirectRenderCommandAtIndex:))]
         #[unsafe(method_family = none)]
         fn indirect_render_command_at_index(
@@ -38,3 +36,16 @@ extern_protocol!(
         ) -> Retained<ProtocolObject<dyn MTLIndirectComputeCommand>>;
     }
 );
+
+pub trait MTLIndirectCommandBufferExt: MTLIndirectCommandBuffer + Message {
+    fn reset_with_range(&self, range: Range<usize>)
+    where
+        Self: Sized,
+    {
+        unsafe {
+            let _: () = msg_send![self, resetWithRange: NSRange::from(range)];
+        }
+    }
+}
+
+impl<T: MTLIndirectCommandBuffer + Message> MTLIndirectCommandBufferExt for T {}

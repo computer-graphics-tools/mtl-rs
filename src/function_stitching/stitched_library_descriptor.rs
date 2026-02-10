@@ -1,12 +1,12 @@
 use objc2::{
-    extern_class, extern_conformance, extern_methods,
+    extern_class, extern_conformance, extern_methods, msg_send,
     rc::{Allocated, Retained},
     runtime::{NSObject, ProtocolObject},
 };
 use objc2_foundation::{CopyingHelper, NSArray, NSCopying, NSObjectProtocol};
 
 use super::{MTLFunctionStitchingGraph, MTLStitchedLibraryOptions};
-use crate::library::MTLFunction;
+use crate::{MTLBinaryArchive, library::MTLFunction};
 
 extern_class!(
     /// Container for the graphs and functions needed to create stitched functions.
@@ -31,47 +31,6 @@ extern_conformance!(
 
 impl MTLStitchedLibraryDescriptor {
     extern_methods!(
-        #[unsafe(method(functionGraphs))]
-        #[unsafe(method_family = none)]
-        pub fn function_graphs(&self) -> Retained<NSArray<MTLFunctionStitchingGraph>>;
-
-        /// Setter for [`function_graphs`][Self::function_graphs].
-        #[unsafe(method(setFunctionGraphs:))]
-        #[unsafe(method_family = none)]
-        pub fn set_function_graphs(
-            &self,
-            function_graphs: &NSArray<MTLFunctionStitchingGraph>,
-        );
-
-        /// Functions referenced by the graphs.
-        #[unsafe(method(functions))]
-        #[unsafe(method_family = none)]
-        pub fn functions(&self) -> Retained<NSArray<ProtocolObject<dyn MTLFunction>>>;
-
-        /// Setter for [`functions`][Self::functions].
-        #[unsafe(method(setFunctions:))]
-        #[unsafe(method_family = none)]
-        pub fn set_functions(&self, functions: &NSArray<ProtocolObject<dyn MTLFunction>>);
-
-        /// Binary archives to be searched for precompiled stitched libraries during compilation.
-        ///
-        /// Availability: macOS 15.0+, iOS 18.0+
-        #[unsafe(method(binaryArchives))]
-        #[unsafe(method_family = none)]
-        pub fn binary_archives(
-            &self,
-        ) -> Retained<NSArray<ProtocolObject<dyn crate::MTLBinaryArchive>>>;
-
-        /// Setter for [`binary_archives`][Self::binary_archives].
-        ///
-        /// Availability: macOS 15.0+, iOS 18.0+
-        #[unsafe(method(setBinaryArchives:))]
-        #[unsafe(method_family = none)]
-        pub fn set_binary_archives(
-            &self,
-            binary_archives: &NSArray<ProtocolObject<dyn crate::MTLBinaryArchive>>,
-        );
-
         /// Options for creating the stitched library.
         ///
         /// Availability: macOS 15.0+, iOS 18.0+
@@ -84,6 +43,53 @@ impl MTLStitchedLibraryDescriptor {
         #[unsafe(method_family = none)]
         pub fn set_options(&self, options: MTLStitchedLibraryOptions);
     );
+
+    pub fn function_graphs(&self) -> Box<[Retained<MTLFunctionStitchingGraph>]> {
+        let function_graphs: Retained<NSArray<MTLFunctionStitchingGraph>> =
+            unsafe { msg_send![self, functionGraphs] };
+        function_graphs.to_vec().into_boxed_slice()
+    }
+
+    pub fn set_function_graphs(&self, function_graphs: &[&MTLFunctionStitchingGraph]) {
+        let function_graphs = NSArray::from_slice(function_graphs);
+        unsafe {
+            let _: () = msg_send![self, setFunctionGraphs: &*function_graphs];
+        }
+    }
+
+    /// Functions referenced by the graphs.
+    pub fn functions(&self) -> Box<[Retained<ProtocolObject<dyn MTLFunction>>]> {
+        let functions: Retained<NSArray<ProtocolObject<dyn MTLFunction>>> =
+            unsafe { msg_send![self, functions] };
+        functions.to_vec().into_boxed_slice()
+    }
+
+    pub fn set_functions(&self, functions: &[&ProtocolObject<dyn MTLFunction>]) {
+        let functions = NSArray::from_slice(functions);
+        unsafe {
+            let _: () = msg_send![self, setFunctions: &*functions];
+        }
+    }
+
+    /// Binary archives to be searched for precompiled stitched libraries during compilation.
+    ///
+    /// Availability: macOS 15.0+, iOS 18.0+
+    pub fn binary_archives(&self) -> Box<[Retained<ProtocolObject<dyn MTLBinaryArchive>>]> {
+        let binary_archives: Retained<NSArray<ProtocolObject<dyn MTLBinaryArchive>>> =
+            unsafe { msg_send![self, binaryArchives] };
+        binary_archives.to_vec().into_boxed_slice()
+    }
+
+    /// Availability: macOS 15.0+, iOS 18.0+
+    pub fn set_binary_archives(
+        &self,
+        binary_archives: &[&ProtocolObject<dyn MTLBinaryArchive>],
+    ) {
+        let binary_archives = NSArray::from_slice(binary_archives);
+        unsafe {
+            let _: () = msg_send![self, setBinaryArchives: &*binary_archives];
+        }
+    }
 }
 
 /// Methods declared on superclass `NSObject`.

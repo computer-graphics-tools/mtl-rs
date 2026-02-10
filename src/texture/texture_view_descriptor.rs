@@ -1,5 +1,7 @@
+use core::ops::Range;
+
 use objc2::{
-    extern_class, extern_conformance, extern_methods,
+    extern_class, extern_conformance, extern_methods, msg_send,
     rc::{Allocated, Retained},
     runtime::NSObject,
 };
@@ -48,26 +50,6 @@ impl MTLTextureViewDescriptor {
         #[unsafe(method_family = none)]
         pub fn set_texture_type(&self, texture_type: MTLTextureType);
 
-        /// A desired range of mip levels of a texture view.
-        #[unsafe(method(levelRange))]
-        #[unsafe(method_family = none)]
-        pub fn level_range(&self) -> NSRange;
-
-        /// Setter for [`levelRange`][Self::levelRange].
-        #[unsafe(method(setLevelRange:))]
-        #[unsafe(method_family = none)]
-        pub fn set_level_range(&self, level_range: NSRange);
-
-        /// A desired range of slices of a texture view.
-        #[unsafe(method(sliceRange))]
-        #[unsafe(method_family = none)]
-        pub fn slice_range(&self) -> NSRange;
-
-        /// Setter for [`sliceRange`][Self::sliceRange].
-        #[unsafe(method(setSliceRange:))]
-        #[unsafe(method_family = none)]
-        pub fn set_slice_range(&self, slice_range: NSRange);
-
         /// A desired swizzle format of a texture view.
         #[unsafe(method(swizzle))]
         #[unsafe(method_family = none)]
@@ -78,6 +60,28 @@ impl MTLTextureViewDescriptor {
         #[unsafe(method_family = none)]
         pub fn set_swizzle(&self, swizzle: MTLTextureSwizzleChannels);
     );
+
+    pub fn level_range(&self) -> Range<usize> {
+        let ns_range: NSRange = unsafe { msg_send![self, levelRange] };
+        ns_range.location..ns_range.location.saturating_add(ns_range.length)
+    }
+
+    pub fn set_level_range(&self, level_range: Range<usize>) {
+        unsafe {
+            let _: () = msg_send![self, setLevelRange: NSRange::from(level_range)];
+        }
+    }
+
+    pub fn slice_range(&self) -> Range<usize> {
+        let ns_range: NSRange = unsafe { msg_send![self, sliceRange] };
+        ns_range.location..ns_range.location.saturating_add(ns_range.length)
+    }
+
+    pub fn set_slice_range(&self, slice_range: Range<usize>) {
+        unsafe {
+            let _: () = msg_send![self, setSliceRange: NSRange::from(slice_range)];
+        }
+    }
 }
 
 /// Methods declared on superclass `NSObject`.

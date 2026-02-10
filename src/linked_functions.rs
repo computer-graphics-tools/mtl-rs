@@ -1,5 +1,5 @@
 use objc2::{
-    extern_class, extern_conformance, extern_methods,
+    extern_class, extern_conformance, extern_methods, msg_send,
     rc::{Allocated, DefaultRetained, Retained},
     runtime::{NSObject, ProtocolObject},
 };
@@ -38,66 +38,96 @@ impl MTLLinkedFunctions {
         #[unsafe(method(linkedFunctions))]
         #[unsafe(method_family = none)]
         pub fn linked_functions() -> Retained<MTLLinkedFunctions>;
-
-        /// Array of functions to be AIR linked.
-        #[unsafe(method(functions))]
-        #[unsafe(method_family = none)]
-        pub fn functions(&self) -> Option<Retained<NSArray<ProtocolObject<dyn MTLFunction>>>>;
-
-        /// Setter for [`functions`][Self::functions]. Copied when set.
-        #[unsafe(method(setFunctions:))]
-        #[unsafe(method_family = none)]
-        pub fn set_functions(&self, functions: Option<&NSArray<ProtocolObject<dyn MTLFunction>>>);
-
-        /// Array of functions compiled to binary to be linked.
-        ///
-        /// Availability: macOS 11.0+, iOS 14.0+, tvOS 16.0+
-        #[unsafe(method(binaryFunctions))]
-        #[unsafe(method_family = none)]
-        pub fn binary_functions(
-            &self,
-        ) -> Option<Retained<NSArray<ProtocolObject<dyn MTLFunction>>>>;
-
-        /// Setter for [`binary_functions`][Self::binary_functions]. Copied when set.
-        #[unsafe(method(setBinaryFunctions:))]
-        #[unsafe(method_family = none)]
-        pub fn set_binary_functions(
-            &self,
-            binary_functions: Option<&NSArray<ProtocolObject<dyn MTLFunction>>>,
-        );
-
-        /// Groups of functions, keyed by callsite name.
-        #[unsafe(method(groups))]
-        #[unsafe(method_family = none)]
-        pub fn groups(
-            &self,
-        ) -> Option<Retained<NSDictionary<NSString, NSArray<ProtocolObject<dyn MTLFunction>>>>>;
-
-        /// Setter for [`groups`][Self::groups]. Copied when set.
-        #[unsafe(method(setGroups:))]
-        #[unsafe(method_family = none)]
-        pub fn set_groups(
-            &self,
-            groups: Option<&NSDictionary<NSString, NSArray<ProtocolObject<dyn MTLFunction>>>>,
-        );
-
-        /// Private functions to be AIR linked but not exported as function handles.
-        ///
-        /// Availability: macOS 12.0+, iOS 15.0+
-        #[unsafe(method(privateFunctions))]
-        #[unsafe(method_family = none)]
-        pub fn private_functions(
-            &self,
-        ) -> Option<Retained<NSArray<ProtocolObject<dyn MTLFunction>>>>;
-
-        /// Setter for [`private_functions`][Self::private_functions]. Copied when set.
-        #[unsafe(method(setPrivateFunctions:))]
-        #[unsafe(method_family = none)]
-        pub fn set_private_functions(
-            &self,
-            private_functions: Option<&NSArray<ProtocolObject<dyn MTLFunction>>>,
-        );
     );
+
+    /// Array of functions to be AIR linked.
+    pub fn functions(&self) -> Option<Box<[Retained<ProtocolObject<dyn MTLFunction>>]>> {
+        let functions: Option<Retained<NSArray<ProtocolObject<dyn MTLFunction>>>> =
+            unsafe { msg_send![self, functions] };
+        functions.map(|functions| functions.to_vec().into_boxed_slice())
+    }
+
+    pub fn set_functions(&self, functions: Option<&[&ProtocolObject<dyn MTLFunction>]>) {
+        let functions = functions.map(NSArray::from_slice);
+        unsafe {
+            let _: () = msg_send![self, setFunctions: functions.as_deref()];
+        }
+    }
+
+    /// Array of functions compiled to binary to be linked.
+    ///
+    /// Availability: macOS 11.0+, iOS 14.0+, tvOS 16.0+
+    pub fn binary_functions(&self) -> Option<Box<[Retained<ProtocolObject<dyn MTLFunction>>]>> {
+        let binary_functions: Option<Retained<NSArray<ProtocolObject<dyn MTLFunction>>>> =
+            unsafe { msg_send![self, binaryFunctions] };
+        binary_functions.map(|functions| functions.to_vec().into_boxed_slice())
+    }
+
+    pub fn set_binary_functions(
+        &self,
+        binary_functions: Option<&[&ProtocolObject<dyn MTLFunction>]>,
+    ) {
+        let binary_functions = binary_functions.map(NSArray::from_slice);
+        unsafe {
+            let _: () = msg_send![self, setBinaryFunctions: binary_functions.as_deref()];
+        }
+    }
+
+    /// Groups of functions, keyed by callsite name.
+    pub fn groups(
+        &self,
+    ) -> Option<Box<[(String, Box<[Retained<ProtocolObject<dyn MTLFunction>>]>) ]>> {
+        let groups: Option<Retained<NSDictionary<NSString, NSArray<ProtocolObject<dyn MTLFunction>>>>> =
+            unsafe { msg_send![self, groups] };
+        groups.map(|groups| {
+            let (group_names, group_functions) = groups.to_vecs();
+            group_names
+                .into_iter()
+                .zip(group_functions)
+                .map(|(name, functions)| (name.to_string(), functions.to_vec().into_boxed_slice()))
+                .collect::<Vec<_>>()
+                .into_boxed_slice()
+        })
+    }
+
+    pub fn set_groups(&self, groups: Option<&[(&str, &[&ProtocolObject<dyn MTLFunction>])]>){
+        let groups = groups.map(|groups| {
+            let group_names: Vec<Retained<NSString>> = groups
+                .iter()
+                .map(|(name, _)| NSString::from_str(name))
+                .collect();
+            let group_name_refs: Vec<&NSString> = group_names.iter().map(|name| &**name).collect();
+            let group_functions: Vec<Retained<NSArray<ProtocolObject<dyn MTLFunction>>>> = groups
+                .iter()
+                .map(|(_, functions)| NSArray::from_slice(functions))
+                .collect();
+            let group_function_refs: Vec<&NSArray<ProtocolObject<dyn MTLFunction>>> =
+                group_functions.iter().map(|functions| &**functions).collect();
+            NSDictionary::from_slices(&group_name_refs, &group_function_refs)
+        });
+        unsafe {
+            let _: () = msg_send![self, setGroups: groups.as_deref()];
+        }
+    }
+
+    /// Private functions to be AIR linked but not exported as function handles.
+    ///
+    /// Availability: macOS 12.0+, iOS 15.0+
+    pub fn private_functions(&self) -> Option<Box<[Retained<ProtocolObject<dyn MTLFunction>>]>> {
+        let private_functions: Option<Retained<NSArray<ProtocolObject<dyn MTLFunction>>>> =
+            unsafe { msg_send![self, privateFunctions] };
+        private_functions.map(|functions| functions.to_vec().into_boxed_slice())
+    }
+
+    pub fn set_private_functions(
+        &self,
+        private_functions: Option<&[&ProtocolObject<dyn MTLFunction>]>,
+    ) {
+        let private_functions = private_functions.map(NSArray::from_slice);
+        unsafe {
+            let _: () = msg_send![self, setPrivateFunctions: private_functions.as_deref()];
+        }
+    }
 }
 
 impl MTLLinkedFunctions {

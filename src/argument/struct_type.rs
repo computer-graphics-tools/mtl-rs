@@ -14,20 +14,13 @@ extern_class!(
 
 impl MTLStructType {
     extern_methods!();
-}
 
-#[allow(unused)]
-pub trait MTLStructTypeExt {
-    fn member_by_name(&self, name: &str) -> Option<Retained<MTLStructMember>>;
-    fn members(&self) -> Box<[Retained<MTLStructMember>]>;
-}
-
-impl MTLStructTypeExt for MTLStructType {
-    fn member_by_name(&self, name: &str) -> Option<Retained<MTLStructMember>> {
+    pub fn member_by_name(&self, name: &str) -> Option<Retained<MTLStructMember>> {
         let ns = NSString::from_str(name);
         unsafe { msg_send![self, memberByName: &*ns] }
     }
-    fn members(&self) -> Box<[Retained<MTLStructMember>]> {
+
+    pub fn members(&self) -> Box<[Retained<MTLStructMember>]> {
         let array: Retained<NSArray<MTLStructMember>> = unsafe { msg_send![self, members] };
         array.to_vec().into_boxed_slice()
     }

@@ -1,7 +1,10 @@
-use objc2::{Message, extern_class, extern_methods, msg_send, rc::Retained, runtime::NSObject};
+use objc2::{extern_class, extern_methods, msg_send, rc::Retained, runtime::NSObject};
 use objc2_foundation::NSString;
 
-use crate::{MTLArrayType, MTLDataType, MTLPointerType, MTLTextureReferenceType};
+use crate::{
+    MTLArrayType, MTLDataType, MTLPointerType, MTLStructType, MTLTensorReferenceType,
+    MTLTextureReferenceType,
+};
 
 extern_class!(
     /// Reflection for a member of a struct type.
@@ -27,7 +30,7 @@ impl MTLStructMember {
         /// If the member is itself a struct, returns its reflection type.
         #[unsafe(method(structType))]
         #[unsafe(method_family = none)]
-        pub fn struct_type(&self) -> Option<Retained<crate::argument::MTLStructType>>;
+        pub fn struct_type(&self) -> Option<Retained<MTLStructType>>;
 
         /// If the member is an array, returns its reflection type.
         #[unsafe(method(arrayType))]
@@ -49,22 +52,15 @@ impl MTLStructMember {
         /// Availability: macOS 26.0+, iOS 26.0+
         #[unsafe(method(tensorReferenceType))]
         #[unsafe(method_family = none)]
-        pub fn tensor_reference_type(&self) -> Option<Retained<crate::MTLTensorReferenceType>>;
+        pub fn tensor_reference_type(&self) -> Option<Retained<MTLTensorReferenceType>>;
 
         /// Argument index used when the struct represents a function argument.
         #[unsafe(method(argumentIndex))]
         #[unsafe(method_family = none)]
         pub fn argument_index(&self) -> usize;
     );
-}
 
-#[allow(unused)]
-pub trait MTLStructMemberExt: Message {
-    fn name(&self) -> String;
-}
-
-impl MTLStructMemberExt for MTLStructMember {
-    fn name(&self) -> String {
+    pub fn name(&self) -> String {
         let ns: Retained<NSString> = unsafe { msg_send![self, name] };
         ns.to_string()
     }

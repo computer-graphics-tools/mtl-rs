@@ -102,17 +102,6 @@ extern_protocol!(
             index: NSUInteger,
         );
 
-        /// Encodes a command that resolves an opaque counter heap into a buffer.
-        #[unsafe(method(resolveCounterHeap:withRange:intoBuffer:waitFence:updateFence:))]
-        #[unsafe(method_family = none)]
-        fn resolve_counter_heap_with_range_into_buffer_wait_fence_update_fence(
-            &self,
-            counter_heap: &ProtocolObject<dyn MTL4CounterHeap>,
-            range: NSRange,
-            buffer_range: MTL4BufferRange,
-            fence_to_wait: Option<&ProtocolObject<dyn MTLFence>>,
-            fence_to_update: Option<&ProtocolObject<dyn MTLFence>>,
-        );
     }
 );
 

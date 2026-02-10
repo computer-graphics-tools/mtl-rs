@@ -2,7 +2,7 @@
 //! DO NOT EDIT
 
 use objc2::rc::{Allocated, Retained};
-use objc2::{extern_class, extern_conformance, extern_methods};
+use objc2::{extern_class, extern_conformance, extern_methods, msg_send};
 use objc2_foundation::{CopyingHelper, NSCopying, NSObject, NSObjectProtocol, NSString};
 
 use crate::*;
@@ -30,19 +30,6 @@ extern_conformance!(
 
 impl MTL4LibraryDescriptor {
     extern_methods!(
-        /// Assigns an optional string containing the source code of the shader language program to compile into a
-        /// Metal library.
-        #[unsafe(method(source))]
-        #[unsafe(method_family = none)]
-        pub fn source(&self) -> Option<Retained<NSString>>;
-
-        /// Setter for [`source`][Self::source].
-        ///
-        /// This is [copied][objc2_foundation::NSCopying::copy] when set.
-        #[unsafe(method(setSource:))]
-        #[unsafe(method_family = none)]
-        pub fn set_source(&self, source: Option<&NSString>);
-
         /// Provides compile-time options for the Metal library.
         #[unsafe(method(options))]
         #[unsafe(method_family = none)]
@@ -55,18 +42,29 @@ impl MTL4LibraryDescriptor {
         #[unsafe(method_family = none)]
         pub fn set_options(&self, options: Option<&MTLCompileOptions>);
 
-        /// Assigns an optional name to the Metal library.
-        #[unsafe(method(name))]
-        #[unsafe(method_family = none)]
-        pub fn name(&self) -> Option<Retained<NSString>>;
-
-        /// Setter for [`name`][Self::name].
-        ///
-        /// This is [copied][objc2_foundation::NSCopying::copy] when set.
-        #[unsafe(method(setName:))]
-        #[unsafe(method_family = none)]
-        pub fn set_name(&self, name: Option<&NSString>);
     );
+
+    pub fn source(&self) -> Option<String> {
+        let source: Option<Retained<NSString>> = unsafe { msg_send![self, source] };
+        source.map(|value| value.to_string())
+    }
+
+    pub fn set_source(&self, source: Option<&str>) {
+        unsafe {
+            let _: () = msg_send![self, setSource: source.map(NSString::from_str).as_deref()];
+        }
+    }
+
+    pub fn name(&self) -> Option<String> {
+        let name: Option<Retained<NSString>> = unsafe { msg_send![self, name] };
+        name.map(|value| value.to_string())
+    }
+
+    pub fn set_name(&self, name: Option<&str>) {
+        unsafe {
+            let _: () = msg_send![self, setName: name.map(NSString::from_str).as_deref()];
+        }
+    }
 }
 
 /// Methods declared on superclass `NSObject`.

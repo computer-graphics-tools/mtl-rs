@@ -2,7 +2,7 @@
 //! DO NOT EDIT
 use objc2::rc::{Allocated, Retained};
 use objc2::runtime::ProtocolObject;
-use objc2::{extern_class, extern_conformance, extern_methods};
+use objc2::{extern_class, extern_conformance, extern_methods, msg_send};
 use objc2_foundation::{
     CopyingHelper, NSArray, NSCopying, NSDictionary, NSObject, NSObjectProtocol, NSString,
 };
@@ -32,62 +32,86 @@ extern_conformance!(
 
 impl MTL4StaticLinkingDescriptor {
     extern_methods!(
-        /// Provides an array of functions to link at the Metal IR level.
-        #[unsafe(method(functionDescriptors))]
-        #[unsafe(method_family = none)]
-        pub fn function_descriptors(
-            &self,
-        ) -> Option<Retained<NSArray<MTL4FunctionDescriptor>>>;
-
-        /// Setter for [`functionDescriptors`][Self::functionDescriptors].
-        ///
-        /// This is [copied][objc2_foundation::NSCopying::copy] when set.
-        #[unsafe(method(setFunctionDescriptors:))]
-        #[unsafe(method_family = none)]
-        pub fn set_function_descriptors(
-            &self,
-            function_descriptors: Option<&NSArray<MTL4FunctionDescriptor>>,
-        );
-
-        /// Provides an array of private functions to link at the Metal IR level.
-        ///
-        /// You specify private functions to link separately from ``functionDescriptors`` because pipelines don't export private functions as ``MTLFunctionHandle`` instances.
-        /// - Note: You can link private functions even when your ``MTLDevice`` doesn't support function pointers.
-        #[unsafe(method(privateFunctionDescriptors))]
-        #[unsafe(method_family = none)]
-        pub fn private_function_descriptors(
-            &self,
-        ) -> Option<Retained<NSArray<MTL4FunctionDescriptor>>>;
-
-        /// Setter for [`privateFunctionDescriptors`][Self::privateFunctionDescriptors].
-        ///
-        /// This is [copied][objc2_foundation::NSCopying::copy] when set.
-        #[unsafe(method(setPrivateFunctionDescriptors:))]
-        #[unsafe(method_family = none)]
-        pub fn set_private_function_descriptors(
-            &self,
-            private_function_descriptors: Option<&NSArray<MTL4FunctionDescriptor>>,
-        );
-
-        /// Assigns groups of functions to match call-site attributes in shader code.
-        ///
-        /// Function groups help the compiler reduce the number of candidate functions it needs to evaluate for shader function calls, potentially increasing runtime performance.
-        #[unsafe(method(groups))]
-        #[unsafe(method_family = none)]
-        pub fn groups(
-            &self,
-        ) -> Option<Retained<NSDictionary<NSString, NSArray<MTL4FunctionDescriptor>>>>;
-
-        /// Setter for [`groups`][Self::groups].
-        ///
-        /// This is [copied][objc2_foundation::NSCopying::copy] when set.
-        #[unsafe(method(setGroups:))]
-        #[unsafe(method_family = none)]
-        pub fn set_groups(
-            &self,
-            groups: Option<&NSDictionary<NSString, NSArray<MTL4FunctionDescriptor>>>,
-        );
     );
+
+    /// Provides an array of functions to link at the Metal IR level.
+    pub fn function_descriptors(&self) -> Option<Box<[Retained<MTL4FunctionDescriptor>]>> {
+        let function_descriptors: Option<Retained<NSArray<MTL4FunctionDescriptor>>> =
+            unsafe { msg_send![self, functionDescriptors] };
+        function_descriptors.map(|descriptors| descriptors.to_vec().into_boxed_slice())
+    }
+
+    pub fn set_function_descriptors(
+        &self,
+        function_descriptors: Option<&[&MTL4FunctionDescriptor]>,
+    ) {
+        let function_descriptors = function_descriptors.map(NSArray::from_slice);
+        unsafe {
+            let _: () = msg_send![self, setFunctionDescriptors: function_descriptors.as_deref()];
+        }
+    }
+
+    /// Provides an array of private functions to link at the Metal IR level.
+    ///
+    /// You specify private functions to link separately from ``functionDescriptors`` because pipelines don't export private functions as ``MTLFunctionHandle`` instances.
+    /// - Note: You can link private functions even when your ``MTLDevice`` doesn't support function pointers.
+    pub fn private_function_descriptors(&self) -> Option<Box<[Retained<MTL4FunctionDescriptor>]>> {
+        let private_function_descriptors: Option<Retained<NSArray<MTL4FunctionDescriptor>>> =
+            unsafe { msg_send![self, privateFunctionDescriptors] };
+        private_function_descriptors.map(|descriptors| descriptors.to_vec().into_boxed_slice())
+    }
+
+    pub fn set_private_function_descriptors(
+        &self,
+        private_function_descriptors: Option<&[&MTL4FunctionDescriptor]>,
+    ) {
+        let private_function_descriptors = private_function_descriptors.map(NSArray::from_slice);
+        unsafe {
+            let _: () = msg_send![
+                self,
+                setPrivateFunctionDescriptors: private_function_descriptors.as_deref()
+            ];
+        }
+    }
+
+    /// Assigns groups of functions to match call-site attributes in shader code.
+    ///
+    /// Function groups help the compiler reduce the number of candidate functions it needs to evaluate for shader function calls, potentially increasing runtime performance.
+    pub fn groups(&self) -> Option<Box<[(String, Box<[Retained<MTL4FunctionDescriptor>]>) ]>> {
+        let groups: Option<Retained<NSDictionary<NSString, NSArray<MTL4FunctionDescriptor>>>> =
+            unsafe { msg_send![self, groups] };
+        groups.map(|groups| {
+            let (group_names, group_functions) = groups.to_vecs();
+            group_names
+                .into_iter()
+                .zip(group_functions)
+                .map(|(group_name, functions)| {
+                    (group_name.to_string(), functions.to_vec().into_boxed_slice())
+                })
+                .collect::<Vec<_>>()
+                .into_boxed_slice()
+        })
+    }
+
+    pub fn set_groups(&self, groups: Option<&[(&str, &[&MTL4FunctionDescriptor])]>){
+        let groups = groups.map(|groups| {
+            let group_names: Vec<Retained<NSString>> = groups
+                .iter()
+                .map(|(group_name, _)| NSString::from_str(group_name))
+                .collect();
+            let group_name_refs: Vec<&NSString> = group_names.iter().map(|name| &**name).collect();
+            let group_functions: Vec<Retained<NSArray<MTL4FunctionDescriptor>>> = groups
+                .iter()
+                .map(|(_, functions)| NSArray::from_slice(functions))
+                .collect();
+            let group_function_refs: Vec<&NSArray<MTL4FunctionDescriptor>> =
+                group_functions.iter().map(|functions| &**functions).collect();
+            NSDictionary::from_slices(&group_name_refs, &group_function_refs)
+        });
+        unsafe {
+            let _: () = msg_send![self, setGroups: groups.as_deref()];
+        }
+    }
 }
 
 /// Methods declared on superclass `NSObject`.
@@ -136,43 +160,49 @@ impl MTL4PipelineStageDynamicLinkingDescriptor {
         #[unsafe(method_family = none)]
         pub fn set_max_call_stack_depth(&self, max_call_stack_depth: usize);
 
-        /// Provides the array of binary functions to link.
-        ///
-        /// Binary functions are shader functions that you compile from Metal IR to machine code ahead of time
-        /// using instances of ``MTL4Compiler``.
-        #[unsafe(method(binaryLinkedFunctions))]
-        #[unsafe(method_family = none)]
-        pub fn binary_linked_functions(
-            &self,
-        ) -> Option<Retained<NSArray<ProtocolObject<dyn MTL4BinaryFunction>>>>;
-
-        /// Setter for [`binaryLinkedFunctions`][Self::binaryLinkedFunctions].
-        ///
-        /// This is [copied][objc2_foundation::NSCopying::copy] when set.
-        #[unsafe(method(setBinaryLinkedFunctions:))]
-        #[unsafe(method_family = none)]
-        pub fn set_binary_linked_functions(
-            &self,
-            binary_linked_functions: Option<&NSArray<ProtocolObject<dyn MTL4BinaryFunction>>>,
-        );
-
-        /// Provides an array of dynamic libraries the compiler loads when it builds the pipeline.
-        #[unsafe(method(preloadedLibraries))]
-        #[unsafe(method_family = none)]
-        pub fn preloaded_libraries(
-            &self,
-        ) -> Retained<NSArray<ProtocolObject<dyn MTLDynamicLibrary>>>;
-
-        /// Setter for [`preloadedLibraries`][Self::preloadedLibraries].
-        ///
-        /// This is [copied][objc2_foundation::NSCopying::copy] when set.
-        #[unsafe(method(setPreloadedLibraries:))]
-        #[unsafe(method_family = none)]
-        pub fn set_preloaded_libraries(
-            &self,
-            preloaded_libraries: &NSArray<ProtocolObject<dyn MTLDynamicLibrary>>,
-        );
     );
+
+    /// Provides the array of binary functions to link.
+    ///
+    /// Binary functions are shader functions that you compile from Metal IR to machine code ahead of time
+    /// using instances of ``MTL4Compiler``.
+    pub fn binary_linked_functions(
+        &self,
+    ) -> Option<Box<[Retained<ProtocolObject<dyn MTL4BinaryFunction>>]>> {
+        let binary_linked_functions: Option<Retained<NSArray<ProtocolObject<dyn MTL4BinaryFunction>>>> =
+            unsafe { msg_send![self, binaryLinkedFunctions] };
+        binary_linked_functions.map(|functions| functions.to_vec().into_boxed_slice())
+    }
+
+    pub fn set_binary_linked_functions(
+        &self,
+        binary_linked_functions: Option<&[&ProtocolObject<dyn MTL4BinaryFunction>]>,
+    ) {
+        let binary_linked_functions = binary_linked_functions.map(NSArray::from_slice);
+        unsafe {
+            let _: () = msg_send![
+                self,
+                setBinaryLinkedFunctions: binary_linked_functions.as_deref()
+            ];
+        }
+    }
+
+    /// Provides an array of dynamic libraries the compiler loads when it builds the pipeline.
+    pub fn preloaded_libraries(&self) -> Box<[Retained<ProtocolObject<dyn MTLDynamicLibrary>>]> {
+        let preloaded_libraries: Retained<NSArray<ProtocolObject<dyn MTLDynamicLibrary>>> =
+            unsafe { msg_send![self, preloadedLibraries] };
+        preloaded_libraries.to_vec().into_boxed_slice()
+    }
+
+    pub fn set_preloaded_libraries(
+        &self,
+        preloaded_libraries: &[&ProtocolObject<dyn MTLDynamicLibrary>],
+    ) {
+        let preloaded_libraries = NSArray::from_slice(preloaded_libraries);
+        unsafe {
+            let _: () = msg_send![self, setPreloadedLibraries: &*preloaded_libraries];
+        }
+    }
 }
 
 /// Methods declared on superclass `NSObject`.
