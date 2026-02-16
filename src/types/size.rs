@@ -10,10 +10,8 @@ pub struct MTLSize {
 }
 
 unsafe impl Encode for MTLSize {
-    const ENCODING: Encoding = Encoding::Struct(
-        "?",
-        &[usize::ENCODING, usize::ENCODING, usize::ENCODING],
-    );
+    const ENCODING: Encoding =
+        Encoding::Struct("?", &[usize::ENCODING, usize::ENCODING, usize::ENCODING]);
 }
 
 unsafe impl RefEncode for MTLSize {

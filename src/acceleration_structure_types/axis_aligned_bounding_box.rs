@@ -14,8 +14,7 @@ pub struct MTLAxisAlignedBoundingBox {
 
 unsafe impl Encode for MTLAxisAlignedBoundingBox {
     const ENCODING: Encoding = Encoding::Struct(
-        "MTLAxisAlignedBoundingBox",
-        &[<MTLPackedFloat3>::ENCODING, <MTLPackedFloat3>::ENCODING],
+"?",        &[<MTLPackedFloat3>::ENCODING, <MTLPackedFloat3>::ENCODING],
     );
 }
 

@@ -13,8 +13,7 @@ pub struct MTLPackedFloat3 {
 
 unsafe impl Encode for MTLPackedFloat3 {
     const ENCODING: Encoding = Encoding::Struct(
-        "MTLPackedFloat3",
-        &[
+"?",        &[
             <c_float>::ENCODING,
             <c_float>::ENCODING,
             <c_float>::ENCODING,

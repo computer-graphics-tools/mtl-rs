@@ -7,7 +7,7 @@ pub struct MTLCounterResultTimestamp {
 }
 
 unsafe impl Encode for MTLCounterResultTimestamp {
-    const ENCODING: Encoding = Encoding::Struct("{?=Q}", &[<u64>::ENCODING]);
+    const ENCODING: Encoding = Encoding::Struct("?", &[<u64>::ENCODING]);
 }
 
 unsafe impl RefEncode for MTLCounterResultTimestamp {
@@ -27,8 +27,7 @@ pub struct MTLCounterResultStageUtilization {
 
 unsafe impl Encode for MTLCounterResultStageUtilization {
     const ENCODING: Encoding = Encoding::Struct(
-        "{MTLCounterResultStageUtilization=QQQQQQ}",
-        &[
+"?",        &[
             <u64>::ENCODING,
             <u64>::ENCODING,
             <u64>::ENCODING,
@@ -58,8 +57,7 @@ pub struct MTLCounterResultStatistic {
 
 unsafe impl Encode for MTLCounterResultStatistic {
     const ENCODING: Encoding = Encoding::Struct(
-        "{MTLCounterResultStatistic=QQQQQQQQ}",
-        &[
+"?",        &[
             <u64>::ENCODING,
             <u64>::ENCODING,
             <u64>::ENCODING,

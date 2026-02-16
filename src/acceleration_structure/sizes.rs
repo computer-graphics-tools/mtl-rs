@@ -14,8 +14,7 @@ pub struct MTLAccelerationStructureSizes {
 
 unsafe impl Encode for MTLAccelerationStructureSizes {
     const ENCODING: Encoding = Encoding::Struct(
-        "{MTLAccelerationStructureSizes=QQQ}",
-        &[usize::ENCODING, usize::ENCODING, usize::ENCODING],
+"?",        &[usize::ENCODING, usize::ENCODING, usize::ENCODING],
     );
 }
 

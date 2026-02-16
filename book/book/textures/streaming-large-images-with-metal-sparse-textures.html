@@ -1,0 +1,552 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Streaming large images with Metal sparse textures - Metal Programming Guide for Rust</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="../favicon-8114d1fc.png">
+        <link rel="stylesheet" href="../css/variables-8adf115d.css">
+        <link rel="stylesheet" href="../css/general-2459343d.css">
+        <link rel="stylesheet" href="../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="../highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="../tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "../searchindex-c2879d9a.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc-cc3a64fa.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Metal Programming Guide for Rust</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/computer-graphics-tools/mtl-rs" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="streaming-large-images-with-metal-sparse-textures"><a class="header" href="#streaming-large-images-with-metal-sparse-textures">Streaming large images with Metal sparse textures</a></h1>
+<blockquote>
+<p><a href="https://developer.apple.com/documentation/metal/streaming-large-images-with-metal-sparse-textures?language=objc">Apple Documentation</a></p>
+</blockquote>
+<h2 id="run-the-example"><a class="header" href="#run-the-example">Run the Example</a></h2>
+<pre><code class="language-bash">cargo run --example streaming_large_images_with_metal_sparse_textures
+</code></pre>
+<h2 id="shader-files"><a class="header" href="#shader-files">Shader Files</a></h2>
+<ul>
+<li><code>Renderer/Shaders/AAPLShaders.metal</code></li>
+</ul>
+<h2 id="resources"><a class="header" href="#resources">Resources</a></h2>
+<ul>
+<li><code>Documentation/sparse-textures-6-texture-update@2x.png</code></li>
+<li><code>Documentation/sparse-textures-2-example-texture@2x.png</code></li>
+<li><code>Documentation/sparse-textures-5-tiles-sample@2x.png</code></li>
+<li><code>Documentation/sparse-textures-4-memory-layout~dark@2x.png</code></li>
+<li><code>Documentation/sparse-textures-1-screen-capture.png</code></li>
+<li><code>Documentation/sparse-textures-3-texture-with-tiles@2x.png</code></li>
+<li><code>Documentation/sparse-textures-4-memory-layout@2x.png</code></li>
+<li><code>Documentation/sparse-textures-6-texture-update~dark@2x.png</code></li>
+<li><code>Documentation/sparse-textures-3-texture-with-tiles~dark@2x.png</code></li>
+<li><code>Documentation/sparse-textures-5-tiles-sample~dark@2x.png</code></li>
+<li><code>Documentation/sparse-textures-2-example-texture~dark@2x.png</code></li>
+<li><code>Application/Assets/apple_park.ktx</code></li>
+</ul>
+<h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
+<p>This sample demonstrates sparse texture streaming by rendering a ground plane that samples from a 16K resolution texture. The renderer uses Metal sparse textures to subdivide the image into regions, or tiles, and chooses the tiles to keep in memory. The GPU updates an access counter buffer, and the app determines the tiles it needs to load or discard. The sample shows a heat map of the available MIP levels on the lower left of the screen, where white represents level 0, yellow represents levels 1 to 3, red represents levels 4 and 5, and purple represents the remaining MIP levels. The app contains a checkbox that toggles the camera animation. When the animation runs, the app updates the sparse texture as the camera moves through the scene. Lastly, this sample demonstrates asynchronous updates using Dispatch, or Grand Central Dispatch (GCD), to update the sparse texture.</p>
+<p>Sparse textures are special textures that manage the residency of both tiles and MIP levels. For instance, a 16K resolution texture may use more than one gigabyte of memory, not including mipmaps that may increase levels memory requirements by 33%. To efficiently use space, the smallest MIP levels are often stored together, called a mipmap tail. For example, this may contain the 8 x 8, 4 x 4, 2 x 2, and 1 x 1 MIP levels. The following figure shows an example texture with its mipmaps and mipmap tail.</p>
+<p>The app follows a straightforward process to manage a sparse texture. First, it checks for sparse texture support. Next, it initializes the sparse texture by loading a texture of Apple Park, and loading and mapping the mipmap tails. Then, the app renders a scene that uses the sparse texture. After rendering, the app updates the texture in parallel with the main render pass. It retrieves the access counters, processes them, and discards tiles that aren’t needed anymore. It also maps and unmaps tiles, blits nonresident tiles, and updates the residency buffer when the blitting work finishes. To blit means to copy a rectangle of pixels from a source image buffer to a destination memory buffer.</p>
+<p>Configure the sample code project</p>
+<p>The Xcode project contains schemes for running the sample on macOS and iOS with a physical device that supports sparse textures. You can enable or disable camera movement by checking the switch button on the top-right of the app screen.</p>
+<p>To run the app:</p>
+<p>Build the project with Xcode 12 and later.</p>
+<p>Target a macOS device with an M1 chip or later and macOS 12 or later.</p>
+<p>Target an iOS device with an A13 chip or later and iOS 14 or later.</p>
+<p>Check for sparse texture support</p>
+<p>The sample checks if the MTLGPUFamilyApple6 feature set is available with the supportsFamily: method. This feature set begins with the Apple A13 GPUs. Here’s the code from AAPLViewController:viewDidLoad:</p>
+<p>if (![_mtkView.device supportsFamily:MTLGPUFamilyApple6])
+{
+NSAssert (0, @“This device doesn’t support Metal sparse textures.”);
+}</p>
+<p>Manage the sparse texture</p>
+<p>A sparse texture divides large textures into tiles that the application treats as smaller textures with their own MIP levels. The sparse texture contains a residency buffer that tracks the MIP levels that are currently loaded. The following figure shows how the above texture would be subdivided into separate tile regions. The mipmap tail is considered its own tile, and the app ensures that all the tails are resident.</p>
+<p>The residency buffer and access counter buffers use the same layout, but use different data types. The layout is an array of integer values representing each tile, starting with level 0. The tiles are laid out left to right and top to bottom. The app updates the residency buffer while the GPU updates the access counters. The residency buffer uses 8-bit integer values to represent Boolean residency or nonresidency, and the access counters are 64-bit integer values. The following figure shows the memory layout of the residency and access counter buffers.</p>
+<p>The AAPLSparseTexture class manages the sparse texture in this sample and uses an MTLHeap to store the texture data for the tiles. A heap is a Metal object that allows an app to quickly allocate and free textures from a memory pool. Heaps allow quick allocation of tile memory and help limit the amount of memory used by the sparse texture. In addition to the heap, the class allocates two buffers. The first buffer is the residency buffer that tracks the highest MIP-level resident in the texture. When a shader fails to sample a sparse texture, it can use this buffer to fall back to a resident tile at a lower MIP level.</p>
+<p>During rendering, the GPU uses the access counters buffer to store a counter per tile and increments it when a shader samples from the corresponding tile region. The app can query and analyze this buffer to find tiles to map or unmap. When the heap is low on available memory, the class can replace resident tiles that the shader hasn’t recently accessed. And this is how the app uses the residency and access counters buffers to dynamically adjust the residency of the sparse texture while staying within a memory budget.</p>
+<p>Initialize the sparse texture</p>
+<p>The app uses a 16K texture map of Apple Park stored in the Khronos Texture (KTX) file format. The AAPLSparseTexture and AAPLStreamedTextureDataBacking classes manage all aspects of using sparse textures. The app specifies a heap size of 16 MiB to quickly allocate memory to store tile data.</p>
+<p>#if USE_SMALL_SPARSE_TEXTURE_HEAP
+const NSUInteger heapSize = 2 * 1048576;
+#else
+const NSUInteger heapSize = 16 * 1048576;
+#endif</p>
+<p>NSURL* _sparseTexturePath = [[NSBundle mainBundle] URLForResource:@“apple_park.ktx” withExtension:nil];
+_sparseTexture = [[AAPLSparseTexture alloc] initWithDevice:_device
+path:_sparseTexturePath
+commandQueue:_commandQueue
+heapSize:heapSize];</p>
+<p>In the following code, the app starts loading the KTX file. The loader reads the file header and maps the file to memory using mmap. Memory mapping facilitates memory copies into staging buffers when the app needs to blit tiles to the sparse texture. The second step creates a heap for the mapped tiles and a second heap for the staging buffers. Allocating buffers from a heap is more efficient because Metal won’t perform expensive state tracking to avoid data hazards. The sparse texture manager performs its own heap management because only the sparse texture, in the grander scheme, needs to have data-hazard tracking. The third step maps the mipmap tail, the highest mipmap levels that fit inside one memory block. Then the texture manager blits the bottom mipmap tail into the sparse texture to ensure that all tiles contain a minimal amount of texture data. The final step creates the access counter buffer for all frames in flight. Lastly, the app updates the residency buffer to tell Metal which tiles are resident.</p>
+<p>_numTilesToDiscardFromLRU = 0;
+_sparseTextureBacking = [[AAPLStreamedTextureDataBacking alloc] initWithKTXPath:path];
+[self createHeaps:heapSize];
+[self mapMipmapTails];
+[self blitMipmapTails];
+[self createAccessCountersBuffer];
+[self updateResidencyBuffer];</p>
+<p>At this point, the app has initialized the sparse texture, copied the bottom mipmap tails to GPU memory, and mapped the mipmap tails resident. The app may now use the sparse texture for rendering objects.</p>
+<p>Render the scene</p>
+<p>The app performs ordinary rendering tasks in drawInMTKView, like updating animation variables and uniform buffers, creating a command buffer, and rendering the scene. The end of the following block of code shows an optional rendering pass that renders a quad in the lower-left of the screen. This quad shows a color-coded version of the residency buffer. You may disable this visualization by setting the preprocessor variable DEBUG_SPARSE_TEXTURE to 0.</p>
+<p>id<mtlcommandbuffer> commandBuffer = [_commandQueue commandBuffer];
+commandBuffer.label = @“Main render cmd buffer”;</mtlcommandbuffer></p>
+<p>[self updateAnimationAndBuffers];</p>
+<p>[self drawScene:commandBuffer];</p>
+<p>#if DEBUG_SPARSE_TEXTURE
+[self drawDebugSparseTextureTiles:commandBuffer];
+#endif</p>
+<p>[commandBuffer addCompletedHandler:^(id<mtlcommandbuffer> _Nonnull cmdBuffer)
+{
+dispatch_semaphore_signal(self-&gt;_inFlightSemaphore);
+}];
+[commandBuffer presentDrawable:_mtkView.currentDrawable];
+[commandBuffer commit];</mtlcommandbuffer></p>
+<p>The app begins the update process after it commits the main command buffer. It asks the sparse texture class to update by querying the access counters and mapping and blitting tiles. The update can occur concurrently with the rendering thread using GCD. You may disable asynchronous processing by setting the preprocessor variable ASYNCHRONOUS_TEXTURE_UPDATES to 0.</p>
+<p>#if ASYNCHRONOUS_TEXTURE_UPDATES
+dispatch_async(_dispatch_queue, ^{
+[self-&gt;_sparseTexture update:self-&gt;_currentBufferIndex];
+});
+#else
+[_sparseTexture update:_currentBufferIndex];
+#endif</p>
+<p>Sample the sparse texture</p>
+<p>The following code shows how the app draws the ground plane. It sets typical render states like pipeline state object, vertex and fragment buffers, and texture state. It also sets a fragment buffer, _sparseTexture.residencyBuffer, that the shader utilizes to sample the texture. And finally, it sets the sparse texture using setFragmentTexture.</p>
+<p>[renderEncoder setCullMode:MTLCullModeNone];
+[renderEncoder setRenderPipelineState:_forwardRenderPipelineState];
+[renderEncoder setVertexBuffer:_sampleParamsBuffer[_currentBufferIndex] offset:0 atIndex:AAPLBufferIndexSampleParams];
+[renderEncoder setFragmentBuffer:_sampleParamsBuffer[_currentBufferIndex] offset:0 atIndex:AAPLBufferIndexSampleParams];
+[renderEncoder setFragmentBuffer:_sparseTexture.residencyBuffer offset:0 atIndex:AAPLBufferIndexResidency];
+[renderEncoder setVertexBuffer:_quadVerticesBuffer offset:0 atIndex:0];
+[renderEncoder setFragmentTexture:_sparseTexture.sparseTexture atIndex:AAPLTextureIndexBaseColor];
+[renderEncoder drawPrimitives:MTLPrimitiveTypeTriangle vertexStart:0 vertexCount:6];</p>
+<p>The shader code uses the function sampleSparseTexture to handle sampling from the sparse texture. Metal provides a sparse_sample function that returns a sparse_color<half4> object. This object has a resident member function that returns false for an unmapped tile region. If the tile is resident, sampleSparseTexture returns the sampled color. Otherwise, it uses the residency buffer to determine the best MIP level for each mapped tile. Then it resamples the texture with the min_lod_clamp argument to ensure that unmapped tile regions aren’t accessed.</half4></p>
+<p>half4 sampleSparseTexture(texture2d&lt;half, access::sample&gt; sparseTexture,
+float2 texCoord,
+float2 sparseTextureSizeInTiles,
+const device char* residencyBuffer)
+{
+constexpr sampler linearSampler(mip_filter::linear,
+mag_filter::linear,
+min_filter::linear,
+s_address::clamp_to_edge,
+t_address::clamp_to_edge);
+sparse_color<half4> sparseColor = sparseTexture.sparse_sample(linearSampler, texCoord);
+half4 baseColor = half4(0.h);
+if (sparseColor.resident())
+{
+baseColor = sparseColor.value();
+}
+else
+{
+float residentBufferMipmap = getResidencyBufferMipmap(residencyBuffer, sparseTextureSizeInTiles, texCoord);
+baseColor = sparseTexture.sample(linearSampler, texCoord, min_lod_clamp(residentBufferMipmap));
+}
+return baseColor;
+}</half4></p>
+<p>The residency buffer is a two-dimensional data structure that stores the best MIP level for each mapped tile. The function getResidencyBufferMipmap takes the input texture coordinates and converts them to tile coordinates readX and readY. The shader then indexes the residency buffer and returns the best MIP level.</p>
+<p>float getResidencyBufferMipmap(const device char* residencyBuffer,
+float2 sparseTextureSizeInTiles,
+float2 texCoord)
+{
+ushort readX = (ushort) (clamp(texCoord.x, 0.f, 0.99f) * sparseTextureSizeInTiles.x);
+ushort readY = (ushort) (clamp(texCoord.y, 0.f, 0.99f) * sparseTextureSizeInTiles.y);
+ushort index = readX + (readY * (ushort)sparseTextureSizeInTiles.x);
+ushort val = residencyBuffer[index];
+return (float)val;
+}</p>
+<p>While the fragment stage is running, the GPU records the number of texture memory operations by the shader. The app analyzes this buffer to stream and map new regions of texture data that aren’t resident.</p>
+<p>The following figure shows an example of how the tiles sample resident parent tiles if a requested tile isn’t resident. The green tiles show a tile that the shader accessed and was resident. The red tiles show a tile that the shader accessed, but had to fall back to a lower MIP level. The app detects a tile it needs to map when the access counter is nonzero and the corresponding residency buffer is zero.</p>
+<p>Update the sparse texture</p>
+<p>The following figure shows how the update process decides when to map or unmap tiles. For every resident tile that the shader accessed, the tile moves to the front of the least-recently used (LRU) cache, a data structure that combines a linked list and an unordered map. The processAccessCounters method creates map requests for the accessed nonresident tile and its nonresident parent tiles. The parent tiles need to form a chain from the bottom mipmap tail to the highest level tile. The update process checks for any dependencies and doesn’t create unmap requests for required parent tiles. And if the heap doesn’t have enough memory available, then discardTilesFromLRU unmaps unnecessary tiles to make room.</p>
+<p>To summarize, the AAPLSparseTexture:update: method calls four functions to update the texture:</p>
+<p>updateAccessCountersBuffer uses a blit encoder to get the access counters.</p>
+<p>processAccessCounters examines the access counter buffer to determine the tiles to map or unmap.</p>
+<p>discardTilesFromLRU uses an LRU cache to manage the sparse texture heap and determine the tiles to discard.</p>
+<p>mapAndBlitTiles maps tiles that need residency and blits them into the sparse texture.</p>
+<p>The remaining sections cover these methods in more detail.</p>
+<p>Update the access counter buffers</p>
+<p>The sparse texture class uses the getTextureAccessCounters:region:mipLevel:slice:resetCounters:countersBuffer:countersBufferOffset: API to copy and reset the counters for the sparse texture. It requests Metal to copy the data from each MIP level into the _accessCountersBuffer. The initialization step precalculated the offsets into this buffer, and the app can reference them from the _accessCountersMipmapOffsets array.</p>
+<p>for (NSUInteger mipmap = 0; mipmap &lt; _sparseTexture.firstMipmapInTail; ++mipmap)
+{
+NSUInteger accessCountersOffset = _accessCountersMipmapOffsets[mipmap];
+MTLRegion pixelRegion           = [_sparseTextureBacking calculateMipmapRegion:mipmap];
+MTLRegion tileRegion;</p>
+<p>[_device convertSparsePixelRegions:&amp;pixelRegion
+toTileRegions:&amp;tileRegion
+withTileSize:_tileSize
+alignmentMode:MTLSparseTextureRegionAlignmentModeOutward
+numRegions:1];</p>
+<p>[encoder getTextureAccessCounters:_sparseTexture region:tileRegion mipLevel:mipmap slice:0
+resetCounters:YES
+countersBuffer:_accessCountersBuffer[frameIndex]
+countersBufferOffset:sizeof(uint) * accessCountersOffset];
+}</p>
+<p>Process the access counter buffers</p>
+<p>When the sparse texture class examines the access counters buffer, each entry contains the number of times the shader accessed each MIP region. A value of zero means that the tile wasn’t referenced at all in the last frame. Since there can be several frames in flight, the app ensures that tiles aren’t unmapped prematurely. To manage this, the sparse texture class uses a simple data structure TextureTile:</p>
+<p>struct TextureTile
+{
+MTLOrigin origin;</p>
+<p>TileState state;</p>
+<p>int8_t framesCount;
+};</p>
+<p>The sparse texture class categorizes texture tiles in one of five states: unmapped, mapped, queue for mapping, queue for unmapping, or stored in the LRU cache. When examining each counter for all tiles, the sparse texture manager applies the following actions:</p>
+<p>Queue an accessed tile that’s unmapped for mapping.</p>
+<p>Store a mapped and unaccessed tile in the LRU cache.</p>
+<p>Queue an unaccessed tile in the LRU cache for unmapping.</p>
+<p>Change an accessed tile in the LRU cache back to a mapped state.</p>
+<p>Do nothing if the accessed tile is mapped.</p>
+<p>The SparseTexture:newMapTileRequest: method adds the tile to a list of tiles to map. The helper function setTextureTileRefCounterParent ensures that parent tiles are properly reference counted. Resident parent tiles may depend on tiles in lower mipmap levels, so the sparse texture class doesn’t put them in the LRU cache. The following code shows the logic of putting tiles into the LRU cache.</p>
+<p>bool isTileNotMapped = (tile-&gt;state != TileState::TileStateMapped);
+bool isTileUsedByParentTile = (mipmap &gt; 0 &amp;&amp; (_countRefParentTiles[mipmap - 1][tileIndex] &gt; 0));</p>
+<p>if (isTileNotMapped || isTileUsedByParentTile)
+{
+continue;
+}</p>
+<p>tile-&gt;framesCount = std::max(0, tile-&gt;framesCount - 1);
+if (tile-&gt;framesCount &lt;= 0)
+{
+tile-&gt;state = TileState::TileStateStoredInLRUCache;
+_notUsedMappedTilesLRUCache.put(tile);
+[self setTextureTileRefCounterParent:tile higherMipmapQuality:NO];
+}</p>
+<p>Discard tiles from the LRU cache</p>
+<p>The app uses a heap of textures to manage the mapped tiles in the sparse texture. If there’s no memory available to map nonresident tiles, then the sparse texture class discards older tiles. It uses an LRU cache to prioritize tiles to discard. The AAPLPointerLRUCache class manages a std::list and std::unordered_map to track mapped tile pointers. When the manager retrieves a pointer with AAPLPointerLRUCache::get, it moves the tile to the front of the cache. When the manager discards a tile and the cache is full, discardLeastRecentlyUsed removes the last entry in the cache. The app tracks the number of tiles that need discarding and creates unmap requests in the following code:</p>
+<p>NSUInteger index = 0;
+for (; index &lt; _numTilesToDiscardFromLRU; ++index)
+{
+TextureTile* tile = _notUsedMappedTilesLRUCache.discardLeastRecentlyUsed();
+if (!tile)
+{
+break;
+}
+[self newUnmapTileRequest:tile];
+}</p>
+<p>This completes the process to get the access counter buffers and create the map and unmap requests. The next step is to map and blit tiles.</p>
+<p>Map and blit tiles</p>
+<p>The app stores a list of mapping and unmapping requests that the mapAndBlitTiles method encodes using a resource state command encoder. The updateTileMappingMode method converts the sparse pixel regions to tile regions and then updates the texture mapping to reflect the highest mapped MIP level.</p>
+<p>id<mtlresourcestatecommandencoder> rsEncoder = [cmdBuffer resourceStateCommandEncoder];
+rsEncoder.label = @“Tile mapping resource state encoder”;</mtlresourcestatecommandencoder></p>
+<p>for (TextureTile* tile : unmapTilesRequest)
+{
+[self updateTileMappingMode:tile mappingMode:MTLSparseTextureMappingModeUnmap onEncoder:rsEncoder];
+tile-&gt;state = TileState::TileStateUnmapped;
+}</p>
+<p>for (const auto tile: mapTilesRequest)
+{
+[self updateTileMappingMode:tile
+mappingMode:MTLSparseTextureMappingModeMap
+onEncoder:rsEncoder];
+}</p>
+<p>[rsEncoder endEncoding];</p>
+<p>While the resource state encoder is processing, the app starts streaming the tiles from the KTX file and blits them into the texture. The sparse texture manager iterates over new tile requests and calls streamTileToStagingBuffer to allocate staging buffers from the heap. The manager copies the texture from the file to the staging buffer and uses a blit encoder to write it to the sparse texture.</p>
+<p>for (const auto&amp; tile: mapTilesRequest)
+{
+id<mtlbuffer> tempStreamingBuffer = [self streamTileToStagingBuffer:tile];</mtlbuffer></p>
+<p>NSUInteger blocksWide       = calculateBlocksWidth(_tileSize.width, _sparseTextureBacking.blockSize, 0);
+NSUInteger bytesPerRow      = blocksWide * _sparseTextureBacking.bytesPerBlock;
+MTLOrigin destinationOrigin = MTLOriginMake(tile-&gt;origin.x * _tileSize.width,
+tile-&gt;origin.y * _tileSize.height,
+0);</p>
+<p>[blitEncoder copyFromBuffer:tempStreamingBuffer
+sourceOffset:0
+sourceBytesPerRow:bytesPerRow
+sourceBytesPerImage:0
+sourceSize:_tileSize
+toTexture:_sparseTexture
+destinationSlice:0
+destinationLevel:tile-&gt;origin.z
+destinationOrigin:destinationOrigin];
+}</p>
+<p>The last step is to wait until the blit command encoder is finished. During this time, the mapAndBlitTiles method updates the residency buffer and parent reference counts. This function waits to update the residency buffer until after the blits have finished, so the shader doesn’t access data that hasn’t finished mapping. The following code shows this process:</p>
+<p>for (auto&amp; tile: mapTilesRequest)
+{
+tile-&gt;state = TileState::TileStateMapped;
+[self updateTextureEntryResidency:tile minMipmapFlag:YES];
+[self setTextureTileRefCounterParent:tile higherMipmapQuality:YES];
+}</p>
+<p>Once the resource state encoder maps the tiles, the blit encoder copies the texture data and the app updates the residency buffer, the process repeats for each frame. The app code renders a quad to the screen using the residency buffer to show the highest MIP levels available to visualize the sparse texture tile residency. You may set the USE_SMALL_SPARSE_TEXTURE_HEAP preprocessor variable to 1 to see how mapping and unmapping occurs more frequently when the heap size is smaller.</p>
+<p>See Also
+Textures
+Processing a texture in a compute function
+Create textures by running copy and dispatch commands in a compute pass on a GPU.
+Reading pixel data from a drawable texture
+Access texture data from the CPU by copying it to a buffer.
+Creating and sampling textures
+Load image data into a texture and apply it to a quadrangle.
+Apple
+TestFlight
+Xcode
+Xcode Cloud
+SF Symbols
+Accessibility
+Accessories
+App Extension
+App Store
+Audio &amp; Video
+Augmented Reality
+Distribution
+Education
+Fonts
+Games
+Health &amp; Fitness
+In-App Purchase
+Localization
+Maps &amp; Location
+Machine Learning &amp; AI
+Open Source
+Security
+Safari &amp; Web
+Resources
+Tutorials
+Downloads
+Forums
+Videos
+Contact Us
+Bug Reporting
+System Status
+App Store Connect
+Certificates, IDs, &amp; Profiles
+Feedback Assistant
+Programs
+App Store Small Business Program
+MFi Program
+Video Partner Program
+Security Bounty Program
+Security Research Device Program
+Events
+Meet with Apple
+App Store Awards
+WWDC</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../textures/creating-and-sampling-textures.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="../shader-compilation-and-libraries/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../textures/creating-and-sampling-textures.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="../shader-compilation-and-libraries/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr-ef4e11c1.min.js"></script>
+        <script src="../mark-09e88c2c.min.js"></script>
+        <script src="../searcher-c2a407aa.js"></script>
+
+        <script src="../clipboard-1626706a.min.js"></script>
+        <script src="../highlight-abc7f01d.js"></script>
+        <script src="../book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>

@@ -12,7 +12,7 @@ pub struct MTLSizeAndAlign {
 
 unsafe impl Encode for MTLSizeAndAlign {
     const ENCODING: Encoding =
-        Encoding::Struct("{MTLSizeAndAlign=QQ}", &[usize::ENCODING, usize::ENCODING]);
+        Encoding::Struct("?", &[usize::ENCODING, usize::ENCODING]);
 }
 
 unsafe impl RefEncode for MTLSizeAndAlign {

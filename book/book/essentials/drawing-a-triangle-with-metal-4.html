@@ -1,0 +1,648 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Drawing a triangle with Metal 4 - Metal Programming Guide for Rust</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="../favicon-8114d1fc.png">
+        <link rel="stylesheet" href="../css/variables-8adf115d.css">
+        <link rel="stylesheet" href="../css/general-2459343d.css">
+        <link rel="stylesheet" href="../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="../highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="../tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "../searchindex-c2879d9a.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc-cc3a64fa.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Metal Programming Guide for Rust</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/computer-graphics-tools/mtl-rs" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="drawing-a-triangle-with-metal-4"><a class="header" href="#drawing-a-triangle-with-metal-4">Drawing a triangle with Metal 4</a></h1>
+<blockquote>
+<p><a href="https://developer.apple.com/documentation/metal/drawing-a-triangle-with-metal-4?language=objc">Apple Documentation</a></p>
+</blockquote>
+<h2 id="run-the-example"><a class="header" href="#run-the-example">Run the Example</a></h2>
+<pre><code class="language-bash">cargo run --example drawing_a_triangle_with_metal_4
+</code></pre>
+<h2 id="shader-files"><a class="header" href="#shader-files">Shader Files</a></h2>
+<ul>
+<li><code>Shaders/Shaders.metal</code></li>
+</ul>
+<h2 id="resources"><a class="header" href="#resources">Resources</a></h2>
+<ul>
+<li><code>Documentation/drawing-a-triangle-with-metal-4-1@2x~dark.png</code></li>
+<li><code>Documentation/drawing-a-triangle-with-metal-4-1@2x.png</code></li>
+</ul>
+<h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
+<p>This sample demonstrates how to render imagery by sending commands to the GPU with the Metal 4 API, and relates to WWDC25 session 205: Discover Metal 4.</p>
+<p>Play</p>
+<p>Multiple times a second, the sample’s app displays a colorful triangle by:</p>
+<p>Updating the vertex data for the triangle</p>
+<p>Encoding draw commands as a frame of visual content</p>
+<p>Running the draw commands on a Metal device that represents an Apple silicon GPU</p>
+<p>Updating the display after the GPU finishes rendering that frame</p>
+<p>Apps can give a person the impression of motion by rendering and displaying frames at a sufficient frequency, typically at 60 frames or more per second.</p>
+<p>The renderer encodes one frame at a time, and has three frames of content in flight at the same time. Starting when the first frame is visible on the display, the renderer is continually managing three frames at once:</p>
+<p>The first frame is in its final lifetime phase as the frame that’s visible to a person on the device’s display.</p>
+<p>The second frame is in its second lifetime phase where the GPU renders it in a render pass, which is the collection of render commands that draw the triangle.</p>
+<p>The third frame is in its first lifetime phase where the renderer encodes the draw commands for the next render pass by using the Metal API on the CPU.</p>
+<p>The renderer manages the frames as each progresses through its three lifetime phases. The diagram below illustrates how the first frames move through time, where each column represents a snapshot of the app’s current frames and their states:</p>
+<p>Create a renderer</p>
+<p>The sample implements two separate renderer classes and the app creates a new instance of the one that’s appropriate for the system it’s running on. The two classes are:</p>
+<p>Metal4Renderer, a renderer class that works with the Metal 4 API</p>
+<p>MetalRenderer, a renderer class that works with previous Metal API versions</p>
+<p>The app checks whether the system supports Metal 4 by calling supportsFamily: in the MetalKitViewDelegate class.</p>
+<p>MetalKitViewDelegate.m
+if ([view.device supportsFamily:MTLGPUFamilyMetal4]) {
+renderer = [[Metal4Renderer alloc] initWithMetalKitView:view];</p>
+<p>return self;
+}</p>
+<p>The app creates a Metal 4 renderer if the operating system supports MTLGPUFamilyMetal4; otherwise it creates an instance of the other renderer, which supports previous versions of Metal.</p>
+<p>MetalKitViewDelegate.m
+renderer = [[MetalRenderer alloc] initWithMetalKitView:view];</p>
+<p>The two renderers are identical in their behavior, but they use different Metal API generations to submit the same render commands to the GPU.</p>
+<p>Note</p>
+<p>You may only need to implement a renderer that supports one Metal API depending on the platforms and devices you want your app to support.</p>
+<p>Create long-term resources</p>
+<p>The Metal 4 renderer’s initializer starts by creating an instance of MTL4CommandQueue, MTL4CommandBuffer, and MTLLibrary with the view’s MTLDevice.</p>
+<p>Metal4Renderer.m
+_device = view.device;</p>
+<p>commandQueue = [self.device newMTL4CommandQueue];</p>
+<p>commandBuffer = [self.device newCommandBuffer];</p>
+<p>_defaultLibrary = [self.device newDefaultLibrary];</p>
+<p>Generally, you send work to the GPU by encoding commands into a command buffer, and then submitting one or more command buffers to a queue. Your app can have multiple command buffers and queues, but the sample’s Metal4Renderer class needs only one of each.</p>
+<p>The initializer creates other resources the renderer needs by calling helper methods.</p>
+<p>Metal4Renderer.m
+triangleVertexBuffers = [self makeTriangleDataBuffers:kMaxFramesInFlight];
+argumentTable = [self makeArgumentTable];
+residencySet = [self makeResidencySet];
+commandAllocators = [self makeCommandAllocators:kMaxFramesInFlight];</p>
+<p>viewportSizeBuffer = [self.device newBufferWithLength:sizeof(viewportSize)
+options:MTLResourceStorageModeShared];</p>
+<p>The renderer defines kMaxFramesInFlight near the top of its primary source file.</p>
+<p>Metal4Renderer.m
+#define kMaxFramesInFlight 3</p>
+<p>The sample applies this constant when it creates separate instances of the resources the renderer needs for each in-flight frame, which includes the buffers that store a triangle’s geometry and color information.</p>
+<p>Metal4Renderer.m
+NSArray&lt;id<mtlbuffer>&gt; *triangleVertexBuffers;</mtlbuffer></p>
+<p>Most of the helper methods that create the renderer’s long-term resources at launch are relatively short. For example, the makeTriangleDataBuffers: method creates kMaxFramesInFlight instances of MTLBuffer because each in-flight frame needs a separate buffer to store its triangle vertex data.</p>
+<p>Metal4Renderer+Setup.m</p>
+<ul>
+<li>(nonnull NSArray&lt;id<mtlbuffer>&gt; *) makeTriangleDataBuffers:(NSUInteger) count
+{
+NSMutableArray&lt;id<mtlbuffer>&gt; *bufferArray;
+bufferArray = [[NSMutableArray alloc] initWithCapacity:count];
+for (uint bufferNumber = 0; bufferNumber &lt; count; bufferNumber += 1) {
+id<mtlbuffer> buffer;
+buffer = [self.device newBufferWithLength:sizeof(TriangleData)
+options:MTLResourceStorageModeShared];</mtlbuffer></mtlbuffer></mtlbuffer></li>
+</ul>
+<p>[self check:buffer name:@“buffer” number:bufferArray.count error:nil];
+[bufferArray addObject:buffer];
+}</p>
+<p>return bufferArray;
+}</p>
+<p>Creating a separate buffer instance for each in-flight frame eliminates the possibility of modifying a buffer for a later frame before or as the GPU reads from the same buffer to render an earlier frame.</p>
+<p>The makeArgumentTable method creates just a single argument table that the renderer can reuse each time it encodes render commands into a render pass the GPU eventually runs. You set the resource bindings for any pass you encode with an MTL4CommandBuffer, including compute and render passes, by configuring an MTL4ArgumentTable instance.</p>
+<p>Metal4Renderer+Setup.m</p>
+<ul>
+<li>(id<mtl4argumenttable>) makeArgumentTable
+{
+NSError *error = nil;</mtl4argumenttable></li>
+</ul>
+<p>MTL4ArgumentTableDescriptor *argumentTableDescriptor;
+argumentTableDescriptor = [MTL4ArgumentTableDescriptor new];
+argumentTableDescriptor.maxBufferBindCount = 2;</p>
+<p>id<mtl4argumenttable> argumentTable;
+argumentTable = [self.device newArgumentTableWithDescriptor:argumentTableDescriptor
+error:&amp;error];</mtl4argumenttable></p>
+<p>[self check:argumentTable name:@“argument table” number:-1 error:error];
+return argumentTable;
+}</p>
+<p>Each argument table can store bindings to instances of various resource types, including:</p>
+<p>MTLBuffer</p>
+<p>MTLTexture</p>
+<p>MTLTensor</p>
+<p>MTLSamplerState</p>
+<p>MTLAccelerationStructure</p>
+<p>For this sample, the argument table only needs to store two buffer bindings, one for the buffer that stores vertex triangle data, and another buffer that stores the viewport’s width and height.</p>
+<p>Tip</p>
+<p>You can help minimize an app’s memory footprint by reducing the number of binding entries in an argument table to what your renderer needs.</p>
+<p>The makeResidencySet and makeCommandAllocators: methods create a single MTLResidencySet instance, and an MTL4CommandAllocator instance for each in-flight frame, respectively.</p>
+<p>The end of the initializer configures the renderer’s initial state so that it’s ready to render the first frame when the system requests it.</p>
+<p>Metal4Renderer.m
+frameNumber = 0;</p>
+<p>sharedEvent = [self.device newSharedEvent];
+sharedEvent.signaledValue = frameNumber;</p>
+<p>The initializer adds two residency sets to the renderer’s command queue:</p>
+<p>The long-term residency set, which the renderer configures to track all of its MTLBuffer instances</p>
+<p>The view’s residency set, which MetalKit configures</p>
+<p>Metal4Renderer.m
+[residencySet addAllocation:viewportSizeBuffer];</p>
+<p>for (id<mtlbuffer> triangleVertexBuffer in triangleVertexBuffers) {
+[residencySet addAllocation:triangleVertexBuffer];
+}</mtlbuffer></p>
+<p>[residencySet commit];</p>
+<p>[commandQueue addResidencySet:residencySet];</p>
+<p>[commandQueue addResidencySet:((CAMetalLayer *)view.layer).residencySet];</p>
+<p>[self updateViewportSize:view.drawableSize];</p>
+<p>See Simplifying GPU resource management with residency sets for more information about working with residency sets.</p>
+<p>Create a render pipeline</p>
+<p>The renderer’s compileRenderPipeline: method creates a render pipeline by configuring an MTL4RenderPipelineDescriptor instance and passing it to an MTL4Compiler instance’s newRenderPipelineStateWithDescriptor:compilerTaskOptions:error: method.</p>
+<p>Metal4Renderer+Compilation.m</p>
+<ul>
+<li>(id<mtlrenderpipelinestate>) compileRenderPipeline:(MTLPixelFormat) colorPixelFormat
+{
+id<mtl4compiler> compiler = [self createDefaultMetalCompiler];</mtl4compiler></mtlrenderpipelinestate></li>
+</ul>
+<p>MTL4RenderPipelineDescriptor *descriptor;
+descriptor = [self configureRenderPipeline: colorPixelFormat];</p>
+<p>MTL4CompilerTaskOptions *compilerTaskOptions;
+compilerTaskOptions = [self configureCompilerTaskOptions];</p>
+<p>NSError *error = nil;</p>
+<p>id<mtlrenderpipelinestate> renderPipelineState;
+renderPipelineState = [compiler newRenderPipelineStateWithDescriptor:descriptor
+compilerTaskOptions:compilerTaskOptions
+error:&amp;error];</mtlrenderpipelinestate></p>
+<p>NSAssert(nil != renderPipelineState,
+@“The compiler can’t create a pipeline state due to: %@\n%@”, error,
+@“Check the descriptor’s configuration and turn on Metal API validation for more information.”
+);</p>
+<p>return renderPipelineState;
+}</p>
+<p>The renderer’s configureRenderPipeline: method sets the various properties the compiler needs to create a render pipeline state.</p>
+<p>Metal4Renderer+Compilation.m</p>
+<ul>
+<li>(MTL4RenderPipelineDescriptor*) configureRenderPipeline:(MTLPixelFormat) colorPixelFormat
+{
+MTL4RenderPipelineDescriptor *renderPipelineDescriptor;
+renderPipelineDescriptor = [MTL4RenderPipelineDescriptor new];
+renderPipelineDescriptor.label = @“Basic Metal 4 render pipeline”;</li>
+</ul>
+<p>renderPipelineDescriptor.colorAttachments[0].pixelFormat = colorPixelFormat;
+renderPipelineDescriptor.vertexFunctionDescriptor = [self makeVertexShaderConfiguration];
+renderPipelineDescriptor.fragmentFunctionDescriptor = [self makeFragmentShaderConfiguration];</p>
+<p>return renderPipelineDescriptor;
+}</p>
+<p>The makeVertexShaderConfiguration helper method creates an MTL4LibraryFunctionDescriptor instance that refers to the renderer’s vertex shader.</p>
+<p>Metal4Renderer+Compilation.m</p>
+<ul>
+<li>(MTL4LibraryFunctionDescriptor*) makeVertexShaderConfiguration
+{
+MTL4LibraryFunctionDescriptor *vertexFunction;
+vertexFunction = [MTL4LibraryFunctionDescriptor new];
+vertexFunction.library = self.defaultLibrary;
+vertexFunction.name = @“vertexShader”;</li>
+</ul>
+<p>return vertexFunction;
+}</p>
+<p>Similarly, the makeFragmentShaderConfiguration helper method creates another function descriptor instance that refers to the renderer’s fragment shader.</p>
+<p>Metal4Renderer+Compilation.m</p>
+<ul>
+<li>(MTL4LibraryFunctionDescriptor*) makeFragmentShaderConfiguration
+{
+MTL4LibraryFunctionDescriptor *fragmentFunction;
+fragmentFunction = [MTL4LibraryFunctionDescriptor new];
+fragmentFunction.library = self.defaultLibrary;
+fragmentFunction.name = @“fragmentShader”;</li>
+</ul>
+<p>return fragmentFunction;
+}</p>
+<p>Draw a frame by encoding a render pass</p>
+<p>The app is ready to render frames after its renderer creates and sets up all its resources at launch, including data buffers and a render pipeline state. Each time the system calls the app’s drawInMTKView: method, its MTKViewDelegate implementation calls the renderer’s renderFrameToView: method, which encodes and runs the commands that render the frame with the following steps:</p>
+<p>Check that the MTKView parameter has valid currentDrawable and currentMTL4RenderPassDescriptor properties.</p>
+<p>Increment the frame number, which tracks the resources it can reuse from previous frames that don’t need them any longer.</p>
+<p>Prepare a command buffer.</p>
+<p>Create and configure a render pass encoder.</p>
+<p>Set the viewport to the size of the app’s view.</p>
+<p>Configure the arguments for the render pass, which in this case are two data buffers.</p>
+<p>Encode a draw command for the triangle.</p>
+<p>Mark the end of the render pass and the command buffer that contains it.</p>
+<p>Run the render pass by submitting the command buffer to the Metal device’s command queue, and display the result when it finishes.</p>
+<p>Notify the renderer when it’s safe to reuse this frame’s resources for a new frame by signaling its shared event.</p>
+<p>The remaining sections explain the important details of these steps.</p>
+<p>Prepare a command buffer</p>
+<p>The renderer uses the same MTL4CommandBuffer instance to render every frame. You can reuse a Metal 4 command buffer instance immediately after submitting it to an MTL4CommandQueue. This is because a command allocator stores a record of the command buffer’s contents when you submit it to a queue.</p>
+<p>The renderer prepares the command buffer for a new set of commands by calling its beginCommandBufferWithAllocator: method.</p>
+<p>Metal4Renderer.m
+frameNumber += 1;</p>
+<p>const uint32_t frameIndex = frameNumber % kMaxFramesInFlight;
+NSString *label = [NSString stringWithFormat:@“Frame: %llu”, frameNumber];</p>
+<p>if (frameNumber &gt;= kMaxFramesInFlight) {
+[self waitOnSharedEvent:sharedEvent
+forEarlierFrame:frameNumber - kMaxFramesInFlight];
+}</p>
+<p>id<mtl4commandallocator> frameAllocator = commandAllocators[frameIndex];
+[frameAllocator reset];</mtl4commandallocator></p>
+<p>[commandBuffer beginCommandBufferWithAllocator:frameAllocator];
+commandBuffer.label = label;</p>
+<p>The renderer reuses an MTL4CommandAllocator instance the GPU no longer needs by rotating through the kMaxFramesInFlight allocators it creates at launch.</p>
+<p>Important</p>
+<p>Unlike a command buffer, you can’t immediately reuse an allocator after submitting a command buffer to a queue, but you can after the device finishes running the passes in the command buffer you associate with the allocator.</p>
+<p>The renderer ensures the next allocator in the rotation is available by calling the waitOnSharedEvent:forEarlierFrame: method. That method calls the waitUntilSignaledValue:timeoutMS: method of the renderer’s MTLSharedEvent instance, which can potentially block the caller for 10 milliseconds before it returns.</p>
+<p>Metal4Renderer+Encoding.m</p>
+<ul>
+<li>(void) waitOnSharedEvent:(id<mtlsharedevent>) sharedEvent
+forEarlierFrame:(uint64_t) earlierFrameNumber
+{
+const uint64_t tenMilliseconds = 10;</mtlsharedevent></li>
+</ul>
+<p>BOOL beforeTimeout = [sharedEvent waitUntilSignaledValue:earlierFrameNumber
+timeoutMS:tenMilliseconds];</p>
+<p>if (false == beforeTimeout) {
+NSLog(@“No signal from frame %llu to shared event after %llums”,
+earlierFrameNumber, tenMilliseconds);
+}
+}</p>
+<p>The command queue updates the shared event after the Metal device finishes rendering the previous frame that uses the same allocator, which indicates to this method that it’s now available to reuse. Ideally, the shared event’s method returns immediately because the earlier frame using the allocator is done rendering and no longer needs it.</p>
+<p>Create an encoder for a render pass</p>
+<p>The renderFrameToView: method creates a render command encoder by retrieving an MTL4RenderPassDescriptor instance from the view’s currentMTL4RenderPassDescriptor property and passing it to the command buffer’s renderCommandEncoderWithDescriptor:options: method. The view’s property represents a valid configuration for a render pass to render a frame in a format that’s compatible with that view.</p>
+<p>Metal4Renderer.m
+id<mtl4rendercommandencoder> renderPassEncoder;
+MTL4RenderPassDescriptor *configuration = view.currentMTL4RenderPassDescriptor;
+renderPassEncoder = [commandBuffer renderCommandEncoderWithDescriptor:configuration];
+renderPassEncoder.label = label;</mtl4rendercommandencoder></p>
+<p>The command buffer’s factory method returns an MTL4RenderCommandEncoder instance, which provides methods that configure a render pass and encode the commands for that pass.</p>
+<p>The method also gives the render encoder a unique name that can help you identify its render pass from other passes in Metal debugger. For more information about Metal debugger and inspecting passes, see:</p>
+<p>Metal debugger</p>
+<p>Analyzing your Metal workload</p>
+<p>Configure the viewport for the render pass</p>
+<p>The renderer’s setViewport method configures an MTLViewport and passes it to the encoder’s setViewport:method.</p>
+<p>Metal4Renderer+Encoding.m</p>
+<ul>
+<li>(void) setViewportSize:(simd_uint2) size
+forRenderEncoder:(id<mtl4rendercommandencoder>) renderPassEncoder
+{
+MTLViewport viewPort;
+viewPort.originX = 0.0;
+viewPort.originY = 0.0;
+viewPort.znear = 0.0;
+viewPort.zfar = 1.0;
+viewPort.width = (double)size.x;
+viewPort.height = (double)size.y;</mtl4rendercommandencoder></li>
+</ul>
+<p>[renderPassEncoder setViewport:viewPort];
+}</p>
+<p>The method configures the viewport’s 2D size by setting the x and y members to the dimensions of the app’s view, in pixels.</p>
+<p>Configure any arguments for the render pass</p>
+<p>The renderer’s setRenderPassArguments: method configures two arguments for the render pass, both of which are MTLBuffer instances.</p>
+<p>Metal4Renderer+Encoding.m</p>
+<ul>
+<li>(void) setRenderPassArguments:(id<mtl4rendercommandencoder>) renderPassEncoder
+forFrame:(NSUInteger) frameNumber
+with:(id<mtl4argumenttable>) argumentTable
+vertexBuffer:(id<mtlbuffer>) vertexBuffer
+viewPortSize:(id<mtlbuffer>) viewportSizeBuffer
+{
+configureVertexDataForBuffer(frameNumber, vertexBuffer.contents);</mtlbuffer></mtlbuffer></mtl4argumenttable></mtl4rendercommandencoder></li>
+</ul>
+<p>[argumentTable setAddress:vertexBuffer.gpuAddress
+atIndex:InputBufferIndexForVertexData];</p>
+<p>[argumentTable setAddress:viewportSizeBuffer.gpuAddress
+atIndex:InputBufferIndexForViewportSize];</p>
+<p>[renderPassEncoder setArgumentTable:argumentTable
+atStages:MTLRenderStageVertex];
+}</p>
+<p>The method retrieves the next triangle vertex buffer in the rotation. Each render pass needs its own copy of triangle vertex data because the data for each frame is unique, and the GPU needs access to each frame’s input data until it finishes rendering that frame. The renderer tracks and rotates through kMaxFramesInFlight buffers of triangle vertex data in an array, similar to the command allocators because each frame has slightly different coordinates for the triangle as it rotates.</p>
+<p>The method calls the renderer’s configureVertexDataForBuffer: method, which calculates the positions of the triangle’s vertices by applying a rotation angle and then copies the vertex data into the MTLBuffer.</p>
+<p>TriangleData.c
+void configureVertexDataForBuffer(long rotationInDegrees,
+void *bufferContents)
+{
+const short radius = 350;
+const short angle = rotationInDegrees % 360;</p>
+<p>TriangleData triangleData;
+triangleRedGreenBlue(radius, (float)angle, &amp;triangleData);</p>
+<p>memcpy(bufferContents, &amp;triangleData, sizeof(TriangleData));
+}</p>
+<p>Encode draw commands</p>
+<p>The renderer draws exactly one triangle with a single call to drawPrimitives:vertexStart:vertexCount::</p>
+<p>Metal4Renderer.m
+[renderPassEncoder drawPrimitives:MTLPrimitiveTypeTriangle
+vertexStart:0
+vertexCount:3];</p>
+<p>This renderer only needs one draw command, but yours can encode multiple drawing commands in a single render pass.</p>
+<p>End the render pass</p>
+<p>The renderFrameToView: method marks the conclusion of the render pass by calling the encoder’s endEncoding method.</p>
+<p>Metal4Renderer.m
+[renderPassEncoder endEncoding];</p>
+<p>[commandBuffer endCommandBuffer];</p>
+<p>It then marks the end of the command buffer by calling its endCommandBuffer method because it only needs to encode a single render pass. However, your app can encode multiple passes of different types in a single command buffer with a series of encoder types, including the following:</p>
+<p>MTL4ComputeCommandEncoder</p>
+<p>MTL4RenderCommandEncoder</p>
+<p>MTL4MachineLearningCommandEncoder</p>
+<p>Run the render pass by submitting the command buffer</p>
+<p>The renderer sends the command buffer to run on the GPU in its submitCommandBufferForView: method. The method starts by retrieving the CAMetalDrawable instance the view stores in its currentDrawable property.</p>
+<p>Note</p>
+<p>The view’s current drawable is the same instance as the one in the view’s currentMTL4RenderPassDescriptor convenience property, specifically the first entry in the descriptor’s colorAttachments property, which the renderer uses to create each render pass encoder.</p>
+<p>The method adds the following actions to the renderer’s MTL4CommandQueue instance, which run on the GPU timeline:</p>
+<p>Wait for the view’s drawable with the waitForDrawable: method.</p>
+<p>Submit the command buffer to run on the GPU with the commit:count: method.</p>
+<p>Notify the drawable that the GPU is finished running the render pass with the signalDrawable: method.</p>
+<p>Metal4Renderer+Encoding.m</p>
+<ul>
+<li>(void) submitCommandBuffer:(id<mtl4commandbuffer>) commandBuffer
+toCommandQueue:(id<mtl4commandqueue>) commandQueue
+forView:(nonnull MTKView *) view
+{
+id<cametaldrawable> currentDrawable = view.currentDrawable;</cametaldrawable></mtl4commandqueue></mtl4commandbuffer></li>
+</ul>
+<p>[commandQueue waitForDrawable:currentDrawable];</p>
+<p>[commandQueue commit:&amp;commandBuffer count:1];</p>
+<p>[commandQueue signalDrawable:currentDrawable];</p>
+<p>[currentDrawable present];
+}</p>
+<p>The Metal device needs to wait until the view’s drawable is available because it stores the output from the render pass and provides the mechanism that updates the content on the display. When the drawable is ready, the GPU runs the single render pass in the command buffer, which saves the results to the drawable’s texture.</p>
+<p>Note</p>
+<p>Your app can submit one or more Metal 4 command buffers to any command queue, if and only if the command buffers and command queues come from the same Metal device.</p>
+<p>The method concludes by calling the drawable’s present method, which instructs the drawable to show its content on the device’s display shortly after it gets the notification from the command queue. The MTLDrawable protocol defines this method, which the CAMetalDrawable protocol inherits.</p>
+<p>Notify the renderer when a frame’s resources are ready for reuse</p>
+<p>The last command the renderFrameToView: method adds to the command queue notifies the renderer when it can reuse this frame’s triangle vertex buffer and command allocator, by signaling its MTLSharedEvent instance with the current frame number.</p>
+<p>Metal4Renderer.m
+[commandQueue signalEvent:sharedEvent value:frameNumber];</p>
+<p>For example, if the frameNumber equals 4 and kMaxFramesInFlight equals 3, this signal informs the renderer when its okay to reuse the fourth frame’s resources and apply them for frame seven.</p>
+<p>See Also
+Essentials
+Understanding the Metal 4 core API
+Performing calculations on a GPU
+Use Metal to find GPUs and perform calculations on them.
+Using Metal to draw a view’s contents
+Create a MetalKit view and a render pass to draw the view’s contents.
+Apple
+TestFlight
+Xcode
+Xcode Cloud
+SF Symbols
+Accessibility
+Accessories
+App Extension
+App Store
+Audio &amp; Video
+Augmented Reality
+Distribution
+Education
+Fonts
+Games
+Health &amp; Fitness
+In-App Purchase
+Localization
+Maps &amp; Location
+Machine Learning &amp; AI
+Open Source
+Security
+Safari &amp; Web
+Resources
+Tutorials
+Downloads
+Forums
+Videos
+Contact Us
+Bug Reporting
+System Status
+App Store Connect
+Certificates, IDs, &amp; Profiles
+Feedback Assistant
+Programs
+App Store Small Business Program
+MFi Program
+Video Partner Program
+Security Bounty Program
+Security Research Device Program
+Events
+Meet with Apple
+App Store Awards
+WWDC</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../essentials/understanding-the-metal-4-core-api.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="../essentials/performing-calculations-on-a-gpu.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../essentials/understanding-the-metal-4-core-api.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="../essentials/performing-calculations-on-a-gpu.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr-ef4e11c1.min.js"></script>
+        <script src="../mark-09e88c2c.min.js"></script>
+        <script src="../searcher-c2a407aa.js"></script>
+
+        <script src="../clipboard-1626706a.min.js"></script>
+        <script src="../highlight-abc7f01d.js"></script>
+        <script src="../book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>

@@ -10,10 +10,7 @@ pub struct MTLRegion {
 }
 
 unsafe impl Encode for MTLRegion {
-    const ENCODING: Encoding = Encoding::Struct(
-        "{MTLRegion={MTLOrigin=QQQ}{MTLSize=QQQ}}",
-        &[MTLOrigin::ENCODING, MTLSize::ENCODING],
-    );
+    const ENCODING: Encoding = Encoding::Struct("?", &[MTLOrigin::ENCODING, MTLSize::ENCODING]);
 }
 
 unsafe impl RefEncode for MTLRegion {

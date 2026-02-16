@@ -1,0 +1,222 @@
+Found 52 articles with sample code downloads
+[1/52] drawing-a-triangle-with-metal-4
+    URL: https://docs-assets.developer.apple.com/published/75c8d8f60668/DrawingATriangleWithMetal4.zip
+    Already downloaded, skipping
+    Files: 12 source, 1 shader, 2 resource
+[2/52] performing-calculations-on-a-gpu
+    URL: https://docs-assets.developer.apple.com/published/d80f8573d811/PerformingCalculationsOnAGPU.zip
+    Already downloaded, skipping
+    Files: 2 source, 1 shader, 2 resource
+[3/52] using-metal-to-draw-a-view's-contents
+    URL: https://docs-assets.developer.apple.com/published/107fc85eb937/UsingMetalToDrawAViewsContents.zip
+    Already downloaded, skipping
+    Files: 4 source, 0 shader, 0 resource
+[4/52] combining-blit-and-compute-operations-in-a-single-pass
+    URL: https://docs-assets.developer.apple.com/published/8014bd303979/CombiningBlitAndComputeOperationsInASinglePass.zip
+    Already downloaded, skipping
+    Files: 5 source, 1 shader, 2 resource
+[5/52] reading-pixel-data-from-a-drawable-texture
+    URL: https://docs-assets.developer.apple.com/published/5c3065ab48e5/ReadingPixelDataFromADrawableTexture.zip
+    Already downloaded, skipping
+    Files: 5 source, 1 shader, 0 resource
+[6/52] creating-and-sampling-textures
+    URL: https://docs-assets.developer.apple.com/published/2c30e7618ade/CreatingAndSamplingTextures.zip
+    Already downloaded, skipping
+    Files: 5 source, 1 shader, 3 resource
+[7/52] streaming-large-images-with-metal-sparse-textures
+    URL: https://docs-assets.developer.apple.com/published/06a0b3fd0bfa/StreamingLargeImagesWithMetalSparseTextures.zip
+    Already downloaded, skipping
+    Files: 7 source, 1 shader, 12 resource
+[8/52] using-function-specialization-to-build-pipeline-variants
+    URL: https://docs-assets.developer.apple.com/published/218db2aae525/UsingFunctionSpecializationToBuildPipelineVariants.zip
+    Already downloaded, skipping
+    Files: 6 source, 1 shader, 68 resource
+[9/52] supporting-simulator-in-a-metal-app
+    URL: https://docs-assets.developer.apple.com/published/7710c0adf30d/SupportingSimulatorInAMetalApp.zip
+    Already downloaded, skipping
+    Files: 9 source, 2 shader, 2 resource
+[10/52] capturing-metal-commands-programmatically
+    URL: https://docs-assets.developer.apple.com/published/b3b3093326a2/CapturingMetalCommandsProgrammatically.zip
+    Already downloaded, skipping
+    Files: 4 source, 1 shader, 1 resource
+[11/52] performing-calculations-on-a-gpu
+    URL: https://docs-assets.developer.apple.com/published/d80f8573d811/PerformingCalculationsOnAGPU.zip
+    Already downloaded, skipping
+    Files: 2 source, 1 shader, 2 resource
+[12/52] selecting-device-objects-for-compute-processing
+    URL: https://docs-assets.developer.apple.com/published/9dab948f9c4f/SelectingDeviceObjectsForComputeProcessing.zip
+    Already downloaded, skipping
+    Files: 5 source, 2 shader, 4 resource
+[13/52] customizing-a-tensorflow-operation
+    URL: https://docs-assets.developer.apple.com/published/da6dd297d52f/CustomizingATensorFlowOperation.zip
+    Already downloaded, skipping
+    Files: 0 source, 1 shader, 0 resource
+[14/52] customizing-a-pytorch-operation
+    URL: https://docs-assets.developer.apple.com/published/6b82559cf644/CustomizingAPyTorchOperation.zip
+    Already downloaded, skipping
+    Files: 1 source, 0 shader, 0 resource
+[15/52] using-metal-to-draw-a-view's-contents
+    URL: https://docs-assets.developer.apple.com/published/107fc85eb937/UsingMetalToDrawAViewsContents.zip
+    Already downloaded, skipping
+    Files: 4 source, 0 shader, 0 resource
+[16/52] drawing-a-triangle-with-metal-4
+    URL: https://docs-assets.developer.apple.com/published/75c8d8f60668/DrawingATriangleWithMetal4.zip
+    Already downloaded, skipping
+    Files: 12 source, 1 shader, 2 resource
+[17/52] selecting-device-objects-for-graphics-rendering
+    URL: https://docs-assets.developer.apple.com/published/187f3109f6d8/SelectingDeviceObjectsForGraphicsRendering.zip
+    Already downloaded, skipping
+    Files: 4 source, 1 shader, 5 resource
+[18/52] customizing-render-pass-setup
+    URL: https://docs-assets.developer.apple.com/published/10951cc6ebdc/CustomizingRenderPassSetup.zip
+    Already downloaded, skipping
+    Files: 4 source, 1 shader, 4 resource
+[19/52] creating-a-custom-metal-view
+    URL: https://docs-assets.developer.apple.com/published/ab04df65420c/CreatingACustomMetalView.zip
+    Already downloaded, skipping
+    Files: 7 source, 1 shader, 0 resource
+[20/52] calculating-primitive-visibility-using-depth-testing
+    URL: https://docs-assets.developer.apple.com/published/3f44217bd4ef/CalculatingPrimitiveVisibilityUsingDepthTesting.zip
+    Already downloaded, skipping
+    Files: 4 source, 1 shader, 3 resource
+[21/52] encoding-indirect-command-buffers-on-the-cpu
+    URL: https://docs-assets.developer.apple.com/published/3ebb7a76fda0/EncodingIndirectCommandBuffersOnTheCPU.zip
+    Already downloaded, skipping
+    Files: 4 source, 1 shader, 3 resource
+[22/52] implementing-order-independent-transparency-with-image-blocks
+    URL: https://docs-assets.developer.apple.com/published/6860d171ecf1/ImplementingOrderIndependentTransparencyWithImageBlocks.zip
+    Already downloaded, skipping
+    Files: 6 source, 1 shader, 3 resource
+[23/52] loading-textures-and-models-using-metal-fast-resource-loading
+    URL: https://docs-assets.developer.apple.com/published/6015a250e92b/LoadingTexturesAndModelsUsingMetalFastResourceLoading.zip
+    Already downloaded, skipping
+    Files: 5 source, 1 shader, 12 resource
+[24/52] adjusting-the-level-of-detail-using-metal-mesh-shaders
+    URL: https://docs-assets.developer.apple.com/published/4cb855ed0f77/AdjustingTheLevelOfDetailUsingMetalMeshShaders.zip
+    Already downloaded, skipping
+    Files: 5 source, 1 shader, 1 resource
+[25/52] creating-a-3d-application-with-hydra-rendering
+    URL: https://docs-assets.developer.apple.com/published/fc450e9ee3a6/CreatingA3DApplicationWithHydraRendering.zip
+    Already downloaded, skipping
+    Files: 5 source, 1 shader, 0 resource
+[26/52] culling-occluded-geometry-using-the-visibility-result-buffer
+    URL: https://docs-assets.developer.apple.com/published/2d558808cf51/CullingOccludedGeometryUsingTheVisibilityResultBuffer.zip
+    Already downloaded, skipping
+    Files: 4 source, 1 shader, 2 resource
+[27/52] improving-edge-rendering-quality-with-multisample-antialiasing-msaa
+    URL: https://docs-assets.developer.apple.com/published/ac0a95cd3f85/ImprovingEdgeRenderingQualityWithMultisampleAntialiasingMSAA.zip
+    Already downloaded, skipping
+    Files: 5 source, 4 shader, 2 resource
+[28/52] achieving-smooth-frame-rates-with-a-metal-display-link
+    URL: https://docs-assets.developer.apple.com/published/b1000e0a6b32/AchievingSmoothFrameRatesWithMetalsDisplayLink.zip
+    Already downloaded, skipping
+    Files: 10 source, 1 shader, 1 resource
+[29/52] managing-groups-of-resources-with-argument-buffers
+    URL: https://docs-assets.developer.apple.com/published/6419a78cae65/ManagingGroupsOfResourcesWithArgumentBuffers.zip
+    Already downloaded, skipping
+    Files: 4 source, 1 shader, 5 resource
+[30/52] using-argument-buffers-with-resource-heaps
+    URL: https://docs-assets.developer.apple.com/published/8e9abaedfb52/UsingArgumentBuffersWithResourceHeaps.zip
+    Already downloaded, skipping
+    Files: 4 source, 1 shader, 33 resource
+[31/52] encoding-argument-buffers-on-the-gpu
+    URL: https://docs-assets.developer.apple.com/published/c9aafeee96b1/EncodingArgumentBuffersOnTheGPU.zip
+    Already downloaded, skipping
+    Files: 4 source, 1 shader, 69 resource
+[32/52] rendering-terrain-dynamically-with-argument-buffers
+    URL: https://docs-assets.developer.apple.com/published/99aa5af9cf1a/RenderingTerrainDynamicallyWithArgumentBuffers.zip
+    Already downloaded, skipping
+    Files: 12 source, 7 shader, 35 resource
+[33/52] creating-a-metal-dynamic-library
+    URL: https://docs-assets.developer.apple.com/published/29bb3a194b16/CreatingAMetalDynamicLibrary.zip
+    Already downloaded, skipping
+    Files: 7 source, 3 shader, 1 resource
+[34/52] using-function-specialization-to-build-pipeline-variants
+    URL: https://docs-assets.developer.apple.com/published/218db2aae525/UsingFunctionSpecializationToBuildPipelineVariants.zip
+    Already downloaded, skipping
+    Files: 6 source, 1 shader, 68 resource
+[35/52] synchronizing-cpu-and-gpu-work
+    URL: https://docs-assets.developer.apple.com/published/d164bbc24cfd/SynchronizingCPUAndGPUWork.zip
+    Already downloaded, skipping
+    Files: 5 source, 1 shader, 3 resource
+[36/52] implementing-a-multistage-image-filter-using-heaps-and-events
+    URL: https://docs-assets.developer.apple.com/published/0b3a56b621c9/ImplementingAMultistageImageFilterUsingHeapsAndEvents.zip
+    Already downloaded, skipping
+    Files: 6 source, 2 shader, 10 resource
+[37/52] implementing-a-multistage-image-filter-using-heaps-and-fences
+    URL: https://docs-assets.developer.apple.com/published/5883d834b3ea/ImplementingAMultistageImageFilterUsingHeapsAndFences.zip
+    Already downloaded, skipping
+    Files: 5 source, 2 shader, 11 resource
+[38/52] rendering-a-scene-with-forward-plus-lighting-using-tile-shaders
+    URL: https://docs-assets.developer.apple.com/published/fe3d30fb3691/RenderingASceneWithForwardPlusLightingUsingTileShaders.zip
+    Already downloaded, skipping
+    Files: 6 source, 4 shader, 8 resource
+[39/52] rendering-a-scene-with-deferred-lighting-in-objective-c
+    URL: https://docs-assets.developer.apple.com/published/d59b3df2438c/RenderingASceneWithDeferredLightingInObjectiveC.zip
+    Already downloaded, skipping
+    Files: 9 source, 7 shader, 25 resource
+[40/52] rendering-a-scene-with-deferred-lighting-in-swift
+    URL: https://docs-assets.developer.apple.com/published/3e0253878ef1/RenderingASceneWithDeferredLightingInSwift.zip
+    Already downloaded, skipping
+    Files: 20 source, 6 shader, 25 resource
+[41/52] rendering-a-scene-with-deferred-lighting-in-c++
+    URL: https://docs-assets.developer.apple.com/published/0a025e148eea/RenderingASceneWithDeferredLightingInC%2B%2B.zip
+    Already downloaded, skipping
+    Files: 10 source, 7 shader, 25 resource
+[42/52] rendering-reflections-with-fewer-render-passes
+    URL: https://docs-assets.developer.apple.com/published/9fcd6e032d34/RenderingReflectionsWithFewerRenderPasses.zip
+    Already downloaded, skipping
+    Files: 6 source, 1 shader, 12 resource
+[43/52] modern-rendering-with-metal
+    URL: https://docs-assets.developer.apple.com/published/f18d5baae89a/ModernRenderingWithMetal.zip
+    Downloading...
+    Extracting...
+    Files: 22 source, 11 shader, 4 resource
+[44/52] encoding-indirect-command-buffers-on-the-gpu
+    URL: https://docs-assets.developer.apple.com/published/dbec58cddb55/EncodingIndirectCommandBuffersOnTheGPU.zip
+    Downloading...
+    Extracting...
+    Files: 4 source, 1 shader, 2 resource
+[45/52] rendering-reflections-in-real-time-using-ray-tracing
+    URL: https://docs-assets.developer.apple.com/published/a9040dd15c3d/RenderingReflectionsInRealTimeUsingRayTracing.zip
+    Downloading...
+    Extracting...
+    Files: 8 source, 1 shader, 72 resource
+[46/52] accelerating-ray-tracing-using-metal
+    URL: https://docs-assets.developer.apple.com/published/aad7ca128ff9/AcceleratingRayTracingUsingMetal.zip
+    Downloading...
+    Extracting...
+    Files: 6 source, 1 shader, 0 resource
+[47/52] control-the-ray-tracing-process-using-intersection-queries
+    URL: https://docs-assets.developer.apple.com/published/2efa33e6c5c7/ControlTheRayTracingProcessUsingIntersectionQueries.zip
+    Downloading...
+    Extracting...
+    Files: 6 source, 1 shader, 0 resource
+[48/52] accelerating-ray-tracing-and-motion-blur-using-metal
+    URL: https://docs-assets.developer.apple.com/published/a294c97bd9e7/AcceleratingRayTracingAndMotionBlurUsingMetal.zip
+    Downloading...
+    Extracting...
+    Files: 6 source, 1 shader, 3 resource
+[49/52] rendering-a-curve-primitive-in-a-ray-tracing-scene
+    URL: https://docs-assets.developer.apple.com/published/f735276f0f31/RenderingACurvePrimitiveInARayTracingScene.zip
+    Downloading...
+    Extracting...
+    Files: 6 source, 1 shader, 0 resource
+[50/52] processing-hdr-images-with-metal
+    URL: https://docs-assets.developer.apple.com/published/350115b5a37a/ProcessingHDRImagesWithMetal.zip
+    Downloading...
+    Extracting...
+    Files: 9 source, 1 shader, 1 resource
+[51/52] migrating-opengl-code-to-metal
+    URL: https://docs-assets.developer.apple.com/published/06931f07bf93/MigratingOpenGLCodeToMetal.zip
+    Downloading...
+    Extracting...
+    Files: 8 source, 1 shader, 4 resource
+[52/52] mixing-metal-and-opengl-rendering-in-a-view
+    URL: https://docs-assets.developer.apple.com/published/8a565bff7854/MixingMetalAndOpenGLRenderingInAView.zip
+    Downloading...
+    Extracting...
+    Files: 8 source, 1 shader, 7 resource
+
+Done! Downloaded 48 samples
+Manifest: /Users/eugenebokhan/Developer/computer-graphics-tools/mtl-rs/tools/scraper/output/samples_manifest.json

@@ -14,8 +14,7 @@ pub struct MTLPackedFloatQuaternion {
 
 unsafe impl Encode for MTLPackedFloatQuaternion {
     const ENCODING: Encoding = Encoding::Struct(
-        "MTLPackedFloatQuaternion",
-        &[
+"?",        &[
             <c_float>::ENCODING,
             <c_float>::ENCODING,
             <c_float>::ENCODING,

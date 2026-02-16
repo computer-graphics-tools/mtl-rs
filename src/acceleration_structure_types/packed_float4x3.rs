@@ -11,7 +11,7 @@ pub struct MTLPackedFloat4x3 {
 
 unsafe impl Encode for MTLPackedFloat4x3 {
     const ENCODING: Encoding =
-        Encoding::Struct("MTLPackedFloat4x3", &[<[MTLPackedFloat3; 4]>::ENCODING]);
+        Encoding::Struct("?", &[<[MTLPackedFloat3; 4]>::ENCODING]);
 }
 
 unsafe impl RefEncode for MTLPackedFloat4x3 {

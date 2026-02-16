@@ -9,8 +9,7 @@ pub struct MTLDispatchThreadgroupsIndirectArguments {
 
 unsafe impl Encode for MTLDispatchThreadgroupsIndirectArguments {
     const ENCODING: Encoding = Encoding::Struct(
-        "{MTLDispatchThreadgroupsIndirectArguments=[3I]}",
-        &[<[u32; 3]>::ENCODING],
+"?",        &[<[u32; 3]>::ENCODING],
     );
 }
 
@@ -28,8 +27,7 @@ pub struct MTLDispatchThreadsIndirectArguments {
 
 unsafe impl Encode for MTLDispatchThreadsIndirectArguments {
     const ENCODING: Encoding = Encoding::Struct(
-        "{MTLDispatchThreadsIndirectArguments=[3I][3I]}",
-        &[<[u32; 3]>::ENCODING, <[u32; 3]>::ENCODING],
+"?",        &[<[u32; 3]>::ENCODING, <[u32; 3]>::ENCODING],
     );
 }
 
@@ -49,8 +47,7 @@ pub struct MTLStageInRegionIndirectArguments {
 
 unsafe impl Encode for MTLStageInRegionIndirectArguments {
     const ENCODING: Encoding = Encoding::Struct(
-        "{MTLStageInRegionIndirectArguments=[3I][3I]}",
-        &[<[u32; 3]>::ENCODING, <[u32; 3]>::ENCODING],
+"?",        &[<[u32; 3]>::ENCODING, <[u32; 3]>::ENCODING],
     );
 }
 

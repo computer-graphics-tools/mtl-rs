@@ -22,8 +22,7 @@ pub struct MTL4BufferRange {
 
 unsafe impl Encode for MTL4BufferRange {
     const ENCODING: Encoding = Encoding::Struct(
-        "MTL4BufferRange",
-        &[<MTLGPUAddress>::ENCODING, <u64>::ENCODING],
+"?",        &[<MTLGPUAddress>::ENCODING, <u64>::ENCODING],
     );
 }
 

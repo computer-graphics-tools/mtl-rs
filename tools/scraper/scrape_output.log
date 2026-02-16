@@ -1,0 +1,393 @@
+Scraping root: https://developer.apple.com/documentation/metal?language=objc
+  Root sections: 19
+    Essentials: 1 articles
+    Essentials: 4 articles
+    Samples: 1 articles
+    GPU devices: 1 articles
+    Command encoders: 6 articles
+    Resources: 2 articles
+    Textures: 1 articles
+    Essentials: 4 articles
+    Samples: 1 articles
+    GPU devices: 1 articles
+    Command encoders: 6 articles
+    Resources: 2 articles
+    Textures: 3 articles
+    Shader compilation and libraries: 3 articles
+    Presentation: 5 articles
+    Developer tools: 7 articles
+    Apple silicon: 1 articles
+    Reference: 7 articles
+    Resources: 0 articles
+
+Scraping category pages...
+  metal-sample-code-library...
+  gpu-devices-and-work-submission...
+  render-passes...
+  compute-passes...
+  machine-learning-passes...
+  blit-passes...
+  indirect-command-encoding...
+  ray-tracing-with-acceleration-structures...
+  resource-fundamentals...
+  buffers...
+  textures...
+  memory-heaps...
+  resource-loading...
+  resource-synchronization...
+  shader-libraries...
+  onscreen-presentation...
+  hdr-content...
+
+Total unique articles: 489
+
+Scraping individual articles...
+  [1/489] understanding-the-metal-4-core-api
+  [2/489] drawing-a-triangle-with-metal-4
+  [3/489] performing-calculations-on-a-gpu
+  [4/489] using-metal-to-draw-a-view's-contents
+  [5/489] processing-a-texture-in-a-compute-function
+  [6/489] creating-threads-and-threadgroups
+  [7/489] calculating-threadgroup-and-grid-sizes
+  [8/489] mtl4computecommandencoder
+  [9/489] mtlcomputecommandencoder
+  [10/489] customizing-shaders-using-function-pointers-and-stitching
+  [11/489] creating-a-metal-dynamic-library
+  [12/489] ray-tracing-with-acceleration-structures
+  [13/489] combining-blit-and-compute-operations-in-a-single-pass
+  [14/489] mtl4computepipelinedescriptor
+  [15/489] mtlcomputepipelinedescriptor
+  [16/489] mtlcomputepipelinestate
+  [17/489] mtlstageinputoutputdescriptor
+  [18/489] mtlpipelinebufferdescriptor
+  [19/489] mtlpipelinebufferdescriptorarray
+  [20/489] mtlpipelineoption
+  [21/489] mtlcomputepassdescriptor
+  [22/489] mtldispatchtype
+  [23/489] mtldispatchthreadgroupsindirectarguments
+  [24/489] mtlcomputepasssamplebufferattachmentdescriptor
+  [25/489] mtlcomputepasssamplebufferattachmentdescriptorarray
+  [26/489] metal-sample-code-library
+  [27/489] gpu-devices-and-work-submission
+  [28/489] getting-the-default-gpu
+  [29/489] detecting-gpu-features-and-metal-software-versions
+  [30/489] mtlcreatesystemdefaultdevice()
+  [31/489] mtldevice
+  [32/489] multi-gpu-systems
+  [33/489] mtl4commandqueue
+  [34/489] mtl4commandqueuedescriptor
+  [35/489] mtl4commandqueueerror-swift.struct/code
+  [36/489] mtl4commandqueueerrordomain
+  [37/489] mtl4commandbuffer
+  [38/489] mtl4commandbufferoptions
+  [39/489] mtl4commandencoder
+  [40/489] mtl4renderencoderoptions
+  [41/489] mtl4argumenttable
+  [42/489] mtl4argumenttabledescriptor
+  [43/489] mtl4commandallocator
+  [44/489] mtl4commandallocatordescriptor
+  [45/489] mtl4commitoptions
+  [46/489] mtl4commitfeedback
+  [47/489] mtl4commitfeedbackhandler
+  [48/489] mtl4counterheap
+  [49/489] mtl4counterheapdescriptor
+  [50/489] mtl4counterheaptype
+  [51/489] mtl4timestampheapentry
+  [52/489] mtl4timestampgranularity
+  [53/489] setting-up-a-command-structure
+  [54/489] mtlcommandqueue
+  [55/489] mtlcommandqueuedescriptor
+  [56/489] mtlcommandbuffer
+  [57/489] mtlcommandbufferdescriptor
+  [58/489] mtlcommandbuffererrordomain
+  [59/489] mtlcommandbuffererror-swift.struct/code
+  [60/489] mtlcommandencoder
+  [61/489] preparing-your-metal-app-to-run-in-the-background
+  [62/489] render-passes
+  [63/489] compute-passes
+  [64/489] machine-learning-passes
+  [65/489] blit-passes
+  [66/489] indirect-command-encoding
+  [67/489] mtl4rendercommandencoder
+  [68/489] mtlrendercommandencoder
+  [69/489] mtltrianglefillmode
+  [70/489] mtlwinding
+  [71/489] mtlcullmode
+  [72/489] mtlprimitivetype
+  [73/489] mtlindextype
+  [74/489] mtldepthclipmode
+  [75/489] mtlvisibilityresultmode
+  [76/489] mtlvisibilityresulttype
+  [77/489] mtlparallelrendercommandencoder
+  [78/489] mtlloadaction
+  [79/489] mtlstoreaction
+  [80/489] mtlstoreactionoptions
+  [81/489] mtl4renderpassdescriptor
+  [82/489] mtlrenderpassdescriptor
+  [83/489] mtlrenderpassattachmentdescriptor
+  [84/489] mtlrenderpasscolorattachmentdescriptorarray
+  [85/489] mtlrenderpasscolorattachmentdescriptor
+  [86/489] mtlclearcolor
+  [87/489] mtlrenderpassdepthattachmentdescriptor
+  [88/489] mtlmultisampledepthresolvefilter
+  [89/489] mtl4renderpipelinecolorattachmentdescriptorarray
+  [90/489] mtltilerenderpipelinecolorattachmentdescriptorarray
+  [91/489] mtlrenderpassstencilattachmentdescriptor
+  [92/489] mtlmultisamplestencilresolvefilter
+  [93/489] mtlrenderpasssamplebufferattachmentdescriptorarray
+  [94/489] mtlrenderpasssamplebufferattachmentdescriptor
+  [95/489] mtllogicaltophysicalcolorattachmentmap
+  [96/489] mtldispatchthreadsindirectarguments
+  [97/489] mtlrenderpipelinestate
+  [98/489] mtl4renderpipelinedescriptor
+  [99/489] mtlrenderpipelinedescriptor
+  [100/489] mtlrenderpipelinefunctionsdescriptor
+  [101/489] mtl4meshrenderpipelinedescriptor
+  [102/489] mtlmeshrenderpipelinedescriptor
+  [103/489] mtl4renderpipelinecolorattachmentdescriptor
+  [104/489] mtlrenderpipelinecolorattachmentdescriptor
+  [105/489] mtlrenderpipelinecolorattachmentdescriptorarray
+  [106/489] mtl4tilerenderpipelinedescriptor
+  [107/489] mtltilerenderpipelinedescriptor
+  [108/489] mtltilerenderpipelinecolorattachmentdescriptor
+  [109/489] mtl4renderpipelinebinaryfunctionsdescriptor
+  [110/489] mtl4renderpipelinedynamiclinkingdescriptor
+  [111/489] mtlviewport
+  [112/489] mtlscissorrect
+  [113/489] mtlvertexamplificationviewmapping
+  [114/489] mtlquadtessellationfactorshalf
+  [115/489] mtltriangletessellationfactorshalf
+  [116/489] mtlvertexdescriptor
+  [117/489] mtlvertexattributedescriptor
+  [118/489] mtlvertexattributedescriptorarray
+  [119/489] mtlvertexbufferlayoutdescriptor
+  [120/489] mtlvertexbufferlayoutdescriptorarray
+  [121/489] mtlbufferlayoutstridedynamic
+  [122/489] mtldrawable
+  [123/489] mtldrawablepresentedhandler
+  [124/489] calculating-primitive-visibility-using-depth-testing
+  [125/489] mtldepthstencilstate
+  [126/489] mtldepthstencildescriptor
+  [127/489] mtlstencildescriptor
+  [128/489] rendering-at-different-rasterization-rates
+  [129/489] creating-a-rasterization-rate-map
+  [130/489] rendering-with-a-rasterization-rate-map
+  [131/489] scaling-variable-rasterization-rate-content
+  [132/489] mtlrasterizationratemapdescriptor
+  [133/489] mtlrasterizationratemap
+  [134/489] mtlcoordinate2d
+  [135/489] mtlcoordinate2dmake(_:_:)
+  [136/489] specifying-drawing-and-dispatch-arguments-indirectly
+  [137/489] rendering-to-multiple-viewports-in-a-draw-command
+  [138/489] rendering-to-multiple-texture-slices-in-a-draw-command
+  [139/489] positioning-samples-programmatically
+  [140/489] storing-data-a-pass-makes-with-custom-sample-positions-for-a-subsequent-pass
+  [141/489] customizing-render-pass-setup
+  [142/489] setting-load-and-store-actions
+  [143/489] improving-rendering-performance-with-vertex-amplification
+  [144/489] mtl4machinelearningcommandencoder
+  [145/489] mtl4machinelearningpipelinestate
+  [146/489] mtl4machinelearningpipelinedescriptor
+  [147/489] mtl4machinelearningpipelinereflection
+  [148/489] running-a-machine-learning-model-on-the-gpu-timeline
+    ERROR: Page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://developer.apple.com/documentation/metal/running-a-machine-learning-model-on-the-gpu-timeline?language=objc", waiting until "networkidle"
+
+  [149/489] mtlblitcommandencoder
+  [150/489] mtlblitoption
+  [151/489] mtlblitpassdescriptor
+  [152/489] mtlblitpasssamplebufferattachmentdescriptor
+  [153/489] mtlblitpasssamplebufferattachmentdescriptorarray
+  [154/489] creating-an-indirect-command-buffer
+  [155/489] encoding-indirect-command-buffers-on-the-cpu
+  [156/489] encoding-indirect-command-buffers-on-the-gpu
+  [157/489] mtlindirectcommandbuffer
+  [158/489] mtlindirectcommandbufferdescriptor
+  [159/489] mtlindirectcommandtype
+  [160/489] mtlindirectcommandbufferexecutionrange
+  [161/489] mtlindirectcommandbufferexecutionrangemake(_:_:)
+  [162/489] mtlindirectcomputecommand
+  [163/489] mtlregion
+  [164/489] mtlsize
+  [165/489] mtlorigin
+  [166/489] mtlstageinregionindirectarguments
+  [167/489] mtlindirectrendercommand
+  [168/489] mtldrawpatchindirectarguments
+  [169/489] mtldrawprimitivesindirectarguments
+  [170/489] mtldrawindexedprimitivesindirectarguments
+  [171/489] accelerating-ray-tracing-using-metal
+  [172/489] control-the-ray-tracing-process-using-intersection-queries
+  [173/489] rendering-reflections-in-real-time-using-ray-tracing
+  [174/489] rendering-a-curve-primitive-in-a-ray-tracing-scene
+  [175/489] improving-ray-tracing-data-access-using-per-primitive-data
+  [176/489] mtlaccelerationstructure
+  [177/489] mtl4accelerationstructuredescriptor
+  [178/489] mtlaccelerationstructuredescriptor
+  [179/489] mtl4primitiveaccelerationstructuredescriptor
+  [180/489] mtlprimitiveaccelerationstructuredescriptor
+  [181/489] mtl4instanceaccelerationstructuredescriptor
+  [182/489] mtlinstanceaccelerationstructuredescriptor
+  [183/489] mtlaccelerationstructurecommandencoder
+  [184/489] mtlaccelerationstructureusage
+  [185/489] mtlaccelerationstructurerefitoptions
+  [186/489] mtlaccelerationstructurepassdescriptor
+  [187/489] mtlaccelerationstructurepasssamplebufferattachmentdescriptor
+  [188/489] mtlaccelerationstructurepasssamplebufferattachmentdescriptorarray
+  [189/489] mtl4accelerationstructuregeometrydescriptor
+  [190/489] mtlaccelerationstructuregeometrydescriptor
+  [191/489] mtl4accelerationstructuretrianglegeometrydescriptor
+  [192/489] mtlaccelerationstructuretrianglegeometrydescriptor
+  [193/489] mtl4accelerationstructurecurvegeometrydescriptor
+  [194/489] mtlaccelerationstructurecurvegeometrydescriptor
+  [195/489] mtlcurvetype
+  [196/489] mtlcurvebasis
+  [197/489] mtlcurveendcaps
+  [198/489] mtl4accelerationstructureboundingboxgeometrydescriptor
+  [199/489] mtlaccelerationstructureboundingboxgeometrydescriptor
+  [200/489] mtl4accelerationstructuremotiontrianglegeometrydescriptor
+  [201/489] mtlaccelerationstructuremotiontrianglegeometrydescriptor
+  [202/489] mtl4accelerationstructuremotioncurvegeometrydescriptor
+  [203/489] mtlaccelerationstructuremotioncurvegeometrydescriptor
+  [204/489] mtl4accelerationstructuremotionboundingboxgeometrydescriptor
+  [205/489] mtlaccelerationstructuremotionboundingboxgeometrydescriptor
+  [206/489] mtlmotionkeyframedata
+  [207/489] mtlaccelerationstructureinstancedescriptor
+  [208/489] mtlaccelerationstructureuseridinstancedescriptor
+  [209/489] mtlaccelerationstructuremotioninstancedescriptor
+  [210/489] mtlaccelerationstructureinstanceoptions
+  [211/489] mtl4indirectinstanceaccelerationstructuredescriptor
+  [212/489] mtlindirectinstanceaccelerationstructuredescriptor
+  [213/489] mtlindirectaccelerationstructureinstancedescriptor
+  [214/489] mtlindirectaccelerationstructuremotioninstancedescriptor
+  [215/489] mtlintersectionfunctiontable
+  [216/489] mtlintersectionfunctiontabledescriptor
+  [217/489] mtlintersectionfunctiondescriptor
+  [218/489] mtlintersectionfunctionsignature
+  [219/489] mtlintersectionfunctionbufferarguments
+  [220/489] mtlaxisalignedboundingbox-c.struct
+  [221/489] mtlpackedfloat3-c.struct
+  [222/489] mtlpackedfloat4x3-c.struct
+  [223/489] mtlpackedfloat3make(_:_:_:)
+  [224/489] mtl4bufferrange
+  [225/489] mtl4bufferrangemake(_:_:)
+  [226/489] resource-fundamentals
+  [227/489] buffers
+  [228/489] setting-resource-storage-modes
+  [229/489] choosing-a-resource-storage-mode-for-apple-gpus
+  [230/489] choosing-a-resource-storage-mode-for-intel-and-amd-gpus
+  [231/489] copying-data-to-a-private-resource
+  [232/489] synchronizing-a-managed-resource-in-macos
+  [233/489] transferring-data-between-connected-gpus
+  [234/489] reducing-the-memory-footprint-of-metal-apps
+  [235/489] simplifying-gpu-resource-management-with-residency-sets
+  [236/489] mtlresidencyset
+  [237/489] mtlresidencysetdescriptor
+  [238/489] mtlresourceviewpool
+  [239/489] mtlresourceviewpooldescriptor
+  [240/489] mtltextureviewpool
+  [241/489] mtltextureviewdescriptor
+  [242/489] mtltensor
+  [243/489] mtltensordescriptor
+  [244/489] mtlstoragemode/private
+  [245/489] mtlstoragemode/shared
+  [246/489] mtlstoragemode/managed
+  [247/489] mtltensorextents
+  [248/489] mtltensorreferencetype
+  [249/489] mtltensorusage
+  [250/489] mtltensordomain
+  [251/489] mtltensorbinding
+  [252/489] mtltensorerror-swift.struct/code
+  [253/489] mtltensordatatype
+  [254/489] mtl_tensor_max_rank
+  [255/489] mtlbuffersparsetier
+  [256/489] mtl4copysparsebuffermappingoperation
+  [257/489] mtl4updatesparsebuffermappingoperation
+  [258/489] mtltexturesparsetier
+  [259/489] mtl4copysparsetexturemappingoperation
+  [260/489] mtl4updatesparsetexturemappingoperation
+  [261/489] mtlgpuaddress
+  [262/489] mtlallocation
+  [263/489] mtlresource
+  [264/489] mtlresourceoptions
+  [265/489] mtlresourceusage
+  [266/489] mtlresourceid
+  [267/489] mtlbuffer
+  [268/489] memory-heaps
+  [269/489] resource-loading
+  [270/489] resource-synchronization
+  [271/489] reading-pixel-data-from-a-drawable-texture
+  [272/489] creating-and-sampling-textures
+  [273/489] streaming-large-images-with-metal-sparse-textures
+  [274/489] understanding-color-renderable-pixel-format-sizes
+  [275/489] optimizing-texture-data
+  [276/489] mtltexture
+  [277/489] mtltexturecompressiontype
+  [278/489] mtltexturedescriptor
+  [279/489] mtlsharedtexturehandle
+  [280/489] mtlpixelformat
+  [281/489] mtlsamplerstate
+  [282/489] mtlsamplerdescriptor
+  [283/489] mtlsampleposition
+  [284/489] mtlsamplerreductionmode
+  [285/489] improving-texture-sampling-quality-and-performance-with-mipmaps
+  [286/489] creating-a-mipmapped-texture
+  [287/489] copying-data-into-or-out-of-mipmaps
+  [288/489] generating-mipmap-data
+  [289/489] adding-mipmap-filtering-to-samplers
+  [290/489] restricting-access-to-specific-mipmaps
+  [291/489] predicting-which-mips-the-gpu-samples-with-level-of-detail-queries
+  [292/489] dynamically-adjusting-texture-level-of-detail
+  [293/489] managing-sparse-texture-memory
+  [294/489] creating-sparse-heaps-and-sparse-textures
+  [295/489] converting-between-pixel-regions-and-sparse-tile-regions
+  [296/489] assigning-memory-to-sparse-textures
+  [297/489] reading-and-writing-to-sparse-textures
+  [298/489] estimating-how-often-a-texture-region-is-accessed
+  [299/489] mtlresourcestatepassdescriptor
+  [300/489] mtlresourcestatepasssamplebufferattachmentdescriptor
+  [301/489] mtlresourcestatepasssamplebufferattachmentdescriptorarray
+  [302/489] mtlresourcestatecommandencoder
+  [303/489] mtlmapindirectarguments
+  [304/489] using-argument-buffers-with-resource-heaps
+  [305/489] implementing-a-multistage-image-filter-using-heaps-and-events
+  [306/489] implementing-a-multistage-image-filter-using-heaps-and-fences
+  [307/489] mtlheap
+  [308/489] mtlheapdescriptor
+  [309/489] mtlheaptype
+  [310/489] mtlsizeandalign
+  [311/489] mtliocommandqueue
+  [312/489] mtliocommandqueuedescriptor
+  [313/489] mtliopriority
+  [314/489] mtliocommandqueuetype
+  [315/489] mtlioscratchbufferallocator
+  [316/489] mtlioscratchbuffer
+  [317/489] mtliocommandbuffer
+  [318/489] mtliofilehandle
+  [319/489] mtliocommandbufferhandler
+  [320/489] mtliostatus
+  [321/489] mtlioerror-swift.struct/code
+  [322/489] mtlioerrordomain
+  [323/489] mtliocreatecompressioncontext
+  [324/489] mtliocompressionmethod
+  [325/489] mtliocompressioncontextdefaultchunksize()
+  [326/489] mtliocompressioncontext
+  [327/489] mtliocompressioncontextappenddata(_:_:_:)
+  [328/489] mtlioflushanddestroycompressioncontext(_:)
+  [329/489] mtliocompressionstatus
+  [330/489] synchronizing-stages-within-a-pass
+  [331/489] synchronizing-passes-with-a-fence
+  [332/489] synchronizing-passes-with-consumer-barriers
+  [333/489] synchronizing-passes-with-producer-barriers
+  [334/489] synchronizing-cpu-and-gpu-work
+  [335/489] mtlstages
+  [336/489] mtlfence
+  [337/489] mtlrenderstages
+  [338/489] mtlbarrierscope
+  [339/489] mtl4visibilityoptions
+  [340/489] about-synchronization-events
+  [341/489] synchronizing-events-within-a-single-device
+  [342/489] synchronizing-events-across-multiple-devices-or-processes
+  [343/489] synchronizing-events-between-a-gpu-and-the-cpu
+  [344/489] mtlevent
+  [345/489] mtlsharedevent

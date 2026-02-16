@@ -35,8 +35,7 @@ pub struct MTLAccelerationStructureMotionInstanceDescriptor {
 
 unsafe impl Encode for MTLAccelerationStructureMotionInstanceDescriptor {
     const ENCODING: Encoding = Encoding::Struct(
-        "{MTLAccelerationStructureMotionInstanceDescriptor=}",
-        &[
+"?",        &[
             <MTLAccelerationStructureInstanceOptions>::ENCODING,
             <u32>::ENCODING,
             <u32>::ENCODING,
