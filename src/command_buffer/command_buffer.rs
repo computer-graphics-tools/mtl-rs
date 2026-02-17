@@ -3,7 +3,7 @@ use objc2_foundation::{NSError, NSObjectProtocol, NSString};
 
 use crate::{
     MTLCommandBufferHandler, MTLCommandBufferStatus, MTLCommandQueue, MTLDevice, MTLDrawable,
-    MTLEvent, MTLLogContainer,
+    MTLEvent, MTLLogContainer, MTLRenderCommandEncoder, MTLRenderPassDescriptor,
 };
 
 extern_protocol!(
@@ -88,17 +88,27 @@ extern_protocol!(
         #[unsafe(method_family = none)]
         fn encode_signal_event_value(&self, event: &ProtocolObject<dyn MTLEvent>, value: u64);
 
+        /// Returns a render command encoder to encode into this command buffer.
+        ///
+        /// Availability: macOS 10.11+, iOS 8.0+
+        #[unsafe(method(renderCommandEncoderWithDescriptor:))]
+        #[unsafe(method_family = none)]
+        fn render_command_encoder_with_descriptor(
+            &self,
+            render_pass_descriptor: &MTLRenderPassDescriptor,
+        ) -> Option<Retained<ProtocolObject<dyn MTLRenderCommandEncoder>>>;
+
         /// Returns a compute command encoder to encode into this command buffer.
         #[unsafe(method(computeCommandEncoder))]
         #[unsafe(method_family = none)]
-        fn new_compute_command_encoder(
+        fn compute_command_encoder(
             &self,
         ) -> Option<Retained<ProtocolObject<dyn crate::MTLComputeCommandEncoder>>>;
 
         /// Returns a blit command encoder to encode into this command buffer.
         #[unsafe(method(blitCommandEncoder))]
         #[unsafe(method_family = none)]
-        fn new_blit_command_encoder(
+        fn blit_command_encoder(
             &self,
         ) -> Option<Retained<ProtocolObject<dyn crate::MTLBlitCommandEncoder>>>;
     }
@@ -193,11 +203,7 @@ impl MTLCommandBufferExt for ProtocolObject<dyn MTLCommandBuffer> {
 
     fn kernel_end_time(&self) -> Option<f64> {
         let end_time: f64 = unsafe { msg_send![self, kernelEndTime] };
-        if end_time > 0.0 {
-            Some(end_time)
-        } else {
-            None
-        }
+        if end_time > 0.0 { Some(end_time) } else { None }
     }
 
     fn gpu_start_time(&self) -> Option<f64> {
@@ -211,10 +217,6 @@ impl MTLCommandBufferExt for ProtocolObject<dyn MTLCommandBuffer> {
 
     fn gpu_end_time(&self) -> Option<f64> {
         let end_time: f64 = unsafe { msg_send![self, GPUEndTime] };
-        if end_time > 0.0 {
-            Some(end_time)
-        } else {
-            None
-        }
+        if end_time > 0.0 { Some(end_time) } else { None }
     }
 }

@@ -46,7 +46,7 @@ fn run() -> Result<(), String> {
         .command_buffer()
         .ok_or_else(|| "Failed to create command buffer".to_owned())?;
     let encoder = command_buffer
-        .new_compute_command_encoder()
+        .compute_command_encoder()
         .ok_or_else(|| "Failed to create compute encoder".to_owned())?;
     encoder.set_compute_pipeline_state(&*pipeline);
     encoder.set_buffer(Some(&*buffer), 0, 0);

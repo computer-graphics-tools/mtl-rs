@@ -853,6 +853,50 @@
     "apple_url": "https://developer.apple.com/documentation/metal/customizing-a-pytorch-operation?language=objc",
     "download_url": "https://docs-assets.developer.apple.com/published/6b82559cf644/CustomizingAPyTorchOperation.zip"
   },
+  "running-a-machine-learning-model-on-the-gpu-timeline": {
+    "source_files": [
+      "Entry point/main.m",
+      "Matrix multiplier/MLMatrixMultiplier+PipelineCompilation.m",
+      "Matrix multiplier/MLMatrixMultiplier+TensorSetup.m",
+      "Matrix multiplier/MLMatrixMultiplier.m",
+      "Matrix/Matrix+TensorUtilities.m",
+      "Matrix/Matrix.m"
+    ],
+    "shader_files": [],
+    "resource_files": [],
+    "header_files": [
+      "Matrix multiplier/MLMatrixMultiplier+TensorSetup.h",
+      "Matrix multiplier/MLMatrixMultiplier.h",
+      "Matrix multiplier/MLMatrixMultiplier+PipelineCompilation.h",
+      "Matrix/Matrix.h",
+      "Matrix/Matrix+TensorUtilities.h"
+    ],
+    "all_files": [
+      "README.md",
+      "LICENSE.txt",
+      "Configuration/SampleCode.xcconfig",
+      "matrix-multiplication.mlpackage/Manifest.json",
+      "matrix-multiplication.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+      "Entry point/main.m",
+      "Packages/matrix-multiplication.mtlpackage/manifest.json",
+      "Packages/matrix-multiplication.mtlpackage/library.mpsgraphpackage/model_0.mpsgraph",
+      "Packages/matrix-multiplication.mtlpackage/library.mpsgraphpackage/reflection.fb",
+      "Packages/matrix-multiplication.mtlpackage/library.mpsgraphpackage/manifest.plist",
+      "Matrix multiplier/MLMatrixMultiplier+PipelineCompilation.m",
+      "Matrix multiplier/MLMatrixMultiplier+TensorSetup.h",
+      "Matrix multiplier/MLMatrixMultiplier.h",
+      "Matrix multiplier/MLMatrixMultiplier+TensorSetup.m",
+      "Matrix multiplier/MLMatrixMultiplier+PipelineCompilation.h",
+      "Matrix multiplier/MLMatrixMultiplier.m",
+      "Matrix/Matrix+TensorUtilities.m",
+      "Matrix/Matrix.h",
+      "Matrix/Matrix+TensorUtilities.h",
+      "Matrix/Matrix.m"
+    ],
+    "title": "Running a machine learning model on the GPU timeline",
+    "apple_url": "https://developer.apple.com/documentation/metal/running-a-machine-learning-model-on-the-gpu-timeline?language=objc",
+    "download_url": "https://docs-assets.developer.apple.com/published/02b2d61ce946/RunningAMachineLearningModelOnTheGPUTimeline.zip"
+  },
   "selecting-device-objects-for-graphics-rendering": {
     "source_files": [
       "Renderer/AAPLRenderer.m",

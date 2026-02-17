@@ -28,41 +28,8 @@ def slug_to_filename(slug: str) -> str:
 
 
 def sanitize_body(body: str) -> str:
-    """Clean up scraped body text for use in markdown."""
-    # Remove navigation noise
-    lines = body.split("\n")
-    clean = []
-    skip_prefixes = [
-        "Skip Navigation", "Apple Developer", "News", "Discover",
-        "Design", "Develop", "Distribute", "Support", "Account",
-        "Documentation", "Objective-C", "Language:", "Swift",
-        "All Technologies", "Navigator is ready", "Framework",
-        "Current page is", "Apple", "Developer", "Platforms",
-        "iOS", "iPadOS", "macOS", "tvOS", "visionOS", "watchOS",
-        "Tools", "Topics & Technologies", "Copyright",
-        "To submit feedback", "Select a color scheme",
-        "Light", "Dark", "Auto", "Tab back to navigate",
-        "items were found",
-    ]
-    in_content = False
-    for line in lines:
-        stripped = line.strip()
-        if not stripped:
-            if in_content:
-                clean.append("")
-            continue
-        if any(stripped.startswith(p) for p in skip_prefixes):
-            continue
-        if stripped.startswith("/"):
-            continue
-        # Start capturing after we see "Overview" or the title
-        if stripped in ("Overview", "Topics"):
-            in_content = True
-            continue
-        if in_content:
-            clean.append(stripped)
-
-    return "\n".join(clean).strip()
+    """Return body markdown as-is (already properly formatted by scrape_docs.py)."""
+    return body.strip()
 
 
 def collect_all_articles(sections):
@@ -183,10 +150,9 @@ cargo run --example drawing_a_triangle_with_metal_4
                 content += "## Run the Example\n\n"
                 content += f"```bash\ncargo run --example {example_name}\n```\n\n"
 
-            # Add cleaned body text
+            # Add article body (already properly formatted markdown)
             body = sanitize_body(article.get("body_markdown", ""))
             if body:
-                content += "## Overview\n\n"
                 content += body + "\n"
 
             article_path.write_text(content)
@@ -210,11 +176,12 @@ cargo run --example drawing_a_triangle_with_metal_4
                 child_has_sample = child_slug in manifest
                 if child_has_sample:
                     child_content += "## Run the Example\n\n"
-                    child_content += f"```bash\ncargo run --example {child_example}\n```\n\n"
+                    child_content += (
+                        f"```bash\ncargo run --example {child_example}\n```\n\n"
+                    )
 
                 child_body = sanitize_body(child.get("body_markdown", ""))
                 if child_body:
-                    child_content += "## Overview\n\n"
                     child_content += child_body + "\n"
 
                 child_path.write_text(child_content)

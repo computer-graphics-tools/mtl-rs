@@ -3,38 +3,12 @@
 
 # Essentials
 - [Essentials](essentials/README.md)
-  - [Understanding the Metal 4 core API](essentials/understanding-the-metal-4-core-api.md)
   - [Drawing a triangle with Metal 4](essentials/drawing-a-triangle-with-metal-4.md)
   - [Performing calculations on a GPU](essentials/performing-calculations-on-a-gpu.md)
   - [Using Metal to draw a view’s contents](essentials/using-metal-to-draw-a-view's-contents.md)
 
-# Samples
-- [Samples](samples/README.md)
-  - [Metal sample code library](samples/metal-sample-code-library.md)
-
-# GPU devices
-- [GPU devices](gpu-devices/README.md)
-  - [GPU devices and work submission](gpu-devices/gpu-devices-and-work-submission.md)
-
-# Command encoders
-- [Command encoders](command-encoders/README.md)
-  - [Render passes](command-encoders/render-passes.md)
-  - [Compute passes](command-encoders/compute-passes.md)
-  - [Machine-learning passes](command-encoders/machine-learning-passes.md)
-  - [Blit passes](command-encoders/blit-passes.md)
-  - [Indirect command encoding](command-encoders/indirect-command-encoding.md)
-  - [Ray tracing with acceleration structures](command-encoders/ray-tracing-with-acceleration-structures.md)
-
-# Resources
-- [Resources](resources/README.md)
-  - [Resource fundamentals](resources/resource-fundamentals.md)
-  - [Buffers](resources/buffers.md)
-
 # Textures
 - [Textures](textures/README.md)
-  - [Memory heaps](textures/memory-heaps.md)
-  - [Resource loading](textures/resource-loading.md)
-  - [Resource synchronization](textures/resource-synchronization.md)
   - [Combining blit and compute operations in a single pass](textures/combining-blit-and-compute-operations-in-a-single-pass.md)
   - [Reading pixel data from a drawable texture](textures/reading-pixel-data-from-a-drawable-texture.md)
   - [Creating and sampling textures](textures/creating-and-sampling-textures.md)
@@ -42,38 +16,12 @@
 
 # Shader compilation and libraries
 - [Shader compilation and libraries](shader-compilation-and-libraries/README.md)
-  - [Using the Metal 4 compilation API](shader-compilation-and-libraries/using-the-metal-4-compilation-api.md)
-  - [Shader libraries](shader-compilation-and-libraries/shader-libraries.md)
   - [Using function specialization to build pipeline variants](shader-compilation-and-libraries/using-function-specialization-to-build-pipeline-variants.md)
-
-# Presentation
-- [Presentation](presentation/README.md)
-  - [Managing your game window for Metal in macOS](presentation/managing-your-game-window-for-metal-in-macos.md)
-  - [Managing your Metal app window in iPadOS](presentation/managing-your-metal-app-window-in-ipados.md)
-  - [Adapting your game interface for smaller screens](presentation/adapting-your-game-interface-for-smaller-screens.md)
-  - [Onscreen presentation](presentation/onscreen-presentation.md)
-  - [HDR content](presentation/hdr-content.md)
 
 # Developer tools
 - [Developer tools](developer-tools/README.md)
   - [Supporting Simulator in a Metal app](developer-tools/supporting-simulator-in-a-metal-app.md)
   - [Capturing Metal commands programmatically](developer-tools/capturing-metal-commands-programmatically.md)
-  - [Logging shader debug messages](developer-tools/logging-shader-debug-messages.md)
-  - [Developing Metal apps that run in Simulator](developer-tools/developing-metal-apps-that-run-in-simulator.md)
-  - [Improving your game’s graphics performance and settings](developer-tools/improving-your-games-graphics-performance-and-settings.md)
-  - [GPU counters and counter sample buffers](developer-tools/gpu-counters-and-counter-sample-buffers.md)
-  - [Metal debugging types](developer-tools/metal-debugging-types.md)
-
-# Apple silicon
-- [Apple silicon](apple-silicon/README.md)
-  - [Tailor your apps for Apple GPUs and tile-based deferred rendering](apple-silicon/tailor-your-apps-for-apple-gpus-and-tile-based-deferred-rendering.md)
-  - [Metal structures](apple-silicon/metal-structures.md)
-  - [Metal enumerations](apple-silicon/metal-enumerations.md)
-  - [Metal constants](apple-silicon/metal-constants.md)
-  - [Metal functions](apple-silicon/metal-functions.md)
-  - [Metal data types](apple-silicon/metal-data-types.md)
-  - [Metal variables](apple-silicon/metal-variables.md)
-  - [Metal macros](apple-silicon/metal-macros.md)
 
 # Compute workflows
 - [Compute workflows](compute-workflows/README.md)

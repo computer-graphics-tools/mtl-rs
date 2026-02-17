@@ -16,9 +16,23 @@ SAMPLES_DIR = Path(__file__).parent / "output" / "samples"
 MANIFEST_PATH = Path(__file__).parent / "output" / "samples_manifest.json"
 
 RESOURCE_EXTENSIONS = {
-    ".tga", ".png", ".jpg", ".jpeg", ".hdr", ".exr",
-    ".obj", ".mtl", ".usdz", ".usd", ".fbx", ".gltf", ".glb",
-    ".dae", ".stl", ".ply", ".ktx",
+    ".tga",
+    ".png",
+    ".jpg",
+    ".jpeg",
+    ".hdr",
+    ".exr",
+    ".obj",
+    ".mtl",
+    ".usdz",
+    ".usd",
+    ".fbx",
+    ".gltf",
+    ".glb",
+    ".dae",
+    ".stl",
+    ".ply",
+    ".ktx",
 }
 SHADER_EXTENSIONS = {".metal"}
 SOURCE_EXTENSIONS = {".m", ".mm", ".swift", ".c", ".cpp"}
@@ -59,8 +73,14 @@ def catalog_sample(sample_dir: Path) -> dict:
 
     for root, dirs, files in os.walk(sample_dir):
         # Skip hidden dirs, build artifacts, xcodeproj internals
-        dirs[:] = [d for d in dirs if not d.startswith(".") and d != "build"
-                   and not d.endswith(".xcodeproj") and not d.endswith(".xcworkspace")]
+        dirs[:] = [
+            d
+            for d in dirs
+            if not d.startswith(".")
+            and d != "build"
+            and not d.endswith(".xcodeproj")
+            and not d.endswith(".xcworkspace")
+        ]
 
         rel_root = Path(root).relative_to(sample_dir)
         for f in files:
@@ -137,7 +157,7 @@ def main():
     for i, article in enumerate(samples):
         slug = article["slug"]
         url = article["download_url"]
-        print(f"[{i+1}/{len(samples)}] {slug}")
+        print(f"[{i + 1}/{len(samples)}] {slug}")
         print(f"    URL: {url}")
 
         if download_sample(url, slug):
@@ -151,7 +171,23 @@ def main():
             src_count = len(catalog["source_files"])
             shader_count = len(catalog["shader_files"])
             resource_count = len(catalog["resource_files"])
-            print(f"    Files: {src_count} source, {shader_count} shader, {resource_count} resource")
+            print(
+                f"    Files: {src_count} source, {shader_count} shader, {resource_count} resource"
+            )
+
+            # Write article content as README.md in the sample directory
+            body_md = article.get("body_markdown", "")
+            if body_md:
+                overview = article.get("overview", "")
+                readme = f"# {article['title']}\n\n"
+                if overview:
+                    readme += f"{overview}\n\n"
+                readme += f"> Source: [Apple Documentation]({article['url']})\n\n"
+                readme += body_md + "\n"
+
+                readme_path = sample_dir / "README.md"
+                readme_path.write_text(readme)
+                print(f"    Wrote README.md ({len(readme)} chars)")
 
     with open(MANIFEST_PATH, "w") as f:
         json.dump(manifest, f, indent=2)

@@ -2,6 +2,8 @@
 
 > [Apple Documentation](https://developer.apple.com/documentation/metal/rendering-reflections-in-real-time-using-ray-tracing?language=objc)
 
+Implement realistic real-time lighting by dynamically generating reflection maps by encoding a ray-tracing compute pass.
+
 ## Run the Example
 
 ```bash
@@ -91,77 +93,16 @@ cargo run --example rendering_reflections_in_real_time_using_ray_tracing
 
 This sample code project relates to multiple WWDC sessions, including:
 
-10089: Bring your advanced games to Apple platforms
+- [10089: Bring your advanced games to Apple platforms](https://developer.apple.com/wwdc24/10089/)
+- [10101: Go bindless with Metal 3](https://developer.apple.com/wwdc22/10101/)
+- [10286: Explore bindless rendering in Metal](https://developer.apple.com/wwdc21/10286/)
+- [10150: Explore hybrid rendering with Metal ray tracing](https://developer.apple.com/wwdc21/10150/)
 
-10101: Go bindless with Metal 3
-
-10286: Explore bindless rendering in Metal
-
-10150: Explore hybrid rendering with Metal ray tracing
-
-Configure the sample code project
+### Configure the sample code project
 
 To run this sample app, you need the following:
 
-A Mac with macOS 13 or later, and Xcode 15.3 or later
+- A Mac with macOS 13 or later, and Xcode 15.3 or later
+- An iOS device with iOS 16 or later
 
-An iOS device with iOS 16 or later
-
-Note
-
-This sample doesn’t support running in Simulator.
-
-See Also
-Ray tracing
-Accelerating ray tracing using Metal
-Implement ray-traced rendering using GPU-based parallel processing.
-Control the ray tracing process using intersection queries
-Explicitly enumerate a ray’s intersections with acceleration structures by creating an intersection query object.
-Accelerating ray tracing and motion blur using Metal
-Generate ray-traced images with motion blur using GPU-based parallel processing.
-Rendering a curve primitive in a ray tracing scene
-Implement ray traced rendering using GPU-based parallel processing.
-Apple
-TestFlight
-Xcode
-Xcode Cloud
-SF Symbols
-Accessibility
-Accessories
-App Extension
-App Store
-Audio & Video
-Augmented Reality
-Distribution
-Education
-Fonts
-Games
-Health & Fitness
-In-App Purchase
-Localization
-Maps & Location
-Machine Learning & AI
-Open Source
-Security
-Safari & Web
-Resources
-Tutorials
-Downloads
-Forums
-Videos
-Contact Us
-Bug Reporting
-System Status
-App Store Connect
-Certificates, IDs, & Profiles
-Feedback Assistant
-Programs
-App Store Small Business Program
-MFi Program
-Video Partner Program
-Security Bounty Program
-Security Research Device Program
-Events
-Meet with Apple
-App Store Awards
-WWDC
+> **Note:** This sample doesn’t support running in Simulator.
