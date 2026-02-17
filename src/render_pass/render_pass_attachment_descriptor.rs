@@ -1,7 +1,12 @@
-use objc2::{extern_class, extern_conformance, extern_methods, runtime::NSObject};
+use objc2::{
+    extern_class, extern_conformance, extern_methods,
+    rc::Retained,
+    runtime::{NSObject, ProtocolObject},
+};
 use objc2_foundation::{CopyingHelper, NSCopying, NSObjectProtocol};
 
 use super::{MTLLoadAction, MTLStoreAction, MTLStoreActionOptions};
+use crate::MTLTexture;
 
 extern_class!(
     /// Common attachment descriptor fields.
@@ -24,6 +29,16 @@ extern_conformance!(
 
 impl MTLRenderPassAttachmentDescriptor {
     extern_methods!(
+        /// The texture object for this attachment.
+        #[unsafe(method(texture))]
+        #[unsafe(method_family = none)]
+        pub fn texture(&self) -> Option<Retained<ProtocolObject<dyn MTLTexture>>>;
+
+        /// Setter for [`texture`][Self::texture].
+        #[unsafe(method(setTexture:))]
+        #[unsafe(method_family = none)]
+        pub fn set_texture(&self, texture: Option<&ProtocolObject<dyn MTLTexture>>);
+
         /// The mipmap level of the texture to be used for rendering. Default is zero.
         #[unsafe(method(level))]
         #[unsafe(method_family = none)]

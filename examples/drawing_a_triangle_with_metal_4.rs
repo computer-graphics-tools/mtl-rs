@@ -239,9 +239,7 @@ fragment float4 fragmentShader(RasterizerData in [[stage_in]]) {
             None => return,
         };
 
-        let encoder: Option<Retained<ProtocolObject<dyn MTLRenderCommandEncoder>>> = unsafe {
-            msg_send![&*command_buffer, renderCommandEncoderWithDescriptor: &*render_pass]
-        };
+        let encoder = command_buffer.render_command_encoder_with_descriptor(&render_pass);
         let encoder = match encoder {
             Some(e) => e,
             None => return,
@@ -260,44 +258,20 @@ fragment float4 fragmentShader(RasterizerData in [[stage_in]]) {
         encoder.set_viewport(viewport);
 
         // Bind vertex data and viewport size buffers.
-        let _: () = unsafe {
-            msg_send![
-                &*encoder,
-                setVertexBuffer: &**buffer,
-                offset: 0usize,
-                atIndex: 0usize
-            ]
-        };
-        let _: () = unsafe {
-            msg_send![
-                &*encoder,
-                setVertexBuffer: &*self.viewport_size_buffer,
-                offset: 0usize,
-                atIndex: 1usize
-            ]
-        };
+        encoder.set_vertex_buffer(Some(&buffer), 0, 0);
+        encoder.set_vertex_buffer(Some(&self.viewport_size_buffer), 0, 1);
 
         // Draw the triangle.
-        let _: () = unsafe {
-            msg_send![
-                &*encoder,
-                drawPrimitives: MTLPrimitiveType::Triangle,
-                vertexStart: 0usize,
-                vertexCount: 3usize
-            ]
-        };
+        encoder.draw_primitives(MTLPrimitiveType::Triangle, 0, 3);
 
         encoder.end_encoding();
 
         // Present drawable and signal event for frame pacing.
-        let _: () = unsafe { msg_send![&*command_buffer, presentDrawable: &*drawable] };
-        let _: () = unsafe {
-            msg_send![
-                &*command_buffer,
-                encodeSignalEvent: &*self.shared_event,
-                value: self.frame_number
-            ]
-        };
+        command_buffer.present_drawable(&drawable);
+        command_buffer.encode_signal_event_value(
+            objc2::runtime::ProtocolObject::from_ref(&*self.shared_event),
+            self.frame_number,
+        );
 
         command_buffer.commit();
     }

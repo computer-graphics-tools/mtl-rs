@@ -2,7 +2,7 @@ mod common;
 
 use metal::prelude::*;
 use metal::*;
-use objc2::{msg_send, rc::Retained, runtime::ProtocolObject};
+use objc2::msg_send;
 
 use common::{ExampleContext, compile_library_from_source, new_render_pipeline_state};
 
@@ -110,17 +110,11 @@ fragment float4 fs_main(VSOut in [[stage_in]]) {
         .queue
         .command_buffer()
         .ok_or_else(|| "Failed to create command buffer".to_owned())?;
-    let encoder: Retained<ProtocolObject<dyn MTLRenderCommandEncoder>> =
-        unsafe { msg_send![&*command_buffer, renderCommandEncoderWithDescriptor: &*render_pass] };
+    let encoder = command_buffer
+        .render_command_encoder_with_descriptor(&render_pass)
+        .expect("render encoder");
     encoder.set_render_pipeline_state(&*pipeline);
-    let _: () = unsafe {
-        msg_send![
-            &*encoder,
-            drawPrimitives: MTLPrimitiveType::Triangle,
-            vertexStart: 0usize,
-            vertexCount: 3usize
-        ]
-    };
+    encoder.draw_primitives(MTLPrimitiveType::Triangle, 0, 3);
     encoder.end_encoding();
     command_buffer.commit();
     command_buffer.wait_until_completed();

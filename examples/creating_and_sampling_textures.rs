@@ -8,13 +8,11 @@ mod common;
 
 use std::ptr::NonNull;
 
-use metal::prelude::*;
-use metal::*;
-use objc2::{msg_send, rc::Retained, runtime::ProtocolObject};
-
 use common::{
     ExampleContext, TgaImage, compile_library_from_source, new_render_pipeline_state, resource_path,
 };
+use metal::prelude::*;
+use metal::*;
 
 /// Vertex with 2D position and 2D texture coordinate — matches AAPLVertex in Apple sample.
 #[repr(C)]
@@ -213,8 +211,9 @@ samplingShader(RasterizerData in [[stage_in]],
         .command_buffer()
         .ok_or_else(|| "Failed to create command buffer".to_owned())?;
 
-    let encoder: Retained<ProtocolObject<dyn MTLRenderCommandEncoder>> =
-        unsafe { msg_send![&*command_buffer, renderCommandEncoderWithDescriptor: &*render_pass] };
+    let encoder = command_buffer
+        .render_command_encoder_with_descriptor(&render_pass)
+        .expect("render encoder");
 
     encoder.set_render_pipeline_state(&*pipeline);
 
@@ -228,38 +227,10 @@ samplingShader(RasterizerData in [[stage_in]],
     };
     encoder.set_viewport(viewport);
 
-    let _: () = unsafe {
-        msg_send![
-            &*encoder,
-            setVertexBuffer: &*vertex_buffer,
-            offset: 0usize,
-            atIndex: 0usize
-        ]
-    };
-    let _: () = unsafe {
-        msg_send![
-            &*encoder,
-            setVertexBuffer: &*viewport_buffer,
-            offset: 0usize,
-            atIndex: 1usize
-        ]
-    };
-    let _: () = unsafe {
-        msg_send![
-            &*encoder,
-            setFragmentTexture: &*texture,
-            atIndex: 0usize
-        ]
-    };
-
-    let _: () = unsafe {
-        msg_send![
-            &*encoder,
-            drawPrimitives: MTLPrimitiveType::Triangle,
-            vertexStart: 0usize,
-            vertexCount: 6usize
-        ]
-    };
+    encoder.set_vertex_buffer(Some(&vertex_buffer), 0, 0);
+    encoder.set_vertex_buffer(Some(&viewport_buffer), 0, 1);
+    encoder.set_fragment_texture(Some(&texture), 0);
+    encoder.draw_primitives(MTLPrimitiveType::Triangle, 0, 6);
 
     encoder.end_encoding();
     command_buffer.commit();
