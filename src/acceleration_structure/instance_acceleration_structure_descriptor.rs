@@ -36,9 +36,8 @@ impl MTLInstanceAccelerationStructureDescriptor {
         /// Buffer containing instance descriptors of the type specified by the instanceDescriptorType property
         #[unsafe(method(instanceDescriptorBuffer))]
         #[unsafe(method_family = none)]
-        pub fn instance_descriptor_buffer(
-            &self,
-        ) -> Option<Retained<ProtocolObject<dyn MTLBuffer>>>;
+        pub fn instance_descriptor_buffer(&self)
+        -> Option<Retained<ProtocolObject<dyn MTLBuffer>>>;
 
         /// Setter for [`instanceDescriptorBuffer`][Self::instanceDescriptorBuffer].
         #[unsafe(method(setInstanceDescriptorBuffer:))]
@@ -105,9 +104,7 @@ impl MTLInstanceAccelerationStructureDescriptor {
         /// MTLAccelerationStructureInstanceDescriptorTypeDefault.
         #[unsafe(method(instanceDescriptorType))]
         #[unsafe(method_family = none)]
-        pub fn instance_descriptor_type(
-            &self,
-        ) -> MTLAccelerationStructureInstanceDescriptorType;
+        pub fn instance_descriptor_type(&self) -> MTLAccelerationStructureInstanceDescriptorType;
 
         /// Setter for [`instanceDescriptorType`][Self::instanceDescriptorType].
         #[unsafe(method(setInstanceDescriptorType:))]
@@ -120,9 +117,7 @@ impl MTLInstanceAccelerationStructureDescriptor {
         /// Buffer containing transformation information for motion
         #[unsafe(method(motionTransformBuffer))]
         #[unsafe(method_family = none)]
-        pub fn motion_transform_buffer(
-            &self,
-        ) -> Option<Retained<ProtocolObject<dyn MTLBuffer>>>;
+        pub fn motion_transform_buffer(&self) -> Option<Retained<ProtocolObject<dyn MTLBuffer>>>;
 
         /// Setter for [`motionTransformBuffer`][Self::motionTransformBuffer].
         #[unsafe(method(setMotionTransformBuffer:))]
@@ -141,10 +136,7 @@ impl MTLInstanceAccelerationStructureDescriptor {
         /// Setter for [`motionTransformBufferOffset`][Self::motionTransformBufferOffset].
         #[unsafe(method(setMotionTransformBufferOffset:))]
         #[unsafe(method_family = none)]
-        pub fn set_motion_transform_buffer_offset(
-            &self,
-            motion_transform_buffer_offset: usize,
-        );
+        pub fn set_motion_transform_buffer_offset(&self, motion_transform_buffer_offset: usize);
 
         /// Number of motion transforms
         #[unsafe(method(motionTransformCount))]

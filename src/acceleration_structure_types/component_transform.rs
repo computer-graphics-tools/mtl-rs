@@ -25,7 +25,8 @@ pub struct MTLComponentTransform {
 
 unsafe impl Encode for MTLComponentTransform {
     const ENCODING: Encoding = Encoding::Struct(
-"?",        &[
+        "?",
+        &[
             <MTLPackedFloat3>::ENCODING,
             <MTLPackedFloat3>::ENCODING,
             <MTLPackedFloat3>::ENCODING,

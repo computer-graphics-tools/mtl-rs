@@ -49,10 +49,7 @@ impl MTL4PrimitiveAccelerationStructureDescriptor {
         /// Setter for [`motionStartBorderMode`][Self::motionStartBorderMode].
         #[unsafe(method(setMotionStartBorderMode:))]
         #[unsafe(method_family = none)]
-        pub fn set_motion_start_border_mode(
-            &self,
-            motion_start_border_mode: MTLMotionBorderMode,
-        );
+        pub fn set_motion_start_border_mode(&self, motion_start_border_mode: MTLMotionBorderMode);
 
         /// Configures the motion border mode.
         ///
@@ -66,10 +63,7 @@ impl MTL4PrimitiveAccelerationStructureDescriptor {
         /// Setter for [`motionEndBorderMode`][Self::motionEndBorderMode].
         #[unsafe(method(setMotionEndBorderMode:))]
         #[unsafe(method_family = none)]
-        pub fn set_motion_end_border_mode(
-            &self,
-            motion_end_border_mode: MTLMotionBorderMode,
-        );
+        pub fn set_motion_end_border_mode(&self, motion_end_border_mode: MTLMotionBorderMode);
 
         /// Configures the motion start time for this geometry.
         ///

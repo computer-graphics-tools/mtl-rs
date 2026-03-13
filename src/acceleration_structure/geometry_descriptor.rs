@@ -70,9 +70,7 @@ impl MTLAccelerationStructureGeometryDescriptor {
         /// Data buffer containing per-primitive data. May be nil.
         #[unsafe(method(primitiveDataBuffer))]
         #[unsafe(method_family = none)]
-        pub fn primitive_data_buffer(
-            &self,
-        ) -> Option<Retained<ProtocolObject<dyn MTLBuffer>>>;
+        pub fn primitive_data_buffer(&self) -> Option<Retained<ProtocolObject<dyn MTLBuffer>>>;
 
         /// Setter for [`primitiveDataBuffer`][Self::primitiveDataBuffer].
         #[unsafe(method(setPrimitiveDataBuffer:))]

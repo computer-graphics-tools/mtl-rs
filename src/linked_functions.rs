@@ -76,9 +76,10 @@ impl MTLLinkedFunctions {
     /// Groups of functions, keyed by callsite name.
     pub fn groups(
         &self,
-    ) -> Option<Box<[(String, Box<[Retained<ProtocolObject<dyn MTLFunction>>]>) ]>> {
-        let groups: Option<Retained<NSDictionary<NSString, NSArray<ProtocolObject<dyn MTLFunction>>>>> =
-            unsafe { msg_send![self, groups] };
+    ) -> Option<Box<[(String, Box<[Retained<ProtocolObject<dyn MTLFunction>>]>)]>> {
+        let groups: Option<
+            Retained<NSDictionary<NSString, NSArray<ProtocolObject<dyn MTLFunction>>>>,
+        > = unsafe { msg_send![self, groups] };
         groups.map(|groups| {
             let (group_names, group_functions) = groups.to_vecs();
             group_names
@@ -90,7 +91,7 @@ impl MTLLinkedFunctions {
         })
     }
 
-    pub fn set_groups(&self, groups: Option<&[(&str, &[&ProtocolObject<dyn MTLFunction>])]>){
+    pub fn set_groups(&self, groups: Option<&[(&str, &[&ProtocolObject<dyn MTLFunction>])]>) {
         let groups = groups.map(|groups| {
             let group_names: Vec<Retained<NSString>> = groups
                 .iter()
@@ -102,7 +103,10 @@ impl MTLLinkedFunctions {
                 .map(|(_, functions)| NSArray::from_slice(functions))
                 .collect();
             let group_function_refs: Vec<&NSArray<ProtocolObject<dyn MTLFunction>>> =
-                group_functions.iter().map(|functions| &**functions).collect();
+                group_functions
+                    .iter()
+                    .map(|functions| &**functions)
+                    .collect();
             NSDictionary::from_slices(&group_name_refs, &group_function_refs)
         });
         unsafe {

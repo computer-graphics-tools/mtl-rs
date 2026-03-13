@@ -44,9 +44,7 @@ impl MTL4StitchedFunctionDescriptor {
         /// Configures an array of function descriptors with references to functions that contribute to the stitching process.
         #[unsafe(method(functionDescriptors))]
         #[unsafe(method_family = none)]
-        pub fn function_descriptors(
-            &self,
-        ) -> Option<Retained<NSArray<MTL4FunctionDescriptor>>>;
+        pub fn function_descriptors(&self) -> Option<Retained<NSArray<MTL4FunctionDescriptor>>>;
 
         /// Setter for [`functionDescriptors`][Self::functionDescriptors].
         ///

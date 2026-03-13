@@ -27,7 +27,8 @@ pub struct MTLCounterResultStageUtilization {
 
 unsafe impl Encode for MTLCounterResultStageUtilization {
     const ENCODING: Encoding = Encoding::Struct(
-"?",        &[
+        "?",
+        &[
             <u64>::ENCODING,
             <u64>::ENCODING,
             <u64>::ENCODING,
@@ -57,7 +58,8 @@ pub struct MTLCounterResultStatistic {
 
 unsafe impl Encode for MTLCounterResultStatistic {
     const ENCODING: Encoding = Encoding::Struct(
-"?",        &[
+        "?",
+        &[
             <u64>::ENCODING,
             <u64>::ENCODING,
             <u64>::ENCODING,

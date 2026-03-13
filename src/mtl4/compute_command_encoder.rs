@@ -39,10 +39,7 @@ extern_protocol!(
         /// - Parameter state: a non-`nil` ``MTLComputePipelineState``.
         #[unsafe(method(setComputePipelineState:))]
         #[unsafe(method_family = none)]
-        fn set_compute_pipeline_state(
-            &self,
-            state: &ProtocolObject<dyn MTLComputePipelineState>,
-        );
+        fn set_compute_pipeline_state(&self, state: &ProtocolObject<dyn MTLComputePipelineState>);
 
         /// Configures the size of a threadgroup memory buffer for a threadgroup argument in the compute shader function.
         ///

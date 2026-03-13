@@ -1,1 +1,0 @@
-# Shader compilation and libraries

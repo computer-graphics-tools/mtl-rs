@@ -151,7 +151,6 @@ impl MTLSamplerDescriptor {
         #[unsafe(method(setSupportArgumentBuffers:))]
         #[unsafe(method_family = none)]
         pub fn set_support_argument_buffers(&self, v: bool);
-
     );
 
     pub fn label(&self) -> Option<String> {

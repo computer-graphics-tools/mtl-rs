@@ -195,7 +195,13 @@ fragment half4 fragment_main(V2F in [[stage_in]]) {
 
         enc.set_render_pipeline_state(&self.pipeline);
         enc.set_vertex_buffer(Some(&self.vertex_buffer), 0, 0);
-        enc.set_vertex_bytes(unsafe { std::ptr::NonNull::new_unchecked(&rotation as *const f32 as *mut std::ffi::c_void) }, 4, 1);
+        enc.set_vertex_bytes(
+            unsafe {
+                std::ptr::NonNull::new_unchecked(&rotation as *const f32 as *mut std::ffi::c_void)
+            },
+            4,
+            1,
+        );
         enc.draw_primitives(MTLPrimitiveType::Triangle, 0, 6);
         enc.end_encoding();
 

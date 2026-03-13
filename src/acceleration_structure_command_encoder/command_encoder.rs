@@ -281,11 +281,7 @@ extern_protocol!(
         /// non-null `ProtocolObject<dyn MTLHeap>` pointers of length `count`.
         #[unsafe(method(useHeaps:count:))]
         #[unsafe(method_family = none)]
-        fn use_heaps(
-            &self,
-            heaps: NonNull<NonNull<ProtocolObject<dyn MTLHeap>>>,
-            count: usize,
-        );
+        fn use_heaps(&self, heaps: NonNull<NonNull<ProtocolObject<dyn MTLHeap>>>, count: usize);
 
         /// Sample hardware counters at this point in the acceleration structure
         /// encoder and store the counter sample into the sample buffer at the

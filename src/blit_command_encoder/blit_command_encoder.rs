@@ -311,7 +311,8 @@ pub trait MTLBlitCommandEncoderExt: MTLBlitCommandEncoder + Message {
         Self: Sized,
     {
         unsafe {
-            let _: () = msg_send![self, fillBuffer: buffer, range: NSRange::from(range), value: value];
+            let _: () =
+                msg_send![self, fillBuffer: buffer, range: NSRange::from(range), value: value];
         }
     }
 

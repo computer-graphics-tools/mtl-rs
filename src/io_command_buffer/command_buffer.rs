@@ -106,11 +106,7 @@ extern_protocol!(
         /// Pauses execution until the specified shared event reaches a given value.
         #[unsafe(method(waitForEvent:value:))]
         #[unsafe(method_family = none)]
-        fn wait_for_event_value(
-            &self,
-            event: &ProtocolObject<dyn MTLSharedEvent>,
-            value: u64,
-        );
+        fn wait_for_event_value(&self, event: &ProtocolObject<dyn MTLSharedEvent>, value: u64);
 
         /// Signals a shared event with a given value.
         #[unsafe(method(signalEvent:value:))]

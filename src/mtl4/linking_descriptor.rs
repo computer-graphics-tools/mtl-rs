@@ -31,8 +31,7 @@ extern_conformance!(
 );
 
 impl MTL4StaticLinkingDescriptor {
-    extern_methods!(
-    );
+    extern_methods!();
 
     /// Provides an array of functions to link at the Metal IR level.
     pub fn function_descriptors(&self) -> Option<Box<[Retained<MTL4FunctionDescriptor>]>> {
@@ -77,7 +76,7 @@ impl MTL4StaticLinkingDescriptor {
     /// Assigns groups of functions to match call-site attributes in shader code.
     ///
     /// Function groups help the compiler reduce the number of candidate functions it needs to evaluate for shader function calls, potentially increasing runtime performance.
-    pub fn groups(&self) -> Option<Box<[(String, Box<[Retained<MTL4FunctionDescriptor>]>) ]>> {
+    pub fn groups(&self) -> Option<Box<[(String, Box<[Retained<MTL4FunctionDescriptor>]>)]>> {
         let groups: Option<Retained<NSDictionary<NSString, NSArray<MTL4FunctionDescriptor>>>> =
             unsafe { msg_send![self, groups] };
         groups.map(|groups| {
@@ -86,14 +85,17 @@ impl MTL4StaticLinkingDescriptor {
                 .into_iter()
                 .zip(group_functions)
                 .map(|(group_name, functions)| {
-                    (group_name.to_string(), functions.to_vec().into_boxed_slice())
+                    (
+                        group_name.to_string(),
+                        functions.to_vec().into_boxed_slice(),
+                    )
                 })
                 .collect::<Vec<_>>()
                 .into_boxed_slice()
         })
     }
 
-    pub fn set_groups(&self, groups: Option<&[(&str, &[&MTL4FunctionDescriptor])]>){
+    pub fn set_groups(&self, groups: Option<&[(&str, &[&MTL4FunctionDescriptor])]>) {
         let groups = groups.map(|groups| {
             let group_names: Vec<Retained<NSString>> = groups
                 .iter()
@@ -104,8 +106,10 @@ impl MTL4StaticLinkingDescriptor {
                 .iter()
                 .map(|(_, functions)| NSArray::from_slice(functions))
                 .collect();
-            let group_function_refs: Vec<&NSArray<MTL4FunctionDescriptor>> =
-                group_functions.iter().map(|functions| &**functions).collect();
+            let group_function_refs: Vec<&NSArray<MTL4FunctionDescriptor>> = group_functions
+                .iter()
+                .map(|functions| &**functions)
+                .collect();
             NSDictionary::from_slices(&group_name_refs, &group_function_refs)
         });
         unsafe {
@@ -159,7 +163,6 @@ impl MTL4PipelineStageDynamicLinkingDescriptor {
         #[unsafe(method(setMaxCallStackDepth:))]
         #[unsafe(method_family = none)]
         pub fn set_max_call_stack_depth(&self, max_call_stack_depth: usize);
-
     );
 
     /// Provides the array of binary functions to link.
@@ -169,8 +172,9 @@ impl MTL4PipelineStageDynamicLinkingDescriptor {
     pub fn binary_linked_functions(
         &self,
     ) -> Option<Box<[Retained<ProtocolObject<dyn MTL4BinaryFunction>>]>> {
-        let binary_linked_functions: Option<Retained<NSArray<ProtocolObject<dyn MTL4BinaryFunction>>>> =
-            unsafe { msg_send![self, binaryLinkedFunctions] };
+        let binary_linked_functions: Option<
+            Retained<NSArray<ProtocolObject<dyn MTL4BinaryFunction>>>,
+        > = unsafe { msg_send![self, binaryLinkedFunctions] };
         binary_linked_functions.map(|functions| functions.to_vec().into_boxed_slice())
     }
 

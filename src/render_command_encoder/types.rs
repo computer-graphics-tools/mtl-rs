@@ -45,7 +45,8 @@ pub struct MTLScissorRect {
 
 unsafe impl Encode for MTLScissorRect {
     const ENCODING: Encoding = Encoding::Struct(
-"?",        &[
+        "?",
+        &[
             usize::ENCODING,
             usize::ENCODING,
             usize::ENCODING,
@@ -71,7 +72,8 @@ pub struct MTLViewport {
 
 unsafe impl Encode for MTLViewport {
     const ENCODING: Encoding = Encoding::Struct(
-"?",        &[
+        "?",
+        &[
             f64::ENCODING,
             f64::ENCODING,
             f64::ENCODING,
@@ -155,9 +157,7 @@ pub struct MTLVertexAmplificationViewMapping {
 }
 
 unsafe impl Encode for MTLVertexAmplificationViewMapping {
-    const ENCODING: Encoding = Encoding::Struct(
-"?",        &[u32::ENCODING, u32::ENCODING],
-    );
+    const ENCODING: Encoding = Encoding::Struct("?", &[u32::ENCODING, u32::ENCODING]);
 }
 
 unsafe impl RefEncode for MTLVertexAmplificationViewMapping {

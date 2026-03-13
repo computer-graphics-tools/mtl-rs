@@ -36,9 +36,7 @@ impl MTL4ComputePipelineDescriptor {
         /// represents a function from a Metal library.
         #[unsafe(method(computeFunctionDescriptor))]
         #[unsafe(method_family = none)]
-        pub fn compute_function_descriptor(
-            &self,
-        ) -> Option<Retained<MTL4FunctionDescriptor>>;
+        pub fn compute_function_descriptor(&self) -> Option<Retained<MTL4FunctionDescriptor>>;
 
         /// Setter for [`computeFunctionDescriptor`][Self::computeFunctionDescriptor].
         ///
@@ -111,9 +109,7 @@ impl MTL4ComputePipelineDescriptor {
         /// An object that contains information about functions to link to the compute pipeline.
         #[unsafe(method(staticLinkingDescriptor))]
         #[unsafe(method_family = none)]
-        pub fn static_linking_descriptor(
-            &self,
-        ) -> Option<Retained<MTL4StaticLinkingDescriptor>>;
+        pub fn static_linking_descriptor(&self) -> Option<Retained<MTL4StaticLinkingDescriptor>>;
 
         /// Setter for [`staticLinkingDescriptor`][Self::staticLinkingDescriptor].
         ///
@@ -128,9 +124,7 @@ impl MTL4ComputePipelineDescriptor {
         /// A value indicating whether the pipeline supports Metal indirect command buffers.
         #[unsafe(method(supportIndirectCommandBuffers))]
         #[unsafe(method_family = none)]
-        pub fn support_indirect_command_buffers(
-            &self,
-        ) -> MTL4IndirectCommandBufferSupportState;
+        pub fn support_indirect_command_buffers(&self) -> MTL4IndirectCommandBufferSupportState;
 
         /// Setter for [`supportIndirectCommandBuffers`][Self::supportIndirectCommandBuffers].
         #[unsafe(method(setSupportIndirectCommandBuffers:))]

@@ -60,10 +60,7 @@ impl MTLPrimitiveAccelerationStructureDescriptor {
         /// Setter for [`motionStartBorderMode`][Self::motionStartBorderMode].
         #[unsafe(method(setMotionStartBorderMode:))]
         #[unsafe(method_family = none)]
-        pub fn set_motion_start_border_mode(
-            &self,
-            motion_start_border_mode: MTLMotionBorderMode,
-        );
+        pub fn set_motion_start_border_mode(&self, motion_start_border_mode: MTLMotionBorderMode);
 
         /// Motion border mode describing what happens if acceleration structure is sampled after
         /// motionEndTime. If not set defaults to MTLMotionBorderModeClamp.
@@ -74,10 +71,7 @@ impl MTLPrimitiveAccelerationStructureDescriptor {
         /// Setter for [`motionEndBorderMode`][Self::motionEndBorderMode].
         #[unsafe(method(setMotionEndBorderMode:))]
         #[unsafe(method_family = none)]
-        pub fn set_motion_end_border_mode(
-            &self,
-            motion_end_border_mode: MTLMotionBorderMode,
-        );
+        pub fn set_motion_end_border_mode(&self, motion_end_border_mode: MTLMotionBorderMode);
 
         /// Motion start time of this geometry. If not set defaults to 0.0f.
         #[unsafe(method(motionStartTime))]

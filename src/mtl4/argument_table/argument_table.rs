@@ -26,11 +26,7 @@ extern_protocol!(
         /// Binds a resource to a buffer binding slot.
         #[unsafe(method(setResource:atBufferIndex:))]
         #[unsafe(method_family = none)]
-        fn set_resource_at_buffer_index(
-            &self,
-            resource_id: MTLResourceID,
-            binding_index: usize,
-        );
+        fn set_resource_at_buffer_index(&self, resource_id: MTLResourceID, binding_index: usize);
 
         /// Binds a texture to a texture binding slot.
         #[unsafe(method(setTexture:atIndex:))]
@@ -40,11 +36,7 @@ extern_protocol!(
         /// Binds a sampler state to a sampler state binding slot.
         #[unsafe(method(setSamplerState:atIndex:))]
         #[unsafe(method_family = none)]
-        fn set_sampler_state_at_index(
-            &self,
-            resource_id: MTLResourceID,
-            binding_index: usize,
-        );
+        fn set_sampler_state_at_index(&self, resource_id: MTLResourceID, binding_index: usize);
 
         /// The device from which you created this argument table.
         #[unsafe(method(device))]

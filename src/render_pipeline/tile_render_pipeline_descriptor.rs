@@ -116,10 +116,7 @@ impl MTLTileRenderPipelineDescriptor {
         /// Setter for [`supportAddingBinaryFunctions`][Self::supportAddingBinaryFunctions].
         #[unsafe(method(setSupportAddingBinaryFunctions:))]
         #[unsafe(method_family = none)]
-        pub fn set_support_adding_binary_functions(
-            &self,
-            support_adding_binary_functions: bool,
-        );
+        pub fn set_support_adding_binary_functions(&self, support_adding_binary_functions: bool);
 
         /// The maximum depth of the call stack in stack frames from the tile function. Defaults to 1 additional stack frame.
         #[unsafe(method(maxCallStackDepth))]
@@ -182,9 +179,7 @@ impl MTLTileRenderPipelineDescriptor {
     /// Accelerate pipeline state creation by providing archives of compiled code such that no compilation needs to happen on the fast path.
     ///
     /// See: [`MTLBinaryArchive`]
-    pub fn binary_archives(
-        &self,
-    ) -> Option<Box<[Retained<ProtocolObject<dyn BinaryArchive>>]>> {
+    pub fn binary_archives(&self) -> Option<Box<[Retained<ProtocolObject<dyn BinaryArchive>>]>> {
         let array: Option<Retained<NSArray<ProtocolObject<dyn BinaryArchive>>>> =
             unsafe { msg_send![self, binaryArchives] };
         array.map(|arr| arr.to_vec().into_boxed_slice())
@@ -210,9 +205,7 @@ impl MTLTileRenderPipelineDescriptor {
     /// It can also be used to provide dynamic libraries that are dynamically created (for example, from source) that have no stable installName that can be used to automatically load from the file system.
     ///
     /// See: [`MTLDynamicLibrary`]
-    pub fn preloaded_libraries(
-        &self,
-    ) -> Box<[Retained<ProtocolObject<dyn DynamicLibrary>>]> {
+    pub fn preloaded_libraries(&self) -> Box<[Retained<ProtocolObject<dyn DynamicLibrary>>]> {
         let array: Retained<NSArray<ProtocolObject<dyn DynamicLibrary>>> =
             unsafe { msg_send![self, preloadedLibraries] };
         array.to_vec().into_boxed_slice()

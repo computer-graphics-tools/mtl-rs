@@ -131,10 +131,7 @@ impl MTL4RenderPipelineColorAttachmentDescriptor {
         /// Setter for [`sourceAlphaBlendFactor`][Self::sourceAlphaBlendFactor].
         #[unsafe(method(setSourceAlphaBlendFactor:))]
         #[unsafe(method_family = none)]
-        pub fn set_source_alpha_blend_factor(
-            &self,
-            source_alpha_blend_factor: MTLBlendFactor,
-        );
+        pub fn set_source_alpha_blend_factor(&self, source_alpha_blend_factor: MTLBlendFactor);
 
         /// Configures the destination-alpha blend factor.
         ///
@@ -433,8 +430,7 @@ impl MTL4RenderPipelineDescriptor {
         /// Assigns the shader function that this pipeline executes for each vertex.
         #[unsafe(method(vertexFunctionDescriptor))]
         #[unsafe(method_family = none)]
-        pub fn vertex_function_descriptor(&self)
-        -> Option<Retained<MTL4FunctionDescriptor>>;
+        pub fn vertex_function_descriptor(&self) -> Option<Retained<MTL4FunctionDescriptor>>;
 
         /// Setter for [`vertexFunctionDescriptor`][Self::vertexFunctionDescriptor].
         ///
@@ -452,9 +448,7 @@ impl MTL4RenderPipelineDescriptor {
         /// ``rasterizationEnabled`` to false.
         #[unsafe(method(fragmentFunctionDescriptor))]
         #[unsafe(method_family = none)]
-        pub fn fragment_function_descriptor(
-            &self,
-        ) -> Option<Retained<MTL4FunctionDescriptor>>;
+        pub fn fragment_function_descriptor(&self) -> Option<Retained<MTL4FunctionDescriptor>>;
 
         /// Setter for [`fragmentFunctionDescriptor`][Self::fragmentFunctionDescriptor].
         ///
@@ -543,10 +537,7 @@ impl MTL4RenderPipelineDescriptor {
         /// Setter for [`maxVertexAmplificationCount`][Self::maxVertexAmplificationCount].
         #[unsafe(method(setMaxVertexAmplificationCount:))]
         #[unsafe(method_family = none)]
-        pub fn set_max_vertex_amplification_count(
-            &self,
-            max_vertex_amplification_count: usize,
-        );
+        pub fn set_max_vertex_amplification_count(&self, max_vertex_amplification_count: usize);
 
         /// Accesses an array containing descriptions of the color attachments this pipeline writes to.
         #[unsafe(method(colorAttachments))]
@@ -573,9 +564,7 @@ impl MTL4RenderPipelineDescriptor {
         /// Use this property to link extra shader functions to the vertex stage of the render pipeline.
         #[unsafe(method(vertexStaticLinkingDescriptor))]
         #[unsafe(method_family = none)]
-        pub fn vertex_static_linking_descriptor(
-            &self,
-        ) -> Retained<MTL4StaticLinkingDescriptor>;
+        pub fn vertex_static_linking_descriptor(&self) -> Retained<MTL4StaticLinkingDescriptor>;
 
         /// Setter for [`vertexStaticLinkingDescriptor`][Self::vertexStaticLinkingDescriptor].
         ///
@@ -592,9 +581,7 @@ impl MTL4RenderPipelineDescriptor {
         /// Use this property to link extra shader functions to the fragment stage of the render pipeline.
         #[unsafe(method(fragmentStaticLinkingDescriptor))]
         #[unsafe(method_family = none)]
-        pub fn fragment_static_linking_descriptor(
-            &self,
-        ) -> Retained<MTL4StaticLinkingDescriptor>;
+        pub fn fragment_static_linking_descriptor(&self) -> Retained<MTL4StaticLinkingDescriptor>;
 
         /// Setter for [`fragmentStaticLinkingDescriptor`][Self::fragmentStaticLinkingDescriptor].
         ///
@@ -626,10 +613,7 @@ impl MTL4RenderPipelineDescriptor {
         /// Setter for [`supportFragmentBinaryLinking`][Self::supportFragmentBinaryLinking].
         #[unsafe(method(setSupportFragmentBinaryLinking:))]
         #[unsafe(method_family = none)]
-        pub fn set_support_fragment_binary_linking(
-            &self,
-            support_fragment_binary_linking: bool,
-        );
+        pub fn set_support_fragment_binary_linking(&self, support_fragment_binary_linking: bool);
 
         /// Configures a logical-to-physical rendering remap state.
         ///
@@ -652,9 +636,7 @@ impl MTL4RenderPipelineDescriptor {
         /// Indicates whether the pipeline supports indirect command buffers.
         #[unsafe(method(supportIndirectCommandBuffers))]
         #[unsafe(method_family = none)]
-        pub fn support_indirect_command_buffers(
-            &self,
-        ) -> MTL4IndirectCommandBufferSupportState;
+        pub fn support_indirect_command_buffers(&self) -> MTL4IndirectCommandBufferSupportState;
 
         /// Setter for [`supportIndirectCommandBuffers`][Self::supportIndirectCommandBuffers].
         #[unsafe(method(setSupportIndirectCommandBuffers:))]

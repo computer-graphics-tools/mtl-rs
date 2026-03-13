@@ -50,9 +50,6 @@ impl MTLFunctionStitchingInputNode {
 
         #[unsafe(method(initWithArgumentIndex:))]
         #[unsafe(method_family = init)]
-        pub fn init_with_argument_index(
-            this: Allocated<Self>,
-            argument: usize,
-        ) -> Retained<Self>;
+        pub fn init_with_argument_index(this: Allocated<Self>, argument: usize) -> Retained<Self>;
     );
 }

@@ -59,10 +59,7 @@ pub unsafe trait NSProcessInfoDeviceCertification:
 
         #[unsafe(method(hasPerformanceProfile:))]
         #[unsafe(method_family = none)]
-        fn has_performance_profile(
-            &self,
-            performance_profile: ProcessPerformanceProfile,
-        ) -> bool;
+        fn has_performance_profile(&self, performance_profile: ProcessPerformanceProfile) -> bool;
     );
 }
 

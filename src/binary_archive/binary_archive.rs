@@ -6,7 +6,8 @@ use objc2_foundation::{NSError, NSObjectProtocol, NSString, NSURL};
 use crate::{
     MTL4MeshRenderPipelineDescriptor, MTLComputePipelineDescriptor, MTLDevice,
     MTLFunctionDescriptor, MTLLibrary, MTLRenderPipelineDescriptor,
-    function_stitching::MTLStitchedLibraryDescriptor, render_pipeline::MTLTileRenderPipelineDescriptor,
+    function_stitching::MTLStitchedLibraryDescriptor,
+    render_pipeline::MTLTileRenderPipelineDescriptor,
 };
 
 // Error domain symbol is declared in `binary_archive::types`.

@@ -12,7 +12,8 @@ pub struct MTLClearColor {
 
 unsafe impl Encode for MTLClearColor {
     const ENCODING: Encoding = Encoding::Struct(
-"?",        &[f64::ENCODING, f64::ENCODING, f64::ENCODING, f64::ENCODING],
+        "?",
+        &[f64::ENCODING, f64::ENCODING, f64::ENCODING, f64::ENCODING],
     );
 }
 

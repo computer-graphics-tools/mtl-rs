@@ -55,7 +55,6 @@ impl MTLCaptureDescriptor {
         #[unsafe(method(setDestination:))]
         #[unsafe(method_family = none)]
         pub fn set_destination(&self, destination: MTLCaptureDestination);
-
     );
 
     /// Filesystem path where the GPU trace document will be captured.

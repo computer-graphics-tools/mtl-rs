@@ -226,11 +226,7 @@ extern_protocol!(
         /// `scissor_rects` must be a valid pointer.
         #[unsafe(method(setScissorRects:count:))]
         #[unsafe(method_family = none)]
-        fn set_scissor_rects_count(
-            &self,
-            scissor_rects: NonNull<MTLScissorRect>,
-            count: usize,
-        );
+        fn set_scissor_rects_count(&self, scissor_rects: NonNull<MTLScissorRect>, count: usize);
 
         /// Configures how subsequent draw commands rasterize triangle and triangle strip primitives.
         ///
@@ -307,11 +303,7 @@ extern_protocol!(
         /// the result of a visibility test at `offset`, which needs to be a multiple of `8`.
         #[unsafe(method(setVisibilityResultMode:offset:))]
         #[unsafe(method_family = none)]
-        fn set_visibility_result_mode_offset(
-            &self,
-            mode: MTLVisibilityResultMode,
-            offset: usize,
-        );
+        fn set_visibility_result_mode_offset(&self, mode: MTLVisibilityResultMode, offset: usize);
 
         /// Configures the store action for a color attachment.
         ///

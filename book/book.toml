@@ -1,8 +1,0 @@
-[book]
-title = "Metal Programming Guide for Rust"
-authors = ["Eugene Bokhan"]
-language = "en"
-src = "src"
-
-[output.html]
-git-repository-url = "https://github.com/computer-graphics-tools/mtl-rs"

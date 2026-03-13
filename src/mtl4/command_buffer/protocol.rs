@@ -101,7 +101,6 @@ extern_protocol!(
             counter_heap: &ProtocolObject<dyn MTL4CounterHeap>,
             index: NSUInteger,
         );
-
     }
 );
 

@@ -38,9 +38,7 @@ impl MTLAccelerationStructureCurveGeometryDescriptor {
         /// nil when the acceleration structure is built.
         #[unsafe(method(controlPointBuffer))]
         #[unsafe(method_family = none)]
-        pub fn control_point_buffer(
-            &self,
-        ) -> Option<Retained<ProtocolObject<dyn MTLBuffer>>>;
+        pub fn control_point_buffer(&self) -> Option<Retained<ProtocolObject<dyn MTLBuffer>>>;
 
         /// Setter for [`controlPointBuffer`][Self::controlPointBuffer].
         #[unsafe(method(setControlPointBuffer:))]
@@ -107,10 +105,7 @@ impl MTLAccelerationStructureCurveGeometryDescriptor {
         /// Setter for [`radiusBuffer`][Self::radiusBuffer].
         #[unsafe(method(setRadiusBuffer:))]
         #[unsafe(method_family = none)]
-        pub fn set_radius_buffer(
-            &self,
-            radius_buffer: Option<&ProtocolObject<dyn MTLBuffer>>,
-        );
+        pub fn set_radius_buffer(&self, radius_buffer: Option<&ProtocolObject<dyn MTLBuffer>>);
 
         /// Radius buffer offset. Must be a multiple of the radius format
         /// size and must be aligned to the platform's buffer offset alignment.

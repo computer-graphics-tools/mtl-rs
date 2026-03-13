@@ -33,8 +33,7 @@ impl MTLAccelerationStructureBoundingBoxGeometryDescriptor {
         /// Bounding box buffer containing MTLAxisAlignedBoundingBoxes. Must not be nil.
         #[unsafe(method(boundingBoxBuffer))]
         #[unsafe(method_family = none)]
-        pub fn bounding_box_buffer(&self)
-        -> Option<Retained<ProtocolObject<dyn MTLBuffer>>>;
+        pub fn bounding_box_buffer(&self) -> Option<Retained<ProtocolObject<dyn MTLBuffer>>>;
 
         /// Setter for [`boundingBoxBuffer`][Self::boundingBoxBuffer].
         #[unsafe(method(setBoundingBoxBuffer:))]

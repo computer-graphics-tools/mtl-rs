@@ -91,11 +91,7 @@ extern_protocol!(
         /// Set a texture at the given bind point index.
         #[unsafe(method(setTexture:atIndex:))]
         #[unsafe(method_family = none)]
-        fn set_texture(
-            &self,
-            texture: Option<&ProtocolObject<dyn MTLTexture>>,
-            index: usize,
-        );
+        fn set_texture(&self, texture: Option<&ProtocolObject<dyn MTLTexture>>, index: usize);
 
         /// Set an array of textures at the given bind point index range.
         ///

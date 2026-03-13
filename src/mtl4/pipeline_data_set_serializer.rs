@@ -4,10 +4,10 @@
 use std::path::Path;
 
 use objc2::{
+    Message,
     encode::{Encode, Encoding, RefEncode},
     extern_class, extern_conformance, extern_methods, extern_protocol, msg_send,
     rc::{Allocated, Retained},
-    Message,
 };
 use objc2_foundation::{
     CopyingHelper, NSCopying, NSData, NSError, NSObject, NSObjectProtocol, NSURL,
@@ -89,10 +89,7 @@ impl MTL4PipelineDataSetSerializerDescriptor {
         /// Setter for [`configuration`][Self::configuration].
         #[unsafe(method(setConfiguration:))]
         #[unsafe(method_family = none)]
-        pub fn set_configuration(
-            &self,
-            configuration: MTL4PipelineDataSetSerializerConfiguration,
-        );
+        pub fn set_configuration(&self, configuration: MTL4PipelineDataSetSerializerConfiguration);
     );
 }
 

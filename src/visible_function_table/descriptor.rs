@@ -29,8 +29,7 @@ impl MTLVisibleFunctionTableDescriptor {
         /// Create an autoreleased visible function table descriptor
         #[unsafe(method(visibleFunctionTableDescriptor))]
         #[unsafe(method_family = none)]
-        pub fn visible_function_table_descriptor()
-        -> Retained<MTLVisibleFunctionTableDescriptor>;
+        pub fn visible_function_table_descriptor() -> Retained<MTLVisibleFunctionTableDescriptor>;
 
         /// The number of functions in the table.
         #[unsafe(method(functionCount))]

@@ -42,9 +42,7 @@ impl MTL4RenderPassDescriptor {
         /// Accesses the array of state information for render attachments that store color data.
         #[unsafe(method(colorAttachments))]
         #[unsafe(method_family = none)]
-        pub fn color_attachments(
-            &self,
-        ) -> Retained<MTLRenderPassColorAttachmentDescriptorArray>;
+        pub fn color_attachments(&self) -> Retained<MTLRenderPassColorAttachmentDescriptorArray>;
 
         /// Accesses state information for a render attachment that stores depth data.
         #[unsafe(method(depthAttachment))]
@@ -64,9 +62,7 @@ impl MTL4RenderPassDescriptor {
         /// Accesses state information for a render attachment that stores stencil data.
         #[unsafe(method(stencilAttachment))]
         #[unsafe(method_family = none)]
-        pub fn stencil_attachment(
-            &self,
-        ) -> Retained<MTLRenderPassStencilAttachmentDescriptor>;
+        pub fn stencil_attachment(&self) -> Retained<MTLRenderPassStencilAttachmentDescriptor>;
 
         /// Setter for [`stencilAttachment`][Self::stencilAttachment].
         ///
@@ -205,9 +201,7 @@ impl MTL4RenderPassDescriptor {
         /// Configures a buffer into which Metal writes counts of fragments (pixels) passing the depth and stencil tests.
         #[unsafe(method(visibilityResultBuffer))]
         #[unsafe(method_family = none)]
-        pub fn visibility_result_buffer(
-            &self,
-        ) -> Option<Retained<ProtocolObject<dyn MTLBuffer>>>;
+        pub fn visibility_result_buffer(&self) -> Option<Retained<ProtocolObject<dyn MTLBuffer>>>;
 
         /// Setter for [`visibilityResultBuffer`][Self::visibilityResultBuffer].
         #[unsafe(method(setVisibilityResultBuffer:))]
@@ -225,10 +219,7 @@ impl MTL4RenderPassDescriptor {
         /// Setter for [`visibilityResultType`][Self::visibilityResultType].
         #[unsafe(method(setVisibilityResultType:))]
         #[unsafe(method_family = none)]
-        pub fn set_visibility_result_type(
-            &self,
-            visibility_result_type: MTLVisibilityResultType,
-        );
+        pub fn set_visibility_result_type(&self, visibility_result_type: MTLVisibilityResultType);
 
         /// Configures the custom sample positions to use in MSAA rendering.
         ///
@@ -242,11 +233,7 @@ impl MTL4RenderPassDescriptor {
         /// `positions` must be a valid pointer or null.
         #[unsafe(method(setSamplePositions:count:))]
         #[unsafe(method_family = none)]
-        pub fn set_sample_positions_count(
-            &self,
-            positions: *const MTLSamplePosition,
-            count: usize,
-        );
+        pub fn set_sample_positions_count(&self, positions: *const MTLSamplePosition, count: usize);
 
         /// Retrieves the previously-configured custom sample positions.
         ///
@@ -279,10 +266,7 @@ impl MTL4RenderPassDescriptor {
         /// Setter for [`supportColorAttachmentMapping`][Self::supportColorAttachmentMapping].
         #[unsafe(method(setSupportColorAttachmentMapping:))]
         #[unsafe(method_family = none)]
-        pub fn set_support_color_attachment_mapping(
-            &self,
-            support_color_attachment_mapping: bool,
-        );
+        pub fn set_support_color_attachment_mapping(&self, support_color_attachment_mapping: bool);
     );
 }
 

@@ -13,5 +13,3 @@ unsafe impl Encode for MTLLibraryOptimizationLevel {
 unsafe impl RefEncode for MTLLibraryOptimizationLevel {
     const ENCODING_REF: Encoding = Encoding::Pointer(&Self::ENCODING);
 }
-
-

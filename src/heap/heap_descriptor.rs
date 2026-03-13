@@ -146,10 +146,7 @@ impl MTLHeapDescriptor {
         /// Setter for [`maxCompatiblePlacementSparsePageSize`][Self::maxCompatiblePlacementSparsePageSize].
         #[unsafe(method(setMaxCompatiblePlacementSparsePageSize:))]
         #[unsafe(method_family = none)]
-        pub fn set_max_compatible_placement_sparse_page_size(
-            &self,
-            page_size: MTLSparsePageSize,
-        );
+        pub fn set_max_compatible_placement_sparse_page_size(&self, page_size: MTLSparsePageSize);
     );
 }
 

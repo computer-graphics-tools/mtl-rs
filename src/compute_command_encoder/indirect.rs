@@ -8,9 +8,7 @@ pub struct MTLDispatchThreadgroupsIndirectArguments {
 }
 
 unsafe impl Encode for MTLDispatchThreadgroupsIndirectArguments {
-    const ENCODING: Encoding = Encoding::Struct(
-"?",        &[<[u32; 3]>::ENCODING],
-    );
+    const ENCODING: Encoding = Encoding::Struct("?", &[<[u32; 3]>::ENCODING]);
 }
 
 unsafe impl RefEncode for MTLDispatchThreadgroupsIndirectArguments {
@@ -26,9 +24,7 @@ pub struct MTLDispatchThreadsIndirectArguments {
 }
 
 unsafe impl Encode for MTLDispatchThreadsIndirectArguments {
-    const ENCODING: Encoding = Encoding::Struct(
-"?",        &[<[u32; 3]>::ENCODING, <[u32; 3]>::ENCODING],
-    );
+    const ENCODING: Encoding = Encoding::Struct("?", &[<[u32; 3]>::ENCODING, <[u32; 3]>::ENCODING]);
 }
 
 unsafe impl RefEncode for MTLDispatchThreadsIndirectArguments {
@@ -46,9 +42,7 @@ pub struct MTLStageInRegionIndirectArguments {
 }
 
 unsafe impl Encode for MTLStageInRegionIndirectArguments {
-    const ENCODING: Encoding = Encoding::Struct(
-"?",        &[<[u32; 3]>::ENCODING, <[u32; 3]>::ENCODING],
-    );
+    const ENCODING: Encoding = Encoding::Struct("?", &[<[u32; 3]>::ENCODING, <[u32; 3]>::ENCODING]);
 }
 
 unsafe impl RefEncode for MTLStageInRegionIndirectArguments {

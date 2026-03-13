@@ -13,5 +13,3 @@ unsafe impl Encode for MTLMathFloatingPointFunctions {
 unsafe impl RefEncode for MTLMathFloatingPointFunctions {
     const ENCODING_REF: Encoding = Encoding::Pointer(&Self::ENCODING);
 }
-
-

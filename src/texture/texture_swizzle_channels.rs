@@ -14,7 +14,8 @@ pub struct MTLTextureSwizzleChannels {
 
 unsafe impl Encode for MTLTextureSwizzleChannels {
     const ENCODING: Encoding = Encoding::Struct(
-"?",        &[
+        "?",
+        &[
             MTLTextureSwizzle::ENCODING,
             MTLTextureSwizzle::ENCODING,
             MTLTextureSwizzle::ENCODING,

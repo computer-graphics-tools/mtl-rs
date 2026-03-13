@@ -63,10 +63,7 @@ impl MTL4IndirectInstanceAccelerationStructureDescriptor {
         /// Setter for [`instanceDescriptorBuffer`][Self::instanceDescriptorBuffer].
         #[unsafe(method(setInstanceDescriptorBuffer:))]
         #[unsafe(method_family = none)]
-        pub fn set_instance_descriptor_buffer(
-            &self,
-            instance_descriptor_buffer: MTL4BufferRange,
-        );
+        pub fn set_instance_descriptor_buffer(&self, instance_descriptor_buffer: MTL4BufferRange);
 
         /// Sets the stride, in bytes, between instance descriptors in the instance descriptor buffer.
         ///
@@ -118,9 +115,7 @@ impl MTL4IndirectInstanceAccelerationStructureDescriptor {
         /// `MTLAccelerationStructureInstanceDescriptorTypeIndirect` or `MTLAccelerationStructureInstanceDescriptorTypeIndirectMotion`.
         #[unsafe(method(instanceDescriptorType))]
         #[unsafe(method_family = none)]
-        pub fn instance_descriptor_type(
-            &self,
-        ) -> MTLAccelerationStructureInstanceDescriptorType;
+        pub fn instance_descriptor_type(&self) -> MTLAccelerationStructureInstanceDescriptorType;
 
         /// Setter for [`instanceDescriptorType`][Self::instanceDescriptorType].
         #[unsafe(method(setInstanceDescriptorType:))]

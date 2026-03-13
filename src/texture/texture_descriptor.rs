@@ -263,10 +263,7 @@ impl MTLTextureDescriptor {
         /// Setter for [`placementSparsePageSize`][Self::placementSparsePageSize].
         #[unsafe(method(setPlacementSparsePageSize:))]
         #[unsafe(method_family = none)]
-        pub fn set_placement_sparse_page_size(
-            &self,
-            placement_sparse_page_size: MTLSparsePageSize,
-        );
+        pub fn set_placement_sparse_page_size(&self, placement_sparse_page_size: MTLSparsePageSize);
     );
 }
 

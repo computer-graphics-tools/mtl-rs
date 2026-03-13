@@ -81,10 +81,7 @@ impl MTLStitchedLibraryDescriptor {
     }
 
     /// Availability: macOS 15.0+, iOS 18.0+
-    pub fn set_binary_archives(
-        &self,
-        binary_archives: &[&ProtocolObject<dyn MTLBinaryArchive>],
-    ) {
+    pub fn set_binary_archives(&self, binary_archives: &[&ProtocolObject<dyn MTLBinaryArchive>]) {
         let binary_archives = NSArray::from_slice(binary_archives);
         unsafe {
             let _: () = msg_send![self, setBinaryArchives: &*binary_archives];

@@ -10,7 +10,7 @@ use super::{
     MTLRenderPassSampleBufferAttachmentDescriptorArray, MTLRenderPassStencilAttachmentDescriptor,
     MTLVisibilityResultType,
 };
-use crate::{MTLBuffer, MTLSamplePosition, MTLRasterizationRateMap};
+use crate::{MTLBuffer, MTLRasterizationRateMap, MTLSamplePosition};
 
 extern_class!(
     /// A collection of attachments used to create a render command encoder.
@@ -147,11 +147,7 @@ impl MTLRenderPassDescriptor {
         /// Safety: `positions` must be a valid pointer or null.
         #[unsafe(method(setSamplePositions:count:))]
         #[unsafe(method_family = none)]
-        pub fn set_sample_positions(
-            &self,
-            positions: *const MTLSamplePosition,
-            count: usize,
-        );
+        pub fn set_sample_positions(&self, positions: *const MTLSamplePosition, count: usize);
 
         /// Retrieve previously configured custom sample positions.
         /// Safety: `positions` must be a valid pointer or null.

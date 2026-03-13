@@ -6,16 +6,18 @@ use objc2_foundation::{NSArray, NSError, NSObjectProtocol, NSString, NSURL};
 
 use super::MTLArchitecture;
 use crate::{
-    MTLAccelerationStructure, MTLArgumentBuffersTier, MTLArgumentEncoder, MTLBuffer,
-    MTLCommandQueue, MTLComputePipelineDescriptor, MTLComputePipelineState, MTLCounterSampleBuffer,
+    MTL4ArgumentTable, MTL4ArgumentTableDescriptor, MTLAccelerationStructure,
+    MTLArgumentBuffersTier, MTLArgumentEncoder, MTLBuffer, MTLCommandQueue,
+    MTLComputePipelineDescriptor, MTLComputePipelineState, MTLCounterSampleBuffer,
     MTLCounterSampleBufferDescriptor, MTLCounterSamplingPoint, MTLCounterSet,
     MTLDepthStencilDescriptor, MTLDepthStencilState, MTLDeviceLocation, MTLDynamicLibrary,
     MTLEvent, MTLFeatureSet, MTLFence, MTLFunction, MTLGPUFamily, MTLHeap, MTLHeapDescriptor,
     MTLIOCommandQueue, MTLIOCommandQueueDescriptor, MTLLibrary, MTLLogState, MTLLogStateDescriptor,
-    MTLPipelineOption, MTLPixelFormat, MTLReadWriteTextureTier, MTLResourceOptions,
-    MTLSamplerDescriptor, MTLSamplerState, MTLSharedEvent, MTLSharedEventHandle, MTLSize,
-    MTLTexture, MTLTextureDescriptor, acceleration_structure::MTLAccelerationStructureDescriptor,
-    argument::MTLArgumentDescriptor, compute_pipeline::MTLComputePipelineReflection,
+    MTLPipelineOption, MTLPixelFormat, MTLReadWriteTextureTier, MTLResidencySet,
+    MTLResidencySetDescriptor, MTLResourceOptions, MTLSamplerDescriptor, MTLSamplerState,
+    MTLSharedEvent, MTLSharedEventHandle, MTLSize, MTLTexture, MTLTextureDescriptor,
+    acceleration_structure::MTLAccelerationStructureDescriptor, argument::MTLArgumentDescriptor,
+    compute_pipeline::MTLComputePipelineReflection,
     function_stitching::MTLStitchedLibraryDescriptor,
 };
 
@@ -134,11 +136,7 @@ extern_protocol!(
         /// Sample the CPU and GPU timestamps as closely as possible.
         #[unsafe(method(sampleTimestamps:gpuTimestamp:))]
         #[unsafe(method_family = none)]
-        fn sample_timestamps_gpu_timestamp(
-            &self,
-            cpu_timestamp: *mut u64,
-            gpu_timestamp: *mut u64,
-        );
+        fn sample_timestamps_gpu_timestamp(&self, cpu_timestamp: *mut u64, gpu_timestamp: *mut u64);
 
         /// Query device for counter sampling points support.
         #[unsafe(method(supportsCounterSampling:))]
@@ -343,6 +341,33 @@ pub trait MTLDeviceExt: MTLDevice + Message {
         &self,
         descriptor: &MTLStitchedLibraryDescriptor,
     ) -> Result<Retained<ProtocolObject<dyn MTLLibrary>>, Retained<NSError>>;
+
+    /// Creates a new argument table from the given descriptor.
+    fn new_argument_table_with_descriptor(
+        &self,
+        descriptor: &MTL4ArgumentTableDescriptor,
+    ) -> Result<Retained<ProtocolObject<dyn MTL4ArgumentTable>>, Retained<NSError>>;
+
+    /// Creates a new Metal 4 command queue.
+    fn new_mtl4_command_queue(
+        &self,
+    ) -> Option<Retained<ProtocolObject<dyn crate::MTL4CommandQueue>>>;
+
+    /// Creates a new Metal 4 command allocator.
+    fn new_command_allocator(
+        &self,
+    ) -> Option<Retained<ProtocolObject<dyn crate::MTL4CommandAllocator>>>;
+
+    /// Creates a new Metal 4 command buffer.
+    fn new_mtl4_command_buffer(
+        &self,
+    ) -> Option<Retained<ProtocolObject<dyn crate::MTL4CommandBuffer>>>;
+
+    /// Creates a new residency set with the given descriptor.
+    fn new_residency_set_with_descriptor(
+        &self,
+        descriptor: &MTLResidencySetDescriptor,
+    ) -> Result<Retained<ProtocolObject<dyn MTLResidencySet>>, Retained<NSError>>;
 }
 
 impl MTLDeviceExt for ProtocolObject<dyn MTLDevice> {
@@ -642,24 +667,62 @@ impl MTLDeviceExt for ProtocolObject<dyn MTLDevice> {
             None => Err(unsafe { Retained::retain(error).unwrap() }),
         }
     }
-}
 
-/// Returns a reference to the preferred system default Metal device.
-#[inline]
-pub fn create_system_default_device() -> Option<Retained<ProtocolObject<dyn MTLDevice>>> {
-    unsafe extern "C" {
-        fn MTLCreateSystemDefaultDevice() -> *mut ProtocolObject<dyn MTLDevice>;
+    fn new_argument_table_with_descriptor(
+        &self,
+        descriptor: &MTL4ArgumentTableDescriptor,
+    ) -> Result<Retained<ProtocolObject<dyn MTL4ArgumentTable>>, Retained<NSError>> {
+        let mut error: *mut NSError = std::ptr::null_mut();
+        let result: Option<Retained<ProtocolObject<dyn MTL4ArgumentTable>>> = unsafe {
+            msg_send![self, newArgumentTableWithDescriptor: descriptor, error: &mut error]
+        };
+        match result {
+            Some(table) => Ok(table),
+            None => Err(unsafe { Retained::retain(error).unwrap() }),
+        }
     }
-    let ret = unsafe { MTLCreateSystemDefaultDevice() };
-    unsafe { Retained::from_raw(ret) }
+
+    fn new_mtl4_command_queue(
+        &self,
+    ) -> Option<Retained<ProtocolObject<dyn crate::MTL4CommandQueue>>> {
+        unsafe { msg_send![self, newMTL4CommandQueue] }
+    }
+
+    fn new_command_allocator(
+        &self,
+    ) -> Option<Retained<ProtocolObject<dyn crate::MTL4CommandAllocator>>> {
+        unsafe { msg_send![self, newCommandAllocator] }
+    }
+
+    fn new_mtl4_command_buffer(
+        &self,
+    ) -> Option<Retained<ProtocolObject<dyn crate::MTL4CommandBuffer>>> {
+        unsafe { msg_send![self, newCommandBuffer] }
+    }
+
+    fn new_residency_set_with_descriptor(
+        &self,
+        descriptor: &MTLResidencySetDescriptor,
+    ) -> Result<Retained<ProtocolObject<dyn MTLResidencySet>>, Retained<NSError>> {
+        let mut error: *mut NSError = std::ptr::null_mut();
+        let result: Option<Retained<ProtocolObject<dyn MTLResidencySet>>> = unsafe {
+            msg_send![self, newResidencySetWithDescriptor: descriptor, error: &mut error]
+        };
+        match result {
+            Some(set) => Ok(set),
+            None => Err(unsafe { Retained::retain(error).unwrap() }),
+        }
+    }
 }
 
 impl dyn MTLDevice {
     /// Returns a reference to the preferred system default Metal device.
-    ///
-    /// This is an alias for `create_system_default_device`.
     #[inline]
     pub fn system_default() -> Option<Retained<ProtocolObject<dyn MTLDevice>>> {
-        create_system_default_device()
+        unsafe extern "C" {
+            fn MTLCreateSystemDefaultDevice() -> *mut ProtocolObject<dyn MTLDevice>;
+        }
+        let ret = unsafe { MTLCreateSystemDefaultDevice() };
+        unsafe { Retained::from_raw(ret) }
     }
 }

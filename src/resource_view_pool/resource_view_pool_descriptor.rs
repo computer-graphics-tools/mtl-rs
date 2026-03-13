@@ -35,7 +35,6 @@ impl MTLResourceViewPoolDescriptor {
         #[unsafe(method(setResourceViewCount:))]
         #[unsafe(method_family = none)]
         pub fn set_resource_view_count(&self, resource_view_count: usize);
-
     );
 
     pub fn label(&self) -> Option<String> {

@@ -184,10 +184,7 @@ impl MTL4AccelerationStructureMotionCurveGeometryDescriptor {
         /// Setter for [`segmentControlPointCount`][Self::segmentControlPointCount].
         #[unsafe(method(setSegmentControlPointCount:))]
         #[unsafe(method_family = none)]
-        pub fn set_segment_control_point_count(
-            &self,
-            segment_control_point_count: NSUInteger,
-        );
+        pub fn set_segment_control_point_count(&self, segment_control_point_count: NSUInteger);
 
         /// Controls the curve type.
         ///

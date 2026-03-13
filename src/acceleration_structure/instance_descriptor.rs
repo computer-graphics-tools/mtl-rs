@@ -23,7 +23,8 @@ pub struct MTLAccelerationStructureInstanceDescriptor {
 
 unsafe impl Encode for MTLAccelerationStructureInstanceDescriptor {
     const ENCODING: Encoding = Encoding::Struct(
-"?",        &[
+        "?",
+        &[
             <MTLPackedFloat4x3>::ENCODING,
             <MTLAccelerationStructureInstanceOptions>::ENCODING,
             <u32>::ENCODING,

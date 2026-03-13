@@ -170,11 +170,7 @@ extern_protocol!(
 
         #[unsafe(method(useResource:usage:))]
         #[unsafe(method_family = none)]
-        fn use_resource(
-            &self,
-            resource: &ProtocolObject<dyn MTLResource>,
-            usage: MTLResourceUsage,
-        );
+        fn use_resource(&self, resource: &ProtocolObject<dyn MTLResource>, usage: MTLResourceUsage);
 
         /// Safety: `resources` must be valid.
         #[unsafe(method(useResources:count:usage:))]
@@ -193,11 +189,7 @@ extern_protocol!(
         /// Safety: `heaps` must be valid.
         #[unsafe(method(useHeaps:count:))]
         #[unsafe(method_family = none)]
-        fn use_heaps(
-            &self,
-            heaps: NonNull<NonNull<ProtocolObject<dyn MTLHeap>>>,
-            count: usize,
-        );
+        fn use_heaps(&self, heaps: NonNull<NonNull<ProtocolObject<dyn MTLHeap>>>, count: usize);
 
         #[unsafe(method(executeCommandsInBuffer:indirectBuffer:indirectBufferOffset:))]
         #[unsafe(method_family = none)]

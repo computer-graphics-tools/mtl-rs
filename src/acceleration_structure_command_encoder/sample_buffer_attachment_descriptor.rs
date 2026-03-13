@@ -56,9 +56,8 @@ impl MTLAccelerationStructurePassSampleBufferAttachmentDescriptor {
         /// taken for that action.
         #[unsafe(method(sampleBuffer))]
         #[unsafe(method_family = none)]
-        pub fn sample_buffer(
-            &self,
-        ) -> Option<Retained<ProtocolObject<dyn MTLCounterSampleBuffer>>>;
+        pub fn sample_buffer(&self)
+        -> Option<Retained<ProtocolObject<dyn MTLCounterSampleBuffer>>>;
 
         /// Set the sample buffer used to store samples for encoder-defined
         /// samples. See getter for behavior when `None` or when indices are

@@ -206,8 +206,6 @@ impl MTLLibraryExt for ProtocolObject<dyn MTLLibrary> {
         descriptor: &MTLIntersectionFunctionDescriptor,
         error: *mut *mut NSError,
     ) -> Option<Retained<ProtocolObject<dyn MTLFunction>>> {
-        unsafe {
-            msg_send![self, newIntersectionFunctionWithDescriptor: descriptor, error: error]
-        }
+        unsafe { msg_send![self, newIntersectionFunctionWithDescriptor: descriptor, error: error] }
     }
 }

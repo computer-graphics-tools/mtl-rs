@@ -35,5 +35,3 @@ pub const MTL_COUNTER_ERROR_VALUE: u64 = !0u64;
 /// Special sample index value to indicate that a sample should not be taken.
 #[allow(unused)]
 pub const MTL_COUNTER_DONT_SAMPLE: usize = usize::MAX;
-
-

@@ -29,8 +29,7 @@ extern_conformance!(
 );
 
 impl MTLBinaryArchiveDescriptor {
-    extern_methods!(
-    );
+    extern_methods!();
 
     /// The file path from which to open a `MTLBinaryArchive`, or `None` to create an empty archive.
     ///

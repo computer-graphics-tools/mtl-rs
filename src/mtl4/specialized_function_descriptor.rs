@@ -42,10 +42,7 @@ impl MTL4SpecializedFunctionDescriptor {
         /// This is [copied][objc2_foundation::NSCopying::copy] when set.
         #[unsafe(method(setFunctionDescriptor:))]
         #[unsafe(method_family = none)]
-        pub fn set_function_descriptor(
-            &self,
-            function_descriptor: Option<&MTL4FunctionDescriptor>,
-        );
+        pub fn set_function_descriptor(&self, function_descriptor: Option<&MTL4FunctionDescriptor>);
 
         /// Configures optional function constant values to associate with the function.
         #[unsafe(method(constantValues))]

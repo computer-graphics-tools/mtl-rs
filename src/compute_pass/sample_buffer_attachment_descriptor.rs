@@ -37,9 +37,8 @@ impl MTLComputePassSampleBufferAttachmentDescriptor {
         /// If any of the sample indices are specified as `MTLCounterDontSample`, no sample will be taken for that action.
         #[unsafe(method(sampleBuffer))]
         #[unsafe(method_family = none)]
-        pub fn sample_buffer(
-            &self,
-        ) -> Option<Retained<ProtocolObject<dyn MTLCounterSampleBuffer>>>;
+        pub fn sample_buffer(&self)
+        -> Option<Retained<ProtocolObject<dyn MTLCounterSampleBuffer>>>;
 
         /// Setter for `sample_buffer`.
         #[unsafe(method(setSampleBuffer:))]

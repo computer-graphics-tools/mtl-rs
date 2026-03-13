@@ -31,7 +31,8 @@ impl MTLRenderPassSampleBufferAttachmentDescriptor {
         /// The sample buffer to store samples for the render-pass defined samples.
         #[unsafe(method(sampleBuffer))]
         #[unsafe(method_family = none)]
-        pub fn sample_buffer(&self) -> Option<Retained<ProtocolObject<dyn MTLCounterSampleBuffer>>>;
+        pub fn sample_buffer(&self)
+        -> Option<Retained<ProtocolObject<dyn MTLCounterSampleBuffer>>>;
 
         /// Setter for [`sample_buffer`][Self::sample_buffer].
         #[unsafe(method(setSampleBuffer:))]

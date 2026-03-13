@@ -48,9 +48,7 @@ pub struct MTLIndirectCommandBufferExecutionRange {
 }
 
 unsafe impl Encode for MTLIndirectCommandBufferExecutionRange {
-    const ENCODING: Encoding = Encoding::Struct(
-"?",        &[u32::ENCODING, u32::ENCODING],
-    );
+    const ENCODING: Encoding = Encoding::Struct("?", &[u32::ENCODING, u32::ENCODING]);
 }
 
 unsafe impl RefEncode for MTLIndirectCommandBufferExecutionRange {

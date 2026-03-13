@@ -35,10 +35,7 @@ impl MTLCounterSampleBufferDescriptor {
 
         #[unsafe(method(setCounterSet:))]
         #[unsafe(method_family = none)]
-        pub fn set_counter_set(
-            &self,
-            counter_set: Option<&ProtocolObject<dyn MTLCounterSet>>,
-        );
+        pub fn set_counter_set(&self, counter_set: Option<&ProtocolObject<dyn MTLCounterSet>>);
 
         /// The storage mode for the sample buffer. Only `Shared` and `Private` may be used.
         #[unsafe(method(storageMode))]

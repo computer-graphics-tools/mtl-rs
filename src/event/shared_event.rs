@@ -30,11 +30,7 @@ extern_protocol!(
         /// Synchronously wait for the signaled value to be >= `value`, with a timeout in milliseconds.
         #[unsafe(method(waitUntilSignaledValue:timeoutMS:))]
         #[unsafe(method_family = none)]
-        fn wait_until_signaled_value_timeout_ms(
-            &self,
-            value: u64,
-            milliseconds: u64,
-        ) -> bool;
+        fn wait_until_signaled_value_timeout_ms(&self, value: u64, milliseconds: u64) -> bool;
 
         /// Read the current signaled value.
         #[unsafe(method(signaledValue))]
