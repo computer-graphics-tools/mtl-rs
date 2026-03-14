@@ -1,6 +1,6 @@
 [package]
 name = "mtl-rs"
-version = "0.1.6"
+version = "0.1.7"
 edition = "2024"
 license = "MIT"
 authors = ["Eugene Bokhan <eugenebokhan@icloud.com>"]
@@ -28,12 +28,20 @@ objc2-io-surface = { version = "0.3" }
 dispatch2 = { version = "0.3" }
 block2 = { version = "0.6" }
 once_cell = { version = "1.21" }
-bitflags = "2.10"
+bitflags = "2.11"
 
 [dev-dependencies]
 winit = "0.30"
-objc2-app-kit = { version = "0.3", features = ["NSView", "NSWindow", "NSResponder"] }
-objc2-quartz-core = { version = "0.3", features = ["CAMetalLayer", "CALayer", "objc2-metal"] }
+objc2-app-kit = { version = "0.3", features = [
+    "NSView",
+    "NSWindow",
+    "NSResponder",
+] }
+objc2-quartz-core = { version = "0.3", features = [
+    "CAMetalLayer",
+    "CALayer",
+    "objc2-metal",
+] }
 raw-window-handle = "0.6"
 objc2-metal-kit = { version = "0.3.2", features = ["MTKView"] }
 
