@@ -20,7 +20,10 @@ extern_protocol!(
         /// The `presentation_time` must be a valid host time value.
         #[unsafe(method(presentAtTime:))]
         #[unsafe(method_family = none)]
-        fn present_at_time(&self, presentation_time: f64);
+        fn present_at_time(
+            &self,
+            presentation_time: f64,
+        );
 
         /// Present this drawable while setting a minimum duration in seconds
         /// before allowing this drawable to appear on the display.
@@ -32,7 +35,10 @@ extern_protocol!(
         /// Availability: macOS 10.15.4+, iOS 10.3+, Mac Catalyst 13.4+
         #[unsafe(method(presentAfterMinimumDuration:))]
         #[unsafe(method_family = none)]
-        fn present_after_minimum_duration(&self, duration: f64);
+        fn present_after_minimum_duration(
+            &self,
+            duration: f64,
+        );
 
         /// The host time that this drawable was presented on screen.
         /// Returns 0 if a frame has not been presented or has been skipped.
@@ -54,14 +60,20 @@ extern_protocol!(
 
 #[allow(unused)]
 pub trait MTLDrawableExt: MTLDrawable + Message {
-    fn add_presented_handler(&self, handler: &MTLDrawablePresentedHandler);
+    fn add_presented_handler(
+        &self,
+        handler: &MTLDrawablePresentedHandler,
+    );
 }
 
 impl<T> MTLDrawableExt for T
 where
     T: MTLDrawable + Message,
 {
-    fn add_presented_handler(&self, handler: &MTLDrawablePresentedHandler) {
+    fn add_presented_handler(
+        &self,
+        handler: &MTLDrawablePresentedHandler,
+    ) {
         unsafe {
             let _: () = msg_send![self, addPresentedHandler: &**handler];
         }

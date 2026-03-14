@@ -1,10 +1,11 @@
-use super::MTLFunctionDescriptor;
 use objc2::{
     extern_class, extern_conformance, extern_methods,
     rc::{Allocated, Retained},
     runtime::NSObject,
 };
 use objc2_foundation::{CopyingHelper, NSCopying, NSObjectProtocol};
+
+use super::MTLFunctionDescriptor;
 
 extern_class!(
     /// Descriptor for an intersection function (subclass of `FunctionDescriptor`).

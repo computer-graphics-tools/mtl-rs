@@ -12,14 +12,7 @@ pub struct MTLPackedFloat3 {
 }
 
 unsafe impl Encode for MTLPackedFloat3 {
-    const ENCODING: Encoding = Encoding::Struct(
-        "MTLPackedFloat3",
-        &[
-            <c_float>::ENCODING,
-            <c_float>::ENCODING,
-            <c_float>::ENCODING,
-        ],
-    );
+    const ENCODING: Encoding = Encoding::Struct("?", &[<c_float>::ENCODING, <c_float>::ENCODING, <c_float>::ENCODING]);
 }
 
 unsafe impl RefEncode for MTLPackedFloat3 {

@@ -11,7 +11,10 @@ extern_protocol!(
 #[allow(unused)]
 pub trait MTLIOFileHandleExt: MTLIOFileHandle + Message {
     fn label(&self) -> Option<String>;
-    fn set_label(&self, label: Option<&str>);
+    fn set_label(
+        &self,
+        label: Option<&str>,
+    );
 }
 
 impl MTLIOFileHandleExt for ProtocolObject<dyn MTLIOFileHandle> {
@@ -20,7 +23,10 @@ impl MTLIOFileHandleExt for ProtocolObject<dyn MTLIOFileHandle> {
         s.map(|s| s.to_string())
     }
 
-    fn set_label(&self, label: Option<&str>) {
+    fn set_label(
+        &self,
+        label: Option<&str>,
+    ) {
         unsafe {
             let _: () = msg_send![self, setLabel: label.map(NSString::from_str).as_deref()];
         }

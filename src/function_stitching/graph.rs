@@ -41,7 +41,6 @@ impl MTLFunctionStitchingGraph {
             &self,
             output_node: Option<&MTLFunctionStitchingFunctionNode>,
         );
-
     );
 
     pub fn nodes(&self) -> Box<[Retained<MTLFunctionStitchingFunctionNode>]> {
@@ -49,16 +48,17 @@ impl MTLFunctionStitchingGraph {
         nodes.to_vec().into_boxed_slice()
     }
 
-    pub fn set_nodes(&self, nodes: &[&MTLFunctionStitchingFunctionNode]) {
+    pub fn set_nodes(
+        &self,
+        nodes: &[&MTLFunctionStitchingFunctionNode],
+    ) {
         let nodes = NSArray::from_slice(nodes);
         unsafe {
             let _: () = msg_send![self, setNodes: &*nodes];
         }
     }
 
-    pub fn attributes(
-        &self,
-    ) -> Box<[Retained<ProtocolObject<dyn super::MTLFunctionStitchingAttribute>>]> {
+    pub fn attributes(&self) -> Box<[Retained<ProtocolObject<dyn super::MTLFunctionStitchingAttribute>>]> {
         let attributes: Retained<NSArray<ProtocolObject<dyn super::MTLFunctionStitchingAttribute>>> =
             unsafe { msg_send![self, attributes] };
         attributes.to_vec().into_boxed_slice()
@@ -105,7 +105,10 @@ impl MTLFunctionStitchingGraph {
     }
 
     /// Setter for [`function_name`][Self::function_name].
-    fn set_function_name(&self, name: &str) {
+    fn set_function_name(
+        &self,
+        name: &str,
+    ) {
         unsafe {
             let _: () = msg_send![self, setFunctionName: &*NSString::from_str(name)];
         }

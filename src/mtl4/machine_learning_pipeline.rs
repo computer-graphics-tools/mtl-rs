@@ -2,12 +2,12 @@
 //! DO NOT EDIT
 use core::ops::Range;
 
-use objc2::rc::{Allocated, Retained};
-use objc2::runtime::ProtocolObject;
-use objc2::{Message, extern_class, extern_conformance, extern_methods, extern_protocol, msg_send};
-use objc2_foundation::{
-    CopyingHelper, NSArray, NSCopying, NSInteger, NSObject, NSObjectProtocol, NSRange, NSString,
+use objc2::{
+    Message, extern_class, extern_conformance, extern_methods, extern_protocol, msg_send,
+    rc::{Allocated, Retained},
+    runtime::ProtocolObject,
 };
+use objc2_foundation::{CopyingHelper, NSArray, NSCopying, NSInteger, NSObject, NSObjectProtocol, NSRange, NSString};
 
 use crate::*;
 
@@ -37,9 +37,7 @@ impl MTL4MachineLearningPipelineDescriptor {
         /// Assigns the function that the machine learning pipeline you create from this descriptor executes.
         #[unsafe(method(machineLearningFunctionDescriptor))]
         #[unsafe(method_family = none)]
-        pub fn machine_learning_function_descriptor(
-            &self,
-        ) -> Option<Retained<MTL4FunctionDescriptor>>;
+        pub fn machine_learning_function_descriptor(&self) -> Option<Retained<MTL4FunctionDescriptor>>;
 
         /// Setter for [`machineLearningFunctionDescriptor`][Self::machineLearningFunctionDescriptor].
         ///
@@ -100,7 +98,10 @@ impl MTL4MachineLearningPipelineDescriptor {
     }
 
     /// Setter for [`label`][Self::label].
-    pub fn set_label(&self, label: Option<&str>) {
+    pub fn set_label(
+        &self,
+        label: Option<&str>,
+    ) {
         unsafe {
             let _: () = msg_send![self, setLabel: label.map(NSString::from_str).as_deref()];
         }
@@ -158,8 +159,7 @@ impl MTL4MachineLearningPipelineReflection {
 
     /// Describes every input and output of the pipeline.
     pub fn bindings(&self) -> Box<[Retained<ProtocolObject<dyn MTLBinding>>]> {
-        let bindings: Retained<NSArray<ProtocolObject<dyn MTLBinding>>> =
-            unsafe { msg_send![self, bindings] };
+        let bindings: Retained<NSArray<ProtocolObject<dyn MTLBinding>>> = unsafe { msg_send![self, bindings] };
         bindings.to_vec().into_boxed_slice()
     }
 }
@@ -183,9 +183,7 @@ extern_protocol!(
     /// See ``MTL4MachineLearningCommandEncoder`` for more information.
     ///
     /// See also [Apple's documentation](https://developer.apple.com/documentation/metal/mtl4machinelearningpipelinestate?language=objc)
-    pub unsafe trait MTL4MachineLearningPipelineState:
-        MTLAllocation + NSObjectProtocol + Send + Sync
-    {
+    pub unsafe trait MTL4MachineLearningPipelineState: MTLAllocation + NSObjectProtocol + Send + Sync {
         /// Returns the device the pipeline state belongs to.
         #[unsafe(method(device))]
         #[unsafe(method_family = none)]

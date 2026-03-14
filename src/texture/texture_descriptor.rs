@@ -6,9 +6,8 @@ use objc2::{
 use objc2_foundation::{CopyingHelper, NSCopying, NSObjectProtocol};
 
 use crate::{
-    MTLCPUCacheMode, MTLHazardTrackingMode, MTLPixelFormat, MTLResourceOptions, MTLSparsePageSize,
-    MTLStorageMode, MTLTextureCompressionType, MTLTextureSwizzleChannels, MTLTextureType,
-    MTLTextureUsage,
+    MTLCPUCacheMode, MTLHazardTrackingMode, MTLPixelFormat, MTLResourceOptions, MTLSparsePageSize, MTLStorageMode,
+    MTLTextureCompressionType, MTLTextureSwizzleChannels, MTLTextureType, MTLTextureUsage,
 };
 
 extern_class!(
@@ -69,7 +68,10 @@ impl MTLTextureDescriptor {
         /// Setter for [`textureType`][Self::textureType].
         #[unsafe(method(setTextureType:))]
         #[unsafe(method_family = none)]
-        pub fn set_texture_type(&self, texture_type: MTLTextureType);
+        pub fn set_texture_type(
+            &self,
+            texture_type: MTLTextureType,
+        );
 
         /// The pixel format to use when allocating this texture. This is also the pixel format that will be used to when the caller writes or reads pixels from this texture. The default value is MTLPixelFormatRGBA8Unorm.
         #[unsafe(method(pixelFormat))]
@@ -79,7 +81,10 @@ impl MTLTextureDescriptor {
         /// Setter for [`pixelFormat`][Self::pixelFormat].
         #[unsafe(method(setPixelFormat:))]
         #[unsafe(method_family = none)]
-        pub fn set_pixel_format(&self, pixel_format: MTLPixelFormat);
+        pub fn set_pixel_format(
+            &self,
+            pixel_format: MTLPixelFormat,
+        );
 
         /// The width of the texture to create. The default value is 1.
         #[unsafe(method(width))]
@@ -89,7 +94,10 @@ impl MTLTextureDescriptor {
         /// Setter for [`width`][Self::width].
         #[unsafe(method(setWidth:))]
         #[unsafe(method_family = none)]
-        pub fn set_width(&self, width: usize);
+        pub fn set_width(
+            &self,
+            width: usize,
+        );
 
         /// The height of the texture to create. The default value is 1.
         ///
@@ -101,7 +109,10 @@ impl MTLTextureDescriptor {
         /// Setter for [`height`][Self::height].
         #[unsafe(method(setHeight:))]
         #[unsafe(method_family = none)]
-        pub fn set_height(&self, height: usize);
+        pub fn set_height(
+            &self,
+            height: usize,
+        );
 
         /// The depth of the texture to create. The default value is 1.
         ///
@@ -113,7 +124,10 @@ impl MTLTextureDescriptor {
         /// Setter for [`depth`][Self::depth].
         #[unsafe(method(setDepth:))]
         #[unsafe(method_family = none)]
-        pub fn set_depth(&self, depth: usize);
+        pub fn set_depth(
+            &self,
+            depth: usize,
+        );
 
         /// The number of mipmap levels to allocate. The default value is 1.
         ///
@@ -125,7 +139,10 @@ impl MTLTextureDescriptor {
         /// Setter for [`mipmapLevelCount`][Self::mipmapLevelCount].
         #[unsafe(method(setMipmapLevelCount:))]
         #[unsafe(method_family = none)]
-        pub fn set_mipmap_level_count(&self, mipmap_level_count: usize);
+        pub fn set_mipmap_level_count(
+            &self,
+            mipmap_level_count: usize,
+        );
 
         /// The number of samples in the texture to create. The default value is 1.
         ///
@@ -137,7 +154,10 @@ impl MTLTextureDescriptor {
         /// Setter for [`sampleCount`][Self::sampleCount].
         #[unsafe(method(setSampleCount:))]
         #[unsafe(method_family = none)]
-        pub fn set_sample_count(&self, sample_count: usize);
+        pub fn set_sample_count(
+            &self,
+            sample_count: usize,
+        );
 
         /// The number of array elements to allocate. The default value is 1.
         ///
@@ -149,7 +169,10 @@ impl MTLTextureDescriptor {
         /// Setter for [`arrayLength`][Self::arrayLength].
         #[unsafe(method(setArrayLength:))]
         #[unsafe(method_family = none)]
-        pub fn set_array_length(&self, array_length: usize);
+        pub fn set_array_length(
+            &self,
+            array_length: usize,
+        );
 
         /// Options to control memory allocation parameters, etc.
         ///
@@ -161,7 +184,10 @@ impl MTLTextureDescriptor {
         /// Setter for [`resourceOptions`][Self::resourceOptions].
         #[unsafe(method(setResourceOptions:))]
         #[unsafe(method_family = none)]
-        pub fn set_resource_options(&self, resource_options: MTLResourceOptions);
+        pub fn set_resource_options(
+            &self,
+            resource_options: MTLResourceOptions,
+        );
 
         /// Options to specify CPU cache mode of texture resource.
         #[unsafe(method(cpuCacheMode))]
@@ -171,7 +197,10 @@ impl MTLTextureDescriptor {
         /// Setter for [`cpuCacheMode`][Self::cpuCacheMode].
         #[unsafe(method(setCpuCacheMode:))]
         #[unsafe(method_family = none)]
-        pub fn set_cpu_cache_mode(&self, cpu_cache_mode: MTLCPUCacheMode);
+        pub fn set_cpu_cache_mode(
+            &self,
+            cpu_cache_mode: MTLCPUCacheMode,
+        );
 
         /// To specify storage mode of texture resource.
         #[unsafe(method(storageMode))]
@@ -181,7 +210,10 @@ impl MTLTextureDescriptor {
         /// Setter for [`storageMode`][Self::storageMode].
         #[unsafe(method(setStorageMode:))]
         #[unsafe(method_family = none)]
-        pub fn set_storage_mode(&self, storage_mode: MTLStorageMode);
+        pub fn set_storage_mode(
+            &self,
+            storage_mode: MTLStorageMode,
+        );
 
         /// Set hazard tracking mode for the texture. The default value is `HazardTrackingMode::Default`.
         ///
@@ -197,7 +229,10 @@ impl MTLTextureDescriptor {
         /// Setter for [`hazardTrackingMode`][Self::hazardTrackingMode].
         #[unsafe(method(setHazardTrackingMode:))]
         #[unsafe(method_family = none)]
-        pub fn set_hazard_tracking_mode(&self, hazard_tracking_mode: MTLHazardTrackingMode);
+        pub fn set_hazard_tracking_mode(
+            &self,
+            hazard_tracking_mode: MTLHazardTrackingMode,
+        );
 
         /// Description of texture usage
         #[unsafe(method(usage))]
@@ -207,7 +242,10 @@ impl MTLTextureDescriptor {
         /// Setter for [`usage`][Self::usage].
         #[unsafe(method(setUsage:))]
         #[unsafe(method_family = none)]
-        pub fn set_usage(&self, usage: MTLTextureUsage);
+        pub fn set_usage(
+            &self,
+            usage: MTLTextureUsage,
+        );
 
         /// Allow GPU-optimization for the contents of this texture. The default value is true.
         ///
@@ -219,7 +257,10 @@ impl MTLTextureDescriptor {
         /// Setter for [`allowGPUOptimizedContents`][Self::allowGPUOptimizedContents].
         #[unsafe(method(setAllowGPUOptimizedContents:))]
         #[unsafe(method_family = none)]
-        pub fn set_allow_gpu_optimized_contents(&self, allow_gpu_optimized_contents: bool);
+        pub fn set_allow_gpu_optimized_contents(
+            &self,
+            allow_gpu_optimized_contents: bool,
+        );
 
         /// Controls how the texture contents will be compressed when written to by the GPU. Compression can be used to reduce the bandwidth usage and storage requirements of a texture.
         ///
@@ -237,7 +278,10 @@ impl MTLTextureDescriptor {
         /// Setter for [`compressionType`][Self::compressionType].
         #[unsafe(method(setCompressionType:))]
         #[unsafe(method_family = none)]
-        pub fn set_compression_type(&self, compression_type: MTLTextureCompressionType);
+        pub fn set_compression_type(
+            &self,
+            compression_type: MTLTextureCompressionType,
+        );
 
         /// Channel swizzle to use when reading or sampling from the texture, the default value is MTLTextureSwizzleChannelsDefault.
         #[unsafe(method(swizzle))]
@@ -247,7 +291,10 @@ impl MTLTextureDescriptor {
         /// Setter for [`swizzle`][Self::swizzle].
         #[unsafe(method(setSwizzle:))]
         #[unsafe(method_family = none)]
-        pub fn set_swizzle(&self, swizzle: MTLTextureSwizzleChannels);
+        pub fn set_swizzle(
+            &self,
+            swizzle: MTLTextureSwizzleChannels,
+        );
 
         /// Determines the page size for a placement sparse texture.
         ///

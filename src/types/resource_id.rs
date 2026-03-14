@@ -8,7 +8,7 @@ pub struct MTLResourceID {
 }
 
 unsafe impl Encode for MTLResourceID {
-    const ENCODING: Encoding = Encoding::Struct("{MTLResourceID=Q}", &[u64::ENCODING]);
+    const ENCODING: Encoding = Encoding::Struct("?", &[u64::ENCODING]);
 }
 
 unsafe impl RefEncode for MTLResourceID {

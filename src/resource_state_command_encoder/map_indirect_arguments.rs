@@ -16,7 +16,7 @@ pub struct MTLMapIndirectArguments {
 
 unsafe impl Encode for MTLMapIndirectArguments {
     const ENCODING: Encoding = Encoding::Struct(
-        "{MTLMapIndirectArguments=IIIIIIII}",
+        "?",
         &[
             u32::ENCODING,
             u32::ENCODING,

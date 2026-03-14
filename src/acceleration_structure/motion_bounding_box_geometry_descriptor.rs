@@ -39,7 +39,10 @@ impl MTLAccelerationStructureMotionBoundingBoxGeometryDescriptor {
         /// Setter for [`boundingBoxStride`][Self::boundingBoxStride].
         #[unsafe(method(setBoundingBoxStride:))]
         #[unsafe(method_family = none)]
-        pub fn set_bounding_box_stride(&self, bounding_box_stride: usize);
+        pub fn set_bounding_box_stride(
+            &self,
+            bounding_box_stride: usize,
+        );
 
         /// Number of bounding boxes
         #[unsafe(method(boundingBoxCount))]
@@ -49,7 +52,10 @@ impl MTLAccelerationStructureMotionBoundingBoxGeometryDescriptor {
         /// Setter for [`boundingBoxCount`][Self::boundingBoxCount].
         #[unsafe(method(setBoundingBoxCount:))]
         #[unsafe(method_family = none)]
-        pub fn set_bounding_box_count(&self, bounding_box_count: usize);
+        pub fn set_bounding_box_count(
+            &self,
+            bounding_box_count: usize,
+        );
 
         #[unsafe(method(descriptor))]
         #[unsafe(method_family = none)]
@@ -63,7 +69,10 @@ impl MTLAccelerationStructureMotionBoundingBoxGeometryDescriptor {
         bounding_box_buffers.to_vec().into_boxed_slice()
     }
 
-    pub fn set_bounding_box_buffers(&self, bounding_box_buffers: &[&MTLMotionKeyframeData]) {
+    pub fn set_bounding_box_buffers(
+        &self,
+        bounding_box_buffers: &[&MTLMotionKeyframeData],
+    ) {
         let bounding_box_buffers = NSArray::from_slice(bounding_box_buffers);
         unsafe {
             let _: () = msg_send![self, setBoundingBoxBuffers: &*bounding_box_buffers];

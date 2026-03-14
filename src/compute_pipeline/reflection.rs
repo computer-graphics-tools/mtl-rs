@@ -18,8 +18,7 @@ extern_conformance!(
 impl MTLComputePipelineReflection {
     /// Bindings for this pipeline.
     fn bindings(&self) -> Option<Box<[Retained<ProtocolObject<dyn MTLBinding>>]>> {
-        let array: Option<Retained<NSArray<ProtocolObject<dyn MTLBinding>>>> =
-            unsafe { msg_send![self, bindings] };
+        let array: Option<Retained<NSArray<ProtocolObject<dyn MTLBinding>>>> = unsafe { msg_send![self, bindings] };
         array.map(|a| a.to_vec().into_boxed_slice())
     }
 

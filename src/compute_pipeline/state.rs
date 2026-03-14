@@ -2,9 +2,8 @@ use objc2::{Message, extern_protocol, msg_send, rc::Retained, runtime::ProtocolO
 use objc2_foundation::{NSObjectProtocol, NSString};
 
 use crate::{
-    MTLDevice, MTLResourceID,
-    MTLIntersectionFunctionTableDescriptor,
-    MTLVisibleFunctionTable, MTLVisibleFunctionTableDescriptor,
+    MTLDevice, MTLIntersectionFunctionTableDescriptor, MTLResourceID, MTLVisibleFunctionTable,
+    MTLVisibleFunctionTableDescriptor,
 };
 
 extern_protocol!(

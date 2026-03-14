@@ -38,7 +38,10 @@ impl MTLTextureViewDescriptor {
         /// Setter for [`pixelFormat`][Self::pixelFormat].
         #[unsafe(method(setPixelFormat:))]
         #[unsafe(method_family = none)]
-        pub fn set_pixel_format(&self, pixel_format: MTLPixelFormat);
+        pub fn set_pixel_format(
+            &self,
+            pixel_format: MTLPixelFormat,
+        );
 
         /// A desired texture view of a texture view.
         #[unsafe(method(textureType))]
@@ -48,7 +51,10 @@ impl MTLTextureViewDescriptor {
         /// Setter for [`textureType`][Self::textureType].
         #[unsafe(method(setTextureType:))]
         #[unsafe(method_family = none)]
-        pub fn set_texture_type(&self, texture_type: MTLTextureType);
+        pub fn set_texture_type(
+            &self,
+            texture_type: MTLTextureType,
+        );
 
         /// A desired swizzle format of a texture view.
         #[unsafe(method(swizzle))]
@@ -58,7 +64,10 @@ impl MTLTextureViewDescriptor {
         /// Setter for [`swizzle`][Self::swizzle].
         #[unsafe(method(setSwizzle:))]
         #[unsafe(method_family = none)]
-        pub fn set_swizzle(&self, swizzle: MTLTextureSwizzleChannels);
+        pub fn set_swizzle(
+            &self,
+            swizzle: MTLTextureSwizzleChannels,
+        );
     );
 
     pub fn level_range(&self) -> Range<usize> {
@@ -66,7 +75,10 @@ impl MTLTextureViewDescriptor {
         ns_range.location..ns_range.location.saturating_add(ns_range.length)
     }
 
-    pub fn set_level_range(&self, level_range: Range<usize>) {
+    pub fn set_level_range(
+        &self,
+        level_range: Range<usize>,
+    ) {
         unsafe {
             let _: () = msg_send![self, setLevelRange: NSRange::from(level_range)];
         }
@@ -77,7 +89,10 @@ impl MTLTextureViewDescriptor {
         ns_range.location..ns_range.location.saturating_add(ns_range.length)
     }
 
-    pub fn set_slice_range(&self, slice_range: Range<usize>) {
+    pub fn set_slice_range(
+        &self,
+        slice_range: Range<usize>,
+    ) {
         unsafe {
             let _: () = msg_send![self, setSliceRange: NSRange::from(slice_range)];
         }

@@ -28,7 +28,10 @@ impl MTL4CommitOptions {
         /// `block` must be a valid pointer.
         #[unsafe(method(addFeedbackHandler:))]
         #[unsafe(method_family = none)]
-        pub fn add_feedback_handler(&self, block: MTL4CommitFeedbackHandler);
+        pub fn add_feedback_handler(
+            &self,
+            block: MTL4CommitFeedbackHandler,
+        );
     );
 }
 
@@ -84,7 +87,10 @@ impl MTL4CommandQueueDescriptor {
         /// This is unretained, you must ensure the object is kept alive while in use.
         #[unsafe(method(setFeedbackQueue:))]
         #[unsafe(method_family = none)]
-        pub fn set_feedback_queue(&self, feedback_queue: Option<&dispatch2::DispatchQueue>);
+        pub fn set_feedback_queue(
+            &self,
+            feedback_queue: Option<&dispatch2::DispatchQueue>,
+        );
     );
 }
 
@@ -109,7 +115,10 @@ impl MTL4CommandQueueDescriptor {
     }
 
     /// Setter for label.
-    pub fn set_label(&self, label: Option<&str>) {
+    pub fn set_label(
+        &self,
+        label: Option<&str>,
+    ) {
         unsafe {
             let _: () = msg_send![self, setLabel: label.map(NSString::from_str).as_deref()];
         }

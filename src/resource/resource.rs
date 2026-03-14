@@ -2,8 +2,8 @@ use objc2::{Message, extern_protocol, msg_send, rc::Retained, runtime::ProtocolO
 use objc2_foundation::NSString;
 
 use crate::{
-    MTLAllocation, MTLBuffer, MTLCPUCacheMode, MTLDevice, MTLHazardTrackingMode, MTLPurgeableState,
-    MTLResourceOptions, MTLStorageMode, MTLTexture,
+    MTLAllocation, MTLBuffer, MTLCPUCacheMode, MTLDevice, MTLHazardTrackingMode, MTLPurgeableState, MTLResourceOptions,
+    MTLStorageMode, MTLTexture,
 };
 
 extern_protocol!(
@@ -45,7 +45,10 @@ extern_protocol!(
         /// FIXME: If the device is keeping a cached copy of the resource, both the shared copy and cached copy are made purgeable.  Any access to the resource by either the CPU or device will be undefined.
         #[unsafe(method(setPurgeableState:))]
         #[unsafe(method_family = none)]
-        fn set_purgeable_state(&self, state: MTLPurgeableState) -> MTLPurgeableState;
+        fn set_purgeable_state(
+            &self,
+            state: MTLPurgeableState,
+        ) -> MTLPurgeableState;
 
         /// The offset inside the heap at which this resource was created.
         ///
@@ -85,14 +88,20 @@ extern_protocol!(
         /// The argument is represented as `u32` to match Mach port name width on Apple platforms.
         #[unsafe(method(setOwnerWithIdentity:))]
         #[unsafe(method_family = none)]
-        fn set_owner_with_identity(&self, task_id_token: u32) -> i32;
+        fn set_owner_with_identity(
+            &self,
+            task_id_token: u32,
+        ) -> i32;
     }
 );
 
 #[allow(unused)]
 pub trait MTLResourceExt: MTLResource + Message {
     fn label(&self) -> Option<String>;
-    fn set_label(&self, label: Option<&str>);
+    fn set_label(
+        &self,
+        label: Option<&str>,
+    );
 }
 
 impl MTLResourceExt for ProtocolObject<dyn MTLResource> {
@@ -100,7 +109,10 @@ impl MTLResourceExt for ProtocolObject<dyn MTLResource> {
         let label: Option<Retained<NSString>> = unsafe { msg_send![self, label] };
         label.map(|label| label.to_string())
     }
-    fn set_label(&self, label: Option<&str>) {
+    fn set_label(
+        &self,
+        label: Option<&str>,
+    ) {
         unsafe {
             let _: () = msg_send![
                 self,
@@ -115,7 +127,10 @@ impl MTLResourceExt for ProtocolObject<dyn MTLBuffer> {
         let label: Option<Retained<NSString>> = unsafe { msg_send![self, label] };
         label.map(|label| label.to_string())
     }
-    fn set_label(&self, label: Option<&str>) {
+    fn set_label(
+        &self,
+        label: Option<&str>,
+    ) {
         unsafe {
             let _: () = msg_send![
                 self,
@@ -130,7 +145,10 @@ impl MTLResourceExt for ProtocolObject<dyn MTLTexture> {
         let label: Option<Retained<NSString>> = unsafe { msg_send![self, label] };
         label.map(|label| label.to_string())
     }
-    fn set_label(&self, label: Option<&str>) {
+    fn set_label(
+        &self,
+        label: Option<&str>,
+    ) {
         unsafe {
             let _: () = msg_send![
                 self,

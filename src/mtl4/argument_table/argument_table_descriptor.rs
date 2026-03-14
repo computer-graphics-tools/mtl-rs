@@ -39,7 +39,10 @@ impl MTL4ArgumentTableDescriptor {
         /// Setter for [`maxBufferBindCount`][Self::maxBufferBindCount].
         #[unsafe(method(setMaxBufferBindCount:))]
         #[unsafe(method_family = none)]
-        pub fn set_max_buffer_bind_count(&self, max_buffer_bind_count: usize);
+        pub fn set_max_buffer_bind_count(
+            &self,
+            max_buffer_bind_count: usize,
+        );
 
         /// Determines the number of texture-binding slots for the argument table.
         ///
@@ -51,7 +54,10 @@ impl MTL4ArgumentTableDescriptor {
         /// Setter for [`maxTextureBindCount`][Self::maxTextureBindCount].
         #[unsafe(method(setMaxTextureBindCount:))]
         #[unsafe(method_family = none)]
-        pub fn set_max_texture_bind_count(&self, max_texture_bind_count: usize);
+        pub fn set_max_texture_bind_count(
+            &self,
+            max_texture_bind_count: usize,
+        );
 
         /// Determines the number of sampler state-binding slots for the argument table.
         ///
@@ -63,7 +69,10 @@ impl MTL4ArgumentTableDescriptor {
         /// Setter for [`maxSamplerStateBindCount`][Self::maxSamplerStateBindCount].
         #[unsafe(method(setMaxSamplerStateBindCount:))]
         #[unsafe(method_family = none)]
-        pub fn set_max_sampler_state_bind_count(&self, max_sampler_state_bind_count: usize);
+        pub fn set_max_sampler_state_bind_count(
+            &self,
+            max_sampler_state_bind_count: usize,
+        );
 
         /// Configures whether Metal initializes the bindings to nil values upon creation of argument table.
         ///
@@ -75,7 +84,10 @@ impl MTL4ArgumentTableDescriptor {
         /// Setter for [`initializeBindings`][Self::initializeBindings].
         #[unsafe(method(setInitializeBindings:))]
         #[unsafe(method_family = none)]
-        pub fn set_initialize_bindings(&self, initialize_bindings: bool);
+        pub fn set_initialize_bindings(
+            &self,
+            initialize_bindings: bool,
+        );
 
         /// Controls whether Metal should reserve memory for attribute strides in the argument table.
         ///
@@ -90,7 +102,10 @@ impl MTL4ArgumentTableDescriptor {
         /// Setter for [`supportAttributeStrides`][Self::supportAttributeStrides].
         #[unsafe(method(setSupportAttributeStrides:))]
         #[unsafe(method_family = none)]
-        pub fn set_support_attribute_strides(&self, support_attribute_strides: bool);
+        pub fn set_support_attribute_strides(
+            &self,
+            support_attribute_strides: bool,
+        );
     );
 }
 
@@ -115,7 +130,10 @@ impl MTL4ArgumentTableDescriptor {
     }
 
     /// Setter for label.
-    pub fn set_label(&self, label: Option<&str>) {
+    pub fn set_label(
+        &self,
+        label: Option<&str>,
+    ) {
         unsafe {
             let _: () = msg_send![self, setLabel: label.map(NSString::from_str).as_deref()];
         }

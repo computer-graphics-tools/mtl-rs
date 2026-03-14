@@ -24,8 +24,7 @@ impl MTLCounterSetExt for ProtocolObject<dyn MTLCounterSet> {
     }
 
     fn counters(&self) -> Box<[Retained<ProtocolObject<dyn MTLCounter>>]> {
-        let arr: Retained<NSArray<ProtocolObject<dyn MTLCounter>>> =
-            unsafe { msg_send![self, counters] };
+        let arr: Retained<NSArray<ProtocolObject<dyn MTLCounter>>> = unsafe { msg_send![self, counters] };
         arr.to_vec().into_boxed_slice()
     }
 }

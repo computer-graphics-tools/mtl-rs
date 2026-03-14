@@ -32,7 +32,10 @@ impl MTLMotionKeyframeData {
         /// Setter for [`buffer`][Self::buffer].
         #[unsafe(method(setBuffer:))]
         #[unsafe(method_family = none)]
-        pub fn set_buffer(&self, buffer: Option<&ProtocolObject<dyn MTLBuffer>>);
+        pub fn set_buffer(
+            &self,
+            buffer: Option<&ProtocolObject<dyn MTLBuffer>>,
+        );
 
         /// Buffer offset. Must be a multiple of 4 bytes.
         #[unsafe(method(offset))]
@@ -42,7 +45,10 @@ impl MTLMotionKeyframeData {
         /// Setter for [`offset`][Self::offset].
         #[unsafe(method(setOffset:))]
         #[unsafe(method_family = none)]
-        pub fn set_offset(&self, offset: usize);
+        pub fn set_offset(
+            &self,
+            offset: usize,
+        );
 
         #[unsafe(method(data))]
         #[unsafe(method_family = none)]

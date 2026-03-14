@@ -2,9 +2,8 @@ use objc2::{Message, extern_protocol, msg_send, rc::Retained, runtime::ProtocolO
 use objc2_foundation::NSString;
 
 use crate::{
-    MTLAccelerationStructure, MTLAccelerationStructureDescriptor, MTLAllocation, MTLBuffer,
-    MTLCPUCacheMode, MTLHazardTrackingMode, MTLPurgeableState, MTLResourceOptions, MTLStorageMode,
-    MTLTexture, MTLTextureDescriptor,
+    MTLAccelerationStructure, MTLAccelerationStructureDescriptor, MTLAllocation, MTLBuffer, MTLCPUCacheMode,
+    MTLHazardTrackingMode, MTLPurgeableState, MTLResourceOptions, MTLStorageMode, MTLTexture, MTLTextureDescriptor,
 };
 
 extern_protocol!(
@@ -57,7 +56,10 @@ extern_protocol!(
         /// The maximum size that can be successfully allocated from the heap in bytes, taking alignment into account.
         #[unsafe(method(maxAvailableSizeWithAlignment:))]
         #[unsafe(method_family = none)]
-        fn max_available_size_with_alignment(&self, alignment: usize) -> usize;
+        fn max_available_size_with_alignment(
+            &self,
+            alignment: usize,
+        ) -> usize;
 
         /// Create a new buffer backed by heap memory.
         /// Returns: The buffer or None if heap is full.
@@ -81,7 +83,10 @@ extern_protocol!(
         /// Set or query the purgeability state of the heap.
         #[unsafe(method(setPurgeableState:))]
         #[unsafe(method_family = none)]
-        fn set_purgeable_state(&self, state: MTLPurgeableState) -> MTLPurgeableState;
+        fn set_purgeable_state(
+            &self,
+            state: MTLPurgeableState,
+        ) -> MTLPurgeableState;
 
         /// The type of the heap. The default value is HeapType::Automatic.
         #[unsafe(method(type))]
@@ -148,7 +153,10 @@ extern_protocol!(
 #[allow(unused)]
 pub trait MTLHeapExt: MTLHeap + Message {
     fn label(&self) -> Option<String>;
-    fn set_label(&self, label: Option<&str>);
+    fn set_label(
+        &self,
+        label: Option<&str>,
+    );
 }
 
 impl MTLHeapExt for ProtocolObject<dyn MTLHeap> {
@@ -157,7 +165,10 @@ impl MTLHeapExt for ProtocolObject<dyn MTLHeap> {
         label.map(|s| s.to_string())
     }
 
-    fn set_label(&self, label: Option<&str>) {
+    fn set_label(
+        &self,
+        label: Option<&str>,
+    ) {
         unsafe {
             let _: () = msg_send![self, setLabel: label.map(NSString::from_str).as_deref()];
         }

@@ -16,7 +16,6 @@ extern_protocol!(
         #[unsafe(method(device))]
         #[unsafe(method_family = none)]
         fn device(&self) -> Retained<ProtocolObject<dyn MTLDevice>>;
-
     }
 );
 
@@ -25,11 +24,17 @@ pub trait MTLDynamicLibraryExt: MTLDynamicLibrary + Message {
     /// A string to help identify this object.
     fn label(&self) -> Option<String>;
     /// Setter for `label`.
-    fn set_label(&self, label: Option<&str>);
+    fn set_label(
+        &self,
+        label: Option<&str>,
+    );
     /// The install name of this dynamic library.
     fn install_name(&self) -> String;
     /// Writes the contents of the dynamic library to a file path.
-    fn serialize_to_path(&self, path: &Path) -> Result<(), Retained<NSError>>;
+    fn serialize_to_path(
+        &self,
+        path: &Path,
+    ) -> Result<(), Retained<NSError>>;
 }
 
 impl MTLDynamicLibraryExt for ProtocolObject<dyn MTLDynamicLibrary> {
@@ -38,7 +43,10 @@ impl MTLDynamicLibraryExt for ProtocolObject<dyn MTLDynamicLibrary> {
         label.map(|s| s.to_string())
     }
 
-    fn set_label(&self, label: Option<&str>) {
+    fn set_label(
+        &self,
+        label: Option<&str>,
+    ) {
         unsafe {
             let _: () = msg_send![self, setLabel: label.map(NSString::from_str).as_deref()];
         }
@@ -49,7 +57,10 @@ impl MTLDynamicLibraryExt for ProtocolObject<dyn MTLDynamicLibrary> {
         s.to_string()
     }
 
-    fn serialize_to_path(&self, path: &Path) -> Result<(), Retained<NSError>> {
+    fn serialize_to_path(
+        &self,
+        path: &Path,
+    ) -> Result<(), Retained<NSError>> {
         let url = NSURL::from_file_path(path).expect("path must be a valid file URL path");
         let mut error: *mut NSError = std::ptr::null_mut();
         let ok: bool = unsafe { msg_send![self, serializeToURL: &*url, error: &mut error] };

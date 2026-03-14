@@ -48,8 +48,10 @@ pub trait MTLCaptureScopeExt: MTLCaptureScope + Message {
         label.map(|label| label.to_string())
     }
 
-    fn set_label(&self, label: Option<&str>)
-    where
+    fn set_label(
+        &self,
+        label: Option<&str>,
+    ) where
         Self: Sized,
     {
         unsafe {

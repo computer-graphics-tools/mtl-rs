@@ -45,7 +45,10 @@ impl MTLCaptureDescriptor {
         /// Safety: `capture_object` should be of the correct type.
         #[unsafe(method(setCaptureObject:))]
         #[unsafe(method_family = none)]
-        pub fn set_capture_object(&self, capture_object: Option<&AnyObject>);
+        pub fn set_capture_object(
+            &self,
+            capture_object: Option<&AnyObject>,
+        );
 
         /// The destination where you want the GPU trace to be captured to.
         #[unsafe(method(destination))]
@@ -54,8 +57,10 @@ impl MTLCaptureDescriptor {
 
         #[unsafe(method(setDestination:))]
         #[unsafe(method_family = none)]
-        pub fn set_destination(&self, destination: MTLCaptureDestination);
-
+        pub fn set_destination(
+            &self,
+            destination: MTLCaptureDestination,
+        );
     );
 
     /// Filesystem path where the GPU trace document will be captured.
@@ -66,7 +71,10 @@ impl MTLCaptureDescriptor {
         output_url.and_then(|url| url.to_file_path())
     }
 
-    pub fn set_output_path(&self, output_path: Option<&Path>) {
+    pub fn set_output_path(
+        &self,
+        output_path: Option<&Path>,
+    ) {
         let output_url = output_path.and_then(NSURL::from_file_path);
         unsafe {
             let _: () = msg_send![self, setOutputURL: output_url.as_deref()];

@@ -37,7 +37,10 @@ impl MTL4CommandAllocatorDescriptor {
     }
 
     /// Setter for [`label`][Self::label].
-    pub fn set_label(&self, label: Option<&str>) {
+    pub fn set_label(
+        &self,
+        label: Option<&str>,
+    ) {
         unsafe {
             let _: () = msg_send![self, setLabel: label.map(NSString::from_str).as_deref()];
         }

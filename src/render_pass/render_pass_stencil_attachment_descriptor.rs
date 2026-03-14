@@ -1,7 +1,4 @@
-use objc2::{
-    Encode, Encoding, RefEncode, extern_class, extern_conformance, extern_methods,
-    runtime::NSObject,
-};
+use objc2::{Encode, Encoding, RefEncode, extern_class, extern_conformance, extern_methods, runtime::NSObject};
 use objc2_foundation::{CopyingHelper, NSCopying, NSObjectProtocol};
 
 use super::MTLRenderPassAttachmentDescriptor;
@@ -53,7 +50,10 @@ impl MTLRenderPassStencilAttachmentDescriptor {
         /// Setter for [`clear_stencil`][Self::clear_stencil].
         #[unsafe(method(setClearStencil:))]
         #[unsafe(method_family = none)]
-        pub fn set_clear_stencil(&self, clear_stencil: u32);
+        pub fn set_clear_stencil(
+            &self,
+            clear_stencil: u32,
+        );
 
         /// The filter to be used for stencil multisample resolve. Defaults to Sample0.
         #[unsafe(method(stencilResolveFilter))]
@@ -63,6 +63,9 @@ impl MTLRenderPassStencilAttachmentDescriptor {
         /// Setter for [`stencil_resolve_filter`][Self::stencil_resolve_filter].
         #[unsafe(method(setStencilResolveFilter:))]
         #[unsafe(method_family = none)]
-        pub fn set_stencil_resolve_filter(&self, filter: MTLMultisampleStencilResolveFilter);
+        pub fn set_stencil_resolve_filter(
+            &self,
+            filter: MTLMultisampleStencilResolveFilter,
+        );
     );
 }

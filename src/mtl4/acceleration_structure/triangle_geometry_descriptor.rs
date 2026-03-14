@@ -43,7 +43,10 @@ impl MTL4AccelerationStructureTriangleGeometryDescriptor {
         /// Setter for [`vertexBuffer`][Self::vertexBuffer].
         #[unsafe(method(setVertexBuffer:))]
         #[unsafe(method_family = none)]
-        pub fn set_vertex_buffer(&self, vertex_buffer: MTL4BufferRange);
+        pub fn set_vertex_buffer(
+            &self,
+            vertex_buffer: MTL4BufferRange,
+        );
 
         /// Describes the format of the vertices in the vertex buffer.
         ///
@@ -57,7 +60,10 @@ impl MTL4AccelerationStructureTriangleGeometryDescriptor {
         /// Setter for [`vertexFormat`][Self::vertexFormat].
         #[unsafe(method(setVertexFormat:))]
         #[unsafe(method_family = none)]
-        pub fn set_vertex_format(&self, vertex_format: MTLAttributeFormat);
+        pub fn set_vertex_format(
+            &self,
+            vertex_format: MTLAttributeFormat,
+        );
 
         /// Sets the stride, in bytes, between vertices in the vertex buffer.
         ///
@@ -72,7 +78,10 @@ impl MTL4AccelerationStructureTriangleGeometryDescriptor {
         /// Setter for [`vertexStride`][Self::vertexStride].
         #[unsafe(method(setVertexStride:))]
         #[unsafe(method_family = none)]
-        pub fn set_vertex_stride(&self, vertex_stride: NSUInteger);
+        pub fn set_vertex_stride(
+            &self,
+            vertex_stride: NSUInteger,
+        );
 
         /// Sets an optional index buffer containing references to vertices in the `vertexBuffer`.
         ///
@@ -84,7 +93,10 @@ impl MTL4AccelerationStructureTriangleGeometryDescriptor {
         /// Setter for [`indexBuffer`][Self::indexBuffer].
         #[unsafe(method(setIndexBuffer:))]
         #[unsafe(method_family = none)]
-        pub fn set_index_buffer(&self, index_buffer: MTL4BufferRange);
+        pub fn set_index_buffer(
+            &self,
+            index_buffer: MTL4BufferRange,
+        );
 
         /// Configures the size of the indices the `indexBuffer` contains, which is typically either 16 or 32-bits for each index.
         #[unsafe(method(indexType))]
@@ -94,7 +106,10 @@ impl MTL4AccelerationStructureTriangleGeometryDescriptor {
         /// Setter for [`indexType`][Self::indexType].
         #[unsafe(method(setIndexType:))]
         #[unsafe(method_family = none)]
-        pub fn set_index_type(&self, index_type: MTLIndexType);
+        pub fn set_index_type(
+            &self,
+            index_type: MTLIndexType,
+        );
 
         /// Declares the number of triangles in this geometry descriptor.
         #[unsafe(method(triangleCount))]
@@ -104,7 +119,10 @@ impl MTL4AccelerationStructureTriangleGeometryDescriptor {
         /// Setter for [`triangleCount`][Self::triangleCount].
         #[unsafe(method(setTriangleCount:))]
         #[unsafe(method_family = none)]
-        pub fn set_triangle_count(&self, triangle_count: NSUInteger);
+        pub fn set_triangle_count(
+            &self,
+            triangle_count: NSUInteger,
+        );
 
         /// Assigns an optional reference to a buffer containing a `float4x3` transformation matrix.
         ///

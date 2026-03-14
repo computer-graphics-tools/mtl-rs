@@ -38,7 +38,10 @@ impl MTLPipelineBufferDescriptor {
         /// Setter for [`mutability`][Self::mutability].
         #[unsafe(method(setMutability:))]
         #[unsafe(method_family = none)]
-        pub fn set_mutability(&self, mutability: MTLMutability);
+        pub fn set_mutability(
+            &self,
+            mutability: MTLMutability,
+        );
     );
 }
 

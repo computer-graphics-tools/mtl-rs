@@ -13,14 +13,20 @@ extern_protocol!(
 #[allow(unused)]
 pub trait MTLLogStateExt: MTLLogState + Message {
     /// Add a log handler block.
-    fn add_log_handler(&self, handler: &MTLLogHandler);
+    fn add_log_handler(
+        &self,
+        handler: &MTLLogHandler,
+    );
 }
 
 impl<T> MTLLogStateExt for T
 where
     T: MTLLogState + Message,
 {
-    fn add_log_handler(&self, handler: &MTLLogHandler) {
+    fn add_log_handler(
+        &self,
+        handler: &MTLLogHandler,
+    ) {
         unsafe {
             let _: () = msg_send![self, addLogHandler: &**handler];
         }

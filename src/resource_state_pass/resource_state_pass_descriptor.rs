@@ -32,8 +32,6 @@ impl MTLResourceStatePassDescriptor {
         /// An array of sample buffers and associated sample indices.
         #[unsafe(method(sampleBufferAttachments))]
         #[unsafe(method_family = none)]
-        pub fn sample_buffer_attachments(
-            &self,
-        ) -> Retained<MTLResourceStatePassSampleBufferAttachmentDescriptorArray>;
+        pub fn sample_buffer_attachments(&self) -> Retained<MTLResourceStatePassSampleBufferAttachmentDescriptorArray>;
     );
 }

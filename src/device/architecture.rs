@@ -39,10 +39,9 @@ impl MTLArchitecture {
     );
 }
 
-#[allow(unused)]
 impl MTLArchitecture {
     /// The device's architecture name.
-    fn name(&self) -> String {
+    pub fn name(&self) -> String {
         let ns: Retained<NSString> = unsafe { msg_send![self, name] };
         ns.to_string()
     }

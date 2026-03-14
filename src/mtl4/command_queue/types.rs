@@ -115,14 +115,8 @@ pub struct MTL4UpdateSparseBufferMappingOperation {
 }
 
 unsafe impl Encode for MTL4UpdateSparseBufferMappingOperation {
-    const ENCODING: Encoding = Encoding::Struct(
-        "?",
-        &[
-            <MTLSparseTextureMappingMode>::ENCODING,
-            <NSRange>::ENCODING,
-            <NSUInteger>::ENCODING,
-        ],
-    );
+    const ENCODING: Encoding =
+        Encoding::Struct("?", &[<MTLSparseTextureMappingMode>::ENCODING, <NSRange>::ENCODING, <NSUInteger>::ENCODING]);
 }
 
 unsafe impl RefEncode for MTL4UpdateSparseBufferMappingOperation {
@@ -138,8 +132,7 @@ pub struct MTL4CopySparseBufferMappingOperation {
 }
 
 unsafe impl Encode for MTL4CopySparseBufferMappingOperation {
-    const ENCODING: Encoding =
-        Encoding::Struct("?", &[<NSRange>::ENCODING, <NSUInteger>::ENCODING]);
+    const ENCODING: Encoding = Encoding::Struct("?", &[<NSRange>::ENCODING, <NSUInteger>::ENCODING]);
 }
 
 unsafe impl RefEncode for MTL4CopySparseBufferMappingOperation {

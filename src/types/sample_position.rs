@@ -9,8 +9,7 @@ pub struct MTLSamplePosition {
 }
 
 unsafe impl Encode for MTLSamplePosition {
-    const ENCODING: Encoding =
-        Encoding::Struct("{MTLSamplePosition=ff}", &[f32::ENCODING, f32::ENCODING]);
+    const ENCODING: Encoding = Encoding::Struct("?", &[f32::ENCODING, f32::ENCODING]);
 }
 
 unsafe impl RefEncode for MTLSamplePosition {

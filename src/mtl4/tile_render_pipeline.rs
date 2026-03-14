@@ -52,15 +52,16 @@ impl MTL4TileRenderPipelineDescriptor {
         /// Setter for [`rasterSampleCount`][Self::rasterSampleCount].
         #[unsafe(method(setRasterSampleCount:))]
         #[unsafe(method_family = none)]
-        pub fn set_raster_sample_count(&self, raster_sample_count: usize);
+        pub fn set_raster_sample_count(
+            &self,
+            raster_sample_count: usize,
+        );
 
         /// Access an array of descriptors that configure the properties of each color attachment in the tile render
         /// pipeline.
         #[unsafe(method(colorAttachments))]
         #[unsafe(method_family = none)]
-        pub fn color_attachments(
-            &self,
-        ) -> Retained<MTLTileRenderPipelineColorAttachmentDescriptorArray>;
+        pub fn color_attachments(&self) -> Retained<MTLTileRenderPipelineColorAttachmentDescriptorArray>;
 
         /// Indicating whether the size of the threadgroup matches the size of a tile in the render pipeline.
         #[unsafe(method(threadgroupSizeMatchesTileSize))]
@@ -133,7 +134,10 @@ impl MTL4TileRenderPipelineDescriptor {
         /// Setter for [`supportBinaryLinking`][Self::supportBinaryLinking].
         #[unsafe(method(setSupportBinaryLinking:))]
         #[unsafe(method_family = none)]
-        pub fn set_support_binary_linking(&self, support_binary_linking: bool);
+        pub fn set_support_binary_linking(
+            &self,
+            support_binary_linking: bool,
+        );
 
         /// Resets the descriptor to the default state.
         #[unsafe(method(reset))]

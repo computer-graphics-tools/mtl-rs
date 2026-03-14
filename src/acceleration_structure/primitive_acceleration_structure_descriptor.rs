@@ -7,10 +7,7 @@ use objc2::{
 };
 use objc2_foundation::{CopyingHelper, NSArray, NSCopying, NSObjectProtocol};
 
-use crate::{
-    MTLAccelerationStructureDescriptor, MTLAccelerationStructureGeometryDescriptor,
-    MTLMotionBorderMode,
-};
+use crate::{MTLAccelerationStructureDescriptor, MTLAccelerationStructureGeometryDescriptor, MTLMotionBorderMode};
 
 extern_class!(
     /// Descriptor for a primitive acceleration structure
@@ -39,9 +36,7 @@ impl MTLPrimitiveAccelerationStructureDescriptor {
         /// must be motion versions and have motionKeyframeCount of primitive buffers.
         #[unsafe(method(geometryDescriptors))]
         #[unsafe(method_family = none)]
-        pub fn geometry_descriptors(
-            &self,
-        ) -> Option<Retained<NSArray<MTLAccelerationStructureGeometryDescriptor>>>;
+        pub fn geometry_descriptors(&self) -> Option<Retained<NSArray<MTLAccelerationStructureGeometryDescriptor>>>;
 
         /// Setter for [`geometryDescriptors`][Self::geometryDescriptors].
         #[unsafe(method(setGeometryDescriptors:))]
@@ -87,7 +82,10 @@ impl MTLPrimitiveAccelerationStructureDescriptor {
         /// Setter for [`motionStartTime`][Self::motionStartTime].
         #[unsafe(method(setMotionStartTime:))]
         #[unsafe(method_family = none)]
-        pub fn set_motion_start_time(&self, motion_start_time: c_float);
+        pub fn set_motion_start_time(
+            &self,
+            motion_start_time: c_float,
+        );
 
         /// Motion end time of this geometry. If not set defaults to 1.0f.
         #[unsafe(method(motionEndTime))]
@@ -97,7 +95,10 @@ impl MTLPrimitiveAccelerationStructureDescriptor {
         /// Setter for [`motionEndTime`][Self::motionEndTime].
         #[unsafe(method(setMotionEndTime:))]
         #[unsafe(method_family = none)]
-        pub fn set_motion_end_time(&self, motion_end_time: c_float);
+        pub fn set_motion_end_time(
+            &self,
+            motion_end_time: c_float,
+        );
 
         /// Motion keyframe count. Is 1 by default which means no motion.
         #[unsafe(method(motionKeyframeCount))]
@@ -107,7 +108,10 @@ impl MTLPrimitiveAccelerationStructureDescriptor {
         /// Setter for [`motionKeyframeCount`][Self::motionKeyframeCount].
         #[unsafe(method(setMotionKeyframeCount:))]
         #[unsafe(method_family = none)]
-        pub fn set_motion_keyframe_count(&self, motion_keyframe_count: usize);
+        pub fn set_motion_keyframe_count(
+            &self,
+            motion_keyframe_count: usize,
+        );
 
         #[unsafe(method(descriptor))]
         #[unsafe(method_family = none)]

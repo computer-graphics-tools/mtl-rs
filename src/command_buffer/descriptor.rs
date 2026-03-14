@@ -37,7 +37,10 @@ impl MTLCommandBufferDescriptor {
 
         #[unsafe(method(setRetainedReferences:))]
         #[unsafe(method_family = none)]
-        pub fn set_retained_references(&self, retained: bool);
+        pub fn set_retained_references(
+            &self,
+            retained: bool,
+        );
 
         /// A set of options to influence the error reporting of the created command buffer.
         #[unsafe(method(errorOptions))]
@@ -46,7 +49,10 @@ impl MTLCommandBufferDescriptor {
 
         #[unsafe(method(setErrorOptions:))]
         #[unsafe(method_family = none)]
-        pub fn set_error_options(&self, opts: MTLCommandBufferErrorOption);
+        pub fn set_error_options(
+            &self,
+            opts: MTLCommandBufferErrorOption,
+        );
 
         /// Contains information related to shader logging.
         ///
@@ -57,7 +63,10 @@ impl MTLCommandBufferDescriptor {
 
         #[unsafe(method(setLogState:))]
         #[unsafe(method_family = none)]
-        pub fn set_log_state(&self, log_state: Option<&ProtocolObject<dyn MTLLogState>>);
+        pub fn set_log_state(
+            &self,
+            log_state: Option<&ProtocolObject<dyn MTLLogState>>,
+        );
         #[unsafe(method(init))]
         #[unsafe(method_family = init)]
         pub fn init(this: Allocated<Self>) -> Retained<Self>;

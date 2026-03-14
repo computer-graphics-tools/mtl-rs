@@ -25,7 +25,7 @@ pub struct MTLIndirectAccelerationStructureInstanceDescriptor {
 
 unsafe impl Encode for MTLIndirectAccelerationStructureInstanceDescriptor {
     const ENCODING: Encoding = Encoding::Struct(
-        "{MTLIndirectAccelerationStructureInstanceDescriptor=}",
+        "?",
         &[
             <MTLPackedFloat4x3>::ENCODING,
             <MTLAccelerationStructureInstanceOptions>::ENCODING,

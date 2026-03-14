@@ -10,7 +10,6 @@ mod texture_view_descriptor;
 
 pub use shared_texture_handle::MTLSharedTextureHandle;
 pub use texture::{MTLTexture, TextureExt};
-
 pub use texture_compression_type::MTLTextureCompressionType;
 pub use texture_descriptor::MTLTextureDescriptor;
 pub use texture_swizzle::MTLTextureSwizzle;

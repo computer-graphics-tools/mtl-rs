@@ -1,5 +1,6 @@
-use crate::types::{MTLOrigin, MTLSize};
 use objc2::{Encode, Encoding, RefEncode};
+
+use crate::types::{MTLOrigin, MTLSize};
 
 /// Identify a region in an image or texture.
 #[repr(C)]
@@ -10,10 +11,7 @@ pub struct MTLRegion {
 }
 
 unsafe impl Encode for MTLRegion {
-    const ENCODING: Encoding = Encoding::Struct(
-        "{MTLRegion={MTLOrigin=QQQ}{MTLSize=QQQ}}",
-        &[MTLOrigin::ENCODING, MTLSize::ENCODING],
-    );
+    const ENCODING: Encoding = Encoding::Struct("?", &[MTLOrigin::ENCODING, MTLSize::ENCODING]);
 }
 
 unsafe impl RefEncode for MTLRegion {

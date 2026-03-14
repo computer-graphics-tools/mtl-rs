@@ -45,7 +45,10 @@ impl MTL4AccelerationStructureBoundingBoxGeometryDescriptor {
         /// Setter for [`boundingBoxBuffer`][Self::boundingBoxBuffer].
         #[unsafe(method(setBoundingBoxBuffer:))]
         #[unsafe(method_family = none)]
-        pub fn set_bounding_box_buffer(&self, bounding_box_buffer: MTL4BufferRange);
+        pub fn set_bounding_box_buffer(
+            &self,
+            bounding_box_buffer: MTL4BufferRange,
+        );
 
         /// Assigns the stride, in bytes, between bounding boxes in the bounding box buffer `boundingBoxBuffer` references.
         ///
@@ -59,7 +62,10 @@ impl MTL4AccelerationStructureBoundingBoxGeometryDescriptor {
         /// Setter for [`boundingBoxStride`][Self::boundingBoxStride].
         #[unsafe(method(setBoundingBoxStride:))]
         #[unsafe(method_family = none)]
-        pub fn set_bounding_box_stride(&self, bounding_box_stride: NSUInteger);
+        pub fn set_bounding_box_stride(
+            &self,
+            bounding_box_stride: NSUInteger,
+        );
 
         /// Describes the number of bounding boxes the `boundingBoxBuffer` contains.
         #[unsafe(method(boundingBoxCount))]
@@ -69,7 +75,10 @@ impl MTL4AccelerationStructureBoundingBoxGeometryDescriptor {
         /// Setter for [`boundingBoxCount`][Self::boundingBoxCount].
         #[unsafe(method(setBoundingBoxCount:))]
         #[unsafe(method_family = none)]
-        pub fn set_bounding_box_count(&self, bounding_box_count: NSUInteger);
+        pub fn set_bounding_box_count(
+            &self,
+            bounding_box_count: NSUInteger,
+        );
     );
 }
 

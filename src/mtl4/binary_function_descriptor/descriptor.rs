@@ -67,7 +67,10 @@ impl MTL4BinaryFunctionDescriptor {
         /// This is [copied][objc2_foundation::NSCopying::copy] when set.
         #[unsafe(method(setFunctionDescriptor:))]
         #[unsafe(method_family = none)]
-        pub fn set_function_descriptor(&self, function_descriptor: &MTL4FunctionDescriptor);
+        pub fn set_function_descriptor(
+            &self,
+            function_descriptor: &MTL4FunctionDescriptor,
+        );
 
         /// Configure the options to use at binary function creation time.
         #[unsafe(method(options))]
@@ -77,7 +80,10 @@ impl MTL4BinaryFunctionDescriptor {
         /// Setter for [`options`][Self::options].
         #[unsafe(method(setOptions:))]
         #[unsafe(method_family = none)]
-        pub fn set_options(&self, options: MTL4BinaryFunctionOptions);
+        pub fn set_options(
+            &self,
+            options: MTL4BinaryFunctionOptions,
+        );
     );
 }
 
@@ -102,7 +108,10 @@ impl MTL4BinaryFunctionDescriptor {
     }
 
     /// Setter for name.
-    pub fn set_name(&self, name: &str) {
+    pub fn set_name(
+        &self,
+        name: &str,
+    ) {
         unsafe {
             let _: () = msg_send![self, setName: &*NSString::from_str(name)];
         }

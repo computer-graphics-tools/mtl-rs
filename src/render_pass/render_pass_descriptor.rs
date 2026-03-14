@@ -10,7 +10,7 @@ use super::{
     MTLRenderPassSampleBufferAttachmentDescriptorArray, MTLRenderPassStencilAttachmentDescriptor,
     MTLVisibilityResultType,
 };
-use crate::{MTLBuffer, MTLSamplePosition, MTLRasterizationRateMap};
+use crate::{MTLBuffer, MTLRasterizationRateMap, MTLSamplePosition};
 
 extern_class!(
     /// A collection of attachments used to create a render command encoder.
@@ -48,7 +48,10 @@ impl MTLRenderPassDescriptor {
 
         #[unsafe(method(setDepthAttachment:))]
         #[unsafe(method_family = none)]
-        pub fn set_depth_attachment(&self, depth: Option<&MTLRenderPassDepthAttachmentDescriptor>);
+        pub fn set_depth_attachment(
+            &self,
+            depth: Option<&MTLRenderPassDepthAttachmentDescriptor>,
+        );
 
         #[unsafe(method(stencilAttachment))]
         #[unsafe(method_family = none)]
@@ -69,7 +72,10 @@ impl MTLRenderPassDescriptor {
         /// Setter for [`visibility_result_buffer`][Self::visibility_result_buffer].
         #[unsafe(method(setVisibilityResultBuffer:))]
         #[unsafe(method_family = none)]
-        pub fn set_visibility_result_buffer(&self, buffer: Option<&ProtocolObject<dyn MTLBuffer>>);
+        pub fn set_visibility_result_buffer(
+            &self,
+            buffer: Option<&ProtocolObject<dyn MTLBuffer>>,
+        );
 
         /// The number of active layers.
         #[unsafe(method(renderTargetArrayLength))]
@@ -78,7 +84,10 @@ impl MTLRenderPassDescriptor {
 
         #[unsafe(method(setRenderTargetArrayLength:))]
         #[unsafe(method_family = none)]
-        pub fn set_render_target_array_length(&self, len: usize);
+        pub fn set_render_target_array_length(
+            &self,
+            len: usize,
+        );
 
         /// The per sample size in bytes of the largest explicit imageblock layout in the render pass.
         #[unsafe(method(imageblockSampleLength))]
@@ -87,7 +96,10 @@ impl MTLRenderPassDescriptor {
 
         #[unsafe(method(setImageblockSampleLength:))]
         #[unsafe(method_family = none)]
-        pub fn set_imageblock_sample_length(&self, len: usize);
+        pub fn set_imageblock_sample_length(
+            &self,
+            len: usize,
+        );
 
         /// The per tile size in bytes of the persistent threadgroup memory allocation.
         #[unsafe(method(threadgroupMemoryLength))]
@@ -96,7 +108,10 @@ impl MTLRenderPassDescriptor {
 
         #[unsafe(method(setThreadgroupMemoryLength:))]
         #[unsafe(method_family = none)]
-        pub fn set_threadgroup_memory_length(&self, len: usize);
+        pub fn set_threadgroup_memory_length(
+            &self,
+            len: usize,
+        );
 
         /// The width in pixels of the tile.
         #[unsafe(method(tileWidth))]
@@ -105,7 +120,10 @@ impl MTLRenderPassDescriptor {
 
         #[unsafe(method(setTileWidth:))]
         #[unsafe(method_family = none)]
-        pub fn set_tile_width(&self, width: usize);
+        pub fn set_tile_width(
+            &self,
+            width: usize,
+        );
 
         /// The height in pixels of the tile.
         #[unsafe(method(tileHeight))]
@@ -114,7 +132,10 @@ impl MTLRenderPassDescriptor {
 
         #[unsafe(method(setTileHeight:))]
         #[unsafe(method_family = none)]
-        pub fn set_tile_height(&self, height: usize);
+        pub fn set_tile_height(
+            &self,
+            height: usize,
+        );
 
         /// The raster sample count for the render pass when no attachments are given.
         #[unsafe(method(defaultRasterSampleCount))]
@@ -123,7 +144,10 @@ impl MTLRenderPassDescriptor {
 
         #[unsafe(method(setDefaultRasterSampleCount:))]
         #[unsafe(method_family = none)]
-        pub fn set_default_raster_sample_count(&self, count: usize);
+        pub fn set_default_raster_sample_count(
+            &self,
+            count: usize,
+        );
 
         /// Constrain the render target width.
         #[unsafe(method(renderTargetWidth))]
@@ -132,7 +156,10 @@ impl MTLRenderPassDescriptor {
 
         #[unsafe(method(setRenderTargetWidth:))]
         #[unsafe(method_family = none)]
-        pub fn set_render_target_width(&self, width: usize);
+        pub fn set_render_target_width(
+            &self,
+            width: usize,
+        );
 
         /// Constrain the render target height.
         #[unsafe(method(renderTargetHeight))]
@@ -141,7 +168,10 @@ impl MTLRenderPassDescriptor {
 
         #[unsafe(method(setRenderTargetHeight:))]
         #[unsafe(method_family = none)]
-        pub fn set_render_target_height(&self, height: usize);
+        pub fn set_render_target_height(
+            &self,
+            height: usize,
+        );
 
         /// Configure custom sample positions for MSAA.
         /// Safety: `positions` must be a valid pointer or null.
@@ -166,9 +196,7 @@ impl MTLRenderPassDescriptor {
         /// The variable rasterization rate map for this pass.
         #[unsafe(method(rasterizationRateMap))]
         #[unsafe(method_family = none)]
-        pub fn rasterization_rate_map(
-            &self,
-        ) -> Option<Retained<ProtocolObject<dyn MTLRasterizationRateMap>>>;
+        pub fn rasterization_rate_map(&self) -> Option<Retained<ProtocolObject<dyn MTLRasterizationRateMap>>>;
 
         /// Setter for [`rasterization_rate_map`][Self::rasterization_rate_map].
         #[unsafe(method(setRasterizationRateMap:))]
@@ -181,9 +209,7 @@ impl MTLRenderPassDescriptor {
         /// An array of sample buffers and associated sample indices.
         #[unsafe(method(sampleBufferAttachments))]
         #[unsafe(method_family = none)]
-        pub fn sample_buffer_attachments(
-            &self,
-        ) -> Retained<MTLRenderPassSampleBufferAttachmentDescriptorArray>;
+        pub fn sample_buffer_attachments(&self) -> Retained<MTLRenderPassSampleBufferAttachmentDescriptorArray>;
 
         /// Specifies if Metal accumulates visibility results between render encoders or resets them.
         #[unsafe(method(visibilityResultType))]
@@ -193,7 +219,10 @@ impl MTLRenderPassDescriptor {
         /// Setter for [`visibility_result_type`][Self::visibility_result_type].
         #[unsafe(method(setVisibilityResultType:))]
         #[unsafe(method_family = none)]
-        pub fn set_visibility_result_type(&self, v: MTLVisibilityResultType);
+        pub fn set_visibility_result_type(
+            &self,
+            v: MTLVisibilityResultType,
+        );
     );
 }
 

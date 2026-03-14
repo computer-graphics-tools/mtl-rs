@@ -116,7 +116,11 @@ extern_protocol!(
         /// Availability: macOS 14.0+, iOS 17.0+, tvOS 18.1+, visionOS 2.1+
         #[unsafe(method(setObjectThreadgroupMemoryLength:atIndex:))]
         #[unsafe(method_family = none)]
-        fn set_object_threadgroup_memory_length_at_index(&self, length: usize, index: usize);
+        fn set_object_threadgroup_memory_length_at_index(
+            &self,
+            length: usize,
+            index: usize,
+        );
 
         /// Availability: macOS 14.0+, iOS 17.0+, tvOS 18.1+, visionOS 2.1+
         #[unsafe(method(setObjectBuffer:offset:atIndex:))]
@@ -189,22 +193,34 @@ extern_protocol!(
         /// Availability: macOS 26.0+, iOS 26.0+
         #[unsafe(method(setDepthClipMode:))]
         #[unsafe(method_family = none)]
-        fn set_depth_clip_mode(&self, depth_clip_mode: MTLDepthClipMode);
+        fn set_depth_clip_mode(
+            &self,
+            depth_clip_mode: MTLDepthClipMode,
+        );
 
         /// Availability: macOS 26.0+, iOS 26.0+
         #[unsafe(method(setCullMode:))]
         #[unsafe(method_family = none)]
-        fn set_cull_mode(&self, cull_mode: MTLCullMode);
+        fn set_cull_mode(
+            &self,
+            cull_mode: MTLCullMode,
+        );
 
         /// Availability: macOS 26.0+, iOS 26.0+
         #[unsafe(method(setFrontFacingWinding:))]
         #[unsafe(method_family = none)]
-        fn set_front_facing_winding(&self, front_facing_winding: MTLWinding);
+        fn set_front_facing_winding(
+            &self,
+            front_facing_winding: MTLWinding,
+        );
 
         /// Availability: macOS 26.0+, iOS 26.0+
         #[unsafe(method(setTriangleFillMode:))]
         #[unsafe(method_family = none)]
-        fn set_triangle_fill_mode(&self, fill_mode: MTLTriangleFillMode);
+        fn set_triangle_fill_mode(
+            &self,
+            fill_mode: MTLTriangleFillMode,
+        );
 
         #[unsafe(method(reset))]
         #[unsafe(method_family = none)]

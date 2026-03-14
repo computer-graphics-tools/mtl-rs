@@ -10,10 +10,7 @@ pub struct MTLSize {
 }
 
 unsafe impl Encode for MTLSize {
-    const ENCODING: Encoding = Encoding::Struct(
-        "?",
-        &[usize::ENCODING, usize::ENCODING, usize::ENCODING],
-    );
+    const ENCODING: Encoding = Encoding::Struct("?", &[usize::ENCODING, usize::ENCODING, usize::ENCODING]);
 }
 
 unsafe impl RefEncode for MTLSize {
@@ -21,7 +18,11 @@ unsafe impl RefEncode for MTLSize {
 }
 
 impl MTLSize {
-    pub const fn new(width: usize, height: usize, depth: usize) -> Self {
+    pub const fn new(
+        width: usize,
+        height: usize,
+        depth: usize,
+    ) -> Self {
         Self {
             width,
             height,

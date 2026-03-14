@@ -13,11 +13,7 @@ extern_class!(
     /// bounding boxes.
     ///
     /// See also [Apple's documentation](https://developer.apple.com/documentation/metal/mtl4primitiveaccelerationstructuredescriptor?language=objc)
-    #[unsafe(super(
-        MTL4AccelerationStructureDescriptor,
-        MTLAccelerationStructureDescriptor,
-        NSObject
-    ))]
+    #[unsafe(super(MTL4AccelerationStructureDescriptor, MTLAccelerationStructureDescriptor, NSObject))]
     #[derive(Debug, PartialEq, Eq, Hash)]
     pub struct MTL4PrimitiveAccelerationStructureDescriptor;
 );
@@ -81,7 +77,10 @@ impl MTL4PrimitiveAccelerationStructureDescriptor {
         /// Setter for [`motionStartTime`][Self::motionStartTime].
         #[unsafe(method(setMotionStartTime:))]
         #[unsafe(method_family = none)]
-        pub fn set_motion_start_time(&self, motion_start_time: c_float);
+        pub fn set_motion_start_time(
+            &self,
+            motion_start_time: c_float,
+        );
 
         /// Configures the motion end time for this geometry.
         ///
@@ -93,7 +92,10 @@ impl MTL4PrimitiveAccelerationStructureDescriptor {
         /// Setter for [`motionEndTime`][Self::motionEndTime].
         #[unsafe(method(setMotionEndTime:))]
         #[unsafe(method_family = none)]
-        pub fn set_motion_end_time(&self, motion_end_time: c_float);
+        pub fn set_motion_end_time(
+            &self,
+            motion_end_time: c_float,
+        );
 
         /// Sets the motion keyframe count.
         ///
@@ -105,7 +107,10 @@ impl MTL4PrimitiveAccelerationStructureDescriptor {
         /// Setter for [`motionKeyframeCount`][Self::motionKeyframeCount].
         #[unsafe(method(setMotionKeyframeCount:))]
         #[unsafe(method_family = none)]
-        pub fn set_motion_keyframe_count(&self, motion_keyframe_count: NSUInteger);
+        pub fn set_motion_keyframe_count(
+            &self,
+            motion_keyframe_count: NSUInteger,
+        );
     );
 }
 
@@ -124,9 +129,7 @@ impl MTL4PrimitiveAccelerationStructureDescriptor {
 
 impl MTL4PrimitiveAccelerationStructureDescriptor {
     /// Associates the array of geometry descriptors that comprise this primitive acceleration structure.
-    pub fn geometry_descriptors(
-        &self,
-    ) -> Option<Box<[Retained<MTL4AccelerationStructureGeometryDescriptor>]>> {
+    pub fn geometry_descriptors(&self) -> Option<Box<[Retained<MTL4AccelerationStructureGeometryDescriptor>]>> {
         let arr: Option<Retained<NSArray<MTL4AccelerationStructureGeometryDescriptor>>> =
             unsafe { msg_send![self, geometryDescriptors] };
         arr.map(|a| a.to_vec().into_boxed_slice())

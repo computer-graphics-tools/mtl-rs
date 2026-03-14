@@ -108,7 +108,10 @@ pub trait BufferExt: MTLBuffer + Message {
     /// It is not valid to invoke this method on buffers of other storage modes.
     ///
     /// Parameter `range`: The range of bytes that have been modified.
-    fn did_modify_range(&self, range: Range<usize>);
+    fn did_modify_range(
+        &self,
+        range: Range<usize>,
+    );
 
     /// Adds a marker to a specific range in the buffer.
     /// When inspecting a buffer in the GPU debugging tools the marker will be shown.
@@ -116,7 +119,11 @@ pub trait BufferExt: MTLBuffer + Message {
     /// Parameter `marker`: A label used for the marker.
     ///
     /// Parameter `range`: The range of bytes the marker is using.
-    fn add_debug_marker(&self, marker: &str, range: Range<usize>);
+    fn add_debug_marker(
+        &self,
+        marker: &str,
+        range: Range<usize>,
+    );
 }
 
 impl BufferExt for ProtocolObject<dyn MTLBuffer> {
@@ -132,7 +139,10 @@ impl BufferExt for ProtocolObject<dyn MTLBuffer> {
     /// It is not valid to invoke this method on buffers of other storage modes.
     ///
     /// Availability: macOS 10.11+, Mac Catalyst 13.0+ (unavailable on iOS)
-    fn did_modify_range(&self, range: Range<usize>) {
+    fn did_modify_range(
+        &self,
+        range: Range<usize>,
+    ) {
         let _: () = unsafe {
             msg_send![
                 self,
@@ -147,7 +157,11 @@ impl BufferExt for ProtocolObject<dyn MTLBuffer> {
     /// Parameter `range`: The range of bytes the marker is using.
     ///
     /// Availability: macOS 10.12+, iOS 10.0+
-    fn add_debug_marker(&self, marker: &str, range: Range<usize>) {
+    fn add_debug_marker(
+        &self,
+        marker: &str,
+        range: Range<usize>,
+    ) {
         let _: () = unsafe {
             msg_send![
                 self,

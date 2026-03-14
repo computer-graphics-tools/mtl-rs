@@ -2,8 +2,8 @@ use objc2::{Message, extern_protocol, msg_send, rc::Retained, runtime::ProtocolO
 use objc2_foundation::{NSError, NSObjectProtocol, NSString};
 
 use crate::{
-    MTLCommandBufferHandler, MTLCommandBufferStatus, MTLCommandQueue, MTLDevice, MTLDrawable,
-    MTLEvent, MTLLogContainer,
+    MTLCommandBufferHandler, MTLCommandBufferStatus, MTLCommandQueue, MTLDevice, MTLDrawable, MTLEvent,
+    MTLLogContainer, MTLRenderCommandEncoder, MTLRenderPassDescriptor,
 };
 
 extern_protocol!(
@@ -68,7 +68,10 @@ extern_protocol!(
         /// Add a drawable present that will be invoked when this command buffer has been scheduled for execution.
         #[unsafe(method(presentDrawable:))]
         #[unsafe(method_family = none)]
-        fn present_drawable(&self, drawable: &ProtocolObject<dyn MTLDrawable>);
+        fn present_drawable(
+            &self,
+            drawable: &ProtocolObject<dyn MTLDrawable>,
+        );
 
         /// Encodes a command that pauses execution of this command buffer until the specified event reaches a given value.
         ///
@@ -77,7 +80,11 @@ extern_protocol!(
         /// Availability: macOS 10.14+, iOS 12.0+
         #[unsafe(method(encodeWaitForEvent:value:))]
         #[unsafe(method_family = none)]
-        fn encode_wait_for_event_value(&self, event: &ProtocolObject<dyn MTLEvent>, value: u64);
+        fn encode_wait_for_event_value(
+            &self,
+            event: &ProtocolObject<dyn MTLEvent>,
+            value: u64,
+        );
 
         /// Encodes a command that signals an event with a given value.
         ///
@@ -86,21 +93,31 @@ extern_protocol!(
         /// Availability: macOS 10.14+, iOS 12.0+
         #[unsafe(method(encodeSignalEvent:value:))]
         #[unsafe(method_family = none)]
-        fn encode_signal_event_value(&self, event: &ProtocolObject<dyn MTLEvent>, value: u64);
+        fn encode_signal_event_value(
+            &self,
+            event: &ProtocolObject<dyn MTLEvent>,
+            value: u64,
+        );
+
+        /// Returns a render command encoder to encode into this command buffer.
+        ///
+        /// Availability: macOS 10.11+, iOS 8.0+
+        #[unsafe(method(renderCommandEncoderWithDescriptor:))]
+        #[unsafe(method_family = none)]
+        fn render_command_encoder_with_descriptor(
+            &self,
+            render_pass_descriptor: &MTLRenderPassDescriptor,
+        ) -> Option<Retained<ProtocolObject<dyn MTLRenderCommandEncoder>>>;
 
         /// Returns a compute command encoder to encode into this command buffer.
         #[unsafe(method(computeCommandEncoder))]
         #[unsafe(method_family = none)]
-        fn new_compute_command_encoder(
-            &self,
-        ) -> Option<Retained<ProtocolObject<dyn crate::MTLComputeCommandEncoder>>>;
+        fn compute_command_encoder(&self) -> Option<Retained<ProtocolObject<dyn crate::MTLComputeCommandEncoder>>>;
 
         /// Returns a blit command encoder to encode into this command buffer.
         #[unsafe(method(blitCommandEncoder))]
         #[unsafe(method_family = none)]
-        fn new_blit_command_encoder(
-            &self,
-        ) -> Option<Retained<ProtocolObject<dyn crate::MTLBlitCommandEncoder>>>;
+        fn blit_command_encoder(&self) -> Option<Retained<ProtocolObject<dyn crate::MTLBlitCommandEncoder>>>;
     }
 );
 
@@ -109,13 +126,25 @@ pub trait MTLCommandBufferExt: MTLCommandBuffer + Message {
     /// A string to help identify this object.
     fn label(&self) -> Option<String>;
     /// Sets a string to help identify this object.
-    fn set_label(&self, label: Option<&str>);
+    fn set_label(
+        &self,
+        label: Option<&str>,
+    );
     /// Adds a block to be called when this command buffer has been scheduled for execution.
-    fn add_scheduled_handler(&self, handler: &MTLCommandBufferHandler);
+    fn add_scheduled_handler(
+        &self,
+        handler: &MTLCommandBufferHandler,
+    );
     /// Adds a block to be called when this command buffer has completed execution.
-    fn add_completed_handler(&self, handler: &MTLCommandBufferHandler);
+    fn add_completed_handler(
+        &self,
+        handler: &MTLCommandBufferHandler,
+    );
     /// Push a new named string onto a stack of string labels.
-    fn push_debug_group(&self, string: &str);
+    fn push_debug_group(
+        &self,
+        string: &str,
+    );
     /// Pop the latest named string off of the stack.
     fn pop_debug_group(&self);
     /// The host time, in seconds, when the CPU began scheduling this command buffer for execution.
@@ -152,25 +181,37 @@ impl MTLCommandBufferExt for ProtocolObject<dyn MTLCommandBuffer> {
         label.map(|s| s.to_string())
     }
 
-    fn set_label(&self, label: Option<&str>) {
+    fn set_label(
+        &self,
+        label: Option<&str>,
+    ) {
         unsafe {
             let _: () = msg_send![self, setLabel: label.map(NSString::from_str).as_deref()];
         }
     }
 
-    fn add_scheduled_handler(&self, handler: &MTLCommandBufferHandler) {
+    fn add_scheduled_handler(
+        &self,
+        handler: &MTLCommandBufferHandler,
+    ) {
         unsafe {
             let _: () = msg_send![self, addScheduledHandler: &**handler];
         }
     }
 
-    fn add_completed_handler(&self, handler: &MTLCommandBufferHandler) {
+    fn add_completed_handler(
+        &self,
+        handler: &MTLCommandBufferHandler,
+    ) {
         unsafe {
             let _: () = msg_send![self, addCompletedHandler: &**handler];
         }
     }
 
-    fn push_debug_group(&self, string: &str) {
+    fn push_debug_group(
+        &self,
+        string: &str,
+    ) {
         unsafe {
             let _: () = msg_send![self, pushDebugGroup: &*NSString::from_str(string)];
         }

@@ -6,8 +6,8 @@ use objc2::{
 use objc2_foundation::{CopyingHelper, NSCopying, NSObjectProtocol};
 
 use crate::{
-    MTLAccelerationStructureDescriptor, MTLAccelerationStructureInstanceDescriptorType, MTLBuffer,
-    MTLMatrixLayout, MTLTransformType,
+    MTLAccelerationStructureDescriptor, MTLAccelerationStructureInstanceDescriptorType, MTLBuffer, MTLMatrixLayout,
+    MTLTransformType,
 };
 
 extern_class!(
@@ -36,9 +36,7 @@ impl MTLIndirectInstanceAccelerationStructureDescriptor {
         /// Buffer containing instance descriptors of the type specified by the instanceDescriptorType property
         #[unsafe(method(instanceDescriptorBuffer))]
         #[unsafe(method_family = none)]
-        pub fn instance_descriptor_buffer(
-            &self,
-        ) -> Option<Retained<ProtocolObject<dyn MTLBuffer>>>;
+        pub fn instance_descriptor_buffer(&self) -> Option<Retained<ProtocolObject<dyn MTLBuffer>>>;
 
         /// Setter for [`instanceDescriptorBuffer`][Self::instanceDescriptorBuffer].
         #[unsafe(method(setInstanceDescriptorBuffer:))]
@@ -72,7 +70,10 @@ impl MTLIndirectInstanceAccelerationStructureDescriptor {
         /// Setter for [`instanceDescriptorStride`][Self::instanceDescriptorStride].
         #[unsafe(method(setInstanceDescriptorStride:))]
         #[unsafe(method_family = none)]
-        pub fn set_instance_descriptor_stride(&self, instance_descriptor_stride: usize);
+        pub fn set_instance_descriptor_stride(
+            &self,
+            instance_descriptor_stride: usize,
+        );
 
         /// Maximum number of instance descriptors
         #[unsafe(method(maxInstanceCount))]
@@ -82,15 +83,16 @@ impl MTLIndirectInstanceAccelerationStructureDescriptor {
         /// Setter for [`maxInstanceCount`][Self::maxInstanceCount].
         #[unsafe(method(setMaxInstanceCount:))]
         #[unsafe(method_family = none)]
-        pub fn set_max_instance_count(&self, max_instance_count: usize);
+        pub fn set_max_instance_count(
+            &self,
+            max_instance_count: usize,
+        );
 
         /// Buffer containing the instance count as a uint32_t value. Value at build time
         /// must be less than or equal to maxInstanceCount.
         #[unsafe(method(instanceCountBuffer))]
         #[unsafe(method_family = none)]
-        pub fn instance_count_buffer(
-            &self,
-        ) -> Option<Retained<ProtocolObject<dyn MTLBuffer>>>;
+        pub fn instance_count_buffer(&self) -> Option<Retained<ProtocolObject<dyn MTLBuffer>>>;
 
         /// Setter for [`instanceCountBuffer`][Self::instanceCountBuffer].
         #[unsafe(method(setInstanceCountBuffer:))]
@@ -109,7 +111,10 @@ impl MTLIndirectInstanceAccelerationStructureDescriptor {
         /// Setter for [`instanceCountBufferOffset`][Self::instanceCountBufferOffset].
         #[unsafe(method(setInstanceCountBufferOffset:))]
         #[unsafe(method_family = none)]
-        pub fn set_instance_count_buffer_offset(&self, instance_count_buffer_offset: usize);
+        pub fn set_instance_count_buffer_offset(
+            &self,
+            instance_count_buffer_offset: usize,
+        );
 
         /// Type of instance descriptor in the instance descriptor buffer. Defaults to
         /// MTLAccelerationStructureInstanceDescriptorTypeIndirect. Must be
@@ -117,9 +122,7 @@ impl MTLIndirectInstanceAccelerationStructureDescriptor {
         /// MTLAccelerationStructureInstanceDescriptorTypeIndirectMotion.
         #[unsafe(method(instanceDescriptorType))]
         #[unsafe(method_family = none)]
-        pub fn instance_descriptor_type(
-            &self,
-        ) -> MTLAccelerationStructureInstanceDescriptorType;
+        pub fn instance_descriptor_type(&self) -> MTLAccelerationStructureInstanceDescriptorType;
 
         /// Setter for [`instanceDescriptorType`][Self::instanceDescriptorType].
         #[unsafe(method(setInstanceDescriptorType:))]
@@ -132,9 +135,7 @@ impl MTLIndirectInstanceAccelerationStructureDescriptor {
         /// Buffer containing transformation information for motion
         #[unsafe(method(motionTransformBuffer))]
         #[unsafe(method_family = none)]
-        pub fn motion_transform_buffer(
-            &self,
-        ) -> Option<Retained<ProtocolObject<dyn MTLBuffer>>>;
+        pub fn motion_transform_buffer(&self) -> Option<Retained<ProtocolObject<dyn MTLBuffer>>>;
 
         /// Setter for [`motionTransformBuffer`][Self::motionTransformBuffer].
         #[unsafe(method(setMotionTransformBuffer:))]
@@ -166,15 +167,16 @@ impl MTLIndirectInstanceAccelerationStructureDescriptor {
         /// Setter for [`maxMotionTransformCount`][Self::maxMotionTransformCount].
         #[unsafe(method(setMaxMotionTransformCount:))]
         #[unsafe(method_family = none)]
-        pub fn set_max_motion_transform_count(&self, max_motion_transform_count: usize);
+        pub fn set_max_motion_transform_count(
+            &self,
+            max_motion_transform_count: usize,
+        );
 
         /// Buffer containing the motion transform count as a uint32_t value. Value at build time
         /// must be less than or equal to maxMotionTransformCount.
         #[unsafe(method(motionTransformCountBuffer))]
         #[unsafe(method_family = none)]
-        pub fn motion_transform_count_buffer(
-            &self,
-        ) -> Option<Retained<ProtocolObject<dyn MTLBuffer>>>;
+        pub fn motion_transform_count_buffer(&self) -> Option<Retained<ProtocolObject<dyn MTLBuffer>>>;
 
         /// Setter for [`motionTransformCountBuffer`][Self::motionTransformCountBuffer].
         #[unsafe(method(setMotionTransformCountBuffer:))]
@@ -221,7 +223,10 @@ impl MTLIndirectInstanceAccelerationStructureDescriptor {
         /// Setter for [`motionTransformType`][Self::motionTransformType].
         #[unsafe(method(setMotionTransformType:))]
         #[unsafe(method_family = none)]
-        pub fn set_motion_transform_type(&self, motion_transform_type: MTLTransformType);
+        pub fn set_motion_transform_type(
+            &self,
+            motion_transform_type: MTLTransformType,
+        );
 
         /// Motion transform stride. Defaults to 0, indicating that transforms are tightly packed according to the
         /// motion transform type.
@@ -232,7 +237,10 @@ impl MTLIndirectInstanceAccelerationStructureDescriptor {
         /// Setter for [`motionTransformStride`][Self::motionTransformStride].
         #[unsafe(method(setMotionTransformStride:))]
         #[unsafe(method_family = none)]
-        pub fn set_motion_transform_stride(&self, motion_transform_stride: usize);
+        pub fn set_motion_transform_stride(
+            &self,
+            motion_transform_stride: usize,
+        );
 
         #[unsafe(method(descriptor))]
         #[unsafe(method_family = none)]

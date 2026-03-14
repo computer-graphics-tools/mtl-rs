@@ -35,7 +35,10 @@ impl MTLCommandQueueDescriptor {
 
         #[unsafe(method(setMaxCommandBufferCount:))]
         #[unsafe(method_family = none)]
-        pub fn set_max_command_buffer_count(&self, count: usize);
+        pub fn set_max_command_buffer_count(
+            &self,
+            count: usize,
+        );
 
         /// Specify the `LogState` to enable shader logging.
         #[unsafe(method(logState))]
@@ -44,7 +47,10 @@ impl MTLCommandQueueDescriptor {
 
         #[unsafe(method(setLogState:))]
         #[unsafe(method_family = none)]
-        pub fn set_log_state(&self, log_state: Option<&ProtocolObject<dyn MTLLogState>>);
+        pub fn set_log_state(
+            &self,
+            log_state: Option<&ProtocolObject<dyn MTLLogState>>,
+        );
     );
 }
 

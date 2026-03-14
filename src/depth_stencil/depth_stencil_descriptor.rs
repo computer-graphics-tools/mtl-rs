@@ -37,7 +37,10 @@ impl MTLDepthStencilDescriptor {
 
         #[unsafe(method(setDepthCompareFunction:))]
         #[unsafe(method_family = none)]
-        pub fn set_depth_compare_function(&self, value: MTLCompareFunction);
+        pub fn set_depth_compare_function(
+            &self,
+            value: MTLCompareFunction,
+        );
 
         /// Whether depth writes are performed. Defaults to `false`.
         #[unsafe(method(isDepthWriteEnabled))]
@@ -46,7 +49,10 @@ impl MTLDepthStencilDescriptor {
 
         #[unsafe(method(setDepthWriteEnabled:))]
         #[unsafe(method_family = none)]
-        pub fn set_depth_write_enabled(&self, value: bool);
+        pub fn set_depth_write_enabled(
+            &self,
+            value: bool,
+        );
 
         /// Separate stencil state for front face.
         #[unsafe(method(frontFaceStencil))]
@@ -55,7 +61,10 @@ impl MTLDepthStencilDescriptor {
 
         #[unsafe(method(setFrontFaceStencil:))]
         #[unsafe(method_family = none)]
-        pub fn set_front_face_stencil(&self, value: Option<&MTLStencilDescriptor>);
+        pub fn set_front_face_stencil(
+            &self,
+            value: Option<&MTLStencilDescriptor>,
+        );
 
         /// Separate stencil state for back face.
         #[unsafe(method(backFaceStencil))]
@@ -64,7 +73,10 @@ impl MTLDepthStencilDescriptor {
 
         #[unsafe(method(setBackFaceStencil:))]
         #[unsafe(method_family = none)]
-        pub fn set_back_face_stencil(&self, value: Option<&MTLStencilDescriptor>);
+        pub fn set_back_face_stencil(
+            &self,
+            value: Option<&MTLStencilDescriptor>,
+        );
     );
 
     pub fn label(&self) -> Option<String> {
@@ -72,7 +84,10 @@ impl MTLDepthStencilDescriptor {
         label.map(|s| s.to_string())
     }
 
-    pub fn set_label(&self, label: Option<&str>) {
+    pub fn set_label(
+        &self,
+        label: Option<&str>,
+    ) {
         unsafe {
             let _: () = msg_send![self, setLabel: label.map(NSString::from_str).as_deref()];
         }

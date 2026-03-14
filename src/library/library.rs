@@ -2,9 +2,8 @@ use objc2::{Message, extern_protocol, msg_send, rc::Retained, runtime::ProtocolO
 use objc2_foundation::{NSArray, NSError, NSObjectProtocol, NSString};
 
 use crate::{
-    LibraryFunctionCompletionHandler, MTLDevice, MTLFunction, MTLFunctionConstantValues,
-    MTLFunctionDescriptor, MTLFunctionReflection, MTLIntersectionFunctionDescriptor,
-    MTLLibraryType,
+    LibraryFunctionCompletionHandler, MTLDevice, MTLFunction, MTLFunctionConstantValues, MTLFunctionDescriptor,
+    MTLFunctionReflection, MTLIntersectionFunctionDescriptor, MTLLibraryType,
 };
 
 extern_protocol!(
@@ -37,7 +36,10 @@ pub trait MTLLibraryExt: MTLLibrary + Message {
     fn label(&self) -> Option<String>;
 
     /// Setter for [`label`][Self::label].
-    fn set_label(&self, label: Option<&str>);
+    fn set_label(
+        &self,
+        label: Option<&str>,
+    );
 
     /// Synchronously creates a new function object by name.
     fn new_function_with_name(
@@ -101,7 +103,10 @@ impl MTLLibraryExt for ProtocolObject<dyn MTLLibrary> {
         label.map(|label| label.to_string())
     }
 
-    fn set_label(&self, label: Option<&str>) {
+    fn set_label(
+        &self,
+        label: Option<&str>,
+    ) {
         unsafe {
             let _: () = msg_send![self, setLabel: label.map(NSString::from_str).as_deref()];
         }
@@ -206,8 +211,6 @@ impl MTLLibraryExt for ProtocolObject<dyn MTLLibrary> {
         descriptor: &MTLIntersectionFunctionDescriptor,
         error: *mut *mut NSError,
     ) -> Option<Retained<ProtocolObject<dyn MTLFunction>>> {
-        unsafe {
-            msg_send![self, newIntersectionFunctionWithDescriptor: descriptor, error: error]
-        }
+        unsafe { msg_send![self, newIntersectionFunctionWithDescriptor: descriptor, error: error] }
     }
 }

@@ -1,7 +1,4 @@
-use objc2::{
-    Encode, Encoding, RefEncode, extern_class, extern_conformance, extern_methods,
-    runtime::NSObject,
-};
+use objc2::{Encode, Encoding, RefEncode, extern_class, extern_conformance, extern_methods, runtime::NSObject};
 use objc2_foundation::{CopyingHelper, NSCopying, NSObjectProtocol};
 
 use super::MTLRenderPassAttachmentDescriptor;
@@ -52,7 +49,10 @@ impl MTLRenderPassDepthAttachmentDescriptor {
         /// Setter for [`clear_depth`][Self::clear_depth].
         #[unsafe(method(setClearDepth:))]
         #[unsafe(method_family = none)]
-        pub fn set_clear_depth(&self, clear_depth: f64);
+        pub fn set_clear_depth(
+            &self,
+            clear_depth: f64,
+        );
 
         /// The filter to be used for depth multisample resolve. Defaults to Sample0.
         #[unsafe(method(depthResolveFilter))]
@@ -62,6 +62,9 @@ impl MTLRenderPassDepthAttachmentDescriptor {
         /// Setter for [`depth_resolve_filter`][Self::depth_resolve_filter].
         #[unsafe(method(setDepthResolveFilter:))]
         #[unsafe(method_family = none)]
-        pub fn set_depth_resolve_filter(&self, filter: MultisampleDepthResolveFilter);
+        pub fn set_depth_resolve_filter(
+            &self,
+            filter: MultisampleDepthResolveFilter,
+        );
     );
 }

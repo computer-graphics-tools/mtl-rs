@@ -1,6 +1,4 @@
-use objc2::rc::Retained;
-use objc2::runtime::NSObject;
-use objc2::{extern_class, extern_conformance, extern_methods};
+use objc2::{extern_class, extern_conformance, extern_methods, rc::Retained, runtime::NSObject};
 use objc2_foundation::{CopyingHelper, NSCopying, NSObjectProtocol};
 
 use crate::{MTLBindingAccess, MTLDataType, MTLTextureType};
@@ -39,7 +37,10 @@ impl MTLArgumentDescriptor {
 
         /// Sets the data type of the argument.
         #[unsafe(method(setDataType:))]
-        pub fn set_data_type(&self, value: MTLDataType);
+        pub fn set_data_type(
+            &self,
+            value: MTLDataType,
+        );
 
         /// The binding point index of the argument.
         #[unsafe(method(index))]
@@ -48,7 +49,10 @@ impl MTLArgumentDescriptor {
 
         /// Sets the binding point index of the argument.
         #[unsafe(method(setIndex:))]
-        pub fn set_index(&self, value: usize);
+        pub fn set_index(
+            &self,
+            value: usize,
+        );
 
         /// The length of an array of constants, textures, or samplers, or 0 for non-array arguments.
         #[unsafe(method(arrayLength))]
@@ -57,7 +61,10 @@ impl MTLArgumentDescriptor {
 
         /// Sets the array length of the argument.
         #[unsafe(method(setArrayLength:))]
-        pub fn set_array_length(&self, value: usize);
+        pub fn set_array_length(
+            &self,
+            value: usize,
+        );
 
         /// Access flags for the argument.
         #[unsafe(method(access))]
@@ -66,7 +73,10 @@ impl MTLArgumentDescriptor {
 
         /// Sets the access flags for the argument.
         #[unsafe(method(setAccess:))]
-        pub fn set_access(&self, value: MTLBindingAccess);
+        pub fn set_access(
+            &self,
+            value: MTLBindingAccess,
+        );
 
         /// For texture arguments, the texture type.
         #[unsafe(method(textureType))]
@@ -75,7 +85,10 @@ impl MTLArgumentDescriptor {
 
         /// Sets the texture type for the argument.
         #[unsafe(method(setTextureType:))]
-        pub fn set_texture_type(&self, value: MTLTextureType);
+        pub fn set_texture_type(
+            &self,
+            value: MTLTextureType,
+        );
 
         /// If set, forces the constant block to be aligned to the given alignment.
         /// Should only be set on the first constant of the block and is only valid if a corresponding
@@ -86,6 +99,9 @@ impl MTLArgumentDescriptor {
 
         /// Sets the constant block alignment.
         #[unsafe(method(setConstantBlockAlignment:))]
-        pub fn set_constant_block_alignment(&self, value: usize);
+        pub fn set_constant_block_alignment(
+            &self,
+            value: usize,
+        );
     );
 }

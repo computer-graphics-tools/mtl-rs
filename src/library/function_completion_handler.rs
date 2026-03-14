@@ -9,21 +9,17 @@ use super::MTLFunction;
 /// A completion handler invoked when a function creation finishes.
 ///
 /// Signature mirrors Metal's `void (^MTLNewLibraryCompletionHandler)(id<MTLFunction> function, NSError *error)`.
-pub struct LibraryFunctionCompletionHandler(
-    RcBlock<dyn Fn(*mut ProtocolObject<dyn MTLFunction>, *mut NSError)>,
-);
+pub struct LibraryFunctionCompletionHandler(RcBlock<dyn Fn(*mut ProtocolObject<dyn MTLFunction>, *mut NSError)>);
 
 impl LibraryFunctionCompletionHandler {
     pub fn new<F>(handler: F) -> Self
     where
         F: Fn(Option<Retained<ProtocolObject<dyn MTLFunction>>>, *mut NSError) + 'static,
     {
-        Self(RcBlock::new(
-            move |function_ptr: *mut ProtocolObject<dyn MTLFunction>, error: *mut NSError| {
-                let function = unsafe { Retained::from_raw(function_ptr) };
-                handler(function, error);
-            },
-        ))
+        Self(RcBlock::new(move |function_ptr: *mut ProtocolObject<dyn MTLFunction>, error: *mut NSError| {
+            let function = unsafe { Retained::from_raw(function_ptr) };
+            handler(function, error);
+        }))
     }
 }
 

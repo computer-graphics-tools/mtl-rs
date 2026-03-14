@@ -2,9 +2,7 @@ use objc2::{
     extern_class, extern_conformance, extern_methods, msg_send,
     rc::{Allocated, Retained},
 };
-use objc2_foundation::{
-    CopyingHelper, NSCopying, NSObject, NSObjectProtocol, NSString, NSUInteger,
-};
+use objc2_foundation::{CopyingHelper, NSCopying, NSObject, NSObjectProtocol, NSString, NSUInteger};
 
 use crate::*;
 
@@ -67,7 +65,10 @@ impl MTL4AccelerationStructureGeometryDescriptor {
         /// Setter for [`opaque`][Self::opaque].
         #[unsafe(method(setOpaque:))]
         #[unsafe(method_family = none)]
-        pub fn set_opaque(&self, opaque: bool);
+        pub fn set_opaque(
+            &self,
+            opaque: bool,
+        );
 
         /// A boolean value that indicates whether the ray-tracing system in Metal allows the invocation of intersection functions
         /// more than once per ray-primitive intersection.
@@ -97,7 +98,10 @@ impl MTL4AccelerationStructureGeometryDescriptor {
         /// Setter for [`primitiveDataBuffer`][Self::primitiveDataBuffer].
         #[unsafe(method(setPrimitiveDataBuffer:))]
         #[unsafe(method_family = none)]
-        pub fn set_primitive_data_buffer(&self, primitive_data_buffer: MTL4BufferRange);
+        pub fn set_primitive_data_buffer(
+            &self,
+            primitive_data_buffer: MTL4BufferRange,
+        );
 
         /// Defines the stride, in bytes, between each primitive's data in the primitive data buffer ``primitiveDataBuffer`` references.
         ///
@@ -111,7 +115,10 @@ impl MTL4AccelerationStructureGeometryDescriptor {
         /// Setter for [`primitiveDataStride`][Self::primitiveDataStride].
         #[unsafe(method(setPrimitiveDataStride:))]
         #[unsafe(method_family = none)]
-        pub fn set_primitive_data_stride(&self, primitive_data_stride: NSUInteger);
+        pub fn set_primitive_data_stride(
+            &self,
+            primitive_data_stride: NSUInteger,
+        );
 
         /// Sets the size, in bytes, of the data for each primitive in the primitive data buffer ``primitiveDataBuffer`` references.
         ///
@@ -153,7 +160,10 @@ impl MTL4AccelerationStructureGeometryDescriptor {
     }
 
     /// Setter for label.
-    pub fn set_label(&self, label: Option<&str>) {
+    pub fn set_label(
+        &self,
+        label: Option<&str>,
+    ) {
         unsafe {
             let _: () = msg_send![self, setLabel: label.map(NSString::from_str).as_deref()];
         }

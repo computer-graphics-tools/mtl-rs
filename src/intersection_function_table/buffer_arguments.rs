@@ -14,10 +14,7 @@ pub struct MTLIntersectionFunctionBufferArguments {
 }
 
 unsafe impl Encode for MTLIntersectionFunctionBufferArguments {
-    const ENCODING: Encoding = Encoding::Struct(
-        "{MTLIntersectionFunctionBufferArguments=QQQ}",
-        &[u64::ENCODING, u64::ENCODING, u64::ENCODING],
-    );
+    const ENCODING: Encoding = Encoding::Struct("?", &[u64::ENCODING, u64::ENCODING, u64::ENCODING]);
 }
 
 unsafe impl RefEncode for MTLIntersectionFunctionBufferArguments {

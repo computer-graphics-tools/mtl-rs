@@ -81,11 +81,20 @@ pub trait MTL4CommandEncoderExt: MTL4CommandEncoder + Message {
     /// Provides an optional label to assign to the command encoder for debug purposes.
     fn label(&self) -> Option<String>;
     /// Setter for label.
-    fn set_label(&self, label: Option<&str>);
+    fn set_label(
+        &self,
+        label: Option<&str>,
+    );
     /// Inserts a debug signpost.
-    fn insert_debug_signpost(&self, signpost: &str);
+    fn insert_debug_signpost(
+        &self,
+        signpost: &str,
+    );
     /// Pushes a debug group.
-    fn push_debug_group(&self, label: &str);
+    fn push_debug_group(
+        &self,
+        label: &str,
+    );
 }
 
 impl MTL4CommandEncoderExt for ProtocolObject<dyn MTL4CommandEncoder> {
@@ -94,19 +103,28 @@ impl MTL4CommandEncoderExt for ProtocolObject<dyn MTL4CommandEncoder> {
         s.map(|v| v.to_string())
     }
 
-    fn set_label(&self, label: Option<&str>) {
+    fn set_label(
+        &self,
+        label: Option<&str>,
+    ) {
         unsafe {
             let _: () = msg_send![self, setLabel: label.map(NSString::from_str).as_deref()];
         }
     }
 
-    fn insert_debug_signpost(&self, signpost: &str) {
+    fn insert_debug_signpost(
+        &self,
+        signpost: &str,
+    ) {
         unsafe {
             let _: () = msg_send![self, insertDebugSignpost: &*NSString::from_str(signpost)];
         }
     }
 
-    fn push_debug_group(&self, label: &str) {
+    fn push_debug_group(
+        &self,
+        label: &str,
+    ) {
         unsafe {
             let _: () = msg_send![self, pushDebugGroup: &*NSString::from_str(label)];
         }

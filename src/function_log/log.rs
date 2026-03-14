@@ -18,9 +18,7 @@ extern_protocol!(
 
         #[unsafe(method(debugLocation))]
         #[unsafe(method_family = none)]
-        fn debug_location(
-            &self,
-        ) -> Option<Retained<ProtocolObject<dyn MTLFunctionLogDebugLocation>>>;
+        fn debug_location(&self) -> Option<Retained<ProtocolObject<dyn MTLFunctionLogDebugLocation>>>;
     }
 );
 

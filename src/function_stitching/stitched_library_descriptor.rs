@@ -41,16 +41,21 @@ impl MTLStitchedLibraryDescriptor {
         /// Setter for [`options`][Self::options].
         #[unsafe(method(setOptions:))]
         #[unsafe(method_family = none)]
-        pub fn set_options(&self, options: MTLStitchedLibraryOptions);
+        pub fn set_options(
+            &self,
+            options: MTLStitchedLibraryOptions,
+        );
     );
 
     pub fn function_graphs(&self) -> Box<[Retained<MTLFunctionStitchingGraph>]> {
-        let function_graphs: Retained<NSArray<MTLFunctionStitchingGraph>> =
-            unsafe { msg_send![self, functionGraphs] };
+        let function_graphs: Retained<NSArray<MTLFunctionStitchingGraph>> = unsafe { msg_send![self, functionGraphs] };
         function_graphs.to_vec().into_boxed_slice()
     }
 
-    pub fn set_function_graphs(&self, function_graphs: &[&MTLFunctionStitchingGraph]) {
+    pub fn set_function_graphs(
+        &self,
+        function_graphs: &[&MTLFunctionStitchingGraph],
+    ) {
         let function_graphs = NSArray::from_slice(function_graphs);
         unsafe {
             let _: () = msg_send![self, setFunctionGraphs: &*function_graphs];
@@ -59,12 +64,14 @@ impl MTLStitchedLibraryDescriptor {
 
     /// Functions referenced by the graphs.
     pub fn functions(&self) -> Box<[Retained<ProtocolObject<dyn MTLFunction>>]> {
-        let functions: Retained<NSArray<ProtocolObject<dyn MTLFunction>>> =
-            unsafe { msg_send![self, functions] };
+        let functions: Retained<NSArray<ProtocolObject<dyn MTLFunction>>> = unsafe { msg_send![self, functions] };
         functions.to_vec().into_boxed_slice()
     }
 
-    pub fn set_functions(&self, functions: &[&ProtocolObject<dyn MTLFunction>]) {
+    pub fn set_functions(
+        &self,
+        functions: &[&ProtocolObject<dyn MTLFunction>],
+    ) {
         let functions = NSArray::from_slice(functions);
         unsafe {
             let _: () = msg_send![self, setFunctions: &*functions];

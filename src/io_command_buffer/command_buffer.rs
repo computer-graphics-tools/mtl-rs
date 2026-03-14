@@ -4,8 +4,8 @@ use objc2::{Message, extern_protocol, msg_send, rc::Retained, runtime::ProtocolO
 use objc2_foundation::{NSError, NSObjectProtocol, NSString};
 
 use crate::{
-    MTLBuffer, MTLIOCommandBufferCompletedHandler, MTLIOFileHandle, MTLIOStatus, MTLOrigin,
-    MTLSharedEvent, MTLSize, MTLTexture,
+    MTLBuffer, MTLIOCommandBufferCompletedHandler, MTLIOFileHandle, MTLIOStatus, MTLOrigin, MTLSharedEvent, MTLSize,
+    MTLTexture,
 };
 
 extern_protocol!(
@@ -115,26 +115,42 @@ extern_protocol!(
         /// Signals a shared event with a given value.
         #[unsafe(method(signalEvent:value:))]
         #[unsafe(method_family = none)]
-        fn signal_event_value(&self, event: &ProtocolObject<dyn MTLSharedEvent>, value: u64);
+        fn signal_event_value(
+            &self,
+            event: &ProtocolObject<dyn MTLSharedEvent>,
+            value: u64,
+        );
     }
 );
 
 #[allow(unused)]
 pub trait MTLIOCommandBufferExt: MTLIOCommandBuffer + Message {
     /// Push a new named string onto a stack of string labels.
-    fn push_debug_group(&self, name: &str);
+    fn push_debug_group(
+        &self,
+        name: &str,
+    );
     /// Optional label.
     fn label(&self) -> Option<String>;
     /// Setter for [`label`][Self::label].
-    fn set_label(&self, label: Option<&str>);
+    fn set_label(
+        &self,
+        label: Option<&str>,
+    );
     /// Add a block to be called when this command buffer has completed execution.
     ///
     /// Availability: macOS 13.0+, iOS 16.0+
-    fn add_completed_handler(&self, handler: &MTLIOCommandBufferCompletedHandler);
+    fn add_completed_handler(
+        &self,
+        handler: &MTLIOCommandBufferCompletedHandler,
+    );
 }
 
 impl MTLIOCommandBufferExt for ProtocolObject<dyn MTLIOCommandBuffer> {
-    fn push_debug_group(&self, name: &str) {
+    fn push_debug_group(
+        &self,
+        name: &str,
+    ) {
         unsafe {
             let _: () = msg_send![self, pushDebugGroup: &*NSString::from_str(name)];
         }
@@ -145,13 +161,19 @@ impl MTLIOCommandBufferExt for ProtocolObject<dyn MTLIOCommandBuffer> {
         s.map(|v| v.to_string())
     }
 
-    fn set_label(&self, label: Option<&str>) {
+    fn set_label(
+        &self,
+        label: Option<&str>,
+    ) {
         unsafe {
             let _: () = msg_send![self, setLabel: label.map(NSString::from_str).as_deref()];
         }
     }
 
-    fn add_completed_handler(&self, handler: &MTLIOCommandBufferCompletedHandler) {
+    fn add_completed_handler(
+        &self,
+        handler: &MTLIOCommandBufferCompletedHandler,
+    ) {
         unsafe {
             let _: () = msg_send![self, addCompletedHandler: &**handler];
         }

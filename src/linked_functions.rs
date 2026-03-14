@@ -3,9 +3,7 @@ use objc2::{
     rc::{Allocated, DefaultRetained, Retained},
     runtime::{NSObject, ProtocolObject},
 };
-use objc2_foundation::{
-    CopyingHelper, NSArray, NSCopying, NSDictionary, NSObjectProtocol, NSString,
-};
+use objc2_foundation::{CopyingHelper, NSArray, NSCopying, NSDictionary, NSObjectProtocol, NSString};
 
 use crate::library::MTLFunction;
 
@@ -47,7 +45,10 @@ impl MTLLinkedFunctions {
         functions.map(|functions| functions.to_vec().into_boxed_slice())
     }
 
-    pub fn set_functions(&self, functions: Option<&[&ProtocolObject<dyn MTLFunction>]>) {
+    pub fn set_functions(
+        &self,
+        functions: Option<&[&ProtocolObject<dyn MTLFunction>]>,
+    ) {
         let functions = functions.map(NSArray::from_slice);
         unsafe {
             let _: () = msg_send![self, setFunctions: functions.as_deref()];
@@ -74,9 +75,7 @@ impl MTLLinkedFunctions {
     }
 
     /// Groups of functions, keyed by callsite name.
-    pub fn groups(
-        &self,
-    ) -> Option<Box<[(String, Box<[Retained<ProtocolObject<dyn MTLFunction>>]>) ]>> {
+    pub fn groups(&self) -> Option<Box<[(String, Box<[Retained<ProtocolObject<dyn MTLFunction>>]>)]>> {
         let groups: Option<Retained<NSDictionary<NSString, NSArray<ProtocolObject<dyn MTLFunction>>>>> =
             unsafe { msg_send![self, groups] };
         groups.map(|groups| {
@@ -90,17 +89,16 @@ impl MTLLinkedFunctions {
         })
     }
 
-    pub fn set_groups(&self, groups: Option<&[(&str, &[&ProtocolObject<dyn MTLFunction>])]>){
+    pub fn set_groups(
+        &self,
+        groups: Option<&[(&str, &[&ProtocolObject<dyn MTLFunction>])]>,
+    ) {
         let groups = groups.map(|groups| {
-            let group_names: Vec<Retained<NSString>> = groups
-                .iter()
-                .map(|(name, _)| NSString::from_str(name))
-                .collect();
+            let group_names: Vec<Retained<NSString>> =
+                groups.iter().map(|(name, _)| NSString::from_str(name)).collect();
             let group_name_refs: Vec<&NSString> = group_names.iter().map(|name| &**name).collect();
-            let group_functions: Vec<Retained<NSArray<ProtocolObject<dyn MTLFunction>>>> = groups
-                .iter()
-                .map(|(_, functions)| NSArray::from_slice(functions))
-                .collect();
+            let group_functions: Vec<Retained<NSArray<ProtocolObject<dyn MTLFunction>>>> =
+                groups.iter().map(|(_, functions)| NSArray::from_slice(functions)).collect();
             let group_function_refs: Vec<&NSArray<ProtocolObject<dyn MTLFunction>>> =
                 group_functions.iter().map(|functions| &**functions).collect();
             NSDictionary::from_slices(&group_name_refs, &group_function_refs)

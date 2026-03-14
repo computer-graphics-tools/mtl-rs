@@ -30,19 +30,24 @@ pub trait MTLCounterSampleBufferExt: MTLCounterSampleBuffer + Message {
         label.to_string()
     }
 
-    fn resolve_counter_range(&self, range: Range<usize>) -> Option<Retained<NSData>>
+    fn resolve_counter_range(
+        &self,
+        range: Range<usize>,
+    ) -> Option<Retained<NSData>>
     where
         Self: Sized,
     {
         unsafe { msg_send![self, resolveCounterRange: NSRange::from(range)] }
     }
 
-    fn resolve_counter_range_bytes(&self, range: Range<usize>) -> Option<Box<[u8]>>
+    fn resolve_counter_range_bytes(
+        &self,
+        range: Range<usize>,
+    ) -> Option<Box<[u8]>>
     where
         Self: Sized,
     {
-        self.resolve_counter_range(range)
-            .map(|data| data.to_vec().into_boxed_slice())
+        self.resolve_counter_range(range).map(|data| data.to_vec().into_boxed_slice())
     }
 }
 

@@ -21,12 +21,10 @@ impl MTLDrawablePresentedHandler {
     where
         F: Fn(&ProtocolObject<dyn MTLDrawable>) + 'static,
     {
-        Self(RcBlock::new(
-            move |drawable_nn: NonNull<ProtocolObject<dyn MTLDrawable>>| {
-                let drawable = unsafe { drawable_nn.as_ref() };
-                handler(drawable);
-            },
-        ))
+        Self(RcBlock::new(move |drawable_nn: NonNull<ProtocolObject<dyn MTLDrawable>>| {
+            let drawable = unsafe { drawable_nn.as_ref() };
+            handler(drawable);
+        }))
     }
 }
 

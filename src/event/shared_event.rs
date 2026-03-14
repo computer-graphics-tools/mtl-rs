@@ -4,8 +4,7 @@ use objc2::{extern_protocol, rc::Retained, runtime::ProtocolObject};
 
 use super::{MTLEvent, MTLSharedEventHandle, MTLSharedEventListener};
 
-pub type SharedEventNotificationBlock =
-    *mut block2::DynBlock<dyn Fn(NonNull<ProtocolObject<dyn MTLSharedEvent>>, u64)>;
+pub type SharedEventNotificationBlock = *mut block2::DynBlock<dyn Fn(NonNull<ProtocolObject<dyn MTLSharedEvent>>, u64)>;
 
 extern_protocol!(
     /// Shared event that can be signaled and waited on across devices.
@@ -44,6 +43,9 @@ extern_protocol!(
         /// Set the event's signaled value.
         #[unsafe(method(setSignaledValue:))]
         #[unsafe(method_family = none)]
-        fn set_signaled_value(&self, signaled_value: u64);
+        fn set_signaled_value(
+            &self,
+            signaled_value: u64,
+        );
     }
 );

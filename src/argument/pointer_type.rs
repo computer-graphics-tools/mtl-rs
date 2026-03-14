@@ -43,17 +43,13 @@ impl MTLPointerType {
         /// Availability: macOS 10.13+, iOS 11.0+
         #[unsafe(method(elementStructType))]
         #[unsafe(method_family = none)]
-        pub fn element_struct_type(
-            &self,
-        ) -> Option<objc2::rc::Retained<crate::argument::MTLStructType>>;
+        pub fn element_struct_type(&self) -> Option<objc2::rc::Retained<crate::argument::MTLStructType>>;
 
         /// If the element is an array, returns its reflection type.
         ///
         /// Availability: macOS 10.13+, iOS 11.0+
         #[unsafe(method(elementArrayType))]
         #[unsafe(method_family = none)]
-        pub fn element_array_type(
-            &self,
-        ) -> Option<objc2::rc::Retained<crate::argument::MTLArrayType>>;
+        pub fn element_array_type(&self) -> Option<objc2::rc::Retained<crate::argument::MTLArrayType>>;
     );
 }

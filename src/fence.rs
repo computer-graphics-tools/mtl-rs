@@ -18,6 +18,9 @@ extern_protocol!(
         /// Setter for [`label`][Self::label]. This is copied when set.
         #[unsafe(method(setLabel:))]
         #[unsafe(method_family = none)]
-        fn set_label(&self, label: Option<&NSString>);
+        fn set_label(
+            &self,
+            label: Option<&NSString>,
+        );
     }
 );

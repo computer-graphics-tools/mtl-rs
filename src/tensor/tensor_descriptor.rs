@@ -41,7 +41,10 @@ impl MTLTensorDescriptor {
         /// Setter for [`dimensions`][Self::dimensions].
         #[unsafe(method(setDimensions:))]
         #[unsafe(method_family = none)]
-        pub fn set_dimensions(&self, dimensions: &MTLTensorExtents);
+        pub fn set_dimensions(
+            &self,
+            dimensions: &MTLTensorExtents,
+        );
 
         /// An array of strides, in elements, one for each dimension in the tensors you create with this descriptor, if applicable.
         ///
@@ -57,7 +60,10 @@ impl MTLTensorDescriptor {
         /// Setter for [`strides`][Self::strides].
         #[unsafe(method(setStrides:))]
         #[unsafe(method_family = none)]
-        pub fn set_strides(&self, strides: Option<&MTLTensorExtents>);
+        pub fn set_strides(
+            &self,
+            strides: Option<&MTLTensorExtents>,
+        );
 
         /// A data format for the tensors you create with this descriptor.
         ///
@@ -69,7 +75,10 @@ impl MTLTensorDescriptor {
         /// Setter for [`dataType`][Self::dataType].
         #[unsafe(method(setDataType:))]
         #[unsafe(method_family = none)]
-        pub fn set_data_type(&self, data_type: MTLTensorDataType);
+        pub fn set_data_type(
+            &self,
+            data_type: MTLTensorDataType,
+        );
 
         /// A set of contexts in which you can use tensors you create with this descriptor.
         ///
@@ -81,7 +90,10 @@ impl MTLTensorDescriptor {
         /// Setter for [`usage`][Self::usage].
         #[unsafe(method(setUsage:))]
         #[unsafe(method_family = none)]
-        pub fn set_usage(&self, usage: MTLTensorUsage);
+        pub fn set_usage(
+            &self,
+            usage: MTLTensorUsage,
+        );
 
         /// A packed set of the `storageMode`, `cpuCacheMode` and `hazardTrackingMode` properties.
         #[unsafe(method(resourceOptions))]
@@ -91,7 +103,10 @@ impl MTLTensorDescriptor {
         /// Setter for [`resourceOptions`][Self::resourceOptions].
         #[unsafe(method(setResourceOptions:))]
         #[unsafe(method_family = none)]
-        pub fn set_resource_options(&self, resource_options: MTLResourceOptions);
+        pub fn set_resource_options(
+            &self,
+            resource_options: MTLResourceOptions,
+        );
 
         /// A value that configures the cache mode of CPU mapping of tensors you create with this descriptor.
         ///
@@ -103,7 +118,10 @@ impl MTLTensorDescriptor {
         /// Setter for [`cpuCacheMode`][Self::cpuCacheMode].
         #[unsafe(method(setCpuCacheMode:))]
         #[unsafe(method_family = none)]
-        pub fn set_cpu_cache_mode(&self, cpu_cache_mode: MTLCPUCacheMode);
+        pub fn set_cpu_cache_mode(
+            &self,
+            cpu_cache_mode: MTLCPUCacheMode,
+        );
 
         /// A value that configures the memory location and access permissions of tensors you create with this descriptor.
         ///
@@ -115,7 +133,10 @@ impl MTLTensorDescriptor {
         /// Setter for [`storageMode`][Self::storageMode].
         #[unsafe(method(setStorageMode:))]
         #[unsafe(method_family = none)]
-        pub fn set_storage_mode(&self, storage_mode: MTLStorageMode);
+        pub fn set_storage_mode(
+            &self,
+            storage_mode: MTLStorageMode,
+        );
 
         /// A value that configures the hazard tracking of tensors you create with this descriptor.
         ///
@@ -127,7 +148,10 @@ impl MTLTensorDescriptor {
         /// Setter for [`hazardTrackingMode`][Self::hazardTrackingMode].
         #[unsafe(method(setHazardTrackingMode:))]
         #[unsafe(method_family = none)]
-        pub fn set_hazard_tracking_mode(&self, hazard_tracking_mode: MTLHazardTrackingMode);
+        pub fn set_hazard_tracking_mode(
+            &self,
+            hazard_tracking_mode: MTLHazardTrackingMode,
+        );
     );
 }
 
@@ -197,10 +221,7 @@ mod tests {
 
         // hazard tracking
         desc.set_hazard_tracking_mode(MTLHazardTrackingMode::Untracked);
-        assert_eq!(
-            desc.hazard_tracking_mode(),
-            MTLHazardTrackingMode::Untracked
-        );
+        assert_eq!(desc.hazard_tracking_mode(), MTLHazardTrackingMode::Untracked);
 
         // resource options should reflect the above modes
         let ro = desc.resource_options();

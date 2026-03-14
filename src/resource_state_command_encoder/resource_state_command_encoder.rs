@@ -1,9 +1,11 @@
 use core::ptr::NonNull;
+
 use objc2::{extern_protocol, runtime::ProtocolObject};
 
-use crate::types::{MTLOrigin, MTLRegion, MTLSize};
-use crate::{MTLBuffer, MTLFence, MTLTexture};
-use crate::{MTLCommandEncoder, MTLSparseTextureMappingMode};
+use crate::{
+    MTLBuffer, MTLCommandEncoder, MTLFence, MTLSparseTextureMappingMode, MTLTexture,
+    types::{MTLOrigin, MTLRegion, MTLSize},
+};
 
 extern_protocol!(
     /// Resource state command encoder
@@ -52,13 +54,19 @@ extern_protocol!(
         #[optional]
         #[unsafe(method(updateFence:))]
         #[unsafe(method_family = none)]
-        fn update_fence(&self, fence: &ProtocolObject<dyn MTLFence>);
+        fn update_fence(
+            &self,
+            fence: &ProtocolObject<dyn MTLFence>,
+        );
 
         /// Prevent further GPU work until the fence is reached.
         #[optional]
         #[unsafe(method(waitForFence:))]
         #[unsafe(method_family = none)]
-        fn wait_for_fence(&self, fence: &ProtocolObject<dyn MTLFence>);
+        fn wait_for_fence(
+            &self,
+            fence: &ProtocolObject<dyn MTLFence>,
+        );
 
         /// Move sparse page mappings between textures from the same heap.
         #[optional]

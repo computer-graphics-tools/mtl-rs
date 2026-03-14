@@ -56,9 +56,7 @@ impl MTLAccelerationStructurePassSampleBufferAttachmentDescriptor {
         /// taken for that action.
         #[unsafe(method(sampleBuffer))]
         #[unsafe(method_family = none)]
-        pub fn sample_buffer(
-            &self,
-        ) -> Option<Retained<ProtocolObject<dyn MTLCounterSampleBuffer>>>;
+        pub fn sample_buffer(&self) -> Option<Retained<ProtocolObject<dyn MTLCounterSampleBuffer>>>;
 
         /// Set the sample buffer used to store samples for encoder-defined
         /// samples. See getter for behavior when `None` or when indices are
@@ -81,7 +79,10 @@ impl MTLAccelerationStructurePassSampleBufferAttachmentDescriptor {
 
         #[unsafe(method(setStartOfEncoderSampleIndex:))]
         #[unsafe(method_family = none)]
-        pub fn set_start_of_encoder_sample_index(&self, value: usize);
+        pub fn set_start_of_encoder_sample_index(
+            &self,
+            value: usize,
+        );
 
         /// Sample index used to store the sample taken at the end of command
         /// encoder processing. Set to `MTLCounterDontSample` to omit.
@@ -94,7 +95,10 @@ impl MTLAccelerationStructurePassSampleBufferAttachmentDescriptor {
 
         #[unsafe(method(setEndOfEncoderSampleIndex:))]
         #[unsafe(method_family = none)]
-        pub fn set_end_of_encoder_sample_index(&self, value: usize);
+        pub fn set_end_of_encoder_sample_index(
+            &self,
+            value: usize,
+        );
     );
 }
 

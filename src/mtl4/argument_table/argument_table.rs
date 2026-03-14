@@ -11,7 +11,11 @@ extern_protocol!(
         /// Binds a GPU address to a buffer binding slot.
         #[unsafe(method(setAddress:atIndex:))]
         #[unsafe(method_family = none)]
-        fn set_address_at_index(&self, gpu_address: MTLGPUAddress, binding_index: usize);
+        fn set_address_at_index(
+            &self,
+            gpu_address: MTLGPUAddress,
+            binding_index: usize,
+        );
 
         /// Binds a GPU address to a buffer binding slot, providing a dynamic vertex stride.
         #[unsafe(method(setAddress:attributeStride:atIndex:))]
@@ -35,7 +39,11 @@ extern_protocol!(
         /// Binds a texture to a texture binding slot.
         #[unsafe(method(setTexture:atIndex:))]
         #[unsafe(method_family = none)]
-        fn set_texture_at_index(&self, resource_id: MTLResourceID, binding_index: usize);
+        fn set_texture_at_index(
+            &self,
+            resource_id: MTLResourceID,
+            binding_index: usize,
+        );
 
         /// Binds a sampler state to a sampler state binding slot.
         #[unsafe(method(setSamplerState:atIndex:))]
@@ -59,7 +67,10 @@ pub trait MTL4ArgumentTableExt: MTL4ArgumentTable + Message {
     fn label(&self) -> Option<String>;
 
     /// Setter for [`label`][Self::label].
-    fn set_label(&self, label: Option<&str>);
+    fn set_label(
+        &self,
+        label: Option<&str>,
+    );
 }
 
 impl<T: MTL4ArgumentTable + Message> MTL4ArgumentTableExt for T {
@@ -69,7 +80,10 @@ impl<T: MTL4ArgumentTable + Message> MTL4ArgumentTableExt for T {
     }
 
     /// Setter for [`label`][Self::label].
-    fn set_label(&self, label: Option<&str>) {
+    fn set_label(
+        &self,
+        label: Option<&str>,
+    ) {
         unsafe {
             let _: () = msg_send![self, setLabel: label.map(NSString::from_str).as_deref()];
         }

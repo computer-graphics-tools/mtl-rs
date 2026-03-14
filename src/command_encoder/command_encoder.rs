@@ -48,11 +48,20 @@ pub trait MTLCommandEncoderExt: MTLCommandEncoder + Message {
     /// A string to help identify this object.
     fn label(&self) -> Option<String>;
     /// Sets a string to help identify this object.
-    fn set_label(&self, label: Option<&str>);
+    fn set_label(
+        &self,
+        label: Option<&str>,
+    );
     /// Inserts a debug string into the command buffer. This does not change any API behavior, but can be useful when debugging.
-    fn insert_debug_signpost(&self, string: &str);
+    fn insert_debug_signpost(
+        &self,
+        string: &str,
+    );
     /// Push a new named string onto a stack of string labels.
-    fn push_debug_group(&self, string: &str);
+    fn push_debug_group(
+        &self,
+        string: &str,
+    );
     /// Pop the latest named string off of the stack.
     fn pop_debug_group(&self);
 }
@@ -67,19 +76,28 @@ impl MTLCommandEncoderExt for ProtocolObject<dyn MTLCommandEncoder> {
         label.map(|s| s.to_string())
     }
 
-    fn set_label(&self, label: Option<&str>) {
+    fn set_label(
+        &self,
+        label: Option<&str>,
+    ) {
         unsafe {
             let _: () = msg_send![self, setLabel: label.map(NSString::from_str).as_deref()];
         }
     }
 
-    fn insert_debug_signpost(&self, string: &str) {
+    fn insert_debug_signpost(
+        &self,
+        string: &str,
+    ) {
         unsafe {
             let _: () = msg_send![self, insertDebugSignpost: &*NSString::from_str(string)];
         }
     }
 
-    fn push_debug_group(&self, string: &str) {
+    fn push_debug_group(
+        &self,
+        string: &str,
+    ) {
         unsafe {
             let _: () = msg_send![self, pushDebugGroup: &*NSString::from_str(string)];
         }
@@ -102,19 +120,28 @@ impl MTLCommandEncoderExt for ProtocolObject<dyn MTLComputeCommandEncoder> {
         label.map(|s| s.to_string())
     }
 
-    fn set_label(&self, label: Option<&str>) {
+    fn set_label(
+        &self,
+        label: Option<&str>,
+    ) {
         unsafe {
             let _: () = msg_send![self, setLabel: label.map(NSString::from_str).as_deref()];
         }
     }
 
-    fn insert_debug_signpost(&self, string: &str) {
+    fn insert_debug_signpost(
+        &self,
+        string: &str,
+    ) {
         unsafe {
             let _: () = msg_send![self, insertDebugSignpost: &*NSString::from_str(string)];
         }
     }
 
-    fn push_debug_group(&self, string: &str) {
+    fn push_debug_group(
+        &self,
+        string: &str,
+    ) {
         unsafe {
             let _: () = msg_send![self, pushDebugGroup: &*NSString::from_str(string)];
         }
@@ -137,19 +164,28 @@ impl MTLCommandEncoderExt for ProtocolObject<dyn MTLRenderCommandEncoder> {
         label.map(|s| s.to_string())
     }
 
-    fn set_label(&self, label: Option<&str>) {
+    fn set_label(
+        &self,
+        label: Option<&str>,
+    ) {
         unsafe {
             let _: () = msg_send![self, setLabel: label.map(NSString::from_str).as_deref()];
         }
     }
 
-    fn insert_debug_signpost(&self, string: &str) {
+    fn insert_debug_signpost(
+        &self,
+        string: &str,
+    ) {
         unsafe {
             let _: () = msg_send![self, insertDebugSignpost: &*NSString::from_str(string)];
         }
     }
 
-    fn push_debug_group(&self, string: &str) {
+    fn push_debug_group(
+        &self,
+        string: &str,
+    ) {
         unsafe {
             let _: () = msg_send![self, pushDebugGroup: &*NSString::from_str(string)];
         }

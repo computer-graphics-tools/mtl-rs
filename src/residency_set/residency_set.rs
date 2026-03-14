@@ -33,7 +33,10 @@ extern_protocol!(
         /// Adds one allocation to the set, leaving it uncommitted until commit is called.
         #[unsafe(method(addAllocation:))]
         #[unsafe(method_family = none)]
-        fn add_allocation(&self, allocation: &ProtocolObject<dyn MTLAllocation>);
+        fn add_allocation(
+            &self,
+            allocation: &ProtocolObject<dyn MTLAllocation>,
+        );
 
         /// Adds allocations to the set, leaving them uncommitted until commit is called.
         ///
@@ -49,7 +52,10 @@ extern_protocol!(
         /// Marks an allocation to be removed from the set on the next commit call.
         #[unsafe(method(removeAllocation:))]
         #[unsafe(method_family = none)]
-        fn remove_allocation(&self, allocation: &ProtocolObject<dyn MTLAllocation>);
+        fn remove_allocation(
+            &self,
+            allocation: &ProtocolObject<dyn MTLAllocation>,
+        );
 
         /// Marks allocations to be removed from the set on the next commit call.
         ///
@@ -71,7 +77,10 @@ extern_protocol!(
         /// This check includes non-committed allocations in the set.
         #[unsafe(method(containsAllocation:))]
         #[unsafe(method_family = none)]
-        fn contains_allocation(&self, allocation: &ProtocolObject<dyn MTLAllocation>) -> bool;
+        fn contains_allocation(
+            &self,
+            allocation: &ProtocolObject<dyn MTLAllocation>,
+        ) -> bool;
 
         /// Returns the current number of unique allocations present in the set.
         /// This property includes non-committed allocations in the set.
@@ -102,8 +111,7 @@ impl MTLResidencySetExt for ProtocolObject<dyn MTLResidencySet> {
     }
 
     fn all_allocations(&self) -> Box<[Retained<ProtocolObject<dyn MTLAllocation>>]> {
-        let arr: Retained<NSArray<ProtocolObject<dyn MTLAllocation>>> =
-            unsafe { msg_send![self, allAllocations] };
+        let arr: Retained<NSArray<ProtocolObject<dyn MTLAllocation>>> = unsafe { msg_send![self, allAllocations] };
         arr.to_vec().into_boxed_slice()
     }
 }

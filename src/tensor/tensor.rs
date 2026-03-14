@@ -1,10 +1,9 @@
-use core::ffi::c_void;
-use core::ptr::NonNull;
+use core::{ffi::c_void, ptr::NonNull};
+
 use objc2::{extern_protocol, rc::Retained, runtime::ProtocolObject};
 
-use crate::{MTLBuffer, MTLResource, MTLResourceID};
-
 use super::{MTLTensorDataType, MTLTensorExtents, MTLTensorUsage};
+use crate::{MTLBuffer, MTLResource, MTLResourceID};
 
 extern_protocol!(
     /// A resource representing a multi-dimensional array that you can use with machine learning workloads.

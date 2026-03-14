@@ -6,9 +6,8 @@ use objc2::{
 use objc2_foundation::{CopyingHelper, NSArray, NSCopying, NSObjectProtocol, NSString};
 
 use crate::{
-    MTLDynamicLibrary, MTLLinkedFunctions, MTLPipelineBufferDescriptorArray, MTLPixelFormat,
-    MTLPrimitiveTopologyClass, MTLRenderPipelineColorAttachmentDescriptorArray,
-    MTLShaderValidation, MTLVertexDescriptor, library::MTLFunction,
+    MTLDynamicLibrary, MTLLinkedFunctions, MTLPipelineBufferDescriptorArray, MTLPixelFormat, MTLPrimitiveTopologyClass,
+    MTLRenderPipelineColorAttachmentDescriptorArray, MTLShaderValidation, MTLVertexDescriptor, library::MTLFunction,
 };
 
 extern_class!(
@@ -40,7 +39,10 @@ impl MTLRenderPipelineDescriptor {
         /// Setter for [`vertex_function`][Self::vertex_function].
         #[unsafe(method(setVertexFunction:))]
         #[unsafe(method_family = none)]
-        pub fn set_vertex_function(&self, function: Option<&ProtocolObject<dyn MTLFunction>>);
+        pub fn set_vertex_function(
+            &self,
+            function: Option<&ProtocolObject<dyn MTLFunction>>,
+        );
 
         /// The fragment function for the pipeline.
         #[unsafe(method(fragmentFunction))]
@@ -50,7 +52,10 @@ impl MTLRenderPipelineDescriptor {
         /// Setter for [`fragment_function`][Self::fragment_function].
         #[unsafe(method(setFragmentFunction:))]
         #[unsafe(method_family = none)]
-        pub fn set_fragment_function(&self, function: Option<&ProtocolObject<dyn MTLFunction>>);
+        pub fn set_fragment_function(
+            &self,
+            function: Option<&ProtocolObject<dyn MTLFunction>>,
+        );
 
         /// The vertex buffer descriptors for the pipeline.
         #[unsafe(method(vertexBuffers))]
@@ -70,7 +75,10 @@ impl MTLRenderPipelineDescriptor {
         /// Setter for [`vertex_linked_functions`][Self::vertex_linked_functions].
         #[unsafe(method(setVertexLinkedFunctions:))]
         #[unsafe(method_family = none)]
-        pub fn set_vertex_linked_functions(&self, functions: Option<&MTLLinkedFunctions>);
+        pub fn set_vertex_linked_functions(
+            &self,
+            functions: Option<&MTLLinkedFunctions>,
+        );
 
         /// The set of functions to be linked with the pipeline and accessed from the fragment function.
         #[unsafe(method(fragmentLinkedFunctions))]
@@ -80,7 +88,10 @@ impl MTLRenderPipelineDescriptor {
         /// Setter for [`fragment_linked_functions`][Self::fragment_linked_functions].
         #[unsafe(method(setFragmentLinkedFunctions:))]
         #[unsafe(method_family = none)]
-        pub fn set_fragment_linked_functions(&self, functions: Option<&MTLLinkedFunctions>);
+        pub fn set_fragment_linked_functions(
+            &self,
+            functions: Option<&MTLLinkedFunctions>,
+        );
 
         /// Whether the pipeline supports adding binary functions to the vertex stage.
         #[unsafe(method(supportAddingVertexBinaryFunctions))]
@@ -90,7 +101,10 @@ impl MTLRenderPipelineDescriptor {
         /// Setter for [`support_adding_vertex_binary_functions`][Self::support_adding_vertex_binary_functions].
         #[unsafe(method(setSupportAddingVertexBinaryFunctions:))]
         #[unsafe(method_family = none)]
-        pub fn set_support_adding_vertex_binary_functions(&self, val: bool);
+        pub fn set_support_adding_vertex_binary_functions(
+            &self,
+            val: bool,
+        );
 
         /// Whether the pipeline supports adding binary functions to the fragment stage.
         #[unsafe(method(supportAddingFragmentBinaryFunctions))]
@@ -100,7 +114,10 @@ impl MTLRenderPipelineDescriptor {
         /// Setter for [`support_adding_fragment_binary_functions`][Self::support_adding_fragment_binary_functions].
         #[unsafe(method(setSupportAddingFragmentBinaryFunctions:))]
         #[unsafe(method_family = none)]
-        pub fn set_support_adding_fragment_binary_functions(&self, val: bool);
+        pub fn set_support_adding_fragment_binary_functions(
+            &self,
+            val: bool,
+        );
 
         /// The maximum call stack depth for the vertex function.
         #[unsafe(method(maxVertexCallStackDepth))]
@@ -110,7 +127,10 @@ impl MTLRenderPipelineDescriptor {
         /// Setter for [`max_vertex_call_stack_depth`][Self::max_vertex_call_stack_depth].
         #[unsafe(method(setMaxVertexCallStackDepth:))]
         #[unsafe(method_family = none)]
-        pub fn set_max_vertex_call_stack_depth(&self, depth: usize);
+        pub fn set_max_vertex_call_stack_depth(
+            &self,
+            depth: usize,
+        );
 
         /// The maximum call stack depth for the fragment function.
         #[unsafe(method(maxFragmentCallStackDepth))]
@@ -120,14 +140,15 @@ impl MTLRenderPipelineDescriptor {
         /// Setter for [`max_fragment_call_stack_depth`][Self::max_fragment_call_stack_depth].
         #[unsafe(method(setMaxFragmentCallStackDepth:))]
         #[unsafe(method_family = none)]
-        pub fn set_max_fragment_call_stack_depth(&self, depth: usize);
+        pub fn set_max_fragment_call_stack_depth(
+            &self,
+            depth: usize,
+        );
 
         /// The set of dynamic libraries to be preloaded for the vertex stage.
         #[unsafe(method(vertexPreloadedLibraries))]
         #[unsafe(method_family = none)]
-        pub fn vertex_preloaded_libraries(
-            &self,
-        ) -> Retained<NSArray<ProtocolObject<dyn MTLDynamicLibrary>>>;
+        pub fn vertex_preloaded_libraries(&self) -> Retained<NSArray<ProtocolObject<dyn MTLDynamicLibrary>>>;
 
         /// Setter for [`vertex_preloaded_libraries`][Self::vertex_preloaded_libraries].
         #[unsafe(method(setVertexPreloadedLibraries:))]
@@ -140,9 +161,7 @@ impl MTLRenderPipelineDescriptor {
         /// The set of dynamic libraries to be preloaded for the fragment stage.
         #[unsafe(method(fragmentPreloadedLibraries))]
         #[unsafe(method_family = none)]
-        pub fn fragment_preloaded_libraries(
-            &self,
-        ) -> Retained<NSArray<ProtocolObject<dyn MTLDynamicLibrary>>>;
+        pub fn fragment_preloaded_libraries(&self) -> Retained<NSArray<ProtocolObject<dyn MTLDynamicLibrary>>>;
 
         /// Setter for [`fragment_preloaded_libraries`][Self::fragment_preloaded_libraries].
         #[unsafe(method(setFragmentPreloadedLibraries:))]
@@ -160,7 +179,10 @@ impl MTLRenderPipelineDescriptor {
         /// Setter for [`raster_sample_count`][Self::raster_sample_count].
         #[unsafe(method(setRasterSampleCount:))]
         #[unsafe(method_family = none)]
-        pub fn set_raster_sample_count(&self, raster_sample_count: usize);
+        pub fn set_raster_sample_count(
+            &self,
+            raster_sample_count: usize,
+        );
 
         /// Whether to enable alpha-to-coverage.
         #[unsafe(method(isAlphaToCoverageEnabled))]
@@ -170,7 +192,10 @@ impl MTLRenderPipelineDescriptor {
         /// Setter for [`is_alpha_to_coverage_enabled`][Self::is_alpha_to_coverage_enabled].
         #[unsafe(method(setAlphaToCoverageEnabled:))]
         #[unsafe(method_family = none)]
-        pub fn set_alpha_to_coverage_enabled(&self, enabled: bool);
+        pub fn set_alpha_to_coverage_enabled(
+            &self,
+            enabled: bool,
+        );
 
         /// Whether to enable alpha-to-one.
         #[unsafe(method(isAlphaToOneEnabled))]
@@ -180,7 +205,10 @@ impl MTLRenderPipelineDescriptor {
         /// Setter for [`is_alpha_to_one_enabled`][Self::is_alpha_to_one_enabled].
         #[unsafe(method(setAlphaToOneEnabled:))]
         #[unsafe(method_family = none)]
-        pub fn set_alpha_to_one_enabled(&self, enabled: bool);
+        pub fn set_alpha_to_one_enabled(
+            &self,
+            enabled: bool,
+        );
 
         /// Whether rasterization is enabled.
         #[unsafe(method(isRasterizationEnabled))]
@@ -190,7 +218,10 @@ impl MTLRenderPipelineDescriptor {
         /// Setter for [`is_rasterization_enabled`][Self::is_rasterization_enabled].
         #[unsafe(method(setRasterizationEnabled:))]
         #[unsafe(method_family = none)]
-        pub fn set_rasterization_enabled(&self, enabled: bool);
+        pub fn set_rasterization_enabled(
+            &self,
+            enabled: bool,
+        );
 
         /// The maximum vertex amplification count.
         #[unsafe(method(maxVertexAmplificationCount))]
@@ -200,14 +231,15 @@ impl MTLRenderPipelineDescriptor {
         /// Setter for [`max_vertex_amplification_count`][Self::max_vertex_amplification_count].
         #[unsafe(method(setMaxVertexAmplificationCount:))]
         #[unsafe(method_family = none)]
-        pub fn set_max_vertex_amplification_count(&self, value: usize);
+        pub fn set_max_vertex_amplification_count(
+            &self,
+            value: usize,
+        );
 
         /// The array of color attachment descriptors.
         #[unsafe(method(colorAttachments))]
         #[unsafe(method_family = none)]
-        pub fn color_attachments(
-            &self,
-        ) -> Retained<MTLRenderPipelineColorAttachmentDescriptorArray>;
+        pub fn color_attachments(&self) -> Retained<MTLRenderPipelineColorAttachmentDescriptorArray>;
 
         /// The pixel format of the depth attachment.
         #[unsafe(method(depthAttachmentPixelFormat))]
@@ -217,7 +249,10 @@ impl MTLRenderPipelineDescriptor {
         /// Setter for [`depth_attachment_pixel_format`][Self::depth_attachment_pixel_format].
         #[unsafe(method(setDepthAttachmentPixelFormat:))]
         #[unsafe(method_family = none)]
-        pub fn set_depth_attachment_pixel_format(&self, fmt: MTLPixelFormat);
+        pub fn set_depth_attachment_pixel_format(
+            &self,
+            fmt: MTLPixelFormat,
+        );
 
         /// The pixel format of the stencil attachment.
         #[unsafe(method(stencilAttachmentPixelFormat))]
@@ -227,7 +262,10 @@ impl MTLRenderPipelineDescriptor {
         /// Setter for [`stencil_attachment_pixel_format`][Self::stencil_attachment_pixel_format].
         #[unsafe(method(setStencilAttachmentPixelFormat:))]
         #[unsafe(method_family = none)]
-        pub fn set_stencil_attachment_pixel_format(&self, fmt: MTLPixelFormat);
+        pub fn set_stencil_attachment_pixel_format(
+            &self,
+            fmt: MTLPixelFormat,
+        );
 
         /// The input primitive topology.
         #[unsafe(method(inputPrimitiveTopology))]
@@ -237,7 +275,10 @@ impl MTLRenderPipelineDescriptor {
         /// Setter for [`input_primitive_topology`][Self::input_primitive_topology].
         #[unsafe(method(setInputPrimitiveTopology:))]
         #[unsafe(method_family = none)]
-        pub fn set_input_primitive_topology(&self, topo: MTLPrimitiveTopologyClass);
+        pub fn set_input_primitive_topology(
+            &self,
+            topo: MTLPrimitiveTopologyClass,
+        );
 
         /// The vertex descriptor.
         #[unsafe(method(vertexDescriptor))]
@@ -247,7 +288,10 @@ impl MTLRenderPipelineDescriptor {
         /// Setter for [`vertex_descriptor`][Self::vertex_descriptor].
         #[unsafe(method(setVertexDescriptor:))]
         #[unsafe(method_family = none)]
-        pub fn set_vertex_descriptor(&self, vertex_descriptor: Option<&MTLVertexDescriptor>);
+        pub fn set_vertex_descriptor(
+            &self,
+            vertex_descriptor: Option<&MTLVertexDescriptor>,
+        );
 
         /// Whether to support indirect command buffers.
         #[unsafe(method(supportIndirectCommandBuffers))]
@@ -257,7 +301,10 @@ impl MTLRenderPipelineDescriptor {
         /// Setter for [`support_indirect_command_buffers`][Self::support_indirect_command_buffers].
         #[unsafe(method(setSupportIndirectCommandBuffers:))]
         #[unsafe(method_family = none)]
-        pub fn set_support_indirect_command_buffers(&self, enabled: bool);
+        pub fn set_support_indirect_command_buffers(
+            &self,
+            enabled: bool,
+        );
 
         /// Resets the descriptor to its default values.
         #[unsafe(method(reset))]
@@ -272,7 +319,10 @@ impl MTLRenderPipelineDescriptor {
         /// Setter for [`shader_validation`][Self::shader_validation].
         #[unsafe(method(setShaderValidation:))]
         #[unsafe(method_family = none)]
-        pub fn set_shader_validation(&self, v: MTLShaderValidation);
+        pub fn set_shader_validation(
+            &self,
+            v: MTLShaderValidation,
+        );
     );
 }
 
@@ -295,7 +345,10 @@ impl MTLRenderPipelineDescriptor {
         s.map(|s| s.to_string())
     }
 
-    fn set_label(&self, label: Option<&str>) {
+    fn set_label(
+        &self,
+        label: Option<&str>,
+    ) {
         unsafe {
             let _: () = msg_send![self, setLabel: label.map(NSString::from_str).as_deref()];
         }
