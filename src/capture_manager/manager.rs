@@ -64,7 +64,10 @@ impl MTLCaptureManager {
         /// Availability: macOS 10.15+, iOS 13.0+
         #[unsafe(method(supportsDestination:))]
         #[unsafe(method_family = none)]
-        pub fn supports_destination(&self, destination: MTLCaptureDestination) -> bool;
+        pub fn supports_destination(
+            &self,
+            destination: MTLCaptureDestination,
+        ) -> bool;
 
         /// Start capturing until stopCapture is called.
         ///
@@ -87,7 +90,10 @@ impl MTLCaptureManager {
         /// Deprecated: Use `startCaptureWithDescriptor:error:` instead.
         #[unsafe(method(startCaptureWithDevice:))]
         #[unsafe(method_family = none)]
-        pub fn start_capture_with_device(&self, device: &ProtocolObject<dyn MTLDevice>);
+        pub fn start_capture_with_device(
+            &self,
+            device: &ProtocolObject<dyn MTLDevice>,
+        );
 
         /// Starts capturing for the given command queue.
         ///
@@ -104,7 +110,10 @@ impl MTLCaptureManager {
         /// Deprecated: Use `startCaptureWithDescriptor:error:` instead.
         #[unsafe(method(startCaptureWithScope:))]
         #[unsafe(method_family = none)]
-        pub fn start_capture_with_scope(&self, capture_scope: &ProtocolObject<dyn MTLCaptureScope>);
+        pub fn start_capture_with_scope(
+            &self,
+            capture_scope: &ProtocolObject<dyn MTLCaptureScope>,
+        );
 
         /// Stop any ongoing capture.
         #[unsafe(method(stopCapture))]
@@ -114,9 +123,7 @@ impl MTLCaptureManager {
         /// Default scope to be captured when a capture is initiated from Xcode’s capture button. When `nil`, it’ll fall back to `presentDrawable:` methods.
         #[unsafe(method(defaultCaptureScope))]
         #[unsafe(method_family = none)]
-        pub fn default_capture_scope(
-            &self,
-        ) -> Option<Retained<ProtocolObject<dyn MTLCaptureScope>>>;
+        pub fn default_capture_scope(&self) -> Option<Retained<ProtocolObject<dyn MTLCaptureScope>>>;
 
         /// Set default capture scope.
         #[unsafe(method(setDefaultCaptureScope:))]

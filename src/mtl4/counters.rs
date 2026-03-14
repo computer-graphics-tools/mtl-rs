@@ -6,9 +6,7 @@ use objc2::{
     extern_class, extern_conformance, extern_methods, extern_protocol, msg_send,
     rc::{Allocated, Retained},
 };
-use objc2_foundation::{
-    CopyingHelper, NSCopying, NSData, NSInteger, NSObject, NSObjectProtocol, NSRange, NSString,
-};
+use objc2_foundation::{CopyingHelper, NSCopying, NSData, NSInteger, NSObject, NSObjectProtocol, NSRange, NSString};
 
 /// Represents a timestamp data entry in a counter heap of type `MTL4CounterHeapTypeTimestamp`.
 ///
@@ -115,7 +113,10 @@ impl MTL4CounterHeapDescriptor {
         /// Setter for [`type`][Self::type].
         #[unsafe(method(setType:))]
         #[unsafe(method_family = none)]
-        pub fn set_type(&self, r#type: MTL4CounterHeapType);
+        pub fn set_type(
+            &self,
+            r#type: MTL4CounterHeapType,
+        );
 
         /// Assigns the number of entries in the heap.
         ///
@@ -127,7 +128,10 @@ impl MTL4CounterHeapDescriptor {
         /// Setter for [`count`][Self::count].
         #[unsafe(method(setCount:))]
         #[unsafe(method_family = none)]
-        pub fn set_count(&self, count: usize);
+        pub fn set_count(
+            &self,
+            count: usize,
+        );
     );
 }
 
@@ -171,7 +175,10 @@ pub trait MTL4CounterHeapExt: MTL4CounterHeap + Message {
     }
 
     /// Setter for [`label`][Self::label].
-    fn set_label(&self, label: Option<&str>) {
+    fn set_label(
+        &self,
+        label: Option<&str>,
+    ) {
         unsafe {
             let _: () = msg_send![self, setLabel: label.map(NSString::from_str).as_deref()];
         }
@@ -188,7 +195,10 @@ pub trait MTL4CounterHeapExt: MTL4CounterHeap + Message {
     ///
     /// - Parameter range: The range in the heap to resolve.
     /// - Returns a newly allocated autoreleased NSData containing tightly packed resolved heap counter values.
-    fn resolve_counter_range(&self, range: Range<usize>) -> Option<Retained<NSData>> {
+    fn resolve_counter_range(
+        &self,
+        range: Range<usize>,
+    ) -> Option<Retained<NSData>> {
         let ns_range = NSRange {
             location: range.start,
             length: range.end.saturating_sub(range.start),
@@ -204,7 +214,10 @@ pub trait MTL4CounterHeapExt: MTL4CounterHeap + Message {
     ///
     /// - Parameters:
     /// - range: A heap index range to invalidate.
-    fn invalidate_counter_range(&self, range: Range<usize>) {
+    fn invalidate_counter_range(
+        &self,
+        range: Range<usize>,
+    ) {
         let ns_range = NSRange {
             location: range.start,
             length: range.end.saturating_sub(range.start),

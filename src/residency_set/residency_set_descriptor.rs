@@ -36,7 +36,10 @@ impl MTLResidencySetDescriptor {
         /// Setter for [`initial_capacity`][Self::initial_capacity].
         #[unsafe(method(setInitialCapacity:))]
         #[unsafe(method_family = none)]
-        pub fn set_initial_capacity(&self, initial_capacity: usize);
+        pub fn set_initial_capacity(
+            &self,
+            initial_capacity: usize,
+        );
     );
 }
 
@@ -62,7 +65,10 @@ impl MTLResidencySetDescriptor {
     }
 
     /// Setter for the [`label`][Self::label].
-    fn set_label(&self, label: Option<&str>) {
+    fn set_label(
+        &self,
+        label: Option<&str>,
+    ) {
         unsafe {
             let _: () = msg_send![self, setLabel: label.map(NSString::from_str).as_deref()];
         }

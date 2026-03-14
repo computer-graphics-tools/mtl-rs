@@ -34,7 +34,10 @@ impl MTLResourceStatePassSampleBufferAttachmentDescriptor {
         /// Setter for [`start_of_encoder_sample_index`][Self::start_of_encoder_sample_index].
         #[unsafe(method(setStartOfEncoderSampleIndex:))]
         #[unsafe(method_family = none)]
-        pub fn set_start_of_encoder_sample_index(&self, index: usize);
+        pub fn set_start_of_encoder_sample_index(
+            &self,
+            index: usize,
+        );
 
         /// The sample index to use to store the sample taken at the end of encoder processing.
         #[unsafe(method(endOfEncoderSampleIndex))]
@@ -44,7 +47,10 @@ impl MTLResourceStatePassSampleBufferAttachmentDescriptor {
         /// Setter for [`end_of_encoder_sample_index`][Self::end_of_encoder_sample_index].
         #[unsafe(method(setEndOfEncoderSampleIndex:))]
         #[unsafe(method_family = none)]
-        pub fn set_end_of_encoder_sample_index(&self, index: usize);
+        pub fn set_end_of_encoder_sample_index(
+            &self,
+            index: usize,
+        );
     );
 }
 

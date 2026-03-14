@@ -15,7 +15,10 @@ extern_class!(
 impl MTLStructType {
     extern_methods!();
 
-    pub fn member_by_name(&self, name: &str) -> Option<Retained<MTLStructMember>> {
+    pub fn member_by_name(
+        &self,
+        name: &str,
+    ) -> Option<Retained<MTLStructMember>> {
         let ns = NSString::from_str(name);
         unsafe { msg_send![self, memberByName: &*ns] }
     }

@@ -52,7 +52,10 @@ impl MTLAccelerationStructureBoundingBoxGeometryDescriptor {
         /// Setter for [`boundingBoxBufferOffset`][Self::boundingBoxBufferOffset].
         #[unsafe(method(setBoundingBoxBufferOffset:))]
         #[unsafe(method_family = none)]
-        pub fn set_bounding_box_buffer_offset(&self, bounding_box_buffer_offset: usize);
+        pub fn set_bounding_box_buffer_offset(
+            &self,
+            bounding_box_buffer_offset: usize,
+        );
 
         /// Stride, in bytes, between bounding boxes in the bounding box buffer. Must be at least 24
         /// bytes and must be a multiple of 4 bytes. Defaults to 24 bytes.
@@ -63,7 +66,10 @@ impl MTLAccelerationStructureBoundingBoxGeometryDescriptor {
         /// Setter for [`boundingBoxStride`][Self::boundingBoxStride].
         #[unsafe(method(setBoundingBoxStride:))]
         #[unsafe(method_family = none)]
-        pub fn set_bounding_box_stride(&self, bounding_box_stride: usize);
+        pub fn set_bounding_box_stride(
+            &self,
+            bounding_box_stride: usize,
+        );
 
         /// Number of bounding boxes
         #[unsafe(method(boundingBoxCount))]
@@ -73,7 +79,10 @@ impl MTLAccelerationStructureBoundingBoxGeometryDescriptor {
         /// Setter for [`boundingBoxCount`][Self::boundingBoxCount].
         #[unsafe(method(setBoundingBoxCount:))]
         #[unsafe(method_family = none)]
-        pub fn set_bounding_box_count(&self, bounding_box_count: usize);
+        pub fn set_bounding_box_count(
+            &self,
+            bounding_box_count: usize,
+        );
 
         #[unsafe(method(descriptor))]
         #[unsafe(method_family = none)]

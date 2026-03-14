@@ -35,14 +35,13 @@ impl MTLAccelerationStructurePassDescriptor {
         /// in Objective-C terms).
         #[unsafe(method(accelerationStructurePassDescriptor))]
         #[unsafe(method_family = none)]
-        pub fn acceleration_structure_pass_descriptor()
-        -> Retained<MTLAccelerationStructurePassDescriptor>;
+        pub fn acceleration_structure_pass_descriptor() -> Retained<MTLAccelerationStructurePassDescriptor>;
 
         /// An array of sample buffers and associated sample indices.
         #[unsafe(method(sampleBufferAttachments))]
         #[unsafe(method_family = none)]
         pub fn sample_buffer_attachments(
-            &self,
+            &self
         ) -> Retained<MTLAccelerationStructurePassSampleBufferAttachmentDescriptorArray>;
     );
 }

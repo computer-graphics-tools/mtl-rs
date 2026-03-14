@@ -37,7 +37,10 @@ impl MTLRenderPassColorAttachmentDescriptor {
         /// Setter for [`texture`][Self::texture].
         #[unsafe(method(setTexture:))]
         #[unsafe(method_family = none)]
-        pub fn set_texture(&self, texture: Option<&ProtocolObject<dyn MTLTexture>>);
+        pub fn set_texture(
+            &self,
+            texture: Option<&ProtocolObject<dyn MTLTexture>>,
+        );
 
         /// The clear color to be used if the load action is Clear.
         #[unsafe(method(clearColor))]
@@ -47,7 +50,10 @@ impl MTLRenderPassColorAttachmentDescriptor {
         /// Setter for [`clear_color`][Self::clear_color].
         #[unsafe(method(setClearColor:))]
         #[unsafe(method_family = none)]
-        pub fn set_clear_color(&self, clear_color: MTLClearColor);
+        pub fn set_clear_color(
+            &self,
+            clear_color: MTLClearColor,
+        );
     );
 }
 

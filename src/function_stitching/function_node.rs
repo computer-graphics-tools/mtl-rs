@@ -41,7 +41,10 @@ impl MTLFunctionStitchingFunctionNode {
     }
 
     /// Setter for [`name`][Self::name].
-    fn set_name(&self, name: &str) {
+    fn set_name(
+        &self,
+        name: &str,
+    ) {
         unsafe {
             let _: () = msg_send![self, setName: &*NSString::from_str(name)];
         }
@@ -54,7 +57,10 @@ impl MTLFunctionStitchingFunctionNode {
     }
 
     /// Setter for [`arguments`][Self::arguments].
-    pub fn set_arguments(&self, arguments: &[&ProtocolObject<dyn MTLFunctionStitchingNode>]) {
+    pub fn set_arguments(
+        &self,
+        arguments: &[&ProtocolObject<dyn MTLFunctionStitchingNode>],
+    ) {
         let arguments = NSArray::from_slice(arguments);
         unsafe {
             let _: () = msg_send![self, setArguments: &*arguments];

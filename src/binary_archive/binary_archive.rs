@@ -4,9 +4,8 @@ use objc2::{Message, extern_protocol, msg_send, rc::Retained, runtime::ProtocolO
 use objc2_foundation::{NSError, NSObjectProtocol, NSString, NSURL};
 
 use crate::{
-    MTL4MeshRenderPipelineDescriptor, MTLComputePipelineDescriptor, MTLDevice,
-    MTLFunctionDescriptor, MTLLibrary, MTLRenderPipelineDescriptor,
-    function_stitching::MTLStitchedLibraryDescriptor,
+    MTL4MeshRenderPipelineDescriptor, MTLComputePipelineDescriptor, MTLDevice, MTLFunctionDescriptor, MTLLibrary,
+    MTLRenderPipelineDescriptor, function_stitching::MTLStitchedLibraryDescriptor,
     render_pipeline::MTLTileRenderPipelineDescriptor,
 };
 
@@ -111,10 +110,16 @@ pub trait MTLBinaryArchiveExt: MTLBinaryArchive + Message {
     fn label(&self) -> Option<String>;
 
     /// Setter for `label`.
-    fn set_label(&self, label: Option<&str>);
+    fn set_label(
+        &self,
+        label: Option<&str>,
+    );
 
     /// Write the contents of a `MTLBinaryArchive` to a file path.
-    fn serialize_to_path(&self, path: &Path) -> Result<(), Retained<NSError>>;
+    fn serialize_to_path(
+        &self,
+        path: &Path,
+    ) -> Result<(), Retained<NSError>>;
 }
 
 impl MTLBinaryArchiveExt for ProtocolObject<dyn MTLBinaryArchive> {
@@ -123,13 +128,19 @@ impl MTLBinaryArchiveExt for ProtocolObject<dyn MTLBinaryArchive> {
         label.map(|s| s.to_string())
     }
 
-    fn set_label(&self, label: Option<&str>) {
+    fn set_label(
+        &self,
+        label: Option<&str>,
+    ) {
         unsafe {
             let _: () = msg_send![self, setLabel: label.map(NSString::from_str).as_deref()];
         }
     }
 
-    fn serialize_to_path(&self, path: &Path) -> Result<(), Retained<NSError>> {
+    fn serialize_to_path(
+        &self,
+        path: &Path,
+    ) -> Result<(), Retained<NSError>> {
         let url = NSURL::from_file_path(path).expect("path must be a valid file URL path");
         let mut error: *mut NSError = std::ptr::null_mut();
         let ok: bool = unsafe { msg_send![self, serializeToURL: &*url, error: &mut error] };

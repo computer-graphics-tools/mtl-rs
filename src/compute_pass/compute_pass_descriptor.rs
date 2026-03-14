@@ -43,14 +43,15 @@ impl MTLComputePassDescriptor {
 
         #[unsafe(method(setDispatchType:))]
         #[unsafe(method_family = none)]
-        pub fn set_dispatch_type(&self, dispatch_type: MTLDispatchType);
+        pub fn set_dispatch_type(
+            &self,
+            dispatch_type: MTLDispatchType,
+        );
 
         /// An array of sample buffers and associated sample indices.
         #[unsafe(method(sampleBufferAttachments))]
         #[unsafe(method_family = none)]
-        pub fn sample_buffer_attachments(
-            &self,
-        ) -> Retained<MTLComputePassSampleBufferAttachmentDescriptorArray>;
+        pub fn sample_buffer_attachments(&self) -> Retained<MTLComputePassSampleBufferAttachmentDescriptorArray>;
     );
 }
 

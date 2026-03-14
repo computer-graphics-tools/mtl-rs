@@ -45,7 +45,10 @@ impl MTL4AccelerationStructureCurveGeometryDescriptor {
         /// Setter for [`controlPointBuffer`][Self::controlPointBuffer].
         #[unsafe(method(setControlPointBuffer:))]
         #[unsafe(method_family = none)]
-        pub fn set_control_point_buffer(&self, control_point_buffer: MTL4BufferRange);
+        pub fn set_control_point_buffer(
+            &self,
+            control_point_buffer: MTL4BufferRange,
+        );
 
         /// Declares the number of control points in the control point buffer.
         #[unsafe(method(controlPointCount))]
@@ -55,7 +58,10 @@ impl MTL4AccelerationStructureCurveGeometryDescriptor {
         /// Setter for [`controlPointCount`][Self::controlPointCount].
         #[unsafe(method(setControlPointCount:))]
         #[unsafe(method_family = none)]
-        pub fn set_control_point_count(&self, control_point_count: NSUInteger);
+        pub fn set_control_point_count(
+            &self,
+            control_point_count: NSUInteger,
+        );
 
         /// Sets the stride, in bytes, between control points in the control point buffer the control point buffer references.
         ///
@@ -70,7 +76,10 @@ impl MTL4AccelerationStructureCurveGeometryDescriptor {
         /// Setter for [`controlPointStride`][Self::controlPointStride].
         #[unsafe(method(setControlPointStride:))]
         #[unsafe(method_family = none)]
-        pub fn set_control_point_stride(&self, control_point_stride: NSUInteger);
+        pub fn set_control_point_stride(
+            &self,
+            control_point_stride: NSUInteger,
+        );
 
         /// Declares the format of the control points the control point buffer references.
         ///
@@ -82,7 +91,10 @@ impl MTL4AccelerationStructureCurveGeometryDescriptor {
         /// Setter for [`controlPointFormat`][Self::controlPointFormat].
         #[unsafe(method(setControlPointFormat:))]
         #[unsafe(method_family = none)]
-        pub fn set_control_point_format(&self, control_point_format: MTLAttributeFormat);
+        pub fn set_control_point_format(
+            &self,
+            control_point_format: MTLAttributeFormat,
+        );
 
         /// Assigns a reference to a buffer containing the curve radius for each control point.
         ///
@@ -97,7 +109,10 @@ impl MTL4AccelerationStructureCurveGeometryDescriptor {
         /// Setter for [`radiusBuffer`][Self::radiusBuffer].
         #[unsafe(method(setRadiusBuffer:))]
         #[unsafe(method_family = none)]
-        pub fn set_radius_buffer(&self, radius_buffer: MTL4BufferRange);
+        pub fn set_radius_buffer(
+            &self,
+            radius_buffer: MTL4BufferRange,
+        );
 
         /// Declares the format of the radii in the radius buffer.
         ///
@@ -109,7 +124,10 @@ impl MTL4AccelerationStructureCurveGeometryDescriptor {
         /// Setter for [`radiusFormat`][Self::radiusFormat].
         #[unsafe(method(setRadiusFormat:))]
         #[unsafe(method_family = none)]
-        pub fn set_radius_format(&self, radius_format: MTLAttributeFormat);
+        pub fn set_radius_format(
+            &self,
+            radius_format: MTLAttributeFormat,
+        );
 
         /// Configures the stride, in bytes, between radii in the radius buffer.
         ///
@@ -123,7 +141,10 @@ impl MTL4AccelerationStructureCurveGeometryDescriptor {
         /// Setter for [`radiusStride`][Self::radiusStride].
         #[unsafe(method(setRadiusStride:))]
         #[unsafe(method_family = none)]
-        pub fn set_radius_stride(&self, radius_stride: NSUInteger);
+        pub fn set_radius_stride(
+            &self,
+            radius_stride: NSUInteger,
+        );
 
         /// Assigns an optional index buffer containing references to control points in the control point buffer.
         ///
@@ -136,7 +157,10 @@ impl MTL4AccelerationStructureCurveGeometryDescriptor {
         /// Setter for [`indexBuffer`][Self::indexBuffer].
         #[unsafe(method(setIndexBuffer:))]
         #[unsafe(method_family = none)]
-        pub fn set_index_buffer(&self, index_buffer: MTL4BufferRange);
+        pub fn set_index_buffer(
+            &self,
+            index_buffer: MTL4BufferRange,
+        );
 
         /// Specifies the size of the indices the `indexBuffer` contains, which is typically either 16 or 32-bits for each index.
         #[unsafe(method(indexType))]
@@ -146,7 +170,10 @@ impl MTL4AccelerationStructureCurveGeometryDescriptor {
         /// Setter for [`indexType`][Self::indexType].
         #[unsafe(method(setIndexType:))]
         #[unsafe(method_family = none)]
-        pub fn set_index_type(&self, index_type: MTLIndexType);
+        pub fn set_index_type(
+            &self,
+            index_type: MTLIndexType,
+        );
 
         /// Declares the number of curve segments.
         #[unsafe(method(segmentCount))]
@@ -156,7 +183,10 @@ impl MTL4AccelerationStructureCurveGeometryDescriptor {
         /// Setter for [`segmentCount`][Self::segmentCount].
         #[unsafe(method(setSegmentCount:))]
         #[unsafe(method_family = none)]
-        pub fn set_segment_count(&self, segment_count: NSUInteger);
+        pub fn set_segment_count(
+            &self,
+            segment_count: NSUInteger,
+        );
 
         /// Declares the number of control points per curve segment.
         ///
@@ -168,7 +198,10 @@ impl MTL4AccelerationStructureCurveGeometryDescriptor {
         /// Setter for [`segmentControlPointCount`][Self::segmentControlPointCount].
         #[unsafe(method(setSegmentControlPointCount:))]
         #[unsafe(method_family = none)]
-        pub fn set_segment_control_point_count(&self, segment_control_point_count: NSUInteger);
+        pub fn set_segment_control_point_count(
+            &self,
+            segment_control_point_count: NSUInteger,
+        );
 
         /// Controls the curve type.
         ///
@@ -180,7 +213,10 @@ impl MTL4AccelerationStructureCurveGeometryDescriptor {
         /// Setter for [`curveType`][Self::curveType].
         #[unsafe(method(setCurveType:))]
         #[unsafe(method_family = none)]
-        pub fn set_curve_type(&self, curve_type: MTLCurveType);
+        pub fn set_curve_type(
+            &self,
+            curve_type: MTLCurveType,
+        );
 
         /// Controls the curve basis function, determining how Metal interpolates the control points.
         ///
@@ -192,7 +228,10 @@ impl MTL4AccelerationStructureCurveGeometryDescriptor {
         /// Setter for [`curveBasis`][Self::curveBasis].
         #[unsafe(method(setCurveBasis:))]
         #[unsafe(method_family = none)]
-        pub fn set_curve_basis(&self, curve_basis: MTLCurveBasis);
+        pub fn set_curve_basis(
+            &self,
+            curve_basis: MTLCurveBasis,
+        );
 
         /// Sets the type of curve end caps.
         ///
@@ -204,7 +243,10 @@ impl MTL4AccelerationStructureCurveGeometryDescriptor {
         /// Setter for [`curveEndCaps`][Self::curveEndCaps].
         #[unsafe(method(setCurveEndCaps:))]
         #[unsafe(method_family = none)]
-        pub fn set_curve_end_caps(&self, curve_end_caps: MTLCurveEndCaps);
+        pub fn set_curve_end_caps(
+            &self,
+            curve_end_caps: MTLCurveEndCaps,
+        );
     );
 }
 

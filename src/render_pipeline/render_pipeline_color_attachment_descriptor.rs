@@ -33,7 +33,10 @@ impl MTLRenderPipelineColorAttachmentDescriptor {
         /// Setter for [`pixel_format`][Self::pixel_format].
         #[unsafe(method(setPixelFormat:))]
         #[unsafe(method_family = none)]
-        pub fn set_pixel_format(&self, pixel_format: MTLPixelFormat);
+        pub fn set_pixel_format(
+            &self,
+            pixel_format: MTLPixelFormat,
+        );
 
         /// Enable blending. Defaults to false.
         #[unsafe(method(isBlendingEnabled))]
@@ -43,7 +46,10 @@ impl MTLRenderPipelineColorAttachmentDescriptor {
         /// Setter for [`is_blending_enabled`][Self::is_blending_enabled].
         #[unsafe(method(setBlendingEnabled:))]
         #[unsafe(method_family = none)]
-        pub fn set_blending_enabled(&self, enabled: bool);
+        pub fn set_blending_enabled(
+            &self,
+            enabled: bool,
+        );
 
         /// Defaults to BlendFactor::One
         #[unsafe(method(sourceRGBBlendFactor))]
@@ -53,7 +59,10 @@ impl MTLRenderPipelineColorAttachmentDescriptor {
         /// Setter for [`source_rgb_blend_factor`][Self::source_rgb_blend_factor].
         #[unsafe(method(setSourceRGBBlendFactor:))]
         #[unsafe(method_family = none)]
-        pub fn set_source_rgb_blend_factor(&self, factor: MTLBlendFactor);
+        pub fn set_source_rgb_blend_factor(
+            &self,
+            factor: MTLBlendFactor,
+        );
 
         /// Defaults to BlendFactor::Zero
         #[unsafe(method(destinationRGBBlendFactor))]
@@ -63,7 +72,10 @@ impl MTLRenderPipelineColorAttachmentDescriptor {
         /// Setter for [`destination_rgb_blend_factor`][Self::destination_rgb_blend_factor].
         #[unsafe(method(setDestinationRGBBlendFactor:))]
         #[unsafe(method_family = none)]
-        pub fn set_destination_rgb_blend_factor(&self, factor: MTLBlendFactor);
+        pub fn set_destination_rgb_blend_factor(
+            &self,
+            factor: MTLBlendFactor,
+        );
 
         /// Defaults to BlendOperation::Add
         #[unsafe(method(rgbBlendOperation))]
@@ -73,7 +85,10 @@ impl MTLRenderPipelineColorAttachmentDescriptor {
         /// Setter for [`rgb_blend_operation`][Self::rgb_blend_operation].
         #[unsafe(method(setRgbBlendOperation:))]
         #[unsafe(method_family = none)]
-        pub fn set_rgb_blend_operation(&self, op: MTLBlendOperation);
+        pub fn set_rgb_blend_operation(
+            &self,
+            op: MTLBlendOperation,
+        );
 
         /// Defaults to BlendFactor::One
         #[unsafe(method(sourceAlphaBlendFactor))]
@@ -83,7 +98,10 @@ impl MTLRenderPipelineColorAttachmentDescriptor {
         /// Setter for [`source_alpha_blend_factor`][Self::source_alpha_blend_factor].
         #[unsafe(method(setSourceAlphaBlendFactor:))]
         #[unsafe(method_family = none)]
-        pub fn set_source_alpha_blend_factor(&self, factor: MTLBlendFactor);
+        pub fn set_source_alpha_blend_factor(
+            &self,
+            factor: MTLBlendFactor,
+        );
 
         /// Defaults to BlendFactor::Zero
         #[unsafe(method(destinationAlphaBlendFactor))]
@@ -93,7 +111,10 @@ impl MTLRenderPipelineColorAttachmentDescriptor {
         /// Setter for [`destination_alpha_blend_factor`][Self::destination_alpha_blend_factor].
         #[unsafe(method(setDestinationAlphaBlendFactor:))]
         #[unsafe(method_family = none)]
-        pub fn set_destination_alpha_blend_factor(&self, factor: MTLBlendFactor);
+        pub fn set_destination_alpha_blend_factor(
+            &self,
+            factor: MTLBlendFactor,
+        );
 
         /// Defaults to BlendOperation::Add
         #[unsafe(method(alphaBlendOperation))]
@@ -103,7 +124,10 @@ impl MTLRenderPipelineColorAttachmentDescriptor {
         /// Setter for [`alpha_blend_operation`][Self::alpha_blend_operation].
         #[unsafe(method(setAlphaBlendOperation:))]
         #[unsafe(method_family = none)]
-        pub fn set_alpha_blend_operation(&self, op: MTLBlendOperation);
+        pub fn set_alpha_blend_operation(
+            &self,
+            op: MTLBlendOperation,
+        );
 
         /// Defaults to ColorWriteMask::All
         #[unsafe(method(writeMask))]
@@ -113,6 +137,9 @@ impl MTLRenderPipelineColorAttachmentDescriptor {
         /// Setter for [`write_mask`][Self::write_mask].
         #[unsafe(method(setWriteMask:))]
         #[unsafe(method_family = none)]
-        pub fn set_write_mask(&self, mask: MTLColorWriteMask);
+        pub fn set_write_mask(
+            &self,
+            mask: MTLColorWriteMask,
+        );
     );
 }

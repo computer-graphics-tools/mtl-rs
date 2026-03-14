@@ -6,9 +6,8 @@ use objc2::{
 use objc2_foundation::{CopyingHelper, NSArray, NSCopying, NSObjectProtocol, NSString};
 
 use crate::{
-    MTLBinaryArchive as BinaryArchive, MTLFunction, MTLLinkedFunctions,
-    MTLPipelineBufferDescriptorArray, MTLShaderValidation, MTLSize,
-    MTLTileRenderPipelineColorAttachmentDescriptorArray,
+    MTLBinaryArchive as BinaryArchive, MTLFunction, MTLLinkedFunctions, MTLPipelineBufferDescriptorArray,
+    MTLShaderValidation, MTLSize, MTLTileRenderPipelineColorAttachmentDescriptorArray,
     dynamic_library::MTLDynamicLibrary as DynamicLibrary,
 };
 
@@ -45,7 +44,10 @@ impl MTLTileRenderPipelineDescriptor {
         /// Setter for [`tileFunction`][Self::tileFunction].
         #[unsafe(method(setTileFunction:))]
         #[unsafe(method_family = none)]
-        pub fn set_tile_function(&self, tile_function: &ProtocolObject<dyn MTLFunction>);
+        pub fn set_tile_function(
+            &self,
+            tile_function: &ProtocolObject<dyn MTLFunction>,
+        );
 
         #[unsafe(method(rasterSampleCount))]
         #[unsafe(method_family = none)]
@@ -54,13 +56,14 @@ impl MTLTileRenderPipelineDescriptor {
         /// Setter for [`rasterSampleCount`][Self::rasterSampleCount].
         #[unsafe(method(setRasterSampleCount:))]
         #[unsafe(method_family = none)]
-        pub fn set_raster_sample_count(&self, raster_sample_count: usize);
+        pub fn set_raster_sample_count(
+            &self,
+            raster_sample_count: usize,
+        );
 
         #[unsafe(method(colorAttachments))]
         #[unsafe(method_family = none)]
-        pub fn color_attachments(
-            &self,
-        ) -> Retained<MTLTileRenderPipelineColorAttachmentDescriptorArray>;
+        pub fn color_attachments(&self) -> Retained<MTLTileRenderPipelineColorAttachmentDescriptorArray>;
 
         /// Whether all threadgroups associated with this pipeline will cover tiles entirely.
         ///
@@ -106,7 +109,10 @@ impl MTLTileRenderPipelineDescriptor {
         /// This is [copied][objc2_foundation::NSCopying::copy] when set.
         #[unsafe(method(setLinkedFunctions:))]
         #[unsafe(method_family = none)]
-        pub fn set_linked_functions(&self, linked_functions: Option<&MTLLinkedFunctions>);
+        pub fn set_linked_functions(
+            &self,
+            linked_functions: Option<&MTLLinkedFunctions>,
+        );
 
         /// This flag makes this pipeline support creating a new pipeline by adding binary functions.
         #[unsafe(method(supportAddingBinaryFunctions))]
@@ -116,7 +122,10 @@ impl MTLTileRenderPipelineDescriptor {
         /// Setter for [`supportAddingBinaryFunctions`][Self::supportAddingBinaryFunctions].
         #[unsafe(method(setSupportAddingBinaryFunctions:))]
         #[unsafe(method_family = none)]
-        pub fn set_support_adding_binary_functions(&self, support_adding_binary_functions: bool);
+        pub fn set_support_adding_binary_functions(
+            &self,
+            support_adding_binary_functions: bool,
+        );
 
         /// The maximum depth of the call stack in stack frames from the tile function. Defaults to 1 additional stack frame.
         #[unsafe(method(maxCallStackDepth))]
@@ -126,7 +135,10 @@ impl MTLTileRenderPipelineDescriptor {
         /// Setter for [`maxCallStackDepth`][Self::maxCallStackDepth].
         #[unsafe(method(setMaxCallStackDepth:))]
         #[unsafe(method_family = none)]
-        pub fn set_max_call_stack_depth(&self, max_call_stack_depth: usize);
+        pub fn set_max_call_stack_depth(
+            &self,
+            max_call_stack_depth: usize,
+        );
 
         #[unsafe(method(reset))]
         #[unsafe(method_family = none)]
@@ -142,7 +154,10 @@ impl MTLTileRenderPipelineDescriptor {
         /// Setter for [`shaderValidation`][Self::shaderValidation].
         #[unsafe(method(setShaderValidation:))]
         #[unsafe(method_family = none)]
-        pub fn set_shader_validation(&self, shader_validation: MTLShaderValidation);
+        pub fn set_shader_validation(
+            &self,
+            shader_validation: MTLShaderValidation,
+        );
 
         /// Sets the required threads-per-threadgroup during tile dispatches. The `threadsPerTile` argument of any tile dispatch must match to this value if it is set.
         /// Optional, unless the pipeline is going to use CooperativeTensors in which case this must be set.
@@ -168,7 +183,10 @@ impl MTLTileRenderPipelineDescriptor {
         s.map(|s| s.to_string())
     }
 
-    fn set_label(&self, label: Option<&str>) {
+    fn set_label(
+        &self,
+        label: Option<&str>,
+    ) {
         unsafe {
             let _: () = msg_send![self, setLabel: label.map(NSString::from_str).as_deref()];
         }

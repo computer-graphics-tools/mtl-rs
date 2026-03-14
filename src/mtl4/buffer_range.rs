@@ -36,7 +36,10 @@ impl MTL4BufferRange {
     ///
     /// - `length`: when `None`, uses `WHOLE_BUFFER_LENGTH` (from address to end of buffer).
     #[inline]
-    pub fn new(buffer_address: MTLGPUAddress, length: Option<u64>) -> Self {
+    pub fn new(
+        buffer_address: MTLGPUAddress,
+        length: Option<u64>,
+    ) -> Self {
         Self {
             buffer_address,
             length: length.unwrap_or(Self::WHOLE_BUFFER_LENGTH),

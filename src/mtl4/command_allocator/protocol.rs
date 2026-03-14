@@ -1,6 +1,4 @@
-use objc2::rc::Retained;
-use objc2::runtime::ProtocolObject;
-use objc2::{Message, extern_protocol, msg_send};
+use objc2::{Message, extern_protocol, msg_send, rc::Retained, runtime::ProtocolObject};
 use objc2_foundation::{NSObjectProtocol, NSString};
 
 use crate::*;

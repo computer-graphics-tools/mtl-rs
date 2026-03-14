@@ -5,6 +5,5 @@ mod indirect;
 pub use compute_command_encoder::{MTLComputeCommandEncoder, MTLComputeCommandEncoderExt};
 pub use dispatch_type::MTLDispatchType;
 pub use indirect::{
-    MTLDispatchThreadgroupsIndirectArguments, MTLDispatchThreadsIndirectArguments,
-    MTLStageInRegionIndirectArguments,
+    MTLDispatchThreadgroupsIndirectArguments, MTLDispatchThreadsIndirectArguments, MTLStageInRegionIndirectArguments,
 };

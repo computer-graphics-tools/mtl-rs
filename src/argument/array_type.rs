@@ -50,9 +50,7 @@ impl MTLArrayType {
         /// Availability: macOS 10.13+, iOS 11.0+
         #[unsafe(method(elementTextureReferenceType))]
         #[unsafe(method_family = none)]
-        pub fn element_texture_reference_type(
-            &self,
-        ) -> Option<Retained<crate::argument::MTLTextureReferenceType>>;
+        pub fn element_texture_reference_type(&self) -> Option<Retained<crate::argument::MTLTextureReferenceType>>;
 
         /// If elements are pointers, returns the element pointer type.
         ///
@@ -66,8 +64,6 @@ impl MTLArrayType {
         /// Availability: macOS 26.0+, iOS 26.0+
         #[unsafe(method(elementTensorReferenceType))]
         #[unsafe(method_family = none)]
-        pub fn element_tensor_reference_type(
-            &self,
-        ) -> Option<Retained<crate::MTLTensorReferenceType>>;
+        pub fn element_tensor_reference_type(&self) -> Option<Retained<crate::MTLTensorReferenceType>>;
     );
 }

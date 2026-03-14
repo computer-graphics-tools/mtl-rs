@@ -15,12 +15,10 @@ impl MTLCommandBufferHandler {
     where
         F: Fn(&ProtocolObject<dyn MTLCommandBuffer>) + 'static,
     {
-        Self(RcBlock::new(
-            move |cb_ptr: NonNull<ProtocolObject<dyn MTLCommandBuffer>>| {
-                let cb = unsafe { cb_ptr.as_ref() };
-                handler(cb);
-            },
-        ))
+        Self(RcBlock::new(move |cb_ptr: NonNull<ProtocolObject<dyn MTLCommandBuffer>>| {
+            let cb = unsafe { cb_ptr.as_ref() };
+            handler(cb);
+        }))
     }
 }
 

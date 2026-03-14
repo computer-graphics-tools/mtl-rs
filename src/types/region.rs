@@ -1,5 +1,6 @@
-use crate::types::{MTLOrigin, MTLSize};
 use objc2::{Encode, Encoding, RefEncode};
+
+use crate::types::{MTLOrigin, MTLSize};
 
 /// Identify a region in an image or texture.
 #[repr(C)]

@@ -6,8 +6,7 @@ use objc2::{
 use objc2_foundation::{CopyingHelper, NSCopying, NSObjectProtocol};
 
 use super::{
-    vertex_buffer_layout_descriptor_array::MTLVertexBufferLayoutDescriptorArray,
-    vertex_format::MTLVertexFormat,
+    vertex_buffer_layout_descriptor_array::MTLVertexBufferLayoutDescriptorArray, vertex_format::MTLVertexFormat,
 };
 
 extern_class!(
@@ -82,7 +81,10 @@ impl MTLVertexAttributeDescriptor {
         /// Setter for [`format`][Self::format].
         #[unsafe(method(setFormat:))]
         #[unsafe(method_family = none)]
-        pub fn set_format(&self, format: MTLVertexFormat);
+        pub fn set_format(
+            &self,
+            format: MTLVertexFormat,
+        );
 
         /// Byte offset of this attribute within the vertex.
         #[unsafe(method(offset))]
@@ -92,7 +94,10 @@ impl MTLVertexAttributeDescriptor {
         /// Setter for [`offset`][Self::offset].
         #[unsafe(method(setOffset:))]
         #[unsafe(method_family = none)]
-        pub fn set_offset(&self, offset: usize);
+        pub fn set_offset(
+            &self,
+            offset: usize,
+        );
 
         /// The index of the buffer from which this attribute reads.
         #[unsafe(method(bufferIndex))]
@@ -102,7 +107,10 @@ impl MTLVertexAttributeDescriptor {
         /// Setter for [`bufferIndex`][Self::bufferIndex].
         #[unsafe(method(setBufferIndex:))]
         #[unsafe(method_family = none)]
-        pub fn set_buffer_index(&self, buffer_index: usize);
+        pub fn set_buffer_index(
+            &self,
+            buffer_index: usize,
+        );
     );
 }
 

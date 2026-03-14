@@ -3,8 +3,8 @@ use core::ptr::NonNull;
 use objc2::{extern_protocol, runtime::ProtocolObject};
 
 use crate::{
-    MTLAccelerationStructure, MTLBuffer, MTLCommandEncoder, MTLCounterSampleBuffer, MTLDataType,
-    MTLFence, MTLHeap, MTLResource, MTLResourceUsage,
+    MTLAccelerationStructure, MTLBuffer, MTLCommandEncoder, MTLCounterSampleBuffer, MTLDataType, MTLFence, MTLHeap,
+    MTLResource, MTLResourceUsage,
 };
 
 extern_protocol!(
@@ -78,9 +78,7 @@ extern_protocol!(
             &self,
             source_acceleration_structure: &ProtocolObject<dyn MTLAccelerationStructure>,
             descriptor: &crate::acceleration_structure::MTLAccelerationStructureDescriptor,
-            destination_acceleration_structure: Option<
-                &ProtocolObject<dyn MTLAccelerationStructure>,
-            >,
+            destination_acceleration_structure: Option<&ProtocolObject<dyn MTLAccelerationStructure>>,
             scratch_buffer: Option<&ProtocolObject<dyn MTLBuffer>>,
             scratch_buffer_offset: usize,
         );
@@ -106,9 +104,7 @@ extern_protocol!(
             &self,
             source_acceleration_structure: &ProtocolObject<dyn MTLAccelerationStructure>,
             descriptor: &crate::acceleration_structure::MTLAccelerationStructureDescriptor,
-            destination_acceleration_structure: Option<
-                &ProtocolObject<dyn MTLAccelerationStructure>,
-            >,
+            destination_acceleration_structure: Option<&ProtocolObject<dyn MTLAccelerationStructure>>,
             scratch_buffer: Option<&ProtocolObject<dyn MTLBuffer>>,
             scratch_buffer_offset: usize,
             options: crate::acceleration_structure::MTLAccelerationStructureRefitOptions,
@@ -197,7 +193,10 @@ extern_protocol!(
         /// in the same encoder.
         #[unsafe(method(updateFence:))]
         #[unsafe(method_family = none)]
-        fn update_fence(&self, fence: &ProtocolObject<dyn MTLFence>);
+        fn update_fence(
+            &self,
+            fence: &ProtocolObject<dyn MTLFence>,
+        );
 
         /// Prevent further GPU work until the fence is reached.
         ///
@@ -208,7 +207,10 @@ extern_protocol!(
         /// in the same encoder.
         #[unsafe(method(waitForFence:))]
         #[unsafe(method_family = none)]
-        fn wait_for_fence(&self, fence: &ProtocolObject<dyn MTLFence>);
+        fn wait_for_fence(
+            &self,
+            fence: &ProtocolObject<dyn MTLFence>,
+        );
 
         /// Declare that a resource may be accessed by the encoder through an
         /// argument buffer.
@@ -222,7 +224,11 @@ extern_protocol!(
         /// older OS versions.
         #[unsafe(method(useResource:usage:))]
         #[unsafe(method_family = none)]
-        fn use_resource(&self, resource: &ProtocolObject<dyn MTLResource>, usage: MTLResourceUsage);
+        fn use_resource(
+            &self,
+            resource: &ProtocolObject<dyn MTLResource>,
+            usage: MTLResourceUsage,
+        );
 
         /// Declare that an array of resources may be accessed by the encoder
         /// through an argument buffer.
@@ -261,7 +267,10 @@ extern_protocol!(
         /// older OS versions.
         #[unsafe(method(useHeap:))]
         #[unsafe(method_family = none)]
-        fn use_heap(&self, heap: &ProtocolObject<dyn MTLHeap>);
+        fn use_heap(
+            &self,
+            heap: &ProtocolObject<dyn MTLHeap>,
+        );
 
         /// Declare that the resources allocated from an array of heaps may be
         /// accessed as read-only by the encoder through an argument buffer.
@@ -281,7 +290,11 @@ extern_protocol!(
         /// non-null `ProtocolObject<dyn MTLHeap>` pointers of length `count`.
         #[unsafe(method(useHeaps:count:))]
         #[unsafe(method_family = none)]
-        fn use_heaps(&self, heaps: NonNull<NonNull<ProtocolObject<dyn MTLHeap>>>, count: usize);
+        fn use_heaps(
+            &self,
+            heaps: NonNull<NonNull<ProtocolObject<dyn MTLHeap>>>,
+            count: usize,
+        );
 
         /// Sample hardware counters at this point in the acceleration structure
         /// encoder and store the counter sample into the sample buffer at the

@@ -33,7 +33,7 @@ impl MTLRasterizationRateMapDescriptor {
         #[unsafe(method(rasterizationRateMapDescriptorWithScreenSize:))]
         #[unsafe(method_family = none)]
         pub fn rasterization_rate_map_descriptor_with_screen_size(
-            screen_size: MTLSize,
+            screen_size: MTLSize
         ) -> Retained<MTLRasterizationRateMapDescriptor>;
 
         /// Convenience descriptor creation for a single layer.
@@ -74,7 +74,10 @@ impl MTLRasterizationRateMapDescriptor {
         /// Setter for [`screen_size`][Self::screen_size].
         #[unsafe(method(setScreenSize:))]
         #[unsafe(method_family = none)]
-        pub fn set_screen_size(&self, screen_size: MTLSize);
+        pub fn set_screen_size(
+            &self,
+            screen_size: MTLSize,
+        );
 
         /// Number of subsequent non-nil layers starting at index 0.
         #[unsafe(method(layerCount))]
@@ -104,7 +107,10 @@ impl MTLRasterizationRateMapDescriptor {
         s.map(|s| s.to_string())
     }
     /// Setter for [`label`][Self::label].
-    fn set_label(&self, label: Option<&str>) {
+    fn set_label(
+        &self,
+        label: Option<&str>,
+    ) {
         unsafe {
             let _: () = msg_send![self, setLabel: label.map(NSString::from_str).as_deref()];
         }

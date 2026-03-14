@@ -23,16 +23,17 @@ extern_protocol!(
         /// For correct execution, the application must retain objects referenced by commands.
         #[unsafe(method(commandBufferWithUnretainedReferences))]
         #[unsafe(method_family = none)]
-        fn command_buffer_with_unretained_references(
-            &self,
-        ) -> Retained<ProtocolObject<dyn MTLIOCommandBuffer>>;
+        fn command_buffer_with_unretained_references(&self) -> Retained<ProtocolObject<dyn MTLIOCommandBuffer>>;
     }
 );
 
 #[allow(unused)]
 pub trait MTLIOCommandQueueExt: MTLIOCommandQueue + Message {
     fn label(&self) -> Option<String>;
-    fn set_label(&self, label: Option<&str>);
+    fn set_label(
+        &self,
+        label: Option<&str>,
+    );
 }
 
 impl MTLIOCommandQueueExt for ProtocolObject<dyn MTLIOCommandQueue> {
@@ -41,7 +42,10 @@ impl MTLIOCommandQueueExt for ProtocolObject<dyn MTLIOCommandQueue> {
         s.map(|s| s.to_string())
     }
 
-    fn set_label(&self, label: Option<&str>) {
+    fn set_label(
+        &self,
+        label: Option<&str>,
+    ) {
         unsafe {
             let _: () = msg_send![self, setLabel: label.map(NSString::from_str).as_deref()];
         }

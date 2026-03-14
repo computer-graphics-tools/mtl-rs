@@ -38,8 +38,10 @@ extern_protocol!(
 );
 
 pub trait MTLIndirectCommandBufferExt: MTLIndirectCommandBuffer + Message {
-    fn reset_with_range(&self, range: Range<usize>)
-    where
+    fn reset_with_range(
+        &self,
+        range: Range<usize>,
+    ) where
         Self: Sized,
     {
         unsafe {

@@ -36,7 +36,10 @@ impl MTLTileRenderPipelineColorAttachmentDescriptor {
         /// Setter for [`pixelFormat`][Self::pixelFormat].
         #[unsafe(method(setPixelFormat:))]
         #[unsafe(method_family = none)]
-        pub fn set_pixel_format(&self, pixel_format: MTLPixelFormat);
+        pub fn set_pixel_format(
+            &self,
+            pixel_format: MTLPixelFormat,
+        );
     );
 }
 

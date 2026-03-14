@@ -40,7 +40,10 @@ impl MTLIndirectCommandBufferDescriptor {
         /// Setter for [`command_types`][Self::command_types].
         #[unsafe(method(setCommandTypes:))]
         #[unsafe(method_family = none)]
-        pub fn set_command_types(&self, command_types: MTLIndirectCommandType);
+        pub fn set_command_types(
+            &self,
+            command_types: MTLIndirectCommandType,
+        );
 
         /// Whether pipelines are inherited from the encoder.
         ///
@@ -52,7 +55,10 @@ impl MTLIndirectCommandBufferDescriptor {
         /// Setter for [`inherit_pipeline_state`][Self::inherit_pipeline_state].
         #[unsafe(method(setInheritPipelineState:))]
         #[unsafe(method_family = none)]
-        pub fn set_inherit_pipeline_state(&self, inherit_pipeline_state: bool);
+        pub fn set_inherit_pipeline_state(
+            &self,
+            inherit_pipeline_state: bool,
+        );
 
         /// Whether argument buffers are inherited.
         #[unsafe(method(inheritBuffers))]
@@ -62,7 +68,10 @@ impl MTLIndirectCommandBufferDescriptor {
         /// Setter for [`inherit_buffers`][Self::inherit_buffers].
         #[unsafe(method(setInheritBuffers:))]
         #[unsafe(method_family = none)]
-        pub fn set_inherit_buffers(&self, inherit_buffers: bool);
+        pub fn set_inherit_buffers(
+            &self,
+            inherit_buffers: bool,
+        );
 
         /// Whether depth/stencil state is inherited from the encoder.
         ///
@@ -74,7 +83,10 @@ impl MTLIndirectCommandBufferDescriptor {
         /// Setter for [`inherit_depth_stencil_state`][Self::inherit_depth_stencil_state].
         #[unsafe(method(setInheritDepthStencilState:))]
         #[unsafe(method_family = none)]
-        pub fn set_inherit_depth_stencil_state(&self, inherit: bool);
+        pub fn set_inherit_depth_stencil_state(
+            &self,
+            inherit: bool,
+        );
 
         /// Whether depth bias is inherited from the encoder.
         ///
@@ -86,7 +98,10 @@ impl MTLIndirectCommandBufferDescriptor {
         /// Setter for [`inherit_depth_bias`][Self::inherit_depth_bias].
         #[unsafe(method(setInheritDepthBias:))]
         #[unsafe(method_family = none)]
-        pub fn set_inherit_depth_bias(&self, inherit: bool);
+        pub fn set_inherit_depth_bias(
+            &self,
+            inherit: bool,
+        );
 
         /// Whether depth clip mode is inherited from the encoder.
         ///
@@ -98,7 +113,10 @@ impl MTLIndirectCommandBufferDescriptor {
         /// Setter for [`inherit_depth_clip_mode`][Self::inherit_depth_clip_mode].
         #[unsafe(method(setInheritDepthClipMode:))]
         #[unsafe(method_family = none)]
-        pub fn set_inherit_depth_clip_mode(&self, inherit: bool);
+        pub fn set_inherit_depth_clip_mode(
+            &self,
+            inherit: bool,
+        );
 
         /// Whether cull mode is inherited from the encoder.
         ///
@@ -110,7 +128,10 @@ impl MTLIndirectCommandBufferDescriptor {
         /// Setter for [`inherit_cull_mode`][Self::inherit_cull_mode].
         #[unsafe(method(setInheritCullMode:))]
         #[unsafe(method_family = none)]
-        pub fn set_inherit_cull_mode(&self, inherit: bool);
+        pub fn set_inherit_cull_mode(
+            &self,
+            inherit: bool,
+        );
 
         /// Whether front-facing winding is inherited from the encoder.
         ///
@@ -122,7 +143,10 @@ impl MTLIndirectCommandBufferDescriptor {
         /// Setter for [`inherit_front_facing_winding`][Self::inherit_front_facing_winding].
         #[unsafe(method(setInheritFrontFacingWinding:))]
         #[unsafe(method_family = none)]
-        pub fn set_inherit_front_facing_winding(&self, inherit: bool);
+        pub fn set_inherit_front_facing_winding(
+            &self,
+            inherit: bool,
+        );
 
         /// Whether triangle fill mode is inherited from the encoder.
         ///
@@ -134,7 +158,10 @@ impl MTLIndirectCommandBufferDescriptor {
         /// Setter for [`inherit_triangle_fill_mode`][Self::inherit_triangle_fill_mode].
         #[unsafe(method(setInheritTriangleFillMode:))]
         #[unsafe(method_family = none)]
-        pub fn set_inherit_triangle_fill_mode(&self, inherit: bool);
+        pub fn set_inherit_triangle_fill_mode(
+            &self,
+            inherit: bool,
+        );
 
         /// Maximum vertex buffer bind index per command.
         #[unsafe(method(maxVertexBufferBindCount))]
@@ -144,7 +171,10 @@ impl MTLIndirectCommandBufferDescriptor {
         /// Setter for [`max_vertex_buffer_bind_count`][Self::max_vertex_buffer_bind_count].
         #[unsafe(method(setMaxVertexBufferBindCount:))]
         #[unsafe(method_family = none)]
-        pub fn set_max_vertex_buffer_bind_count(&self, count: usize);
+        pub fn set_max_vertex_buffer_bind_count(
+            &self,
+            count: usize,
+        );
 
         /// Maximum fragment buffer bind index per command.
         #[unsafe(method(maxFragmentBufferBindCount))]
@@ -154,7 +184,10 @@ impl MTLIndirectCommandBufferDescriptor {
         /// Setter for [`max_fragment_buffer_bind_count`][Self::max_fragment_buffer_bind_count].
         #[unsafe(method(setMaxFragmentBufferBindCount:))]
         #[unsafe(method_family = none)]
-        pub fn set_max_fragment_buffer_bind_count(&self, count: usize);
+        pub fn set_max_fragment_buffer_bind_count(
+            &self,
+            count: usize,
+        );
 
         /// Maximum kernel buffer bind index per command.
         ///
@@ -166,7 +199,10 @@ impl MTLIndirectCommandBufferDescriptor {
         /// Setter for [`max_kernel_buffer_bind_count`][Self::max_kernel_buffer_bind_count].
         #[unsafe(method(setMaxKernelBufferBindCount:))]
         #[unsafe(method_family = none)]
-        pub fn set_max_kernel_buffer_bind_count(&self, count: usize);
+        pub fn set_max_kernel_buffer_bind_count(
+            &self,
+            count: usize,
+        );
 
         /// Maximum kernel threadgroup memory bind count.
         ///
@@ -178,7 +214,10 @@ impl MTLIndirectCommandBufferDescriptor {
         /// Setter for [`max_kernel_threadgroup_memory_bind_count`][Self::max_kernel_threadgroup_memory_bind_count].
         #[unsafe(method(setMaxKernelThreadgroupMemoryBindCount:))]
         #[unsafe(method_family = none)]
-        pub fn set_max_kernel_threadgroup_memory_bind_count(&self, count: usize);
+        pub fn set_max_kernel_threadgroup_memory_bind_count(
+            &self,
+            count: usize,
+        );
 
         /// Maximum object buffer bind index per render command.
         ///
@@ -190,7 +229,10 @@ impl MTLIndirectCommandBufferDescriptor {
         /// Setter for [`max_object_buffer_bind_count`][Self::max_object_buffer_bind_count].
         #[unsafe(method(setMaxObjectBufferBindCount:))]
         #[unsafe(method_family = none)]
-        pub fn set_max_object_buffer_bind_count(&self, count: usize);
+        pub fn set_max_object_buffer_bind_count(
+            &self,
+            count: usize,
+        );
 
         /// Maximum mesh buffer bind index per render command.
         ///
@@ -202,7 +244,10 @@ impl MTLIndirectCommandBufferDescriptor {
         /// Setter for [`max_mesh_buffer_bind_count`][Self::max_mesh_buffer_bind_count].
         #[unsafe(method(setMaxMeshBufferBindCount:))]
         #[unsafe(method_family = none)]
-        pub fn set_max_mesh_buffer_bind_count(&self, count: usize);
+        pub fn set_max_mesh_buffer_bind_count(
+            &self,
+            count: usize,
+        );
 
         /// Maximum object threadgroup memory bind count.
         ///
@@ -214,7 +259,10 @@ impl MTLIndirectCommandBufferDescriptor {
         /// Setter for [`max_object_threadgroup_memory_bind_count`][Self::max_object_threadgroup_memory_bind_count].
         #[unsafe(method(setMaxObjectThreadgroupMemoryBindCount:))]
         #[unsafe(method_family = none)]
-        pub fn set_max_object_threadgroup_memory_bind_count(&self, count: usize);
+        pub fn set_max_object_threadgroup_memory_bind_count(
+            &self,
+            count: usize,
+        );
 
         /// Whether render/compute commands can use ray tracing.
         ///
@@ -226,7 +274,10 @@ impl MTLIndirectCommandBufferDescriptor {
         /// Setter for [`support_ray_tracing`][Self::support_ray_tracing].
         #[unsafe(method(setSupportRayTracing:))]
         #[unsafe(method_family = none)]
-        pub fn set_support_ray_tracing(&self, support: bool);
+        pub fn set_support_ray_tracing(
+            &self,
+            support: bool,
+        );
 
         /// Allow setting dynamic attribute stride.
         ///
@@ -238,7 +289,10 @@ impl MTLIndirectCommandBufferDescriptor {
         /// Setter for [`support_dynamic_attribute_stride`][Self::support_dynamic_attribute_stride].
         #[unsafe(method(setSupportDynamicAttributeStride:))]
         #[unsafe(method_family = none)]
-        pub fn set_support_dynamic_attribute_stride(&self, support: bool);
+        pub fn set_support_dynamic_attribute_stride(
+            &self,
+            support: bool,
+        );
 
         /// Whether to support color attachment mapping.
         ///
@@ -250,7 +304,10 @@ impl MTLIndirectCommandBufferDescriptor {
         /// Setter for [`support_color_attachment_mapping`][Self::support_color_attachment_mapping].
         #[unsafe(method(setSupportColorAttachmentMapping:))]
         #[unsafe(method_family = none)]
-        pub fn set_support_color_attachment_mapping(&self, support: bool);
+        pub fn set_support_color_attachment_mapping(
+            &self,
+            support: bool,
+        );
     );
 }
 

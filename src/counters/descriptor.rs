@@ -35,7 +35,10 @@ impl MTLCounterSampleBufferDescriptor {
 
         #[unsafe(method(setCounterSet:))]
         #[unsafe(method_family = none)]
-        pub fn set_counter_set(&self, counter_set: Option<&ProtocolObject<dyn MTLCounterSet>>);
+        pub fn set_counter_set(
+            &self,
+            counter_set: Option<&ProtocolObject<dyn MTLCounterSet>>,
+        );
 
         /// The storage mode for the sample buffer. Only `Shared` and `Private` may be used.
         #[unsafe(method(storageMode))]
@@ -44,7 +47,10 @@ impl MTLCounterSampleBufferDescriptor {
 
         #[unsafe(method(setStorageMode:))]
         #[unsafe(method_family = none)]
-        pub fn set_storage_mode(&self, mode: MTLStorageMode);
+        pub fn set_storage_mode(
+            &self,
+            mode: MTLStorageMode,
+        );
 
         #[unsafe(method(sampleCount))]
         #[unsafe(method_family = none)]
@@ -52,7 +58,10 @@ impl MTLCounterSampleBufferDescriptor {
 
         #[unsafe(method(setSampleCount:))]
         #[unsafe(method_family = none)]
-        pub fn set_sample_count(&self, sample_count: usize);
+        pub fn set_sample_count(
+            &self,
+            sample_count: usize,
+        );
     );
 
     pub fn label(&self) -> String {
@@ -60,7 +69,10 @@ impl MTLCounterSampleBufferDescriptor {
         label.to_string()
     }
 
-    pub fn set_label(&self, label: &str) {
+    pub fn set_label(
+        &self,
+        label: &str,
+    ) {
         unsafe {
             let _: () = msg_send![self, setLabel: &*NSString::from_str(label)];
         }

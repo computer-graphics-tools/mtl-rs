@@ -37,7 +37,10 @@ impl MTLLogStateDescriptor {
 
         #[unsafe(method(setLevel:))]
         #[unsafe(method_family = none)]
-        pub fn set_level(&self, level: MTLLogLevel);
+        pub fn set_level(
+            &self,
+            level: MTLLogLevel,
+        );
 
         /// Size of the GPU buffer for shader logging (minimum 1KB).
         #[unsafe(method(bufferSize))]
@@ -46,7 +49,10 @@ impl MTLLogStateDescriptor {
 
         #[unsafe(method(setBufferSize:))]
         #[unsafe(method_family = none)]
-        pub fn set_buffer_size(&self, buffer_size: isize);
+        pub fn set_buffer_size(
+            &self,
+            buffer_size: isize,
+        );
     );
 }
 

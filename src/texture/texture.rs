@@ -5,9 +5,8 @@ use objc2_foundation::NSRange;
 use objc2_io_surface::IOSurfaceRef;
 
 use crate::{
-    MTLBuffer, MTLDevice, MTLPixelFormat, MTLRegion, MTLResource, MTLResourceID,
-    MTLSharedTextureHandle, MTLTextureCompressionType, MTLTextureSparseTier,
-    MTLTextureSwizzleChannels, MTLTextureType, MTLTextureUsage,
+    MTLBuffer, MTLDevice, MTLPixelFormat, MTLRegion, MTLResource, MTLResourceID, MTLSharedTextureHandle,
+    MTLTextureCompressionType, MTLTextureSparseTier, MTLTextureSwizzleChannels, MTLTextureType, MTLTextureUsage,
 };
 
 extern_protocol!(

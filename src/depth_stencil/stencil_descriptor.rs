@@ -37,7 +37,10 @@ impl MTLStencilDescriptor {
 
         #[unsafe(method(setStencilCompareFunction:))]
         #[unsafe(method_family = none)]
-        pub fn set_stencil_compare_function(&self, value: MTLCompareFunction);
+        pub fn set_stencil_compare_function(
+            &self,
+            value: MTLCompareFunction,
+        );
 
         /// Operation applied when the stencil test fails.
         #[unsafe(method(stencilFailureOperation))]
@@ -46,7 +49,10 @@ impl MTLStencilDescriptor {
 
         #[unsafe(method(setStencilFailureOperation:))]
         #[unsafe(method_family = none)]
-        pub fn set_stencil_failure_operation(&self, value: MTLStencilOperation);
+        pub fn set_stencil_failure_operation(
+            &self,
+            value: MTLStencilOperation,
+        );
 
         /// Operation applied when depth test fails but stencil passed.
         #[unsafe(method(depthFailureOperation))]
@@ -55,7 +61,10 @@ impl MTLStencilDescriptor {
 
         #[unsafe(method(setDepthFailureOperation:))]
         #[unsafe(method_family = none)]
-        pub fn set_depth_failure_operation(&self, value: MTLStencilOperation);
+        pub fn set_depth_failure_operation(
+            &self,
+            value: MTLStencilOperation,
+        );
 
         /// Operation applied when both stencil and depth tests pass.
         #[unsafe(method(depthStencilPassOperation))]
@@ -64,7 +73,10 @@ impl MTLStencilDescriptor {
 
         #[unsafe(method(setDepthStencilPassOperation:))]
         #[unsafe(method_family = none)]
-        pub fn set_depth_stencil_pass_operation(&self, value: MTLStencilOperation);
+        pub fn set_depth_stencil_pass_operation(
+            &self,
+            value: MTLStencilOperation,
+        );
 
         /// Bitmask applied to both the stencil reference value and the stored stencil value when reading.
         #[unsafe(method(readMask))]
@@ -73,7 +85,10 @@ impl MTLStencilDescriptor {
 
         #[unsafe(method(setReadMask:))]
         #[unsafe(method_family = none)]
-        pub fn set_read_mask(&self, value: u32);
+        pub fn set_read_mask(
+            &self,
+            value: u32,
+        );
 
         /// Bitmask applied to values written to the stencil buffer.
         #[unsafe(method(writeMask))]
@@ -82,7 +97,10 @@ impl MTLStencilDescriptor {
 
         #[unsafe(method(setWriteMask:))]
         #[unsafe(method_family = none)]
-        pub fn set_write_mask(&self, value: u32);
+        pub fn set_write_mask(
+            &self,
+            value: u32,
+        );
     );
 }
 

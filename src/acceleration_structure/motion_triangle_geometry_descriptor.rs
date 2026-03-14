@@ -6,8 +6,8 @@ use objc2::{
 use objc2_foundation::{CopyingHelper, NSArray, NSCopying, NSObjectProtocol};
 
 use crate::{
-    MTLAccelerationStructureGeometryDescriptor, MTLAttributeFormat, MTLBuffer, MTLIndexType,
-    MTLMatrixLayout, MTLMotionKeyframeData,
+    MTLAccelerationStructureGeometryDescriptor, MTLAttributeFormat, MTLBuffer, MTLIndexType, MTLMatrixLayout,
+    MTLMotionKeyframeData,
 };
 
 extern_class!(
@@ -42,7 +42,10 @@ impl MTLAccelerationStructureMotionTriangleGeometryDescriptor {
         /// Setter for [`vertexFormat`][Self::vertexFormat].
         #[unsafe(method(setVertexFormat:))]
         #[unsafe(method_family = none)]
-        pub fn set_vertex_format(&self, vertex_format: MTLAttributeFormat);
+        pub fn set_vertex_format(
+            &self,
+            vertex_format: MTLAttributeFormat,
+        );
 
         /// Stride, in bytes, between vertices in each keyframe's vertex buffer. Must be a multiple of the vertex format data type size and must be aligned to
         /// the vertex format data type's alignment. Defaults to 0, which will result in a stride of the vertex format data size.
@@ -53,7 +56,10 @@ impl MTLAccelerationStructureMotionTriangleGeometryDescriptor {
         /// Setter for [`vertexStride`][Self::vertexStride].
         #[unsafe(method(setVertexStride:))]
         #[unsafe(method_family = none)]
-        pub fn set_vertex_stride(&self, vertex_stride: usize);
+        pub fn set_vertex_stride(
+            &self,
+            vertex_stride: usize,
+        );
 
         /// Optional index buffer containing references to vertices in the vertex buffer. May be nil.
         #[unsafe(method(indexBuffer))]
@@ -63,7 +69,10 @@ impl MTLAccelerationStructureMotionTriangleGeometryDescriptor {
         /// Setter for [`indexBuffer`][Self::indexBuffer].
         #[unsafe(method(setIndexBuffer:))]
         #[unsafe(method_family = none)]
-        pub fn set_index_buffer(&self, index_buffer: Option<&ProtocolObject<dyn MTLBuffer>>);
+        pub fn set_index_buffer(
+            &self,
+            index_buffer: Option<&ProtocolObject<dyn MTLBuffer>>,
+        );
 
         /// Index buffer offset. Must be a multiple of the index data type size and must be aligned to both
         /// the index data type's alignment and the platform's buffer offset alignment.
@@ -74,7 +83,10 @@ impl MTLAccelerationStructureMotionTriangleGeometryDescriptor {
         /// Setter for [`indexBufferOffset`][Self::indexBufferOffset].
         #[unsafe(method(setIndexBufferOffset:))]
         #[unsafe(method_family = none)]
-        pub fn set_index_buffer_offset(&self, index_buffer_offset: usize);
+        pub fn set_index_buffer_offset(
+            &self,
+            index_buffer_offset: usize,
+        );
 
         /// Index type
         #[unsafe(method(indexType))]
@@ -84,7 +96,10 @@ impl MTLAccelerationStructureMotionTriangleGeometryDescriptor {
         /// Setter for [`indexType`][Self::indexType].
         #[unsafe(method(setIndexType:))]
         #[unsafe(method_family = none)]
-        pub fn set_index_type(&self, index_type: MTLIndexType);
+        pub fn set_index_type(
+            &self,
+            index_type: MTLIndexType,
+        );
 
         /// Number of triangles
         #[unsafe(method(triangleCount))]
@@ -94,16 +109,17 @@ impl MTLAccelerationStructureMotionTriangleGeometryDescriptor {
         /// Setter for [`triangleCount`][Self::triangleCount].
         #[unsafe(method(setTriangleCount:))]
         #[unsafe(method_family = none)]
-        pub fn set_triangle_count(&self, triangle_count: usize);
+        pub fn set_triangle_count(
+            &self,
+            triangle_count: usize,
+        );
 
         /// Buffer containing packed float4x3 transformation matrix. Transform is applied to the vertex data when building the acceleration structure. Input vertex buffers are not modified.
         /// The transformation matrix is applied to all keyframes' vertex data.
         /// When set to nil, transformation matrix is not applied to vertex data.
         #[unsafe(method(transformationMatrixBuffer))]
         #[unsafe(method_family = none)]
-        pub fn transformation_matrix_buffer(
-            &self,
-        ) -> Option<Retained<ProtocolObject<dyn MTLBuffer>>>;
+        pub fn transformation_matrix_buffer(&self) -> Option<Retained<ProtocolObject<dyn MTLBuffer>>>;
 
         /// Setter for [`transformationMatrixBuffer`][Self::transformationMatrixBuffer].
         #[unsafe(method(setTransformationMatrixBuffer:))]
@@ -147,12 +163,14 @@ impl MTLAccelerationStructureMotionTriangleGeometryDescriptor {
 
     /// Vertex buffers containing triangle vertices for each keyframe.
     pub fn vertex_buffers(&self) -> Box<[Retained<MTLMotionKeyframeData>]> {
-        let vertex_buffers: Retained<NSArray<MTLMotionKeyframeData>> =
-            unsafe { msg_send![self, vertexBuffers] };
+        let vertex_buffers: Retained<NSArray<MTLMotionKeyframeData>> = unsafe { msg_send![self, vertexBuffers] };
         vertex_buffers.to_vec().into_boxed_slice()
     }
 
-    pub fn set_vertex_buffers(&self, vertex_buffers: &[&MTLMotionKeyframeData]) {
+    pub fn set_vertex_buffers(
+        &self,
+        vertex_buffers: &[&MTLMotionKeyframeData],
+    ) {
         let vertex_buffers = NSArray::from_slice(vertex_buffers);
         unsafe {
             let _: () = msg_send![self, setVertexBuffers: &*vertex_buffers];

@@ -2,8 +2,7 @@ use objc2::{extern_class, extern_methods, msg_send, rc::Retained, runtime::NSObj
 use objc2_foundation::NSString;
 
 use crate::{
-    MTLArrayType, MTLDataType, MTLPointerType, MTLStructType, MTLTensorReferenceType,
-    MTLTextureReferenceType,
+    MTLArrayType, MTLDataType, MTLPointerType, MTLStructType, MTLTensorReferenceType, MTLTextureReferenceType,
 };
 
 extern_class!(

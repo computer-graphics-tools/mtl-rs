@@ -68,7 +68,11 @@ extern_protocol!(
         /// Availability: macOS 11.0+ (iOS 14.0+ for setter)
         #[unsafe(method(setImageblockWidth:height:))]
         #[unsafe(method_family = none)]
-        fn set_imageblock_width_height(&self, width: usize, height: usize);
+        fn set_imageblock_width_height(
+            &self,
+            width: usize,
+            height: usize,
+        );
 
         #[unsafe(method(reset))]
         #[unsafe(method_family = none)]
@@ -76,10 +80,17 @@ extern_protocol!(
 
         #[unsafe(method(setThreadgroupMemoryLength:atIndex:))]
         #[unsafe(method_family = none)]
-        fn set_threadgroup_memory_length_at_index(&self, length: usize, index: usize);
+        fn set_threadgroup_memory_length_at_index(
+            &self,
+            length: usize,
+            index: usize,
+        );
 
         #[unsafe(method(setStageInRegion:))]
         #[unsafe(method_family = none)]
-        fn set_stage_in_region(&self, region: MTLRegion);
+        fn set_stage_in_region(
+            &self,
+            region: MTLRegion,
+        );
     }
 );

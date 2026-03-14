@@ -5,9 +5,7 @@ use objc2::{
 };
 use objc2_foundation::{CopyingHelper, NSCopying, NSObjectProtocol};
 
-use crate::{
-    MTLAccelerationStructureGeometryDescriptor, MTLAttributeFormat, MTLBuffer, MTLIndexType,
-};
+use crate::{MTLAccelerationStructureGeometryDescriptor, MTLAttributeFormat, MTLBuffer, MTLIndexType};
 
 extern_class!(
     /// Acceleration structure geometry descriptor describing geometry
@@ -58,7 +56,10 @@ impl MTLAccelerationStructureCurveGeometryDescriptor {
         /// Setter for [`controlPointBufferOffset`][Self::controlPointBufferOffset].
         #[unsafe(method(setControlPointBufferOffset:))]
         #[unsafe(method_family = none)]
-        pub fn set_control_point_buffer_offset(&self, control_point_buffer_offset: usize);
+        pub fn set_control_point_buffer_offset(
+            &self,
+            control_point_buffer_offset: usize,
+        );
 
         /// Number of control points in the control point buffer
         #[unsafe(method(controlPointCount))]
@@ -68,7 +69,10 @@ impl MTLAccelerationStructureCurveGeometryDescriptor {
         /// Setter for [`controlPointCount`][Self::controlPointCount].
         #[unsafe(method(setControlPointCount:))]
         #[unsafe(method_family = none)]
-        pub fn set_control_point_count(&self, control_point_count: usize);
+        pub fn set_control_point_count(
+            &self,
+            control_point_count: usize,
+        );
 
         /// Stride, in bytes, between control points in the control point
         /// buffer. Must be a multiple of the control point format's element size
@@ -81,7 +85,10 @@ impl MTLAccelerationStructureCurveGeometryDescriptor {
         /// Setter for [`controlPointStride`][Self::controlPointStride].
         #[unsafe(method(setControlPointStride:))]
         #[unsafe(method_family = none)]
-        pub fn set_control_point_stride(&self, control_point_stride: usize);
+        pub fn set_control_point_stride(
+            &self,
+            control_point_stride: usize,
+        );
 
         /// Format of the control points in the control point buffer.
         /// Defaults to MTLAttributeFormatFloat3 (packed).
@@ -92,7 +99,10 @@ impl MTLAccelerationStructureCurveGeometryDescriptor {
         /// Setter for [`controlPointFormat`][Self::controlPointFormat].
         #[unsafe(method(setControlPointFormat:))]
         #[unsafe(method_family = none)]
-        pub fn set_control_point_format(&self, control_point_format: MTLAttributeFormat);
+        pub fn set_control_point_format(
+            &self,
+            control_point_format: MTLAttributeFormat,
+        );
 
         /// Buffer containing the curve radius for each control point. Each
         /// radius must be of the type specified by the radius format. Each radius
@@ -105,7 +115,10 @@ impl MTLAccelerationStructureCurveGeometryDescriptor {
         /// Setter for [`radiusBuffer`][Self::radiusBuffer].
         #[unsafe(method(setRadiusBuffer:))]
         #[unsafe(method_family = none)]
-        pub fn set_radius_buffer(&self, radius_buffer: Option<&ProtocolObject<dyn MTLBuffer>>);
+        pub fn set_radius_buffer(
+            &self,
+            radius_buffer: Option<&ProtocolObject<dyn MTLBuffer>>,
+        );
 
         /// Radius buffer offset. Must be a multiple of the radius format
         /// size and must be aligned to the platform's buffer offset alignment.
@@ -116,7 +129,10 @@ impl MTLAccelerationStructureCurveGeometryDescriptor {
         /// Setter for [`radiusBufferOffset`][Self::radiusBufferOffset].
         #[unsafe(method(setRadiusBufferOffset:))]
         #[unsafe(method_family = none)]
-        pub fn set_radius_buffer_offset(&self, radius_buffer_offset: usize);
+        pub fn set_radius_buffer_offset(
+            &self,
+            radius_buffer_offset: usize,
+        );
 
         /// Format of the radii in the radius buffer. Defaults to
         /// MTLAttributeFormatFloat.
@@ -127,7 +143,10 @@ impl MTLAccelerationStructureCurveGeometryDescriptor {
         /// Setter for [`radiusFormat`][Self::radiusFormat].
         #[unsafe(method(setRadiusFormat:))]
         #[unsafe(method_family = none)]
-        pub fn set_radius_format(&self, radius_format: MTLAttributeFormat);
+        pub fn set_radius_format(
+            &self,
+            radius_format: MTLAttributeFormat,
+        );
 
         /// Stride, in bytes, between radii in the radius buffer. Must be
         /// a multiple of the radius format size. Defaults to 0 bytes, indicating
@@ -139,7 +158,10 @@ impl MTLAccelerationStructureCurveGeometryDescriptor {
         /// Setter for [`radiusStride`][Self::radiusStride].
         #[unsafe(method(setRadiusStride:))]
         #[unsafe(method_family = none)]
-        pub fn set_radius_stride(&self, radius_stride: usize);
+        pub fn set_radius_stride(
+            &self,
+            radius_stride: usize,
+        );
 
         /// Index buffer containing references to control points in the control
         /// point buffer. Must not be nil when the acceleration structure is built.
@@ -150,7 +172,10 @@ impl MTLAccelerationStructureCurveGeometryDescriptor {
         /// Setter for [`indexBuffer`][Self::indexBuffer].
         #[unsafe(method(setIndexBuffer:))]
         #[unsafe(method_family = none)]
-        pub fn set_index_buffer(&self, index_buffer: Option<&ProtocolObject<dyn MTLBuffer>>);
+        pub fn set_index_buffer(
+            &self,
+            index_buffer: Option<&ProtocolObject<dyn MTLBuffer>>,
+        );
 
         /// Index buffer offset. Must be a multiple of the index data type
         /// size and must be aligned to both the index data type's alignment and
@@ -162,7 +187,10 @@ impl MTLAccelerationStructureCurveGeometryDescriptor {
         /// Setter for [`indexBufferOffset`][Self::indexBufferOffset].
         #[unsafe(method(setIndexBufferOffset:))]
         #[unsafe(method_family = none)]
-        pub fn set_index_buffer_offset(&self, index_buffer_offset: usize);
+        pub fn set_index_buffer_offset(
+            &self,
+            index_buffer_offset: usize,
+        );
 
         /// Index type
         #[unsafe(method(indexType))]
@@ -172,7 +200,10 @@ impl MTLAccelerationStructureCurveGeometryDescriptor {
         /// Setter for [`indexType`][Self::indexType].
         #[unsafe(method(setIndexType:))]
         #[unsafe(method_family = none)]
-        pub fn set_index_type(&self, index_type: MTLIndexType);
+        pub fn set_index_type(
+            &self,
+            index_type: MTLIndexType,
+        );
 
         /// Number of curve segments
         #[unsafe(method(segmentCount))]
@@ -182,7 +213,10 @@ impl MTLAccelerationStructureCurveGeometryDescriptor {
         /// Setter for [`segmentCount`][Self::segmentCount].
         #[unsafe(method(setSegmentCount:))]
         #[unsafe(method_family = none)]
-        pub fn set_segment_count(&self, segment_count: usize);
+        pub fn set_segment_count(
+            &self,
+            segment_count: usize,
+        );
 
         /// Number of control points per curve segment. Must be 2, 3, or 4.
         #[unsafe(method(segmentControlPointCount))]
@@ -192,7 +226,10 @@ impl MTLAccelerationStructureCurveGeometryDescriptor {
         /// Setter for [`segmentControlPointCount`][Self::segmentControlPointCount].
         #[unsafe(method(setSegmentControlPointCount:))]
         #[unsafe(method_family = none)]
-        pub fn set_segment_control_point_count(&self, segment_control_point_count: usize);
+        pub fn set_segment_control_point_count(
+            &self,
+            segment_control_point_count: usize,
+        );
 
         /// Curve type. Defaults to MTLCurveTypeRound.
         #[unsafe(method(curveType))]
@@ -202,7 +239,10 @@ impl MTLAccelerationStructureCurveGeometryDescriptor {
         /// Setter for [`curveType`][Self::curveType].
         #[unsafe(method(setCurveType:))]
         #[unsafe(method_family = none)]
-        pub fn set_curve_type(&self, curve_type: crate::MTLCurveType);
+        pub fn set_curve_type(
+            &self,
+            curve_type: crate::MTLCurveType,
+        );
 
         /// Curve basis. Defaults to MTLCurveBasisBSpline.
         #[unsafe(method(curveBasis))]
@@ -212,7 +252,10 @@ impl MTLAccelerationStructureCurveGeometryDescriptor {
         /// Setter for [`curveBasis`][Self::curveBasis].
         #[unsafe(method(setCurveBasis:))]
         #[unsafe(method_family = none)]
-        pub fn set_curve_basis(&self, curve_basis: crate::MTLCurveBasis);
+        pub fn set_curve_basis(
+            &self,
+            curve_basis: crate::MTLCurveBasis,
+        );
 
         /// Type of curve end caps. Defaults to MTLCurveEndCapsNone.
         #[unsafe(method(curveEndCaps))]
@@ -222,7 +265,10 @@ impl MTLAccelerationStructureCurveGeometryDescriptor {
         /// Setter for [`curveEndCaps`][Self::curveEndCaps].
         #[unsafe(method(setCurveEndCaps:))]
         #[unsafe(method_family = none)]
-        pub fn set_curve_end_caps(&self, curve_end_caps: crate::MTLCurveEndCaps);
+        pub fn set_curve_end_caps(
+            &self,
+            curve_end_caps: crate::MTLCurveEndCaps,
+        );
 
         #[unsafe(method(descriptor))]
         #[unsafe(method_family = none)]

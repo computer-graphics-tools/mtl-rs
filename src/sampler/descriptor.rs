@@ -1,4 +1,5 @@
 use core::ffi::c_float;
+
 use objc2::{
     extern_class, extern_conformance, extern_methods, msg_send,
     rc::{Allocated, Retained},
@@ -7,8 +8,7 @@ use objc2::{
 use objc2_foundation::{CopyingHelper, NSCopying, NSObjectProtocol, NSString};
 
 use super::{
-    MTLSamplerAddressMode, MTLSamplerBorderColor, MTLSamplerMinMagFilter, MTLSamplerMipFilter,
-    MTLSamplerReductionMode,
+    MTLSamplerAddressMode, MTLSamplerBorderColor, MTLSamplerMinMagFilter, MTLSamplerMipFilter, MTLSamplerReductionMode,
 };
 
 extern_class!(
@@ -38,7 +38,10 @@ impl MTLSamplerDescriptor {
 
         #[unsafe(method(setMinFilter:))]
         #[unsafe(method_family = none)]
-        pub fn set_min_filter(&self, min_filter: MTLSamplerMinMagFilter);
+        pub fn set_min_filter(
+            &self,
+            min_filter: MTLSamplerMinMagFilter,
+        );
 
         #[unsafe(method(magFilter))]
         #[unsafe(method_family = none)]
@@ -46,7 +49,10 @@ impl MTLSamplerDescriptor {
 
         #[unsafe(method(setMagFilter:))]
         #[unsafe(method_family = none)]
-        pub fn set_mag_filter(&self, mag_filter: MTLSamplerMinMagFilter);
+        pub fn set_mag_filter(
+            &self,
+            mag_filter: MTLSamplerMinMagFilter,
+        );
 
         #[unsafe(method(mipFilter))]
         #[unsafe(method_family = none)]
@@ -54,7 +60,10 @@ impl MTLSamplerDescriptor {
 
         #[unsafe(method(setMipFilter:))]
         #[unsafe(method_family = none)]
-        pub fn set_mip_filter(&self, mip_filter: MTLSamplerMipFilter);
+        pub fn set_mip_filter(
+            &self,
+            mip_filter: MTLSamplerMipFilter,
+        );
 
         #[unsafe(method(maxAnisotropy))]
         #[unsafe(method_family = none)]
@@ -62,7 +71,10 @@ impl MTLSamplerDescriptor {
 
         #[unsafe(method(setMaxAnisotropy:))]
         #[unsafe(method_family = none)]
-        pub fn set_max_anisotropy(&self, max_anisotropy: usize);
+        pub fn set_max_anisotropy(
+            &self,
+            max_anisotropy: usize,
+        );
 
         #[unsafe(method(sAddressMode))]
         #[unsafe(method_family = none)]
@@ -70,7 +82,10 @@ impl MTLSamplerDescriptor {
 
         #[unsafe(method(setSAddressMode:))]
         #[unsafe(method_family = none)]
-        pub fn set_s_address_mode(&self, mode: MTLSamplerAddressMode);
+        pub fn set_s_address_mode(
+            &self,
+            mode: MTLSamplerAddressMode,
+        );
 
         #[unsafe(method(tAddressMode))]
         #[unsafe(method_family = none)]
@@ -78,7 +93,10 @@ impl MTLSamplerDescriptor {
 
         #[unsafe(method(setTAddressMode:))]
         #[unsafe(method_family = none)]
-        pub fn set_t_address_mode(&self, mode: MTLSamplerAddressMode);
+        pub fn set_t_address_mode(
+            &self,
+            mode: MTLSamplerAddressMode,
+        );
 
         #[unsafe(method(rAddressMode))]
         #[unsafe(method_family = none)]
@@ -86,7 +104,10 @@ impl MTLSamplerDescriptor {
 
         #[unsafe(method(setRAddressMode:))]
         #[unsafe(method_family = none)]
-        pub fn set_r_address_mode(&self, mode: MTLSamplerAddressMode);
+        pub fn set_r_address_mode(
+            &self,
+            mode: MTLSamplerAddressMode,
+        );
 
         #[unsafe(method(borderColor))]
         #[unsafe(method_family = none)]
@@ -94,7 +115,10 @@ impl MTLSamplerDescriptor {
 
         #[unsafe(method(setBorderColor:))]
         #[unsafe(method_family = none)]
-        pub fn set_border_color(&self, color: MTLSamplerBorderColor);
+        pub fn set_border_color(
+            &self,
+            color: MTLSamplerBorderColor,
+        );
 
         #[unsafe(method(reductionMode))]
         #[unsafe(method_family = none)]
@@ -102,7 +126,10 @@ impl MTLSamplerDescriptor {
 
         #[unsafe(method(setReductionMode:))]
         #[unsafe(method_family = none)]
-        pub fn set_reduction_mode(&self, mode: MTLSamplerReductionMode);
+        pub fn set_reduction_mode(
+            &self,
+            mode: MTLSamplerReductionMode,
+        );
 
         #[unsafe(method(normalizedCoordinates))]
         #[unsafe(method_family = none)]
@@ -110,7 +137,10 @@ impl MTLSamplerDescriptor {
 
         #[unsafe(method(setNormalizedCoordinates:))]
         #[unsafe(method_family = none)]
-        pub fn set_normalized_coordinates(&self, normalized: bool);
+        pub fn set_normalized_coordinates(
+            &self,
+            normalized: bool,
+        );
 
         #[unsafe(method(lodMinClamp))]
         #[unsafe(method_family = none)]
@@ -118,7 +148,10 @@ impl MTLSamplerDescriptor {
 
         #[unsafe(method(setLodMinClamp:))]
         #[unsafe(method_family = none)]
-        pub fn set_lod_min_clamp(&self, v: c_float);
+        pub fn set_lod_min_clamp(
+            &self,
+            v: c_float,
+        );
 
         #[unsafe(method(lodMaxClamp))]
         #[unsafe(method_family = none)]
@@ -126,7 +159,10 @@ impl MTLSamplerDescriptor {
 
         #[unsafe(method(setLodMaxClamp:))]
         #[unsafe(method_family = none)]
-        pub fn set_lod_max_clamp(&self, v: c_float);
+        pub fn set_lod_max_clamp(
+            &self,
+            v: c_float,
+        );
 
         #[unsafe(method(lodAverage))]
         #[unsafe(method_family = none)]
@@ -134,7 +170,10 @@ impl MTLSamplerDescriptor {
 
         #[unsafe(method(setLodAverage:))]
         #[unsafe(method_family = none)]
-        pub fn set_lod_average(&self, v: bool);
+        pub fn set_lod_average(
+            &self,
+            v: bool,
+        );
 
         #[unsafe(method(lodBias))]
         #[unsafe(method_family = none)]
@@ -142,7 +181,10 @@ impl MTLSamplerDescriptor {
 
         #[unsafe(method(setLodBias:))]
         #[unsafe(method_family = none)]
-        pub fn set_lod_bias(&self, v: c_float);
+        pub fn set_lod_bias(
+            &self,
+            v: c_float,
+        );
 
         #[unsafe(method(supportArgumentBuffers))]
         #[unsafe(method_family = none)]
@@ -150,7 +192,10 @@ impl MTLSamplerDescriptor {
 
         #[unsafe(method(setSupportArgumentBuffers:))]
         #[unsafe(method_family = none)]
-        pub fn set_support_argument_buffers(&self, v: bool);
+        pub fn set_support_argument_buffers(
+            &self,
+            v: bool,
+        );
     );
 
     pub fn label(&self) -> Option<String> {
@@ -158,7 +203,10 @@ impl MTLSamplerDescriptor {
         label.map(|label| label.to_string())
     }
 
-    pub fn set_label(&self, label: Option<&str>) {
+    pub fn set_label(
+        &self,
+        label: Option<&str>,
+    ) {
         unsafe {
             let _: () = msg_send![self, setLabel: label.map(NSString::from_str).as_deref()];
         }

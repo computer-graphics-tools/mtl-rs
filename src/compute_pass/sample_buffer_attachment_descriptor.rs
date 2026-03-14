@@ -37,8 +37,7 @@ impl MTLComputePassSampleBufferAttachmentDescriptor {
         /// If any of the sample indices are specified as `MTLCounterDontSample`, no sample will be taken for that action.
         #[unsafe(method(sampleBuffer))]
         #[unsafe(method_family = none)]
-        pub fn sample_buffer(&self)
-        -> Option<Retained<ProtocolObject<dyn MTLCounterSampleBuffer>>>;
+        pub fn sample_buffer(&self) -> Option<Retained<ProtocolObject<dyn MTLCounterSampleBuffer>>>;
 
         /// Setter for `sample_buffer`.
         #[unsafe(method(setSampleBuffer:))]
@@ -58,7 +57,10 @@ impl MTLComputePassSampleBufferAttachmentDescriptor {
 
         #[unsafe(method(setStartOfEncoderSampleIndex:))]
         #[unsafe(method_family = none)]
-        pub fn set_start_of_encoder_sample_index(&self, value: usize);
+        pub fn set_start_of_encoder_sample_index(
+            &self,
+            value: usize,
+        );
 
         /// The sample index to use to store the sample taken at the end of command encoder processing.
         /// Setting the value to `MTLCounterDontSample` will cause this sample to be omitted.
@@ -70,7 +72,10 @@ impl MTLComputePassSampleBufferAttachmentDescriptor {
 
         #[unsafe(method(setEndOfEncoderSampleIndex:))]
         #[unsafe(method_family = none)]
-        pub fn set_end_of_encoder_sample_index(&self, value: usize);
+        pub fn set_end_of_encoder_sample_index(
+            &self,
+            value: usize,
+        );
     );
 }
 

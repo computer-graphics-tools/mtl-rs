@@ -38,9 +38,7 @@ impl MTLBlitPassDescriptor {
         /// An array of sample buffers and associated sample indices.
         #[unsafe(method(sampleBufferAttachments))]
         #[unsafe(method_family = none)]
-        pub fn sample_buffer_attachments(
-            &self,
-        ) -> Retained<MTLBlitPassSampleBufferAttachmentDescriptorArray>;
+        pub fn sample_buffer_attachments(&self) -> Retained<MTLBlitPassSampleBufferAttachmentDescriptorArray>;
     );
 }
 

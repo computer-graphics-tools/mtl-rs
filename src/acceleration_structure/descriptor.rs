@@ -36,7 +36,10 @@ impl MTLAccelerationStructureDescriptor {
         /// Setter for [`usage`][Self::usage].
         #[unsafe(method(setUsage:))]
         #[unsafe(method_family = none)]
-        pub fn set_usage(&self, usage: MTLAccelerationStructureUsage);
+        pub fn set_usage(
+            &self,
+            usage: MTLAccelerationStructureUsage,
+        );
     );
 }
 

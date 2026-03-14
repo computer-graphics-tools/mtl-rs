@@ -42,7 +42,10 @@ impl MTLBinaryArchiveDescriptor {
     /// Setter for `path`.
     ///
     /// Availability: macOS 11.0+, iOS 14.0+
-    pub fn set_path(&self, path: Option<&Path>) {
+    pub fn set_path(
+        &self,
+        path: Option<&Path>,
+    ) {
         let url = path.and_then(NSURL::from_file_path);
         unsafe {
             let _: () = msg_send![self, setUrl: url.as_deref()];

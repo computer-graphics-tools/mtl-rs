@@ -52,27 +52,44 @@ extern_protocol!(
         /// Schedules an operation to signal a GPU event with a specific value.
         #[unsafe(method(signalEvent:value:))]
         #[unsafe(method_family = none)]
-        fn signal_event_value(&self, event: &ProtocolObject<dyn MTLEvent>, value: u64);
+        fn signal_event_value(
+            &self,
+            event: &ProtocolObject<dyn MTLEvent>,
+            value: u64,
+        );
 
         /// Schedules an operation to wait for a GPU event of a specific value.
         #[unsafe(method(waitForEvent:value:))]
         #[unsafe(method_family = none)]
-        fn wait_for_event_value(&self, event: &ProtocolObject<dyn MTLEvent>, value: u64);
+        fn wait_for_event_value(
+            &self,
+            event: &ProtocolObject<dyn MTLEvent>,
+            value: u64,
+        );
 
         /// Schedules a signal operation for a drawable.
         #[unsafe(method(signalDrawable:))]
         #[unsafe(method_family = none)]
-        fn signal_drawable(&self, drawable: &ProtocolObject<dyn MTLDrawable>);
+        fn signal_drawable(
+            &self,
+            drawable: &ProtocolObject<dyn MTLDrawable>,
+        );
 
         /// Schedules a wait operation for a drawable.
         #[unsafe(method(waitForDrawable:))]
         #[unsafe(method_family = none)]
-        fn wait_for_drawable(&self, drawable: &ProtocolObject<dyn MTLDrawable>);
+        fn wait_for_drawable(
+            &self,
+            drawable: &ProtocolObject<dyn MTLDrawable>,
+        );
 
         /// Marks a residency set as part of this command queue.
         #[unsafe(method(addResidencySet:))]
         #[unsafe(method_family = none)]
-        fn add_residency_set(&self, residency_set: &ProtocolObject<dyn MTLResidencySet>);
+        fn add_residency_set(
+            &self,
+            residency_set: &ProtocolObject<dyn MTLResidencySet>,
+        );
 
         /// Marks an array of residency sets as part of this command queue.
         ///
@@ -88,7 +105,10 @@ extern_protocol!(
         /// Removes a residency set from the command queue.
         #[unsafe(method(removeResidencySet:))]
         #[unsafe(method_family = none)]
-        fn remove_residency_set(&self, residency_set: &ProtocolObject<dyn MTLResidencySet>);
+        fn remove_residency_set(
+            &self,
+            residency_set: &ProtocolObject<dyn MTLResidencySet>,
+        );
 
         /// Removes multiple residency sets from the command queue.
         ///

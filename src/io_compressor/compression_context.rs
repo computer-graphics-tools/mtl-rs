@@ -26,7 +26,11 @@ unsafe extern "C-unwind" {
 
 unsafe extern "C-unwind" {
     /// Safety: `context` and `data` must be valid pointers.
-    fn MTLIOCompressionContextAppendData(context: *mut c_void, data: *const c_void, size: usize);
+    fn MTLIOCompressionContextAppendData(
+        context: *mut c_void,
+        data: *const c_void,
+        size: usize,
+    );
 }
 
 unsafe extern "C-unwind" {
@@ -51,7 +55,11 @@ impl MTLCompressionContext {
         chunk_size: usize,
     ) -> Option<Self> {
         let raw = unsafe { MTLIOCreateCompressionContext(path.as_ptr(), method, chunk_size) };
-        if raw.is_null() { None } else { Some(Self(raw)) }
+        if raw.is_null() {
+            None
+        } else {
+            Some(Self(raw))
+        }
     }
 
     /// Append raw data to the compression stream.
@@ -59,7 +67,11 @@ impl MTLCompressionContext {
     /// Availability: macOS 13.0+, iOS 16.0+
     ///
     /// Safety: `data` must be valid for reads of `size` bytes for the duration of the call.
-    pub fn append_data(&mut self, data: NonNull<c_void>, size: usize) {
+    pub fn append_data(
+        &mut self,
+        data: NonNull<c_void>,
+        size: usize,
+    ) {
         unsafe { MTLIOCompressionContextAppendData(self.0, data.as_ptr(), size) };
     }
 

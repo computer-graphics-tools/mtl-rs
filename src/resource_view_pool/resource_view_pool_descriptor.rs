@@ -34,7 +34,10 @@ impl MTLResourceViewPoolDescriptor {
         /// Setter for [`resource_view_count`][Self::resource_view_count].
         #[unsafe(method(setResourceViewCount:))]
         #[unsafe(method_family = none)]
-        pub fn set_resource_view_count(&self, resource_view_count: usize);
+        pub fn set_resource_view_count(
+            &self,
+            resource_view_count: usize,
+        );
     );
 
     pub fn label(&self) -> Option<String> {
@@ -42,7 +45,10 @@ impl MTLResourceViewPoolDescriptor {
         label.map(|label| label.to_string())
     }
 
-    pub fn set_label(&self, label: Option<&str>) {
+    pub fn set_label(
+        &self,
+        label: Option<&str>,
+    ) {
         unsafe {
             let _: () = msg_send![self, setLabel: label.map(NSString::from_str).as_deref()];
         }

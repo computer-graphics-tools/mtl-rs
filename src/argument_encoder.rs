@@ -34,7 +34,10 @@ extern_protocol!(
         /// Setter for `label`.
         #[unsafe(method(setLabel:))]
         #[unsafe(method_family = none)]
-        fn set_label(&self, label: Option<&NSString>);
+        fn set_label(
+            &self,
+            label: Option<&NSString>,
+        );
 
         /// The number of bytes required to store the encoded resource bindings.
         #[unsafe(method(encodedLength))]
@@ -91,7 +94,11 @@ extern_protocol!(
         /// Set a texture at the given bind point index.
         #[unsafe(method(setTexture:atIndex:))]
         #[unsafe(method_family = none)]
-        fn set_texture(&self, texture: Option<&ProtocolObject<dyn MTLTexture>>, index: usize);
+        fn set_texture(
+            &self,
+            texture: Option<&ProtocolObject<dyn MTLTexture>>,
+            index: usize,
+        );
 
         /// Set an array of textures at the given bind point index range.
         ///
@@ -130,7 +137,10 @@ extern_protocol!(
         /// backing storage are alive.
         #[unsafe(method(constantDataAtIndex:))]
         #[unsafe(method_family = none)]
-        fn constant_data_at_index(&self, index: usize) -> NonNull<c_void>;
+        fn constant_data_at_index(
+            &self,
+            index: usize,
+        ) -> NonNull<c_void>;
 
         /// Sets a render pipeline state at a given bind point index.
         ///
@@ -244,9 +254,7 @@ extern_protocol!(
         #[unsafe(method_family = none)]
         fn set_visible_function_tables(
             &self,
-            visible_function_tables: NonNull<
-                *const ProtocolObject<dyn crate::MTLVisibleFunctionTable>,
-            >,
+            visible_function_tables: NonNull<*const ProtocolObject<dyn crate::MTLVisibleFunctionTable>>,
             range: NSRange,
         );
 
@@ -257,9 +265,7 @@ extern_protocol!(
         #[unsafe(method_family = none)]
         fn set_intersection_function_table(
             &self,
-            intersection_function_table: Option<
-                &ProtocolObject<dyn crate::MTLIntersectionFunctionTable>,
-            >,
+            intersection_function_table: Option<&ProtocolObject<dyn crate::MTLIntersectionFunctionTable>>,
             index: usize,
         );
 
@@ -272,9 +278,7 @@ extern_protocol!(
         #[unsafe(method_family = none)]
         fn set_intersection_function_tables(
             &self,
-            intersection_function_tables: NonNull<
-                *const ProtocolObject<dyn crate::MTLIntersectionFunctionTable>,
-            >,
+            intersection_function_tables: NonNull<*const ProtocolObject<dyn crate::MTLIntersectionFunctionTable>>,
             range: NSRange,
         );
 

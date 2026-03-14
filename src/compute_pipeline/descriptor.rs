@@ -6,8 +6,7 @@ use objc2::{
 use objc2_foundation::{CopyingHelper, NSCopying, NSObjectProtocol, NSString};
 
 use crate::{
-    MTLLinkedFunctions, MTLPipelineBufferDescriptorArray, MTLStageInputOutputDescriptor,
-    library::MTLFunction,
+    MTLLinkedFunctions, MTLPipelineBufferDescriptorArray, MTLStageInputOutputDescriptor, library::MTLFunction,
 };
 
 extern_class!(
@@ -50,7 +49,10 @@ impl MTLComputePipelineDescriptor {
 
         #[unsafe(method(setMaxTotalThreadsPerThreadgroup:))]
         #[unsafe(method_family = none)]
-        pub fn set_max_total_threads_per_threadgroup(&self, value: usize);
+        pub fn set_max_total_threads_per_threadgroup(
+            &self,
+            value: usize,
+        );
 
         /// An `StageInputOutputDescriptor` to fetch data from buffers.
         #[unsafe(method(stageInputDescriptor))]
@@ -77,7 +79,10 @@ impl MTLComputePipelineDescriptor {
 
         #[unsafe(method(setSupportIndirectCommandBuffers:))]
         #[unsafe(method_family = none)]
-        pub fn set_support_indirect_command_buffers(&self, enabled: bool);
+        pub fn set_support_indirect_command_buffers(
+            &self,
+            enabled: bool,
+        );
 
         /// Functions to be linked with the pipeline state and accessed from the compute function.
         #[unsafe(method(linkedFunctions))]
@@ -86,7 +91,10 @@ impl MTLComputePipelineDescriptor {
 
         #[unsafe(method(setLinkedFunctions:))]
         #[unsafe(method_family = none)]
-        pub fn set_linked_functions(&self, linked: Option<&MTLLinkedFunctions>);
+        pub fn set_linked_functions(
+            &self,
+            linked: Option<&MTLLinkedFunctions>,
+        );
 
         /// Restore all compute pipeline descriptor properties to their default values.
         #[unsafe(method(reset))]
@@ -100,7 +108,10 @@ impl MTLComputePipelineDescriptor {
 
         #[unsafe(method(setShaderValidation:))]
         #[unsafe(method_family = none)]
-        pub fn set_shader_validation(&self, value: crate::pipeline::MTLShaderValidation);
+        pub fn set_shader_validation(
+            &self,
+            value: crate::pipeline::MTLShaderValidation,
+        );
 
         /// Sets the required threads-per-threadgroup during dispatches.
         /// The `threadsPerThreadgroup` argument of any dispatch must match this value if it is set.
@@ -111,7 +122,10 @@ impl MTLComputePipelineDescriptor {
 
         #[unsafe(method(setRequiredThreadsPerThreadgroup:))]
         #[unsafe(method_family = none)]
-        pub fn set_required_threads_per_threadgroup(&self, size: crate::types::MTLSize);
+        pub fn set_required_threads_per_threadgroup(
+            &self,
+            size: crate::types::MTLSize,
+        );
     );
 }
 
@@ -134,7 +148,10 @@ impl MTLComputePipelineDescriptor {
         label.map(|s| s.to_string())
     }
 
-    fn set_label(&self, label: Option<&str>) {
+    fn set_label(
+        &self,
+        label: Option<&str>,
+    ) {
         unsafe {
             let _: () = msg_send![self, setLabel: label.map(NSString::from_str).as_deref()];
         }

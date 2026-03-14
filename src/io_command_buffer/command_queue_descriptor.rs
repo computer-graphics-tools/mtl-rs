@@ -38,7 +38,10 @@ impl MTLIOCommandQueueDescriptor {
         /// Setter for [`max_command_buffer_count`][Self::max_command_buffer_count].
         #[unsafe(method(setMaxCommandBufferCount:))]
         #[unsafe(method_family = none)]
-        pub fn set_max_command_buffer_count(&self, count: usize);
+        pub fn set_max_command_buffer_count(
+            &self,
+            count: usize,
+        );
 
         /// Priority of this queue.
         #[unsafe(method(priority))]
@@ -48,7 +51,10 @@ impl MTLIOCommandQueueDescriptor {
         /// Setter for [`priority`][Self::priority].
         #[unsafe(method(setPriority:))]
         #[unsafe(method_family = none)]
-        pub fn set_priority(&self, priority: MTLIOPriority);
+        pub fn set_priority(
+            &self,
+            priority: MTLIOPriority,
+        );
 
         /// Type (serial or concurrent) of queue.
         #[unsafe(method(r#type))]
@@ -58,7 +64,10 @@ impl MTLIOCommandQueueDescriptor {
         /// Setter for [`queue_type`][Self::queue_type].
         #[unsafe(method(setType:))]
         #[unsafe(method_family = none)]
-        pub fn set_queue_type(&self, t: MTLIOCommandQueueType);
+        pub fn set_queue_type(
+            &self,
+            t: MTLIOCommandQueueType,
+        );
 
         /// Maximum number of IO commands in flight.
         #[unsafe(method(maxCommandsInFlight))]
@@ -68,14 +77,15 @@ impl MTLIOCommandQueueDescriptor {
         /// Setter for [`max_commands_in_flight`][Self::max_commands_in_flight].
         #[unsafe(method(setMaxCommandsInFlight:))]
         #[unsafe(method_family = none)]
-        pub fn set_max_commands_in_flight(&self, count: usize);
+        pub fn set_max_commands_in_flight(
+            &self,
+            count: usize,
+        );
 
         /// Optional custom allocator for scratch buffers used by the queue.
         #[unsafe(method(scratchBufferAllocator))]
         #[unsafe(method_family = none)]
-        pub fn scratch_buffer_allocator(
-            &self,
-        ) -> Option<Retained<ProtocolObject<dyn MTLIOScratchBufferAllocator>>>;
+        pub fn scratch_buffer_allocator(&self) -> Option<Retained<ProtocolObject<dyn MTLIOScratchBufferAllocator>>>;
 
         /// Setter for [`scratch_buffer_allocator`][Self::scratch_buffer_allocator].
         #[unsafe(method(setScratchBufferAllocator:))]

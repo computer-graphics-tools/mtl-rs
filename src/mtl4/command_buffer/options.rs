@@ -43,7 +43,10 @@ impl MTL4CommandBufferOptions {
         /// Setter for [`logState`][Self::logState].
         #[unsafe(method(setLogState:))]
         #[unsafe(method_family = none)]
-        pub fn set_log_state(&self, log_state: Option<&ProtocolObject<dyn MTLLogState>>);
+        pub fn set_log_state(
+            &self,
+            log_state: Option<&ProtocolObject<dyn MTLLogState>>,
+        );
     );
 }
 

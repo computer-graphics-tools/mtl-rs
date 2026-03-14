@@ -57,21 +57,22 @@ extern_protocol!(
         /// Creates a compute command encoder.
         #[unsafe(method(computeCommandEncoder))]
         #[unsafe(method_family = none)]
-        fn compute_command_encoder(
-            &self,
-        ) -> Option<Retained<ProtocolObject<dyn MTL4ComputeCommandEncoder>>>;
+        fn compute_command_encoder(&self) -> Option<Retained<ProtocolObject<dyn MTL4ComputeCommandEncoder>>>;
 
         /// Creates a machine learning command encoder.
         #[unsafe(method(machineLearningCommandEncoder))]
         #[unsafe(method_family = none)]
         fn machine_learning_command_encoder(
-            &self,
+            &self
         ) -> Option<Retained<ProtocolObject<dyn MTL4MachineLearningCommandEncoder>>>;
 
         /// Marks a residency set as part of the command buffer's execution.
         #[unsafe(method(useResidencySet:))]
         #[unsafe(method_family = none)]
-        fn use_residency_set(&self, residency_set: &ProtocolObject<dyn MTLResidencySet>);
+        fn use_residency_set(
+            &self,
+            residency_set: &ProtocolObject<dyn MTLResidencySet>,
+        );
 
         /// Marks an array of residency sets as part of the command buffer's execution.
         ///
@@ -82,9 +83,7 @@ extern_protocol!(
         #[unsafe(method_family = none)]
         fn use_residency_sets_count(
             &self,
-            residency_sets: core::ptr::NonNull<
-                core::ptr::NonNull<ProtocolObject<dyn MTLResidencySet>>,
-            >,
+            residency_sets: core::ptr::NonNull<core::ptr::NonNull<ProtocolObject<dyn MTLResidencySet>>>,
             count: NSUInteger,
         );
 
@@ -109,9 +108,15 @@ pub trait MTL4CommandBufferExt: MTL4CommandBuffer + Message {
     /// Optional label.
     fn label(&self) -> Option<String>;
     /// Set optional label.
-    fn set_label(&self, label: Option<&str>);
+    fn set_label(
+        &self,
+        label: Option<&str>,
+    );
     /// Push a debug group with a Rust string.
-    fn push_debug_group(&self, label: &str);
+    fn push_debug_group(
+        &self,
+        label: &str,
+    );
     /// Convenience: index as usize.
     fn write_timestamp_into_heap_at_index_usize(
         &self,
@@ -135,13 +140,19 @@ impl MTL4CommandBufferExt for ProtocolObject<dyn MTL4CommandBuffer> {
         s.map(|v| v.to_string())
     }
 
-    fn set_label(&self, label: Option<&str>) {
+    fn set_label(
+        &self,
+        label: Option<&str>,
+    ) {
         unsafe {
             let _: () = msg_send![self, setLabel: label.map(NSString::from_str).as_deref()];
         }
     }
 
-    fn push_debug_group(&self, label: &str) {
+    fn push_debug_group(
+        &self,
+        label: &str,
+    ) {
         unsafe {
             let _: () = msg_send![self, pushDebugGroup: &*NSString::from_str(label)];
         }

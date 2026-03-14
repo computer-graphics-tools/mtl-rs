@@ -4,9 +4,7 @@ use objc2::{extern_protocol, runtime::ProtocolObject};
 use objc2_foundation::NSRange;
 
 use super::MTLIntersectionFunctionSignature;
-use crate::{
-    MTLBuffer, MTLFunctionHandle, MTLResource, MTLVisibleFunctionTable, types::MTLResourceID,
-};
+use crate::{MTLBuffer, MTLFunctionHandle, MTLResource, MTLVisibleFunctionTable, types::MTLResourceID};
 
 extern_protocol!(
     /// Intersection function table

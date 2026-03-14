@@ -31,8 +31,7 @@ impl MTLRenderPassSampleBufferAttachmentDescriptor {
         /// The sample buffer to store samples for the render-pass defined samples.
         #[unsafe(method(sampleBuffer))]
         #[unsafe(method_family = none)]
-        pub fn sample_buffer(&self)
-        -> Option<Retained<ProtocolObject<dyn MTLCounterSampleBuffer>>>;
+        pub fn sample_buffer(&self) -> Option<Retained<ProtocolObject<dyn MTLCounterSampleBuffer>>>;
 
         /// Setter for [`sample_buffer`][Self::sample_buffer].
         #[unsafe(method(setSampleBuffer:))]
@@ -49,7 +48,10 @@ impl MTLRenderPassSampleBufferAttachmentDescriptor {
 
         #[unsafe(method(setStartOfVertexSampleIndex:))]
         #[unsafe(method_family = none)]
-        pub fn set_start_of_vertex_sample_index(&self, index: usize);
+        pub fn set_start_of_vertex_sample_index(
+            &self,
+            index: usize,
+        );
 
         /// The sample index used at the end of vertex processing.
         #[unsafe(method(endOfVertexSampleIndex))]
@@ -58,7 +60,10 @@ impl MTLRenderPassSampleBufferAttachmentDescriptor {
 
         #[unsafe(method(setEndOfVertexSampleIndex:))]
         #[unsafe(method_family = none)]
-        pub fn set_end_of_vertex_sample_index(&self, index: usize);
+        pub fn set_end_of_vertex_sample_index(
+            &self,
+            index: usize,
+        );
 
         /// The sample index used at the start of fragment processing.
         #[unsafe(method(startOfFragmentSampleIndex))]
@@ -67,7 +72,10 @@ impl MTLRenderPassSampleBufferAttachmentDescriptor {
 
         #[unsafe(method(setStartOfFragmentSampleIndex:))]
         #[unsafe(method_family = none)]
-        pub fn set_start_of_fragment_sample_index(&self, index: usize);
+        pub fn set_start_of_fragment_sample_index(
+            &self,
+            index: usize,
+        );
 
         /// The sample index used at the end of fragment processing.
         #[unsafe(method(endOfFragmentSampleIndex))]
@@ -76,6 +84,9 @@ impl MTLRenderPassSampleBufferAttachmentDescriptor {
 
         #[unsafe(method(setEndOfFragmentSampleIndex:))]
         #[unsafe(method_family = none)]
-        pub fn set_end_of_fragment_sample_index(&self, index: usize);
+        pub fn set_end_of_fragment_sample_index(
+            &self,
+            index: usize,
+        );
     );
 }

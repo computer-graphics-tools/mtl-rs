@@ -2,9 +2,9 @@ use objc2::{Message, extern_protocol, msg_send, rc::Retained, runtime::ProtocolO
 use objc2_foundation::{NSError, NSObjectProtocol, NSString};
 
 use crate::{
-    MTL4BinaryFunction, MTL4BinaryFunctionDescriptor, MTL4ComputePipelineDescriptor,
-    MTL4PipelineDescriptor, MTL4PipelineStageDynamicLinkingDescriptor,
-    MTL4RenderPipelineDynamicLinkingDescriptor, MTLComputePipelineState, MTLRenderPipelineState,
+    MTL4BinaryFunction, MTL4BinaryFunctionDescriptor, MTL4ComputePipelineDescriptor, MTL4PipelineDescriptor,
+    MTL4PipelineStageDynamicLinkingDescriptor, MTL4RenderPipelineDynamicLinkingDescriptor, MTLComputePipelineState,
+    MTLRenderPipelineState,
 };
 
 extern_protocol!(
@@ -64,7 +64,10 @@ pub trait MTL4ArchiveExt: MTL4Archive + Message {
     }
 
     /// Setter for [`label`][Self::label].
-    fn set_label(&self, label: Option<&str>) {
+    fn set_label(
+        &self,
+        label: Option<&str>,
+    ) {
         unsafe {
             let _: () = msg_send![self, setLabel: label.map(NSString::from_str).as_deref()];
         }

@@ -22,8 +22,10 @@ impl MTLAttributeDescriptorArray {
     extern_methods!(
         #[unsafe(method(objectAtIndexedSubscript:))]
         #[unsafe(method_family = none)]
-        pub fn object_at_indexed_subscript(&self, index: usize)
-        -> Retained<MTLAttributeDescriptor>;
+        pub fn object_at_indexed_subscript(
+            &self,
+            index: usize,
+        ) -> Retained<MTLAttributeDescriptor>;
 
         #[unsafe(method(setObject:atIndexedSubscript:))]
         #[unsafe(method_family = none)]

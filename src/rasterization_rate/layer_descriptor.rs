@@ -1,5 +1,5 @@
-use core::ffi::c_float;
-use core::ptr::NonNull;
+use core::{ffi::c_float, ptr::NonNull};
+
 use objc2::{
     extern_class, extern_conformance, extern_methods,
     rc::{Allocated, Retained},
@@ -82,6 +82,9 @@ impl MTLRasterizationRateLayerDescriptor {
         /// Setter for `sampleCount`.
         #[unsafe(method(setSampleCount:))]
         #[unsafe(method_family = none)]
-        pub fn set_sample_count(&self, sample_count: MTLSize);
+        pub fn set_sample_count(
+            &self,
+            sample_count: MTLSize,
+        );
     );
 }

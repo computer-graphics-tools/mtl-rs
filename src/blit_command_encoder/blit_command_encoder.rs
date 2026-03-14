@@ -5,8 +5,8 @@ use objc2_foundation::NSRange;
 
 use super::MTLBlitOption;
 use crate::{
-    MTLBuffer, MTLCommandEncoder, MTLCounterSampleBuffer, MTLFence, MTLIndirectCommandBuffer,
-    MTLResource, MTLTensor, MTLTexture,
+    MTLBuffer, MTLCommandEncoder, MTLCounterSampleBuffer, MTLFence, MTLIndirectCommandBuffer, MTLResource, MTLTensor,
+    MTLTexture,
     types::{MTLOrigin, MTLRegion, MTLSize},
 };
 
@@ -20,7 +20,10 @@ extern_protocol!(
         /// has written, a CommandBuffer containing this synchronization must be executed.  After completion of the CommandBuffer, the CPU can access the contents of the resource safely.
         #[unsafe(method(synchronizeResource:))]
         #[unsafe(method_family = none)]
-        fn synchronize_resource(&self, resource: &ProtocolObject<dyn MTLResource>);
+        fn synchronize_resource(
+            &self,
+            resource: &ProtocolObject<dyn MTLResource>,
+        );
 
         /// Flush any copy of this image from the device's caches, and invalidate CPU caches if needed.
         ///
@@ -119,7 +122,10 @@ extern_protocol!(
         /// Generate mipmaps for a texture from the base level up to the max level.
         #[unsafe(method(generateMipmapsForTexture:))]
         #[unsafe(method_family = none)]
-        fn generate_mipmaps_for_texture(&self, texture: &ProtocolObject<dyn MTLTexture>);
+        fn generate_mipmaps_for_texture(
+            &self,
+            texture: &ProtocolObject<dyn MTLTexture>,
+        );
 
         /// Copy whole surfaces between textures.
         /// Convenience function to copy sliceCount * levelCount whole surfaces between textures
@@ -179,14 +185,20 @@ extern_protocol!(
         /// Drivers may delay fence updates until the end of the encoder. Drivers may also wait on fences at the beginning of an encoder. It is therefore illegal to wait on a fence after it has been updated in the same encoder.
         #[unsafe(method(updateFence:))]
         #[unsafe(method_family = none)]
-        fn update_fence(&self, fence: &ProtocolObject<dyn MTLFence>);
+        fn update_fence(
+            &self,
+            fence: &ProtocolObject<dyn MTLFence>,
+        );
 
         /// Prevent further GPU work until the fence is reached.
         /// The fence is evaluated at kernel submission to maintain global order and prevent deadlock.
         /// Drivers may delay fence updates until the end of the encoder. Drivers may also wait on fences at the beginning of an encoder. It is therefore illegal to wait on a fence after it has been updated in the same encoder.
         #[unsafe(method(waitForFence:))]
         #[unsafe(method_family = none)]
-        fn wait_for_fence(&self, fence: &ProtocolObject<dyn MTLFence>);
+        fn wait_for_fence(
+            &self,
+            fence: &ProtocolObject<dyn MTLFence>,
+        );
 
         /// Copies tile access counters within specified region into provided buffer
         #[optional]
@@ -218,7 +230,10 @@ extern_protocol!(
         /// Optimizes the texture data to ensure the best possible performance when accessing content on the GPU at the expense of CPU-access performance.
         #[unsafe(method(optimizeContentsForGPUAccess:))]
         #[unsafe(method_family = none)]
-        fn optimize_contents_for_gpu_access(&self, texture: &ProtocolObject<dyn MTLTexture>);
+        fn optimize_contents_for_gpu_access(
+            &self,
+            texture: &ProtocolObject<dyn MTLTexture>,
+        );
 
         /// Optimizes a subset of the texture data to ensure the best possible performance when accessing content on the GPU at the expense of CPU-access performance.
         #[unsafe(method(optimizeContentsForGPUAccess:slice:level:))]
@@ -233,7 +248,10 @@ extern_protocol!(
         /// Optimizes the texture data to ensure the best possible performance when accessing content on the CPU at the expense of GPU-access performance.
         #[unsafe(method(optimizeContentsForCPUAccess:))]
         #[unsafe(method_family = none)]
-        fn optimize_contents_for_cpu_access(&self, texture: &ProtocolObject<dyn MTLTexture>);
+        fn optimize_contents_for_cpu_access(
+            &self,
+            texture: &ProtocolObject<dyn MTLTexture>,
+        );
 
         /// Optimizes a subset of the texture data to ensure the best possible performance when accessing content on the CPU at the expense of GPU-access performance.
         #[unsafe(method(optimizeContentsForCPUAccess:slice:level:))]
@@ -311,8 +329,7 @@ pub trait MTLBlitCommandEncoderExt: MTLBlitCommandEncoder + Message {
         Self: Sized,
     {
         unsafe {
-            let _: () =
-                msg_send![self, fillBuffer: buffer, range: NSRange::from(range), value: value];
+            let _: () = msg_send![self, fillBuffer: buffer, range: NSRange::from(range), value: value];
         }
     }
 

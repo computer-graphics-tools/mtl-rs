@@ -51,7 +51,10 @@ impl MTLAccelerationStructureGeometryDescriptor {
         /// Setter for [`opaque`][Self::opaque].
         #[unsafe(method(setOpaque:))]
         #[unsafe(method_family = none)]
-        pub fn set_opaque(&self, opaque: bool);
+        pub fn set_opaque(
+            &self,
+            opaque: bool,
+        );
 
         /// Whether intersection functions may be invoked more than once per ray/primitive
         /// intersection. Defaults to YES.
@@ -88,7 +91,10 @@ impl MTLAccelerationStructureGeometryDescriptor {
         /// Setter for [`primitiveDataBufferOffset`][Self::primitiveDataBufferOffset].
         #[unsafe(method(setPrimitiveDataBufferOffset:))]
         #[unsafe(method_family = none)]
-        pub fn set_primitive_data_buffer_offset(&self, primitive_data_buffer_offset: usize);
+        pub fn set_primitive_data_buffer_offset(
+            &self,
+            primitive_data_buffer_offset: usize,
+        );
 
         /// Stride, in bytes, between per-primitive data in the primitive data buffer. Must be at least primitiveDataElementSize and must be a
         /// multiple of 4 bytes. Defaults to 0 bytes. Assumed to be equal to primitiveDataElementSize if zero.
@@ -99,7 +105,10 @@ impl MTLAccelerationStructureGeometryDescriptor {
         /// Setter for [`primitiveDataStride`][Self::primitiveDataStride].
         #[unsafe(method(setPrimitiveDataStride:))]
         #[unsafe(method_family = none)]
-        pub fn set_primitive_data_stride(&self, primitive_data_stride: usize);
+        pub fn set_primitive_data_stride(
+            &self,
+            primitive_data_stride: usize,
+        );
 
         /// Size, in bytes, of the data for each primitive in the primitive data buffer. Must be at most primitiveDataStride and must be a
         /// multiple of 4 bytes. Defaults to 0 bytes.
@@ -110,7 +119,10 @@ impl MTLAccelerationStructureGeometryDescriptor {
         /// Setter for [`primitiveDataElementSize`][Self::primitiveDataElementSize].
         #[unsafe(method(setPrimitiveDataElementSize:))]
         #[unsafe(method_family = none)]
-        pub fn set_primitive_data_element_size(&self, primitive_data_element_size: usize);
+        pub fn set_primitive_data_element_size(
+            &self,
+            primitive_data_element_size: usize,
+        );
     );
 }
 
@@ -120,7 +132,10 @@ impl MTLAccelerationStructureGeometryDescriptor {
         label.map(|l| l.to_string())
     }
 
-    pub fn set_label(&self, label: Option<&str>) {
+    pub fn set_label(
+        &self,
+        label: Option<&str>,
+    ) {
         unsafe {
             let _: () = msg_send![self, setLabel: label.map(NSString::from_str).as_deref()];
         }

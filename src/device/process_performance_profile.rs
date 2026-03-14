@@ -21,8 +21,7 @@ unsafe impl RefEncode for ProcessPerformanceProfile {
 unsafe extern "C" {
     static NSProcessPerformanceProfileDefault: i64;
     static NSProcessPerformanceProfileSustained: i64;
-    static NSProcessInfoPerformanceProfileDidChangeNotification:
-        Option<&'static NSNotificationName>;
+    static NSProcessInfoPerformanceProfileDidChangeNotification: Option<&'static NSNotificationName>;
 }
 
 /// Default process profile value.
@@ -39,8 +38,7 @@ pub fn process_performance_profile_sustained() -> ProcessPerformanceProfile {
 
 /// Notification sent when the process performance profile changes.
 #[inline]
-pub fn process_info_performance_profile_did_change_notification()
--> Option<&'static NSNotificationName> {
+pub fn process_info_performance_profile_did_change_notification() -> Option<&'static NSNotificationName> {
     unsafe { NSProcessInfoPerformanceProfileDidChangeNotification }
 }
 
@@ -55,11 +53,17 @@ pub unsafe trait NSProcessInfoDeviceCertification:
     extern_methods!(
         #[unsafe(method(isDeviceCertifiedFor:))]
         #[unsafe(method_family = none)]
-        fn is_device_certified_for(&self, performance_tier: DeviceCertification) -> bool;
+        fn is_device_certified_for(
+            &self,
+            performance_tier: DeviceCertification,
+        ) -> bool;
 
         #[unsafe(method(hasPerformanceProfile:))]
         #[unsafe(method_family = none)]
-        fn has_performance_profile(&self, performance_profile: ProcessPerformanceProfile) -> bool;
+        fn has_performance_profile(
+            &self,
+            performance_profile: ProcessPerformanceProfile,
+        ) -> bool;
     );
 }
 

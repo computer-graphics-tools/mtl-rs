@@ -16,26 +16,24 @@ categories = [
 repository = "https://github.com/computer-graphics-tools/mtl-rs"
 
 [dependencies]
-core-graphics-types = { version = "0.2", default-features = false }
-core-graphics = "0.25"
-bytemuck = { version = "1.25", features = ["derive"] }
-libc = "0.2"
-
 objc2 = { version = "0.6" }
 objc2-foundation = { version = "0.3" }
 objc2-core-foundation = { version = "0.3" }
 objc2-io-surface = { version = "0.3" }
 dispatch2 = { version = "0.3" }
 block2 = { version = "0.6" }
-once_cell = { version = "1.21" }
 bitflags = "2.11"
 
 [dev-dependencies]
+bytemuck = { version = "1.25", features = ["derive"] }
 winit = "0.30"
+objc2-foundation = { version = "0.3", features = ["NSError", "NSString"] }
 objc2-app-kit = { version = "0.3", features = [
     "NSView",
     "NSWindow",
     "NSResponder",
+    "objc2-quartz-core",
+    "objc2-core-foundation",
 ] }
 objc2-quartz-core = { version = "0.3", features = [
     "CAMetalLayer",
@@ -43,65 +41,7 @@ objc2-quartz-core = { version = "0.3", features = [
     "objc2-metal",
 ] }
 raw-window-handle = "0.6"
-objc2-metal-kit = { version = "0.3.2", features = ["MTKView"] }
 
 [lib]
 name = "metal"
 path = "src/lib.rs"
-
-# Essentials
-[[example]]
-name = "drawing_a_triangle_with_metal_4"
-
-# Compute workflows
-[[example]]
-name = "performing_calculations_on_a_gpu"
-
-# Render workflows
-[[example]]
-name = "customizing_render_pass_setup"
-
-[[example]]
-name = "calculating_primitive_visibility_using_depth_testing"
-
-[[example]]
-name = "encoding_indirect_command_buffers_on_the_cpu"
-
-[[example]]
-name = "improving_edge_rendering_quality_with_msaa"
-
-# Textures
-[[example]]
-name = "processing_a_texture_in_a_compute_function"
-
-[[example]]
-name = "streaming_large_images_with_metal_sparse_textures"
-
-# Argument buffers
-[[example]]
-name = "managing_groups_of_resources_with_argument_buffers"
-
-[[example]]
-name = "using_argument_buffers_with_resource_heaps"
-
-[[example]]
-name = "encoding_argument_buffers_on_the_gpu"
-
-# Shaders
-[[example]]
-name = "creating_a_metal_dynamic_library"
-
-[[example]]
-name = "using_function_specialization_to_build_pipeline_variants"
-
-# Synchronization
-[[example]]
-name = "synchronizing_cpu_and_gpu_work"
-
-# Ray tracing
-[[example]]
-name = "accelerating_ray_tracing_using_metal"
-
-# Developer tools
-[[example]]
-name = "capturing_metal_commands_programmatically"

@@ -4,9 +4,7 @@ use objc2::{
     rc::{Allocated, Retained},
     runtime::NSObject,
 };
-use objc2_foundation::{
-    CopyingHelper, NSCopying, NSDictionary, NSNumber, NSObjectProtocol, NSString,
-};
+use objc2_foundation::{CopyingHelper, NSCopying, NSDictionary, NSNumber, NSObjectProtocol, NSString};
 
 use super::{
     MLTLanguageVersion, MTLCompileSymbolVisibility, MTLLibraryOptimizationLevel, MTLLibraryType,
@@ -32,20 +30,16 @@ impl MTLPreprocessorMacroValue {
         let value = match value.downcast::<NSNumber>() {
             Ok(value) => {
                 return match value.encoding() {
-                    Encoding::Char
-                    | Encoding::Short
-                    | Encoding::Int
-                    | Encoding::Long
-                    | Encoding::LongLong => Self::I64(value.as_i64()),
-                    Encoding::UChar
-                    | Encoding::UShort
-                    | Encoding::UInt
-                    | Encoding::ULong
-                    | Encoding::ULongLong => Self::U64(value.as_u64()),
+                    Encoding::Char | Encoding::Short | Encoding::Int | Encoding::Long | Encoding::LongLong => {
+                        Self::I64(value.as_i64())
+                    },
+                    Encoding::UChar | Encoding::UShort | Encoding::UInt | Encoding::ULong | Encoding::ULongLong => {
+                        Self::U64(value.as_u64())
+                    },
                     Encoding::Float | Encoding::Double => Self::F64(value.as_f64()),
                     _ => unreachable!("unexpected NSNumber encoding"),
                 };
-            }
+            },
             Err(value) => value,
         };
 
@@ -56,18 +50,12 @@ impl MTLPreprocessorMacroValue {
 
     fn to_ns_object(&self) -> Retained<NSObject> {
         match self {
-            Self::String(value) => NSString::from_str(value)
-                .downcast::<NSObject>()
-                .expect("NSString must be an NSObject"),
-            Self::I64(value) => NSNumber::new_i64(*value)
-                .downcast::<NSObject>()
-                .expect("NSNumber must be an NSObject"),
-            Self::U64(value) => NSNumber::new_u64(*value)
-                .downcast::<NSObject>()
-                .expect("NSNumber must be an NSObject"),
-            Self::F64(value) => NSNumber::new_f64(*value)
-                .downcast::<NSObject>()
-                .expect("NSNumber must be an NSObject"),
+            Self::String(value) => {
+                NSString::from_str(value).downcast::<NSObject>().expect("NSString must be an NSObject")
+            },
+            Self::I64(value) => NSNumber::new_i64(*value).downcast::<NSObject>().expect("NSNumber must be an NSObject"),
+            Self::U64(value) => NSNumber::new_u64(*value).downcast::<NSObject>().expect("NSNumber must be an NSObject"),
+            Self::F64(value) => NSNumber::new_f64(*value).downcast::<NSObject>().expect("NSNumber must be an NSObject"),
         }
     }
 }
@@ -99,7 +87,10 @@ impl MTLCompileOptions {
 
         #[unsafe(method(setMathMode:))]
         #[unsafe(method_family = none)]
-        pub fn set_math_mode(&self, math_mode: MTLMathMode);
+        pub fn set_math_mode(
+            &self,
+            math_mode: MTLMathMode,
+        );
 
         #[unsafe(method(mathFloatingPointFunctions))]
         #[unsafe(method_family = none)]
@@ -107,7 +98,10 @@ impl MTLCompileOptions {
 
         #[unsafe(method(setMathFloatingPointFunctions:))]
         #[unsafe(method_family = none)]
-        pub fn set_math_floating_point_functions(&self, val: MTLMathFloatingPointFunctions);
+        pub fn set_math_floating_point_functions(
+            &self,
+            val: MTLMathFloatingPointFunctions,
+        );
 
         #[unsafe(method(languageVersion))]
         #[unsafe(method_family = none)]
@@ -115,7 +109,10 @@ impl MTLCompileOptions {
 
         #[unsafe(method(setLanguageVersion:))]
         #[unsafe(method_family = none)]
-        pub fn set_language_version(&self, v: MLTLanguageVersion);
+        pub fn set_language_version(
+            &self,
+            v: MLTLanguageVersion,
+        );
 
         #[unsafe(method(libraryType))]
         #[unsafe(method_family = none)]
@@ -123,7 +120,10 @@ impl MTLCompileOptions {
 
         #[unsafe(method(setLibraryType:))]
         #[unsafe(method_family = none)]
-        pub fn set_library_type(&self, v: MTLLibraryType);
+        pub fn set_library_type(
+            &self,
+            v: MTLLibraryType,
+        );
 
         #[unsafe(method(preserveInvariance))]
         #[unsafe(method_family = none)]
@@ -131,7 +131,10 @@ impl MTLCompileOptions {
 
         #[unsafe(method(setPreserveInvariance:))]
         #[unsafe(method_family = none)]
-        pub fn set_preserve_invariance(&self, v: bool);
+        pub fn set_preserve_invariance(
+            &self,
+            v: bool,
+        );
 
         #[unsafe(method(optimizationLevel))]
         #[unsafe(method_family = none)]
@@ -139,7 +142,10 @@ impl MTLCompileOptions {
 
         #[unsafe(method(setOptimizationLevel:))]
         #[unsafe(method_family = none)]
-        pub fn set_optimization_level(&self, v: MTLLibraryOptimizationLevel);
+        pub fn set_optimization_level(
+            &self,
+            v: MTLLibraryOptimizationLevel,
+        );
 
         #[unsafe(method(compileSymbolVisibility))]
         #[unsafe(method_family = none)]
@@ -147,7 +153,10 @@ impl MTLCompileOptions {
 
         #[unsafe(method(setCompileSymbolVisibility:))]
         #[unsafe(method_family = none)]
-        pub fn set_compile_symbol_visibility(&self, v: MTLCompileSymbolVisibility);
+        pub fn set_compile_symbol_visibility(
+            &self,
+            v: MTLCompileSymbolVisibility,
+        );
 
         #[unsafe(method(allowReferencingUndefinedSymbols))]
         #[unsafe(method_family = none)]
@@ -155,7 +164,10 @@ impl MTLCompileOptions {
 
         #[unsafe(method(setAllowReferencingUndefinedSymbols:))]
         #[unsafe(method_family = none)]
-        pub fn set_allow_referencing_undefined_symbols(&self, v: bool);
+        pub fn set_allow_referencing_undefined_symbols(
+            &self,
+            v: bool,
+        );
 
         #[unsafe(method(maxTotalThreadsPerThreadgroup))]
         #[unsafe(method_family = none)]
@@ -163,7 +175,10 @@ impl MTLCompileOptions {
 
         #[unsafe(method(setMaxTotalThreadsPerThreadgroup:))]
         #[unsafe(method_family = none)]
-        pub fn set_max_total_threads_per_threadgroup(&self, v: usize);
+        pub fn set_max_total_threads_per_threadgroup(
+            &self,
+            v: usize,
+        );
 
         #[unsafe(method(requiredThreadsPerThreadgroup))]
         #[unsafe(method_family = none)]
@@ -171,7 +186,10 @@ impl MTLCompileOptions {
 
         #[unsafe(method(setRequiredThreadsPerThreadgroup:))]
         #[unsafe(method_family = none)]
-        pub fn set_required_threads_per_threadgroup(&self, v: MTLSize);
+        pub fn set_required_threads_per_threadgroup(
+            &self,
+            v: MTLSize,
+        );
 
         #[unsafe(method(enableLogging))]
         #[unsafe(method_family = none)]
@@ -179,38 +197,32 @@ impl MTLCompileOptions {
 
         #[unsafe(method(setEnableLogging:))]
         #[unsafe(method_family = none)]
-        pub fn set_enable_logging(&self, v: bool);
+        pub fn set_enable_logging(
+            &self,
+            v: bool,
+        );
     );
 
     pub fn preprocessor_macros(&self) -> Option<Box<[(String, MTLPreprocessorMacroValue)]>> {
-        let macros: Option<Retained<NSDictionary<NSString, NSObject>>> =
-            unsafe { msg_send![self, preprocessorMacros] };
+        let macros: Option<Retained<NSDictionary<NSString, NSObject>>> = unsafe { msg_send![self, preprocessorMacros] };
         macros.map(|macros| {
             let (keys, values) = macros.to_vecs();
             keys.into_iter()
                 .zip(values)
-                .map(|(key, value)| {
-                    (
-                        key.to_string(),
-                        MTLPreprocessorMacroValue::from_ns_object(value),
-                    )
-                })
+                .map(|(key, value)| (key.to_string(), MTLPreprocessorMacroValue::from_ns_object(value)))
                 .collect::<Vec<_>>()
                 .into_boxed_slice()
         })
     }
 
-    pub fn set_preprocessor_macros(&self, macros: Option<&[(&str, MTLPreprocessorMacroValue)]>) {
+    pub fn set_preprocessor_macros(
+        &self,
+        macros: Option<&[(&str, MTLPreprocessorMacroValue)]>,
+    ) {
         let macros = macros.map(|macros| {
-            let keys: Vec<Retained<NSString>> = macros
-                .iter()
-                .map(|(key, _)| NSString::from_str(key))
-                .collect();
+            let keys: Vec<Retained<NSString>> = macros.iter().map(|(key, _)| NSString::from_str(key)).collect();
             let key_refs: Vec<&NSString> = keys.iter().map(|key| &**key).collect();
-            let values: Vec<Retained<NSObject>> = macros
-                .iter()
-                .map(|(_, value)| value.to_ns_object())
-                .collect();
+            let values: Vec<Retained<NSObject>> = macros.iter().map(|(_, value)| value.to_ns_object()).collect();
             let value_refs: Vec<&NSObject> = values.iter().map(|value| &**value).collect();
             NSDictionary::from_slices(&key_refs, &value_refs)
         });
@@ -239,7 +251,10 @@ impl MTLCompileOptions {
         s.map(|s| s.to_string())
     }
 
-    fn set_install_name(&self, name: Option<&str>) {
+    fn set_install_name(
+        &self,
+        name: Option<&str>,
+    ) {
         unsafe {
             let _: () = msg_send![self, setInstallName: name.map(NSString::from_str).as_deref()];
         }

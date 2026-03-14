@@ -39,7 +39,10 @@ impl MTLVisibleFunctionTableDescriptor {
         /// Setter for [`function_count`][Self::function_count].
         #[unsafe(method(setFunctionCount:))]
         #[unsafe(method_family = none)]
-        pub fn set_function_count(&self, function_count: usize);
+        pub fn set_function_count(
+            &self,
+            function_count: usize,
+        );
     );
 }
 

@@ -2,8 +2,7 @@
 //! DO NOT EDIT
 use core::ops::Range;
 
-use objc2::runtime::ProtocolObject;
-use objc2::{Message, extern_protocol, msg_send};
+use objc2::{Message, extern_protocol, msg_send, runtime::ProtocolObject};
 use objc2_foundation::NSRange;
 
 use crate::*;
@@ -39,7 +38,10 @@ extern_protocol!(
         /// - Parameter state: a non-`nil` ``MTLComputePipelineState``.
         #[unsafe(method(setComputePipelineState:))]
         #[unsafe(method_family = none)]
-        fn set_compute_pipeline_state(&self, state: &ProtocolObject<dyn MTLComputePipelineState>);
+        fn set_compute_pipeline_state(
+            &self,
+            state: &ProtocolObject<dyn MTLComputePipelineState>,
+        );
 
         /// Configures the size of a threadgroup memory buffer for a threadgroup argument in the compute shader function.
         ///
@@ -49,7 +51,11 @@ extern_protocol!(
         /// in the shader function.
         #[unsafe(method(setThreadgroupMemoryLength:atIndex:))]
         #[unsafe(method_family = none)]
-        fn set_threadgroup_memory_length_at_index(&self, length: usize, index: usize);
+        fn set_threadgroup_memory_length_at_index(
+            &self,
+            length: usize,
+            index: usize,
+        );
 
         /// Specifies the size, in pixels, of imageblock data in tile memory.
         ///
@@ -58,7 +64,11 @@ extern_protocol!(
         /// - height: The height of the imageblock, in pixels.
         #[unsafe(method(setImageblockWidth:height:))]
         #[unsafe(method_family = none)]
-        fn set_imageblock_width_height(&self, width: usize, height: usize);
+        fn set_imageblock_width_height(
+            &self,
+            width: usize,
+            height: usize,
+        );
 
         /// Encodes a compute dispatch command using an arbitrarily-sized grid.
         ///
@@ -125,7 +135,10 @@ extern_protocol!(
         /// structure. This address requires 4-byte alignment.
         #[unsafe(method(dispatchThreadsWithIndirectBuffer:))]
         #[unsafe(method_family = none)]
-        fn dispatch_threads_with_indirect_buffer(&self, indirect_buffer: MTLGPUAddress);
+        fn dispatch_threads_with_indirect_buffer(
+            &self,
+            indirect_buffer: MTLGPUAddress,
+        );
 
         /// Encodes an instruction to execute commands from an indirect command buffer, using an indirect buffer for
         /// arguments.
@@ -519,7 +532,10 @@ extern_protocol!(
         /// - Parameter texture: A mipmapped, color-renderable or color-filterable ``MTLTexture`` instance the command generates mipmaps for.
         #[unsafe(method(generateMipmapsForTexture:))]
         #[unsafe(method_family = none)]
-        fn generate_mipmaps_for_texture(&self, texture: &ProtocolObject<dyn MTLTexture>);
+        fn generate_mipmaps_for_texture(
+            &self,
+            texture: &ProtocolObject<dyn MTLTexture>,
+        );
 
         /// Encodes a command that modifies the contents of a texture to improve the performance of GPU accesses
         /// to its contents.
@@ -535,7 +551,10 @@ extern_protocol!(
         /// - Parameter texture: A ``MTLTexture`` instance the command optimizes for GPU access.
         #[unsafe(method(optimizeContentsForGPUAccess:))]
         #[unsafe(method_family = none)]
-        fn optimize_contents_for_gpu_access(&self, texture: &ProtocolObject<dyn MTLTexture>);
+        fn optimize_contents_for_gpu_access(
+            &self,
+            texture: &ProtocolObject<dyn MTLTexture>,
+        );
 
         /// Encodes a command that modifies the contents of a texture instance to improve the performance of GPU accesses
         /// to its contents in a specific region.
@@ -575,7 +594,10 @@ extern_protocol!(
         /// - Parameter texture: A ``MTLTexture`` instance the command optimizes for CPU access.
         #[unsafe(method(optimizeContentsForCPUAccess:))]
         #[unsafe(method_family = none)]
-        fn optimize_contents_for_cpu_access(&self, texture: &ProtocolObject<dyn MTLTexture>);
+        fn optimize_contents_for_cpu_access(
+            &self,
+            texture: &ProtocolObject<dyn MTLTexture>,
+        );
 
         /// Encodes a command that modifies the contents of a texture to improve the performance of CPU accesses
         /// to its contents in a specific region.
@@ -688,9 +710,7 @@ extern_protocol!(
             &self,
             source_acceleration_structure: &ProtocolObject<dyn MTLAccelerationStructure>,
             descriptor: &MTL4AccelerationStructureDescriptor,
-            destination_acceleration_structure: Option<
-                &ProtocolObject<dyn MTLAccelerationStructure>,
-            >,
+            destination_acceleration_structure: Option<&ProtocolObject<dyn MTLAccelerationStructure>>,
             scratch_buffer: MTL4BufferRange,
         );
 
@@ -735,9 +755,7 @@ extern_protocol!(
             &self,
             source_acceleration_structure: &ProtocolObject<dyn MTLAccelerationStructure>,
             descriptor: &MTL4AccelerationStructureDescriptor,
-            destination_acceleration_structure: Option<
-                &ProtocolObject<dyn MTLAccelerationStructure>,
-            >,
+            destination_acceleration_structure: Option<&ProtocolObject<dyn MTLAccelerationStructure>>,
             scratch_buffer: MTL4BufferRange,
             options: MTLAccelerationStructureRefitOptions,
         );

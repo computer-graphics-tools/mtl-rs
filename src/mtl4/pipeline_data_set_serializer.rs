@@ -9,9 +9,7 @@ use objc2::{
     extern_class, extern_conformance, extern_methods, extern_protocol, msg_send,
     rc::{Allocated, Retained},
 };
-use objc2_foundation::{
-    CopyingHelper, NSCopying, NSData, NSError, NSObject, NSObjectProtocol, NSURL,
-};
+use objc2_foundation::{CopyingHelper, NSCopying, NSData, NSError, NSObject, NSObjectProtocol, NSURL};
 
 /// Configuration options for pipeline dataset serializer objects.
 ///
@@ -89,7 +87,10 @@ impl MTL4PipelineDataSetSerializerDescriptor {
         /// Setter for [`configuration`][Self::configuration].
         #[unsafe(method(setConfiguration:))]
         #[unsafe(method_family = none)]
-        pub fn set_configuration(&self, configuration: MTL4PipelineDataSetSerializerConfiguration);
+        pub fn set_configuration(
+            &self,
+            configuration: MTL4PipelineDataSetSerializerConfiguration,
+        );
     );
 }
 
@@ -130,14 +131,16 @@ extern_protocol!(
 
 pub trait MTL4PipelineDataSetSerializerExt: MTL4PipelineDataSetSerializer + Message {
     /// Serializes a pipeline data set to an archive at a filesystem path.
-    fn serialize_as_archive_and_flush_to_path(&self, path: &Path) -> Result<(), Retained<NSError>>
+    fn serialize_as_archive_and_flush_to_path(
+        &self,
+        path: &Path,
+    ) -> Result<(), Retained<NSError>>
     where
         Self: Sized,
     {
         let url = NSURL::from_file_path(path).expect("path must be a valid file URL path");
         let mut error: *mut NSError = std::ptr::null_mut();
-        let ok: bool =
-            unsafe { msg_send![self, serializeAsArchiveAndFlushToURL: &*url, error: &mut error] };
+        let ok: bool = unsafe { msg_send![self, serializeAsArchiveAndFlushToURL: &*url, error: &mut error] };
         if ok {
             Ok(())
         } else {

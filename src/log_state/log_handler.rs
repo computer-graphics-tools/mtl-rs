@@ -7,9 +7,7 @@ use objc2_foundation::NSString;
 use crate::MTLLogLevel;
 
 /// A handler invoked for GPU log messages.
-pub struct MTLLogHandler(
-    RcBlock<dyn Fn(*mut NSString, *mut NSString, MTLLogLevel, NonNull<NSString>)>,
-);
+pub struct MTLLogHandler(RcBlock<dyn Fn(*mut NSString, *mut NSString, MTLLogLevel, NonNull<NSString>)>);
 
 pub struct LogMessage {
     pub category: Option<String>,

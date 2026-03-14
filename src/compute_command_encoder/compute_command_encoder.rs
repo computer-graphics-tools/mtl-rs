@@ -4,9 +4,8 @@ use objc2::{Message, extern_protocol, msg_send, runtime::ProtocolObject};
 use objc2_foundation::NSRange;
 
 use crate::{
-    MTLAccelerationStructure, MTLBarrierScope, MTLBuffer, MTLCommandEncoder,
-    MTLCounterSampleBuffer, MTLFence, MTLHeap, MTLIndirectCommandBuffer, MTLResource,
-    MTLResourceUsage, MTLSamplerState, MTLTexture,
+    MTLAccelerationStructure, MTLBarrierScope, MTLBuffer, MTLCommandEncoder, MTLCounterSampleBuffer, MTLFence, MTLHeap,
+    MTLIndirectCommandBuffer, MTLResource, MTLResourceUsage, MTLSamplerState, MTLTexture,
     compute_pipeline::MTLComputePipelineState,
     intersection_function_table::MTLIntersectionFunctionTable,
     types::{MTLRegion, MTLSize},
@@ -22,13 +21,21 @@ extern_protocol!(
 
         #[unsafe(method(setComputePipelineState:))]
         #[unsafe(method_family = none)]
-        fn set_compute_pipeline_state(&self, state: &ProtocolObject<dyn MTLComputePipelineState>);
+        fn set_compute_pipeline_state(
+            &self,
+            state: &ProtocolObject<dyn MTLComputePipelineState>,
+        );
 
         /// Set data for a buffer binding point, by copy.
         /// Safety: `bytes` must be valid.
         #[unsafe(method(setBytes:length:atIndex:))]
         #[unsafe(method_family = none)]
-        fn set_bytes(&self, bytes: NonNull<c_void>, length: usize, index: usize);
+        fn set_bytes(
+            &self,
+            bytes: NonNull<c_void>,
+            length: usize,
+            index: usize,
+        );
 
         #[unsafe(method(setBuffer:offset:atIndex:))]
         #[unsafe(method_family = none)]
@@ -41,7 +48,11 @@ extern_protocol!(
 
         #[unsafe(method(setBufferOffset:atIndex:))]
         #[unsafe(method_family = none)]
-        fn set_buffer_offset(&self, offset: usize, index: usize);
+        fn set_buffer_offset(
+            &self,
+            offset: usize,
+            index: usize,
+        );
 
         #[unsafe(method(setBuffer:offset:attributeStride:atIndex:))]
         #[unsafe(method_family = none)]
@@ -99,7 +110,11 @@ extern_protocol!(
 
         #[unsafe(method(setTexture:atIndex:))]
         #[unsafe(method_family = none)]
-        fn set_texture(&self, texture: Option<&ProtocolObject<dyn MTLTexture>>, index: usize);
+        fn set_texture(
+            &self,
+            texture: Option<&ProtocolObject<dyn MTLTexture>>,
+            index: usize,
+        );
 
         #[unsafe(method(setSamplerState:atIndex:))]
         #[unsafe(method_family = none)]
@@ -121,15 +136,26 @@ extern_protocol!(
 
         #[unsafe(method(setThreadgroupMemoryLength:atIndex:))]
         #[unsafe(method_family = none)]
-        fn set_threadgroup_memory_length(&self, length: usize, index: usize);
+        fn set_threadgroup_memory_length(
+            &self,
+            length: usize,
+            index: usize,
+        );
 
         #[unsafe(method(setImageblockWidth:height:))]
         #[unsafe(method_family = none)]
-        fn set_imageblock_width_height(&self, width: usize, height: usize);
+        fn set_imageblock_width_height(
+            &self,
+            width: usize,
+            height: usize,
+        );
 
         #[unsafe(method(setStageInRegion:))]
         #[unsafe(method_family = none)]
-        fn set_stage_in_region(&self, region: MTLRegion);
+        fn set_stage_in_region(
+            &self,
+            region: MTLRegion,
+        );
 
         #[unsafe(method(setStageInRegionWithIndirectBuffer:indirectBufferOffset:))]
         #[unsafe(method_family = none)]
@@ -158,19 +184,33 @@ extern_protocol!(
 
         #[unsafe(method(dispatchThreads:threadsPerThreadgroup:))]
         #[unsafe(method_family = none)]
-        fn dispatch_threads(&self, threads_per_grid: MTLSize, threads_per_threadgroup: MTLSize);
+        fn dispatch_threads(
+            &self,
+            threads_per_grid: MTLSize,
+            threads_per_threadgroup: MTLSize,
+        );
 
         #[unsafe(method(updateFence:))]
         #[unsafe(method_family = none)]
-        fn update_fence(&self, fence: &ProtocolObject<dyn MTLFence>);
+        fn update_fence(
+            &self,
+            fence: &ProtocolObject<dyn MTLFence>,
+        );
 
         #[unsafe(method(waitForFence:))]
         #[unsafe(method_family = none)]
-        fn wait_for_fence(&self, fence: &ProtocolObject<dyn MTLFence>);
+        fn wait_for_fence(
+            &self,
+            fence: &ProtocolObject<dyn MTLFence>,
+        );
 
         #[unsafe(method(useResource:usage:))]
         #[unsafe(method_family = none)]
-        fn use_resource(&self, resource: &ProtocolObject<dyn MTLResource>, usage: MTLResourceUsage);
+        fn use_resource(
+            &self,
+            resource: &ProtocolObject<dyn MTLResource>,
+            usage: MTLResourceUsage,
+        );
 
         /// Safety: `resources` must be valid.
         #[unsafe(method(useResources:count:usage:))]
@@ -184,12 +224,19 @@ extern_protocol!(
 
         #[unsafe(method(useHeap:))]
         #[unsafe(method_family = none)]
-        fn use_heap(&self, heap: &ProtocolObject<dyn MTLHeap>);
+        fn use_heap(
+            &self,
+            heap: &ProtocolObject<dyn MTLHeap>,
+        );
 
         /// Safety: `heaps` must be valid.
         #[unsafe(method(useHeaps:count:))]
         #[unsafe(method_family = none)]
-        fn use_heaps(&self, heaps: NonNull<NonNull<ProtocolObject<dyn MTLHeap>>>, count: usize);
+        fn use_heaps(
+            &self,
+            heaps: NonNull<NonNull<ProtocolObject<dyn MTLHeap>>>,
+            count: usize,
+        );
 
         #[unsafe(method(executeCommandsInBuffer:indirectBuffer:indirectBufferOffset:))]
         #[unsafe(method_family = none)]
@@ -202,7 +249,10 @@ extern_protocol!(
 
         #[unsafe(method(memoryBarrierWithScope:))]
         #[unsafe(method_family = none)]
-        fn memory_barrier_with_scope(&self, scope: MTLBarrierScope);
+        fn memory_barrier_with_scope(
+            &self,
+            scope: MTLBarrierScope,
+        );
 
         /// Safety: `resources` must be valid.
         #[unsafe(method(memoryBarrierWithResources:count:))]

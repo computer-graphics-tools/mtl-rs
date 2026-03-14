@@ -43,7 +43,10 @@ impl MTLFunctionDescriptor {
         /// Setter for [`options`][Self::options].
         #[unsafe(method(setOptions:))]
         #[unsafe(method_family = none)]
-        pub fn set_options(&self, options: MTLFunctionOptions);
+        pub fn set_options(
+            &self,
+            options: MTLFunctionOptions,
+        );
 
         /// The set of constant values assigned to the function constants. Compilation fails if you do not provide valid
         /// constant values for all required function constants.
@@ -53,7 +56,10 @@ impl MTLFunctionDescriptor {
 
         #[unsafe(method(setConstantValues:))]
         #[unsafe(method_family = none)]
-        pub fn set_constant_values(&self, values: Option<&MTLFunctionConstantValues>);
+        pub fn set_constant_values(
+            &self,
+            values: Option<&MTLFunctionConstantValues>,
+        );
     );
 }
 
@@ -79,7 +85,10 @@ impl MTLFunctionDescriptor {
     }
 
     /// Setter for [`name`][Self::name].
-    fn set_name(&self, name: Option<&str>) {
+    fn set_name(
+        &self,
+        name: Option<&str>,
+    ) {
         unsafe {
             let _: () = msg_send![self, setName: name.map(NSString::from_str).as_deref()];
         }
@@ -92,7 +101,10 @@ impl MTLFunctionDescriptor {
     }
 
     /// Setter for [`specialized_name`][Self::specialized_name].
-    fn set_specialized_name(&self, specialized_name: Option<&str>) {
+    fn set_specialized_name(
+        &self,
+        specialized_name: Option<&str>,
+    ) {
         unsafe {
             let _: () = msg_send![
                 self,
@@ -109,7 +121,10 @@ impl MTLFunctionDescriptor {
     }
 
     /// Setter for [`binary_archives`][Self::binary_archives].
-    pub fn set_binary_archives(&self, archives: Option<&[&ProtocolObject<dyn MTLBinaryArchive>]>) {
+    pub fn set_binary_archives(
+        &self,
+        archives: Option<&[&ProtocolObject<dyn MTLBinaryArchive>]>,
+    ) {
         let archives = archives.map(|archives| NSArray::from_slice(archives));
         unsafe {
             let _: () = msg_send![self, setBinaryArchives: archives.as_deref()];

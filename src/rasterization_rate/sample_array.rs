@@ -21,12 +21,19 @@ impl MTLRasterizationRateSampleArray {
         /// Retrieves the sample value at the specified index.
         #[unsafe(method(objectAtIndexedSubscript:))]
         #[unsafe(method_family = none)]
-        pub fn object_at_indexed_subscript(&self, index: usize) -> Retained<NSNumber>;
+        pub fn object_at_indexed_subscript(
+            &self,
+            index: usize,
+        ) -> Retained<NSNumber>;
 
         /// Stores a sample value at the specified index.
         #[unsafe(method(setObject:atIndexedSubscript:))]
         #[unsafe(method_family = none)]
-        pub fn set_object_at_indexed_subscript(&self, value: &NSNumber, index: usize);
+        pub fn set_object_at_indexed_subscript(
+            &self,
+            value: &NSNumber,
+            index: usize,
+        );
     );
 }
 

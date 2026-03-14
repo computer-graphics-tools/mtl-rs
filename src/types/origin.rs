@@ -10,8 +10,7 @@ pub struct MTLOrigin {
 }
 
 unsafe impl Encode for MTLOrigin {
-    const ENCODING: Encoding =
-        Encoding::Struct("?", &[usize::ENCODING, usize::ENCODING, usize::ENCODING]);
+    const ENCODING: Encoding = Encoding::Struct("?", &[usize::ENCODING, usize::ENCODING, usize::ENCODING]);
 }
 
 unsafe impl RefEncode for MTLOrigin {
