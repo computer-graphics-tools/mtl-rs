@@ -7,10 +7,8 @@ use super::types::*;
 use crate::*;
 
 extern_protocol!(
-    /// An abstraction representing a command queue that you use commit and synchronize command buffers and to
-    /// perform other GPU operations.
-    ///
-    /// See also [Apple's documentation](https://developer.apple.com/documentation/metal/mtl4commandqueue?language=objc)
+    /// An abstraction representing a command queue that you use to commit and synchronize command
+    /// buffers and to perform other GPU operations.
     pub unsafe trait MTL4CommandQueue: NSObjectProtocol + Send + Sync {
         /// Returns the GPU device that the command queue belongs to.
         #[unsafe(method(device))]
@@ -22,34 +20,8 @@ extern_protocol!(
         #[unsafe(method_family = none)]
         fn label(&self) -> Option<Retained<NSString>>;
 
-        /// Enqueues an array of command buffers for execution.
-        ///
-        /// # Safety
-        ///
-        /// `command_buffers` must be a valid pointer.
-        #[unsafe(method(commit:count:))]
-        #[unsafe(method_family = none)]
-        fn commit_count(
-            &self,
-            command_buffers: NonNull<NonNull<ProtocolObject<dyn MTL4CommandBuffer>>>,
-            count: NSUInteger,
-        );
-
-        /// Enqueues an array of command buffer instances for execution with a set of options.
-        ///
-        /// # Safety
-        ///
-        /// `command_buffers` must be a valid pointer.
-        #[unsafe(method(commit:count:options:))]
-        #[unsafe(method_family = none)]
-        fn commit_count_options(
-            &self,
-            command_buffers: NonNull<NonNull<ProtocolObject<dyn MTL4CommandBuffer>>>,
-            count: NSUInteger,
-            options: &MTL4CommitOptions,
-        );
-
-        /// Schedules an operation to signal a GPU event with a specific value.
+        /// Schedules an operation to signal a GPU event with a specific value after all GPU work
+        /// prior to this point is complete.
         #[unsafe(method(signalEvent:value:))]
         #[unsafe(method_family = none)]
         fn signal_event_value(
@@ -58,7 +30,8 @@ extern_protocol!(
             value: u64,
         );
 
-        /// Schedules an operation to wait for a GPU event of a specific value.
+        /// Schedules an operation to wait for a GPU event of a specific value before continuing
+        /// to execute any future GPU work.
         #[unsafe(method(waitForEvent:value:))]
         #[unsafe(method_family = none)]
         fn wait_for_event_value(
@@ -67,7 +40,8 @@ extern_protocol!(
             value: u64,
         );
 
-        /// Schedules a signal operation for a drawable.
+        /// Schedules a signal operation on the command queue to indicate when rendering to a
+        /// Metal drawable is complete. Signaling indicates it's safe to present.
         #[unsafe(method(signalDrawable:))]
         #[unsafe(method_family = none)]
         fn signal_drawable(
@@ -75,7 +49,8 @@ extern_protocol!(
             drawable: &ProtocolObject<dyn MTLDrawable>,
         );
 
-        /// Schedules a wait operation for a drawable.
+        /// Schedules a wait operation on the command queue to ensure the display is no longer
+        /// using a specific Metal drawable before executing subsequent commands.
         #[unsafe(method(waitForDrawable:))]
         #[unsafe(method_family = none)]
         fn wait_for_drawable(
@@ -83,7 +58,9 @@ extern_protocol!(
             drawable: &ProtocolObject<dyn MTLDrawable>,
         );
 
-        /// Marks a residency set as part of this command queue.
+        /// Marks a residency set as part of this command queue. Ensures that Metal makes the
+        /// residency set resident during execution of all command buffers committed to this queue.
+        /// Each command queue supports up to 32 unique residency set instances.
         #[unsafe(method(addResidencySet:))]
         #[unsafe(method_family = none)]
         fn add_residency_set(
@@ -91,18 +68,8 @@ extern_protocol!(
             residency_set: &ProtocolObject<dyn MTLResidencySet>,
         );
 
-        /// Marks an array of residency sets as part of this command queue.
-        ///
-        /// # Safety
-        #[unsafe(method(addResidencySets:count:))]
-        #[unsafe(method_family = none)]
-        fn add_residency_sets_count(
-            &self,
-            residency_sets: NonNull<NonNull<ProtocolObject<dyn MTLResidencySet>>>,
-            count: NSUInteger,
-        );
-
-        /// Removes a residency set from the command queue.
+        /// Removes a residency set from the command queue. After calling this method only the
+        /// remaining residency sets remain resident during execution of committed command buffers.
         #[unsafe(method(removeResidencySet:))]
         #[unsafe(method_family = none)]
         fn remove_residency_set(
@@ -110,20 +77,12 @@ extern_protocol!(
             residency_set: &ProtocolObject<dyn MTLResidencySet>,
         );
 
-        /// Removes multiple residency sets from the command queue.
+        /// Updates multiple regions within a placement sparse texture to alias specific tiles
+        /// of a Metal heap. Pass `None` for `heap` only when performing unmap operations.
         ///
         /// # Safety
-        #[unsafe(method(removeResidencySets:count:))]
-        #[unsafe(method_family = none)]
-        fn remove_residency_sets_count(
-            &self,
-            residency_sets: NonNull<NonNull<ProtocolObject<dyn MTLResidencySet>>>,
-            count: NSUInteger,
-        );
-
-        /// Updates multiple regions within a placement sparse texture to alias specific tiles of a Metal heap.
         ///
-        /// # Safety
+        /// `operations` must be a valid pointer to an array of length `count`.
         #[unsafe(method(updateTextureMappings:heap:operations:count:))]
         #[unsafe(method_family = none)]
         fn update_texture_mappings_heap_operations_count(
@@ -134,9 +93,12 @@ extern_protocol!(
             count: NSUInteger,
         );
 
-        /// Copies multiple regions within a source placement sparse texture to a destination placement sparse texture.
+        /// Copies multiple regions within a source placement sparse texture to a destination
+        /// placement sparse texture. Both textures must have the same `placementSparsePageSize`.
         ///
         /// # Safety
+        ///
+        /// `operations` must be a valid pointer to an array of length `count`.
         #[unsafe(method(copyTextureMappingsFromTexture:toTexture:operations:count:))]
         #[unsafe(method_family = none)]
         fn copy_texture_mappings_from_texture_to_texture_operations_count(
@@ -147,9 +109,12 @@ extern_protocol!(
             count: NSUInteger,
         );
 
-        /// Updates multiple regions within a placement sparse buffer to alias specific tiles from a Metal heap.
+        /// Updates multiple regions within a placement sparse buffer to alias specific tiles
+        /// from a Metal heap. Pass `None` for `heap` only when performing unmap operations.
         ///
         /// # Safety
+        ///
+        /// `operations` must be a valid pointer to an array of length `count`.
         #[unsafe(method(updateBufferMappings:heap:operations:count:))]
         #[unsafe(method_family = none)]
         fn update_buffer_mappings_heap_operations_count(
@@ -160,9 +125,12 @@ extern_protocol!(
             count: NSUInteger,
         );
 
-        /// Copies multiple offsets within a source placement sparse buffer to a destination placement sparse buffer.
+        /// Copies multiple offsets within a source placement sparse buffer to a destination
+        /// placement sparse buffer. Both buffers must have the same `placementSparsePageSize`.
         ///
         /// # Safety
+        ///
+        /// `operations` must be a valid pointer to an array of length `count`.
         #[unsafe(method(copyBufferMappingsFromBuffer:toBuffer:operations:count:))]
         #[unsafe(method_family = none)]
         fn copy_buffer_mappings_from_buffer_to_buffer_operations_count(

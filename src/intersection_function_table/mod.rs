@@ -5,5 +5,5 @@ mod signature;
 
 pub use buffer_arguments::MTLIntersectionFunctionBufferArguments;
 pub use descriptor::MTLIntersectionFunctionTableDescriptor;
-pub use intersection_function_table::MTLIntersectionFunctionTable;
+pub use intersection_function_table::{MTLIntersectionFunctionTable, MTLIntersectionFunctionTableExt};
 pub use signature::MTLIntersectionFunctionSignature;

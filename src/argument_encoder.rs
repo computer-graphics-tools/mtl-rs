@@ -1,11 +1,13 @@
-use core::{ffi::c_void, ptr::NonNull};
+use core::{ffi::c_void, ops::Range, ptr::NonNull};
 
-use objc2::{extern_protocol, rc::Retained, runtime::ProtocolObject};
+use objc2::{Message, extern_protocol, msg_send, rc::Retained, runtime::ProtocolObject};
 use objc2_foundation::{NSObjectProtocol, NSRange, NSString};
 
+use crate::util::option_ref_ptr_cast_const;
 use crate::{
     MTLAccelerationStructure, MTLBuffer, MTLComputePipelineState, MTLDepthStencilState, MTLDevice,
-    MTLIndirectCommandBuffer, MTLRenderPipelineState, MTLSamplerState, MTLTexture,
+    MTLIndirectCommandBuffer, MTLIntersectionFunctionTable, MTLRenderPipelineState, MTLSamplerState, MTLTexture,
+    MTLVisibleFunctionTable,
 };
 
 /// When calling functions with an `attributeStrides:` parameter on a render
@@ -79,18 +81,6 @@ extern_protocol!(
             index: usize,
         );
 
-        /// Set an array of buffers at the given bind point index range.
-        ///
-        /// Safety: `buffers` and `offsets` must be valid pointers.
-        #[unsafe(method(setBuffers:offsets:withRange:))]
-        #[unsafe(method_family = none)]
-        fn set_buffers(
-            &self,
-            buffers: NonNull<*const ProtocolObject<dyn MTLBuffer>>,
-            offsets: NonNull<usize>,
-            range: NSRange,
-        );
-
         /// Set a texture at the given bind point index.
         #[unsafe(method(setTexture:atIndex:))]
         #[unsafe(method_family = none)]
@@ -100,17 +90,6 @@ extern_protocol!(
             index: usize,
         );
 
-        /// Set an array of textures at the given bind point index range.
-        ///
-        /// Safety: `textures` must be a valid pointer.
-        #[unsafe(method(setTextures:withRange:))]
-        #[unsafe(method_family = none)]
-        fn set_textures(
-            &self,
-            textures: NonNull<*const ProtocolObject<dyn MTLTexture>>,
-            range: NSRange,
-        );
-
         /// Set a sampler at the given bind point index.
         #[unsafe(method(setSamplerState:atIndex:))]
         #[unsafe(method_family = none)]
@@ -118,17 +97,6 @@ extern_protocol!(
             &self,
             sampler: Option<&ProtocolObject<dyn MTLSamplerState>>,
             index: usize,
-        );
-
-        /// Set an array of samplers at the given bind point index range.
-        ///
-        /// Safety: `samplers` must be a valid pointer.
-        #[unsafe(method(setSamplerStates:withRange:))]
-        #[unsafe(method_family = none)]
-        fn set_sampler_states(
-            &self,
-            samplers: NonNull<*const ProtocolObject<dyn MTLSamplerState>>,
-            range: NSRange,
         );
 
         /// Returns a pointer to the constant data at the given bind point index.
@@ -153,19 +121,6 @@ extern_protocol!(
             index: usize,
         );
 
-        /// Set an array of render pipeline states at a given bind point index range.
-        ///
-        /// Safety: `pipelines` must be a valid pointer.
-        ///
-        /// Availability: macOS 10.14+, iOS 13.0+
-        #[unsafe(method(setRenderPipelineStates:withRange:))]
-        #[unsafe(method_family = none)]
-        fn set_render_pipeline_states(
-            &self,
-            pipelines: NonNull<*const ProtocolObject<dyn MTLRenderPipelineState>>,
-            range: NSRange,
-        );
-
         /// Sets a compute pipeline state at a given bind point index.
         ///
         /// Availability: macOS 11.0+, iOS 13.0+
@@ -177,19 +132,6 @@ extern_protocol!(
             index: usize,
         );
 
-        /// Set an array of compute pipeline states at a given bind point index range.
-        ///
-        /// Safety: `pipelines` must be a valid pointer.
-        ///
-        /// Availability: macOS 11.0+, iOS 13.0+
-        #[unsafe(method(setComputePipelineStates:withRange:))]
-        #[unsafe(method_family = none)]
-        fn set_compute_pipeline_states(
-            &self,
-            pipelines: NonNull<*const ProtocolObject<dyn MTLComputePipelineState>>,
-            range: NSRange,
-        );
-
         /// Sets an indirect command buffer at a given bind point index.
         ///
         /// Availability: macOS 10.14+, iOS 12.0+
@@ -199,19 +141,6 @@ extern_protocol!(
             &self,
             indirect_command_buffer: Option<&ProtocolObject<dyn MTLIndirectCommandBuffer>>,
             index: usize,
-        );
-
-        /// Set an array of indirect command buffers at the given bind point index range.
-        ///
-        /// Safety: `buffers` must be a valid pointer.
-        ///
-        /// Availability: macOS 10.14+, iOS 12.0+
-        #[unsafe(method(setIndirectCommandBuffers:withRange:))]
-        #[unsafe(method_family = none)]
-        fn set_indirect_command_buffers(
-            &self,
-            buffers: NonNull<*const ProtocolObject<dyn MTLIndirectCommandBuffer>>,
-            range: NSRange,
         );
 
         /// Sets an acceleration structure at a given bind point index.
@@ -241,21 +170,8 @@ extern_protocol!(
         #[unsafe(method_family = none)]
         fn set_visible_function_table(
             &self,
-            visible_function_table: Option<&ProtocolObject<dyn crate::MTLVisibleFunctionTable>>,
+            visible_function_table: Option<&ProtocolObject<dyn MTLVisibleFunctionTable>>,
             index: usize,
-        );
-
-        /// Set visible function tables at the given buffer index range.
-        ///
-        /// Safety: `visible_function_tables` must be a valid pointer.
-        ///
-        /// Availability: macOS 11.0+, iOS 14.0+, tvOS 16.0+
-        #[unsafe(method(setVisibleFunctionTables:withRange:))]
-        #[unsafe(method_family = none)]
-        fn set_visible_function_tables(
-            &self,
-            visible_function_tables: NonNull<*const ProtocolObject<dyn crate::MTLVisibleFunctionTable>>,
-            range: NSRange,
         );
 
         /// Set an intersection function table at the given buffer index.
@@ -265,21 +181,8 @@ extern_protocol!(
         #[unsafe(method_family = none)]
         fn set_intersection_function_table(
             &self,
-            intersection_function_table: Option<&ProtocolObject<dyn crate::MTLIntersectionFunctionTable>>,
+            intersection_function_table: Option<&ProtocolObject<dyn MTLIntersectionFunctionTable>>,
             index: usize,
-        );
-
-        /// Set intersection function tables at the given buffer index range.
-        ///
-        /// Safety: `intersection_function_tables` must be a valid pointer.
-        ///
-        /// Availability: macOS 11.0+, iOS 14.0+, tvOS 16.0+
-        #[unsafe(method(setIntersectionFunctionTables:withRange:))]
-        #[unsafe(method_family = none)]
-        fn set_intersection_function_tables(
-            &self,
-            intersection_function_tables: NonNull<*const ProtocolObject<dyn crate::MTLIntersectionFunctionTable>>,
-            range: NSRange,
         );
 
         /// Sets a depth stencil state at a given bind point index.
@@ -292,18 +195,131 @@ extern_protocol!(
             depth_stencil_state: Option<&ProtocolObject<dyn MTLDepthStencilState>>,
             index: usize,
         );
-
-        /// Sets an array of depth stencil states at a given buffer index range.
-        ///
-        /// Safety: `depth_stencil_states` must be a valid pointer.
-        ///
-        /// Availability: macOS 26.0+, iOS 26.0+
-        #[unsafe(method(setDepthStencilStates:withRange:))]
-        #[unsafe(method_family = none)]
-        fn set_depth_stencil_states(
-            &self,
-            depth_stencil_states: NonNull<*const ProtocolObject<dyn MTLDepthStencilState>>,
-            range: NSRange,
-        );
     }
 );
+
+pub trait MTLArgumentEncoderExt: MTLArgumentEncoder + Message {
+    /// Set an array of buffers at the given bind point index range.
+    fn set_buffers(
+        &self,
+        buffers: &[Option<&ProtocolObject<dyn MTLBuffer>>],
+        offsets: &[usize],
+        range: Range<usize>,
+    ) where
+        Self: Sized,
+    {
+        assert_eq!(buffers.len(), offsets.len());
+        let ptr = option_ref_ptr_cast_const(buffers.as_ptr());
+        unsafe { msg_send![self, setBuffers: ptr, offsets: offsets.as_ptr(), withRange: NSRange::from(range)] }
+    }
+
+    /// Set an array of textures at the given bind point index range.
+    fn set_textures(
+        &self,
+        textures: &[Option<&ProtocolObject<dyn MTLTexture>>],
+        range: Range<usize>,
+    ) where
+        Self: Sized,
+    {
+        let ptr = option_ref_ptr_cast_const(textures.as_ptr());
+        unsafe { msg_send![self, setTextures: ptr, withRange: NSRange::from(range)] }
+    }
+
+    /// Set an array of samplers at the given bind point index range.
+    fn set_sampler_states(
+        &self,
+        samplers: &[Option<&ProtocolObject<dyn MTLSamplerState>>],
+        range: Range<usize>,
+    ) where
+        Self: Sized,
+    {
+        let ptr = option_ref_ptr_cast_const(samplers.as_ptr());
+        unsafe { msg_send![self, setSamplerStates: ptr, withRange: NSRange::from(range)] }
+    }
+
+    /// Set an array of render pipeline states at a given bind point index range.
+    ///
+    /// Availability: macOS 10.14+, iOS 13.0+
+    fn set_render_pipeline_states(
+        &self,
+        pipelines: &[Option<&ProtocolObject<dyn MTLRenderPipelineState>>],
+        range: Range<usize>,
+    ) where
+        Self: Sized,
+    {
+        let ptr = option_ref_ptr_cast_const(pipelines.as_ptr());
+        unsafe { msg_send![self, setRenderPipelineStates: ptr, withRange: NSRange::from(range)] }
+    }
+
+    /// Set an array of compute pipeline states at a given bind point index range.
+    ///
+    /// Availability: macOS 11.0+, iOS 13.0+
+    fn set_compute_pipeline_states(
+        &self,
+        pipelines: &[Option<&ProtocolObject<dyn MTLComputePipelineState>>],
+        range: Range<usize>,
+    ) where
+        Self: Sized,
+    {
+        let ptr = option_ref_ptr_cast_const(pipelines.as_ptr());
+        unsafe { msg_send![self, setComputePipelineStates: ptr, withRange: NSRange::from(range)] }
+    }
+
+    /// Set an array of indirect command buffers at the given bind point index range.
+    ///
+    /// Availability: macOS 10.14+, iOS 12.0+
+    fn set_indirect_command_buffers(
+        &self,
+        buffers: &[Option<&ProtocolObject<dyn MTLIndirectCommandBuffer>>],
+        range: Range<usize>,
+    ) where
+        Self: Sized,
+    {
+        let ptr = option_ref_ptr_cast_const(buffers.as_ptr());
+        unsafe { msg_send![self, setIndirectCommandBuffers: ptr, withRange: NSRange::from(range)] }
+    }
+
+    /// Set visible function tables at the given buffer index range.
+    ///
+    /// Availability: macOS 11.0+, iOS 14.0+, tvOS 16.0+
+    fn set_visible_function_tables(
+        &self,
+        tables: &[Option<&ProtocolObject<dyn MTLVisibleFunctionTable>>],
+        range: Range<usize>,
+    ) where
+        Self: Sized,
+    {
+        let ptr = option_ref_ptr_cast_const(tables.as_ptr());
+        unsafe { msg_send![self, setVisibleFunctionTables: ptr, withRange: NSRange::from(range)] }
+    }
+
+    /// Set intersection function tables at the given buffer index range.
+    ///
+    /// Availability: macOS 11.0+, iOS 14.0+, tvOS 16.0+
+    fn set_intersection_function_tables(
+        &self,
+        tables: &[Option<&ProtocolObject<dyn MTLIntersectionFunctionTable>>],
+        range: Range<usize>,
+    ) where
+        Self: Sized,
+    {
+        let ptr = option_ref_ptr_cast_const(tables.as_ptr());
+        unsafe { msg_send![self, setIntersectionFunctionTables: ptr, withRange: NSRange::from(range)] }
+    }
+
+    /// Sets an array of depth stencil states at a given buffer index range.
+    ///
+    /// Availability: macOS 26.0+, iOS 26.0+
+    fn set_depth_stencil_states(
+        &self,
+        states: &[Option<&ProtocolObject<dyn MTLDepthStencilState>>],
+        range: Range<usize>,
+    ) where
+        Self: Sized,
+    {
+        let ptr = option_ref_ptr_cast_const(states.as_ptr());
+        unsafe { msg_send![self, setDepthStencilStates: ptr, withRange: NSRange::from(range)] }
+    }
+}
+
+impl<T: MTLArgumentEncoder + Message> MTLArgumentEncoderExt for T {}

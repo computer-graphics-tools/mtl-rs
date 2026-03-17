@@ -142,12 +142,6 @@ impl MTLBinaryArchiveExt for ProtocolObject<dyn MTLBinaryArchive> {
         path: &Path,
     ) -> Result<(), Retained<NSError>> {
         let url = NSURL::from_file_path(path).expect("path must be a valid file URL path");
-        let mut error: *mut NSError = std::ptr::null_mut();
-        let ok: bool = unsafe { msg_send![self, serializeToURL: &*url, error: &mut error] };
-        if ok {
-            Ok(())
-        } else {
-            Err(unsafe { Retained::retain(error).unwrap() })
-        }
+        unsafe { msg_send![self, serializeToURL: &*url, error: _] }
     }
 }

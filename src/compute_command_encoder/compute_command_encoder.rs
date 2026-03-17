@@ -3,6 +3,7 @@ use core::{ffi::c_void, ops::Range, ptr::NonNull};
 use objc2::{Message, extern_protocol, msg_send, runtime::ProtocolObject};
 use objc2_foundation::NSRange;
 
+use crate::util::{option_ref_ptr_cast_const, ref_ptr_cast_const};
 use crate::{
     MTLAccelerationStructure, MTLBarrierScope, MTLBuffer, MTLCommandEncoder, MTLCounterSampleBuffer, MTLFence, MTLHeap,
     MTLIndirectCommandBuffer, MTLResource, MTLResourceUsage, MTLSamplerState, MTLTexture,
@@ -212,30 +213,11 @@ extern_protocol!(
             usage: MTLResourceUsage,
         );
 
-        /// Safety: `resources` must be valid.
-        #[unsafe(method(useResources:count:usage:))]
-        #[unsafe(method_family = none)]
-        fn use_resources(
-            &self,
-            resources: NonNull<NonNull<ProtocolObject<dyn MTLResource>>>,
-            count: usize,
-            usage: MTLResourceUsage,
-        );
-
         #[unsafe(method(useHeap:))]
         #[unsafe(method_family = none)]
         fn use_heap(
             &self,
             heap: &ProtocolObject<dyn MTLHeap>,
-        );
-
-        /// Safety: `heaps` must be valid.
-        #[unsafe(method(useHeaps:count:))]
-        #[unsafe(method_family = none)]
-        fn use_heaps(
-            &self,
-            heaps: NonNull<NonNull<ProtocolObject<dyn MTLHeap>>>,
-            count: usize,
         );
 
         #[unsafe(method(executeCommandsInBuffer:indirectBuffer:indirectBufferOffset:))]
@@ -254,15 +236,6 @@ extern_protocol!(
             scope: MTLBarrierScope,
         );
 
-        /// Safety: `resources` must be valid.
-        #[unsafe(method(memoryBarrierWithResources:count:))]
-        #[unsafe(method_family = none)]
-        fn memory_barrier_with_resources(
-            &self,
-            resources: NonNull<NonNull<ProtocolObject<dyn MTLResource>>>,
-            count: usize,
-        );
-
         #[unsafe(method(sampleCountersInBuffer:atSampleIndex:withBarrier:))]
         #[unsafe(method_family = none)]
         fn sample_counters_in_buffer(
@@ -275,132 +248,108 @@ extern_protocol!(
 );
 
 pub trait MTLComputeCommandEncoderExt: MTLComputeCommandEncoder + Message {
-    /// Safety: pointers must be valid.
-    fn set_buffers_with_range(
+    fn set_buffers(
         &self,
-        buffers: NonNull<*const ProtocolObject<dyn MTLBuffer>>,
-        offsets: NonNull<usize>,
+        buffers: &[Option<&ProtocolObject<dyn MTLBuffer>>],
+        offsets: &[usize],
         range: Range<usize>,
     ) where
         Self: Sized,
     {
+        assert_eq!(buffers.len(), offsets.len());
+        let ptr = option_ref_ptr_cast_const(buffers.as_ptr());
         unsafe {
-            let _: () = msg_send![
+            msg_send![self, setBuffers: ptr, offsets: offsets.as_ptr(), withRange: NSRange::from(range)]
+        }
+    }
+
+    fn set_buffers_with_attribute_strides(
+        &self,
+        buffers: &[Option<&ProtocolObject<dyn MTLBuffer>>],
+        offsets: &[usize],
+        strides: &[usize],
+        range: Range<usize>,
+    ) where
+        Self: Sized,
+    {
+        assert_eq!(buffers.len(), offsets.len());
+        assert_eq!(buffers.len(), strides.len());
+        let ptr = option_ref_ptr_cast_const(buffers.as_ptr());
+        unsafe {
+            msg_send![
                 self,
-                setBuffers: buffers,
-                offsets: offsets,
+                setBuffers: ptr,
+                offsets: offsets.as_ptr(),
+                attributeStrides: strides.as_ptr(),
                 withRange: NSRange::from(range)
-            ];
+            ]
         }
     }
 
-    /// Safety: pointers must be valid.
-    fn set_buffers_with_attribute_strides_with_range(
+    fn set_visible_function_tables(
         &self,
-        buffers: NonNull<*const ProtocolObject<dyn MTLBuffer>>,
-        offsets: NonNull<usize>,
-        strides: NonNull<usize>,
+        tables: &[Option<&ProtocolObject<dyn MTLVisibleFunctionTable>>],
         range: Range<usize>,
     ) where
         Self: Sized,
     {
+        let ptr = option_ref_ptr_cast_const(tables.as_ptr());
+        unsafe { msg_send![self, setVisibleFunctionTables: ptr, withBufferRange: NSRange::from(range)] }
+    }
+
+    fn set_intersection_function_tables(
+        &self,
+        tables: &[Option<&ProtocolObject<dyn MTLIntersectionFunctionTable>>],
+        range: Range<usize>,
+    ) where
+        Self: Sized,
+    {
+        let ptr = option_ref_ptr_cast_const(tables.as_ptr());
+        unsafe { msg_send![self, setIntersectionFunctionTables: ptr, withBufferRange: NSRange::from(range)] }
+    }
+
+    fn set_textures(
+        &self,
+        textures: &[Option<&ProtocolObject<dyn MTLTexture>>],
+        range: Range<usize>,
+    ) where
+        Self: Sized,
+    {
+        let ptr = option_ref_ptr_cast_const(textures.as_ptr());
+        unsafe { msg_send![self, setTextures: ptr, withRange: NSRange::from(range)] }
+    }
+
+    fn set_sampler_states(
+        &self,
+        samplers: &[Option<&ProtocolObject<dyn MTLSamplerState>>],
+        range: Range<usize>,
+    ) where
+        Self: Sized,
+    {
+        let ptr = option_ref_ptr_cast_const(samplers.as_ptr());
+        unsafe { msg_send![self, setSamplerStates: ptr, withRange: NSRange::from(range)] }
+    }
+
+    fn set_sampler_states_with_lods(
+        &self,
+        samplers: &[Option<&ProtocolObject<dyn MTLSamplerState>>],
+        lod_min_clamps: &[f32],
+        lod_max_clamps: &[f32],
+        range: Range<usize>,
+    ) where
+        Self: Sized,
+    {
+        assert_eq!(samplers.len(), lod_min_clamps.len());
+        assert_eq!(samplers.len(), lod_max_clamps.len());
+        let ptr = option_ref_ptr_cast_const(samplers.as_ptr());
         unsafe {
-            let _: () = msg_send![
+            msg_send![
                 self,
-                setBuffers: buffers,
-                offsets: offsets,
-                attributeStrides: strides,
+                setSamplerStates: ptr,
+                lodMinClamps: lod_min_clamps.as_ptr(),
+                lodMaxClamps: lod_max_clamps.as_ptr(),
                 withRange: NSRange::from(range)
-            ];
-        }
-    }
-
-    /// Safety: `tables` must be valid.
-    fn set_visible_function_tables_with_range(
-        &self,
-        tables: NonNull<*const ProtocolObject<dyn MTLVisibleFunctionTable>>,
-        range: Range<usize>,
-    ) where
-        Self: Sized,
-    {
-        unsafe {
-            let _: () = msg_send![
-                self,
-                setVisibleFunctionTables: tables,
-                withBufferRange: NSRange::from(range)
-            ];
-        }
-    }
-
-    /// Safety: `tables` must be valid.
-    fn set_intersection_function_tables_with_range(
-        &self,
-        tables: NonNull<*const ProtocolObject<dyn MTLIntersectionFunctionTable>>,
-        range: Range<usize>,
-    ) where
-        Self: Sized,
-    {
-        unsafe {
-            let _: () = msg_send![
-                self,
-                setIntersectionFunctionTables: tables,
-                withBufferRange: NSRange::from(range)
-            ];
-        }
-    }
-
-    /// Safety: `textures` must be valid.
-    fn set_textures_with_range(
-        &self,
-        textures: NonNull<*const ProtocolObject<dyn MTLTexture>>,
-        range: Range<usize>,
-    ) where
-        Self: Sized,
-    {
-        unsafe {
-            let _: () = msg_send![
-                self,
-                setTextures: textures,
-                withRange: NSRange::from(range)
-            ];
-        }
-    }
-
-    /// Safety: `samplers` must be valid.
-    fn set_sampler_states_with_range(
-        &self,
-        samplers: NonNull<*const ProtocolObject<dyn MTLSamplerState>>,
-        range: Range<usize>,
-    ) where
-        Self: Sized,
-    {
-        unsafe {
-            let _: () = msg_send![
-                self,
-                setSamplerStates: samplers,
-                withRange: NSRange::from(range)
-            ];
-        }
-    }
-
-    /// Safety: pointers must be valid.
-    fn set_sampler_states_with_lods_with_range(
-        &self,
-        samplers: NonNull<*const ProtocolObject<dyn MTLSamplerState>>,
-        lod_min_clamps: NonNull<f32>,
-        lod_max_clamps: NonNull<f32>,
-        range: Range<usize>,
-    ) where
-        Self: Sized,
-    {
-        unsafe {
-            let _: () = msg_send![
-                self,
-                setSamplerStates: samplers,
-                lodMinClamps: lod_min_clamps,
-                lodMaxClamps: lod_max_clamps,
-                withRange: NSRange::from(range)
-            ];
+            ]
         }
     }
 
@@ -418,6 +367,33 @@ pub trait MTLComputeCommandEncoderExt: MTLComputeCommandEncoder + Message {
                 withRange: NSRange::from(execution_range)
             ];
         }
+    }
+
+    fn use_resources(
+        &self,
+        resources: &[&ProtocolObject<dyn MTLResource>],
+        usage: MTLResourceUsage,
+    ) where
+        Self: Sized,
+    {
+        let ptr = ref_ptr_cast_const(resources.as_ptr());
+        unsafe { msg_send![self, useResources: ptr, count: resources.len(), usage: usage] }
+    }
+
+    fn use_heaps(&self, heaps: &[&ProtocolObject<dyn MTLHeap>])
+    where
+        Self: Sized,
+    {
+        let ptr = ref_ptr_cast_const(heaps.as_ptr());
+        unsafe { msg_send![self, useHeaps: ptr, count: heaps.len()] }
+    }
+
+    fn memory_barrier_with_resources(&self, resources: &[&ProtocolObject<dyn MTLResource>])
+    where
+        Self: Sized,
+    {
+        let ptr = ref_ptr_cast_const(resources.as_ptr());
+        unsafe { msg_send![self, memoryBarrierWithResources: ptr, count: resources.len()] }
     }
 }
 

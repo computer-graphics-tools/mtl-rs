@@ -1,21 +1,22 @@
-use core::ptr::NonNull;
-
 use objc2::{Message, extern_protocol, msg_send, rc::Retained, runtime::ProtocolObject};
 use objc2_foundation::{NSArray, NSObjectProtocol, NSString};
 
+use crate::util::ref_ptr_cast_const;
 use crate::{MTLAllocation, MTLDevice};
 
 extern_protocol!(
-    /// A residency set manages resource and heap residency, referenced by a command buffer or queue.
-    ///
-    /// Apple's documentation: `https://developer.apple.com/documentation/metal/mtlresidencyset?language=objc`
+    /// A residency set is responsible for managing resource and heap residency and is referenced
+    /// by a command buffer or command queue in order to ensure that resources and heaps are resident.
+    /// Resources and heaps are added and removed uncommitted and a subsequent commit call applies all
+    /// of the changes in bulk.
     pub unsafe trait MTLResidencySet: NSObjectProtocol + Send + Sync {
-        /// The device that created the residency set
+        /// The device that created the residency set.
         #[unsafe(method(device))]
         #[unsafe(method_family = none)]
         fn device(&self) -> Retained<ProtocolObject<dyn MTLDevice>>;
 
         /// The memory footprint of the set in bytes at the last commit operation.
+        /// This may include internal allocations as well.
         #[unsafe(method(allocatedSize))]
         #[unsafe(method_family = none)]
         fn allocated_size(&self) -> u64;
@@ -38,17 +39,6 @@ extern_protocol!(
             allocation: &ProtocolObject<dyn MTLAllocation>,
         );
 
-        /// Adds allocations to the set, leaving them uncommitted until commit is called.
-        ///
-        /// Safety: `allocations` must be a valid pointer.
-        #[unsafe(method(addAllocations:count:))]
-        #[unsafe(method_family = none)]
-        fn add_allocations(
-            &self,
-            allocations: NonNull<NonNull<ProtocolObject<dyn MTLAllocation>>>,
-            count: usize,
-        );
-
         /// Marks an allocation to be removed from the set on the next commit call.
         #[unsafe(method(removeAllocation:))]
         #[unsafe(method_family = none)]
@@ -57,23 +47,12 @@ extern_protocol!(
             allocation: &ProtocolObject<dyn MTLAllocation>,
         );
 
-        /// Marks allocations to be removed from the set on the next commit call.
-        ///
-        /// Safety: `allocations` must be a valid pointer.
-        #[unsafe(method(removeAllocations:count:))]
-        #[unsafe(method_family = none)]
-        fn remove_allocations(
-            &self,
-            allocations: NonNull<NonNull<ProtocolObject<dyn MTLAllocation>>>,
-            count: usize,
-        );
-
         /// Marks all allocations to be removed from the set on the next commit call.
         #[unsafe(method(removeAllAllocations))]
         #[unsafe(method_family = none)]
         fn remove_all_allocations(&self);
 
-        /// Returns a boolean indicating whether the allocation is present in the set or not.
+        /// Returns whether the allocation is present in the set or not.
         /// This check includes non-committed allocations in the set.
         #[unsafe(method(containsAllocation:))]
         #[unsafe(method_family = none)]
@@ -82,13 +61,15 @@ extern_protocol!(
             allocation: &ProtocolObject<dyn MTLAllocation>,
         ) -> bool;
 
-        /// Returns the current number of unique allocations present in the set.
+        /// The current number of unique allocations present in the set.
         /// This property includes non-committed allocations in the set.
         #[unsafe(method(allocationCount))]
         #[unsafe(method_family = none)]
         fn allocation_count(&self) -> usize;
 
         /// Commits any pending adds/removes.
+        /// If the residency set is resident, this will try to make added resources and heaps
+        /// resident instantly, and make removed resources and heaps non-resident.
         #[unsafe(method(commit))]
         #[unsafe(method_family = none)]
         fn commit(&self);
@@ -100,8 +81,26 @@ pub trait MTLResidencySetExt: MTLResidencySet + Message {
     /// The label specified at creation.
     fn label(&self) -> Option<String>;
 
-    /// All allocations associated with the set, including non-committed ones.
+    /// Array of all allocations associated with the set, including non-committed ones.
     fn all_allocations(&self) -> Box<[Retained<ProtocolObject<dyn MTLAllocation>>]>;
+
+    /// Adds allocations to the set, leaving them uncommitted until commit is called.
+    fn add_allocations(&self, allocations: &[&ProtocolObject<dyn MTLAllocation>])
+    where
+        Self: Sized,
+    {
+        let ptr = ref_ptr_cast_const(allocations.as_ptr());
+        unsafe { msg_send![self, addAllocations: ptr, count: allocations.len()] }
+    }
+
+    /// Marks allocations to be removed from the set on the next commit call.
+    fn remove_allocations(&self, allocations: &[&ProtocolObject<dyn MTLAllocation>])
+    where
+        Self: Sized,
+    {
+        let ptr = ref_ptr_cast_const(allocations.as_ptr());
+        unsafe { msg_send![self, removeAllocations: ptr, count: allocations.len()] }
+    }
 }
 
 impl MTLResidencySetExt for ProtocolObject<dyn MTLResidencySet> {

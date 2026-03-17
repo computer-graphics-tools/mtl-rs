@@ -1,8 +1,9 @@
-use core::ptr::NonNull;
+use core::ops::Range;
 
-use objc2::{extern_protocol, runtime::ProtocolObject};
+use objc2::{Message, extern_protocol, msg_send, runtime::ProtocolObject};
 use objc2_foundation::NSRange;
 
+use crate::util::option_ref_ptr_cast_const;
 use crate::{MTLFunctionHandle, MTLResource, MTLResourceID};
 
 extern_protocol!(
@@ -20,14 +21,21 @@ extern_protocol!(
             function: Option<&ProtocolObject<dyn MTLFunctionHandle>>,
             index: usize,
         );
-
-        /// Safety: `functions` must be a valid pointer.
-        #[unsafe(method(setFunctions:withRange:))]
-        #[unsafe(method_family = none)]
-        fn set_functions_with_range(
-            &self,
-            functions: NonNull<*const ProtocolObject<dyn MTLFunctionHandle>>,
-            range: NSRange,
-        );
     }
 );
+
+pub trait MTLVisibleFunctionTableExt: MTLVisibleFunctionTable + Message {
+    /// Set an array of functions at the given index range.
+    fn set_functions(
+        &self,
+        functions: &[Option<&ProtocolObject<dyn MTLFunctionHandle>>],
+        range: Range<usize>,
+    ) where
+        Self: Sized,
+    {
+        let ptr = option_ref_ptr_cast_const(functions.as_ptr());
+        unsafe { msg_send![self, setFunctions: ptr, withRange: NSRange::from(range)] }
+    }
+}
+
+impl<T: MTLVisibleFunctionTable + Message> MTLVisibleFunctionTableExt for T {}

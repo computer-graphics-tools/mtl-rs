@@ -1,8 +1,9 @@
-use core::ptr::NonNull;
+use core::ops::Range;
 
-use objc2::{extern_protocol, runtime::ProtocolObject};
+use objc2::{Message, extern_protocol, msg_send, runtime::ProtocolObject};
 use objc2_foundation::NSRange;
 
+use crate::util::option_ref_ptr_cast_const;
 use super::MTLIntersectionFunctionSignature;
 use crate::{MTLBuffer, MTLFunctionHandle, MTLResource, MTLVisibleFunctionTable, types::MTLResourceID};
 
@@ -20,16 +21,6 @@ extern_protocol!(
             index: usize,
         );
 
-        /// Safety: `buffers` and `offsets` must be valid pointers.
-        #[unsafe(method(setBuffers:offsets:withRange:))]
-        #[unsafe(method_family = none)]
-        fn set_buffers(
-            &self,
-            buffers: NonNull<*const ProtocolObject<dyn MTLBuffer>>,
-            offsets: NonNull<usize>,
-            range: NSRange,
-        );
-
         /// Handle of the GPU resource suitable for storing in an Argument Buffer
         ///
         /// Availability: macOS 13.0+, iOS 16.0+
@@ -43,15 +34,6 @@ extern_protocol!(
             &self,
             function: Option<&ProtocolObject<dyn MTLFunctionHandle>>,
             index: usize,
-        );
-
-        /// Safety: `functions` must be a valid pointer.
-        #[unsafe(method(setFunctions:withRange:))]
-        #[unsafe(method_family = none)]
-        fn set_functions_with_range(
-            &self,
-            functions: NonNull<*const ProtocolObject<dyn MTLFunctionHandle>>,
-            range: NSRange,
         );
 
         #[unsafe(method(setOpaqueTriangleIntersectionFunctionWithSignature:atIndex:))]
@@ -93,14 +75,47 @@ extern_protocol!(
             function_table: Option<&ProtocolObject<dyn MTLVisibleFunctionTable>>,
             buffer_index: usize,
         );
-
-        /// Safety: `function_tables` must be a valid pointer.
-        #[unsafe(method(setVisibleFunctionTables:withBufferRange:))]
-        #[unsafe(method_family = none)]
-        fn set_visible_function_tables_with_buffer_range(
-            &self,
-            function_tables: NonNull<*const ProtocolObject<dyn MTLVisibleFunctionTable>>,
-            buffer_range: NSRange,
-        );
     }
 );
+
+pub trait MTLIntersectionFunctionTableExt: MTLIntersectionFunctionTable + Message {
+    /// Set an array of buffers at the given bind point index range.
+    fn set_buffers(
+        &self,
+        buffers: &[Option<&ProtocolObject<dyn MTLBuffer>>],
+        offsets: &[usize],
+        range: Range<usize>,
+    ) where
+        Self: Sized,
+    {
+        assert_eq!(buffers.len(), offsets.len());
+        let ptr = option_ref_ptr_cast_const(buffers.as_ptr());
+        unsafe { msg_send![self, setBuffers: ptr, offsets: offsets.as_ptr(), withRange: NSRange::from(range)] }
+    }
+
+    /// Set an array of functions at the given index range.
+    fn set_functions(
+        &self,
+        functions: &[Option<&ProtocolObject<dyn MTLFunctionHandle>>],
+        range: Range<usize>,
+    ) where
+        Self: Sized,
+    {
+        let ptr = option_ref_ptr_cast_const(functions.as_ptr());
+        unsafe { msg_send![self, setFunctions: ptr, withRange: NSRange::from(range)] }
+    }
+
+    /// Set an array of visible function tables at the given buffer index range.
+    fn set_visible_function_tables(
+        &self,
+        tables: &[Option<&ProtocolObject<dyn MTLVisibleFunctionTable>>],
+        range: Range<usize>,
+    ) where
+        Self: Sized,
+    {
+        let ptr = option_ref_ptr_cast_const(tables.as_ptr());
+        unsafe { msg_send![self, setVisibleFunctionTables: ptr, withBufferRange: NSRange::from(range)] }
+    }
+}
+
+impl<T: MTLIntersectionFunctionTable + Message> MTLIntersectionFunctionTableExt for T {}

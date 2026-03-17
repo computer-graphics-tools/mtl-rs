@@ -139,13 +139,7 @@ pub trait MTL4PipelineDataSetSerializerExt: MTL4PipelineDataSetSerializer + Mess
         Self: Sized,
     {
         let url = NSURL::from_file_path(path).expect("path must be a valid file URL path");
-        let mut error: *mut NSError = std::ptr::null_mut();
-        let ok: bool = unsafe { msg_send![self, serializeAsArchiveAndFlushToURL: &*url, error: &mut error] };
-        if ok {
-            Ok(())
-        } else {
-            Err(unsafe { Retained::retain(error).unwrap() })
-        }
+        unsafe { msg_send![self, serializeAsArchiveAndFlushToURL: &*url, error: _] }
     }
 
     /// Serializes a serializer data set to a pipeline script as bytes.

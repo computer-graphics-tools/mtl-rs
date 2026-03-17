@@ -58,6 +58,7 @@ mod stage_input_output_descriptor;
 mod tensor;
 mod texture;
 mod types;
+pub(crate) mod util;
 mod vertex_descriptor;
 mod visible_function_table;
 

@@ -1,7 +1,6 @@
-use core::ptr::NonNull;
+use objc2::{Message, extern_protocol, msg_send, runtime::ProtocolObject};
 
-use objc2::{extern_protocol, runtime::ProtocolObject};
-
+use crate::util::ref_ptr_cast_const;
 use crate::{
     MTLAccelerationStructure, MTLBuffer, MTLCommandEncoder, MTLCounterSampleBuffer, MTLDataType, MTLFence, MTLHeap,
     MTLResource, MTLResourceUsage,
@@ -230,37 +229,15 @@ extern_protocol!(
             usage: MTLResourceUsage,
         );
 
-        /// Declare that an array of resources may be accessed by the encoder
-        /// through an argument buffer.
-        ///
-        /// For tracked resources, this protects against data hazards. Call
-        /// before encoding any acceleration structure commands that may access
-        /// the resources through an argument buffer.
-        ///
-        /// Warning: Prior to iOS 13 and macOS 10.15, this does not protect
-        /// against data hazards. Use fences to ensure hazards are resolved on
-        /// older OS versions.
-        ///
-        /// Safety: `resources` must be a valid, non-null pointer to an array of
-        /// non-null `ProtocolObject<dyn MTLResource>` pointers of length `count`.
-        #[unsafe(method(useResources:count:usage:))]
-        #[unsafe(method_family = none)]
-        fn use_resources(
-            &self,
-            resources: NonNull<NonNull<ProtocolObject<dyn MTLResource>>>,
-            count: usize,
-            usage: MTLResourceUsage,
-        );
-
         /// Declare that the resources allocated from a heap may be accessed as
         /// read-only by the encoder through an argument buffer.
         ///
-        /// For tracked `MTLHeap`s, this protects against data hazards. Call
-        /// before encoding any acceleration structure commands that may access
-        /// resources allocated from the heap through an argument buffer. This
-        /// may cause all color attachments allocated from the heap to become
-        /// decompressed; prefer `use_resource`/`use_resources` for color
-        /// attachments with minimal (read-only) usage.
+        /// For tracked heaps, this protects against data hazards. Call before
+        /// encoding any acceleration structure commands that may access resources
+        /// allocated from the heap through an argument buffer. This may cause all
+        /// color attachments allocated from the heap to become decompressed;
+        /// prefer `use_resource`/`use_resources` for color attachments with
+        /// minimal (read-only) usage.
         ///
         /// Warning: Prior to iOS 13 and macOS 10.15, this does not protect
         /// against data hazards. Use fences to ensure hazards are resolved on
@@ -270,30 +247,6 @@ extern_protocol!(
         fn use_heap(
             &self,
             heap: &ProtocolObject<dyn MTLHeap>,
-        );
-
-        /// Declare that the resources allocated from an array of heaps may be
-        /// accessed as read-only by the encoder through an argument buffer.
-        ///
-        /// For tracked heaps, this protects against data hazards. Call before
-        /// encoding commands that may access resources allocated from the heaps
-        /// through an argument buffer. This may cause all color attachments
-        /// allocated from the heaps to become decompressed; prefer
-        /// `use_resource`/`use_resources` for color attachments with minimal
-        /// (read-only) usage.
-        ///
-        /// Warning: Prior to iOS 13 and macOS 10.15, this does not protect
-        /// against data hazards. Use fences to ensure hazards are resolved on
-        /// older OS versions.
-        ///
-        /// Safety: `heaps` must be a valid, non-null pointer to an array of
-        /// non-null `ProtocolObject<dyn MTLHeap>` pointers of length `count`.
-        #[unsafe(method(useHeaps:count:))]
-        #[unsafe(method_family = none)]
-        fn use_heaps(
-            &self,
-            heaps: NonNull<NonNull<ProtocolObject<dyn MTLHeap>>>,
-            count: usize,
         );
 
         /// Sample hardware counters at this point in the acceleration structure
@@ -325,3 +278,33 @@ extern_protocol!(
         ); // Availability: API_AVAILABLE(macos(11.0), ios(14.0), tvos(16.0))
     }
 );
+
+pub trait MTLAccelerationStructureCommandEncoderExt: MTLAccelerationStructureCommandEncoder + Message {
+    /// Declare that an array of resources may be accessed through an argument buffer by the
+    /// encoder. For tracked resources, this protects against data hazards. Call before encoding
+    /// any acceleration structure commands which may access the resources through an argument buffer.
+    fn use_resources(
+        &self,
+        resources: &[&ProtocolObject<dyn MTLResource>],
+        usage: MTLResourceUsage,
+    ) where
+        Self: Sized,
+    {
+        let ptr = ref_ptr_cast_const(resources.as_ptr());
+        unsafe { msg_send![self, useResources: ptr, count: resources.len(), usage: usage] }
+    }
+
+    /// Declare that the resources allocated from an array of heaps may be accessed as read-only
+    /// by the encoder through an argument buffer. For tracked heaps, this protects against data
+    /// hazards. This may cause all color attachments allocated from the heaps to become
+    /// decompressed; prefer `use_resource`/`use_resources` for color attachments with minimal usage.
+    fn use_heaps(&self, heaps: &[&ProtocolObject<dyn MTLHeap>])
+    where
+        Self: Sized,
+    {
+        let ptr = ref_ptr_cast_const(heaps.as_ptr());
+        unsafe { msg_send![self, useHeaps: ptr, count: heaps.len()] }
+    }
+}
+
+impl<T: MTLAccelerationStructureCommandEncoder + Message> MTLAccelerationStructureCommandEncoderExt for T {}
