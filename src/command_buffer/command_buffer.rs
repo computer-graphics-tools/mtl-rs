@@ -161,18 +161,12 @@ pub trait MTLCommandBufferExt: MTLCommandBuffer + Message {
     fn kernel_end_time(&self) -> Option<f64>;
     /// The host time, in seconds, when the GPU started executing this command buffer.
     ///
-    /// Returns `None` if the command buffer has not started executing yet.
-    /// This usually can be called in command buffer completion handler.
-    ///
     /// Availability: macOS 10.15+, iOS 10.3+
-    fn gpu_start_time(&self) -> Option<f64>;
+    fn gpu_start_time(&self) -> f64;
     /// The host time, in seconds, when the GPU finished executing this command buffer.
     ///
-    /// Returns `None` if the GPU has not finished executing yet.
-    /// This usually can be called in command buffer completion handler.
-    ///
     /// Availability: macOS 10.15+, iOS 10.3+
-    fn gpu_end_time(&self) -> Option<f64>;
+    fn gpu_end_time(&self) -> f64;
 }
 
 impl MTLCommandBufferExt for ProtocolObject<dyn MTLCommandBuffer> {
@@ -241,21 +235,11 @@ impl MTLCommandBufferExt for ProtocolObject<dyn MTLCommandBuffer> {
         }
     }
 
-    fn gpu_start_time(&self) -> Option<f64> {
-        let start_time: f64 = unsafe { msg_send![self, GPUStartTime] };
-        if start_time > 0.0 {
-            Some(start_time)
-        } else {
-            None
-        }
+    fn gpu_start_time(&self) -> f64 {
+        unsafe { msg_send![self, GPUStartTime] }
     }
 
-    fn gpu_end_time(&self) -> Option<f64> {
-        let end_time: f64 = unsafe { msg_send![self, GPUEndTime] };
-        if end_time > 0.0 {
-            Some(end_time)
-        } else {
-            None
-        }
+    fn gpu_end_time(&self) -> f64 {
+        unsafe { msg_send![self, GPUEndTime] }
     }
 }
