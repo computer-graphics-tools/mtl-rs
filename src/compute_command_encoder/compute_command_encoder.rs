@@ -3,7 +3,7 @@ use core::{ffi::c_void, ops::Range, ptr::NonNull};
 use objc2::{Message, extern_protocol, msg_send, runtime::ProtocolObject};
 use objc2_foundation::NSRange;
 
-use crate::util::{option_ref_ptr_cast_const, ref_ptr_cast_const};
+use crate::util::{opt_ref_slice_as_ptr, ref_slice_as_ptr};
 use crate::{
     MTLAccelerationStructure, MTLBarrierScope, MTLBuffer, MTLCommandEncoder, MTLCounterSampleBuffer, MTLFence, MTLHeap,
     MTLIndirectCommandBuffer, MTLResource, MTLResourceUsage, MTLSamplerState, MTLTexture,
@@ -257,7 +257,7 @@ pub trait MTLComputeCommandEncoderExt: MTLComputeCommandEncoder + Message {
         Self: Sized,
     {
         assert_eq!(buffers.len(), offsets.len());
-        let ptr = option_ref_ptr_cast_const(buffers.as_ptr());
+        let ptr = opt_ref_slice_as_ptr(buffers);
         unsafe {
             msg_send![self, setBuffers: ptr, offsets: offsets.as_ptr(), withRange: NSRange::from(range)]
         }
@@ -274,7 +274,7 @@ pub trait MTLComputeCommandEncoderExt: MTLComputeCommandEncoder + Message {
     {
         assert_eq!(buffers.len(), offsets.len());
         assert_eq!(buffers.len(), strides.len());
-        let ptr = option_ref_ptr_cast_const(buffers.as_ptr());
+        let ptr = opt_ref_slice_as_ptr(buffers);
         unsafe {
             msg_send![
                 self,
@@ -293,7 +293,7 @@ pub trait MTLComputeCommandEncoderExt: MTLComputeCommandEncoder + Message {
     ) where
         Self: Sized,
     {
-        let ptr = option_ref_ptr_cast_const(tables.as_ptr());
+        let ptr = opt_ref_slice_as_ptr(tables);
         unsafe { msg_send![self, setVisibleFunctionTables: ptr, withBufferRange: NSRange::from(range)] }
     }
 
@@ -304,7 +304,7 @@ pub trait MTLComputeCommandEncoderExt: MTLComputeCommandEncoder + Message {
     ) where
         Self: Sized,
     {
-        let ptr = option_ref_ptr_cast_const(tables.as_ptr());
+        let ptr = opt_ref_slice_as_ptr(tables);
         unsafe { msg_send![self, setIntersectionFunctionTables: ptr, withBufferRange: NSRange::from(range)] }
     }
 
@@ -315,7 +315,7 @@ pub trait MTLComputeCommandEncoderExt: MTLComputeCommandEncoder + Message {
     ) where
         Self: Sized,
     {
-        let ptr = option_ref_ptr_cast_const(textures.as_ptr());
+        let ptr = opt_ref_slice_as_ptr(textures);
         unsafe { msg_send![self, setTextures: ptr, withRange: NSRange::from(range)] }
     }
 
@@ -326,7 +326,7 @@ pub trait MTLComputeCommandEncoderExt: MTLComputeCommandEncoder + Message {
     ) where
         Self: Sized,
     {
-        let ptr = option_ref_ptr_cast_const(samplers.as_ptr());
+        let ptr = opt_ref_slice_as_ptr(samplers);
         unsafe { msg_send![self, setSamplerStates: ptr, withRange: NSRange::from(range)] }
     }
 
@@ -341,7 +341,7 @@ pub trait MTLComputeCommandEncoderExt: MTLComputeCommandEncoder + Message {
     {
         assert_eq!(samplers.len(), lod_min_clamps.len());
         assert_eq!(samplers.len(), lod_max_clamps.len());
-        let ptr = option_ref_ptr_cast_const(samplers.as_ptr());
+        let ptr = opt_ref_slice_as_ptr(samplers);
         unsafe {
             msg_send![
                 self,
@@ -376,7 +376,7 @@ pub trait MTLComputeCommandEncoderExt: MTLComputeCommandEncoder + Message {
     ) where
         Self: Sized,
     {
-        let ptr = ref_ptr_cast_const(resources.as_ptr());
+        let ptr = ref_slice_as_ptr(resources);
         unsafe { msg_send![self, useResources: ptr, count: resources.len(), usage: usage] }
     }
 
@@ -384,7 +384,7 @@ pub trait MTLComputeCommandEncoderExt: MTLComputeCommandEncoder + Message {
     where
         Self: Sized,
     {
-        let ptr = ref_ptr_cast_const(heaps.as_ptr());
+        let ptr = ref_slice_as_ptr(heaps);
         unsafe { msg_send![self, useHeaps: ptr, count: heaps.len()] }
     }
 
@@ -392,7 +392,7 @@ pub trait MTLComputeCommandEncoderExt: MTLComputeCommandEncoder + Message {
     where
         Self: Sized,
     {
-        let ptr = ref_ptr_cast_const(resources.as_ptr());
+        let ptr = ref_slice_as_ptr(resources);
         unsafe { msg_send![self, memoryBarrierWithResources: ptr, count: resources.len()] }
     }
 }

@@ -2,7 +2,7 @@ use objc2::{
     extern_class, extern_conformance, extern_methods,
     rc::{Allocated, Retained},
 };
-use objc2_foundation::{CopyingHelper, NSCopying, NSObject, NSObjectProtocol, NSUInteger};
+use objc2_foundation::{CopyingHelper, NSCopying, NSObject, NSObjectProtocol};
 
 use crate::*;
 
@@ -64,27 +64,27 @@ impl MTL4InstanceAccelerationStructureDescriptor {
         /// Defaults to `0`, indicating the instance descriptors are tightly packed.
         #[unsafe(method(instanceDescriptorStride))]
         #[unsafe(method_family = none)]
-        pub fn instance_descriptor_stride(&self) -> NSUInteger;
+        pub fn instance_descriptor_stride(&self) -> usize;
 
         /// Setter for [`instanceDescriptorStride`][Self::instanceDescriptorStride].
         #[unsafe(method(setInstanceDescriptorStride:))]
         #[unsafe(method_family = none)]
         pub fn set_instance_descriptor_stride(
             &self,
-            instance_descriptor_stride: NSUInteger,
+            instance_descriptor_stride: usize,
         );
 
         /// Controls the number of instance descriptors in the instance descriptor buffer references.
         #[unsafe(method(instanceCount))]
         #[unsafe(method_family = none)]
-        pub fn instance_count(&self) -> NSUInteger;
+        pub fn instance_count(&self) -> usize;
 
         /// Setter for [`instanceCount`][Self::instanceCount].
         #[unsafe(method(setInstanceCount:))]
         #[unsafe(method_family = none)]
         pub fn set_instance_count(
             &self,
-            instance_count: NSUInteger,
+            instance_count: usize,
         );
 
         /// Sets the type of instance descriptor that the instance descriptor buffer references.
@@ -127,14 +127,14 @@ impl MTL4InstanceAccelerationStructureDescriptor {
         /// Controls the total number of motion transforms in the motion transform buffer.
         #[unsafe(method(motionTransformCount))]
         #[unsafe(method_family = none)]
-        pub fn motion_transform_count(&self) -> NSUInteger;
+        pub fn motion_transform_count(&self) -> usize;
 
         /// Setter for [`motionTransformCount`][Self::motionTransformCount].
         #[unsafe(method(setMotionTransformCount:))]
         #[unsafe(method_family = none)]
         pub fn set_motion_transform_count(
             &self,
-            motion_transform_count: NSUInteger,
+            motion_transform_count: usize,
         );
 
         /// Specifies the layout for the transformation matrices in the instance descriptor buffer and the motion transformation matrix buffer.
@@ -176,14 +176,14 @@ impl MTL4InstanceAccelerationStructureDescriptor {
         /// Defaults to `0`, indicating that transforms are tightly packed according to the motion transform type.
         #[unsafe(method(motionTransformStride))]
         #[unsafe(method_family = none)]
-        pub fn motion_transform_stride(&self) -> NSUInteger;
+        pub fn motion_transform_stride(&self) -> usize;
 
         /// Setter for [`motionTransformStride`][Self::motionTransformStride].
         #[unsafe(method(setMotionTransformStride:))]
         #[unsafe(method_family = none)]
         pub fn set_motion_transform_stride(
             &self,
-            motion_transform_stride: NSUInteger,
+            motion_transform_stride: usize,
         );
     );
 }

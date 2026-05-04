@@ -1,9 +1,6 @@
-use core::ptr::NonNull;
-
 use objc2::{extern_protocol, rc::Retained, runtime::ProtocolObject};
-use objc2_foundation::{NSObjectProtocol, NSString, NSUInteger};
+use objc2_foundation::{NSObjectProtocol, NSString};
 
-use super::types::*;
 use crate::*;
 
 extern_protocol!(
@@ -75,70 +72,6 @@ extern_protocol!(
         fn remove_residency_set(
             &self,
             residency_set: &ProtocolObject<dyn MTLResidencySet>,
-        );
-
-        /// Updates multiple regions within a placement sparse texture to alias specific tiles
-        /// of a Metal heap. Pass `None` for `heap` only when performing unmap operations.
-        ///
-        /// # Safety
-        ///
-        /// `operations` must be a valid pointer to an array of length `count`.
-        #[unsafe(method(updateTextureMappings:heap:operations:count:))]
-        #[unsafe(method_family = none)]
-        fn update_texture_mappings_heap_operations_count(
-            &self,
-            texture: &ProtocolObject<dyn MTLTexture>,
-            heap: Option<&ProtocolObject<dyn MTLHeap>>,
-            operations: NonNull<MTL4UpdateSparseTextureMappingOperation>,
-            count: NSUInteger,
-        );
-
-        /// Copies multiple regions within a source placement sparse texture to a destination
-        /// placement sparse texture. Both textures must have the same `placementSparsePageSize`.
-        ///
-        /// # Safety
-        ///
-        /// `operations` must be a valid pointer to an array of length `count`.
-        #[unsafe(method(copyTextureMappingsFromTexture:toTexture:operations:count:))]
-        #[unsafe(method_family = none)]
-        fn copy_texture_mappings_from_texture_to_texture_operations_count(
-            &self,
-            source_texture: &ProtocolObject<dyn MTLTexture>,
-            destination_texture: &ProtocolObject<dyn MTLTexture>,
-            operations: NonNull<MTL4CopySparseTextureMappingOperation>,
-            count: NSUInteger,
-        );
-
-        /// Updates multiple regions within a placement sparse buffer to alias specific tiles
-        /// from a Metal heap. Pass `None` for `heap` only when performing unmap operations.
-        ///
-        /// # Safety
-        ///
-        /// `operations` must be a valid pointer to an array of length `count`.
-        #[unsafe(method(updateBufferMappings:heap:operations:count:))]
-        #[unsafe(method_family = none)]
-        fn update_buffer_mappings_heap_operations_count(
-            &self,
-            buffer: &ProtocolObject<dyn MTLBuffer>,
-            heap: Option<&ProtocolObject<dyn MTLHeap>>,
-            operations: NonNull<MTL4UpdateSparseBufferMappingOperation>,
-            count: NSUInteger,
-        );
-
-        /// Copies multiple offsets within a source placement sparse buffer to a destination
-        /// placement sparse buffer. Both buffers must have the same `placementSparsePageSize`.
-        ///
-        /// # Safety
-        ///
-        /// `operations` must be a valid pointer to an array of length `count`.
-        #[unsafe(method(copyBufferMappingsFromBuffer:toBuffer:operations:count:))]
-        #[unsafe(method_family = none)]
-        fn copy_buffer_mappings_from_buffer_to_buffer_operations_count(
-            &self,
-            source_buffer: &ProtocolObject<dyn MTLBuffer>,
-            destination_buffer: &ProtocolObject<dyn MTLBuffer>,
-            operations: NonNull<MTL4CopySparseBufferMappingOperation>,
-            count: NSUInteger,
         );
     }
 );

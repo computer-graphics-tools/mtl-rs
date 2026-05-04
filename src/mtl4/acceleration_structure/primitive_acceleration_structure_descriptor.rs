@@ -4,7 +4,7 @@ use objc2::{
     extern_class, extern_conformance, extern_methods, msg_send,
     rc::{Allocated, Retained},
 };
-use objc2_foundation::{CopyingHelper, NSArray, NSCopying, NSObject, NSObjectProtocol, NSUInteger};
+use objc2_foundation::{CopyingHelper, NSArray, NSCopying, NSObject, NSObjectProtocol};
 
 use crate::*;
 
@@ -102,14 +102,14 @@ impl MTL4PrimitiveAccelerationStructureDescriptor {
         /// This property's default is `1`, indicating no motion.
         #[unsafe(method(motionKeyframeCount))]
         #[unsafe(method_family = none)]
-        pub fn motion_keyframe_count(&self) -> NSUInteger;
+        pub fn motion_keyframe_count(&self) -> usize;
 
         /// Setter for [`motionKeyframeCount`][Self::motionKeyframeCount].
         #[unsafe(method(setMotionKeyframeCount:))]
         #[unsafe(method_family = none)]
         pub fn set_motion_keyframe_count(
             &self,
-            motion_keyframe_count: NSUInteger,
+            motion_keyframe_count: usize,
         );
     );
 }

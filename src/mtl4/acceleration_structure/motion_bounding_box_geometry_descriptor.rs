@@ -2,7 +2,7 @@ use objc2::{
     extern_class, extern_conformance, extern_methods,
     rc::{Allocated, Retained},
 };
-use objc2_foundation::{CopyingHelper, NSCopying, NSObject, NSObjectProtocol, NSUInteger};
+use objc2_foundation::{CopyingHelper, NSCopying, NSObject, NSObjectProtocol};
 
 use crate::*;
 
@@ -64,14 +64,14 @@ impl MTL4AccelerationStructureMotionBoundingBoxGeometryDescriptor {
         /// This property defaults to `24` bytes.
         #[unsafe(method(boundingBoxStride))]
         #[unsafe(method_family = none)]
-        pub fn bounding_box_stride(&self) -> NSUInteger;
+        pub fn bounding_box_stride(&self) -> usize;
 
         /// Setter for [`boundingBoxStride`][Self::boundingBoxStride].
         #[unsafe(method(setBoundingBoxStride:))]
         #[unsafe(method_family = none)]
         pub fn set_bounding_box_stride(
             &self,
-            bounding_box_stride: NSUInteger,
+            bounding_box_stride: usize,
         );
 
         /// Declares the number of bounding boxes in each buffer that `boundingBoxBuffer` references.
@@ -79,14 +79,14 @@ impl MTL4AccelerationStructureMotionBoundingBoxGeometryDescriptor {
         /// All keyframes share the same bounding box count.
         #[unsafe(method(boundingBoxCount))]
         #[unsafe(method_family = none)]
-        pub fn bounding_box_count(&self) -> NSUInteger;
+        pub fn bounding_box_count(&self) -> usize;
 
         /// Setter for [`boundingBoxCount`][Self::boundingBoxCount].
         #[unsafe(method(setBoundingBoxCount:))]
         #[unsafe(method_family = none)]
         pub fn set_bounding_box_count(
             &self,
-            bounding_box_count: NSUInteger,
+            bounding_box_count: usize,
         );
     );
 }

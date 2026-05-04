@@ -2,7 +2,7 @@ use objc2::{
     extern_class, extern_conformance, extern_methods,
     rc::{Allocated, Retained},
 };
-use objc2_foundation::{CopyingHelper, NSCopying, NSObject, NSObjectProtocol, NSUInteger};
+use objc2_foundation::{CopyingHelper, NSCopying, NSObject, NSObjectProtocol};
 
 use crate::*;
 
@@ -73,14 +73,14 @@ impl MTL4AccelerationStructureTriangleGeometryDescriptor {
         /// Defaults to `0`, which signals the stride matches the size of the ``vertexFormat`` data.
         #[unsafe(method(vertexStride))]
         #[unsafe(method_family = none)]
-        pub fn vertex_stride(&self) -> NSUInteger;
+        pub fn vertex_stride(&self) -> usize;
 
         /// Setter for [`vertexStride`][Self::vertexStride].
         #[unsafe(method(setVertexStride:))]
         #[unsafe(method_family = none)]
         pub fn set_vertex_stride(
             &self,
-            vertex_stride: NSUInteger,
+            vertex_stride: usize,
         );
 
         /// Sets an optional index buffer containing references to vertices in the `vertexBuffer`.
@@ -114,14 +114,14 @@ impl MTL4AccelerationStructureTriangleGeometryDescriptor {
         /// Declares the number of triangles in this geometry descriptor.
         #[unsafe(method(triangleCount))]
         #[unsafe(method_family = none)]
-        pub fn triangle_count(&self) -> NSUInteger;
+        pub fn triangle_count(&self) -> usize;
 
         /// Setter for [`triangleCount`][Self::triangleCount].
         #[unsafe(method(setTriangleCount:))]
         #[unsafe(method_family = none)]
         pub fn set_triangle_count(
             &self,
-            triangle_count: NSUInteger,
+            triangle_count: usize,
         );
 
         /// Assigns an optional reference to a buffer containing a `float4x3` transformation matrix.

@@ -2,7 +2,7 @@ use objc2::{
     extern_class, extern_conformance, extern_methods,
     rc::{Allocated, Retained},
 };
-use objc2_foundation::{CopyingHelper, NSCopying, NSObject, NSObjectProtocol, NSUInteger};
+use objc2_foundation::{CopyingHelper, NSCopying, NSObject, NSObjectProtocol};
 
 use crate::*;
 
@@ -72,14 +72,14 @@ impl MTL4IndirectInstanceAccelerationStructureDescriptor {
         /// Defaults to `0`, indicating the instance descriptors are tightly packed.
         #[unsafe(method(instanceDescriptorStride))]
         #[unsafe(method_family = none)]
-        pub fn instance_descriptor_stride(&self) -> NSUInteger;
+        pub fn instance_descriptor_stride(&self) -> usize;
 
         /// Setter for [`instanceDescriptorStride`][Self::instanceDescriptorStride].
         #[unsafe(method(setInstanceDescriptorStride:))]
         #[unsafe(method_family = none)]
         pub fn set_instance_descriptor_stride(
             &self,
-            instance_descriptor_stride: NSUInteger,
+            instance_descriptor_stride: usize,
         );
 
         /// Controls the maximum number of instance descriptors the instance descriptor buffer can reference.
@@ -88,14 +88,14 @@ impl MTL4IndirectInstanceAccelerationStructureDescriptor {
         /// via a buffer reference in ``instanceCountBuffer``, is less than or equal to this number.
         #[unsafe(method(maxInstanceCount))]
         #[unsafe(method_family = none)]
-        pub fn max_instance_count(&self) -> NSUInteger;
+        pub fn max_instance_count(&self) -> usize;
 
         /// Setter for [`maxInstanceCount`][Self::maxInstanceCount].
         #[unsafe(method(setMaxInstanceCount:))]
         #[unsafe(method_family = none)]
         pub fn set_max_instance_count(
             &self,
-            max_instance_count: NSUInteger,
+            max_instance_count: usize,
         );
 
         /// Provides a reference to a buffer containing the number of instances in the instance descriptor buffer, formatted as a
@@ -158,14 +158,14 @@ impl MTL4IndirectInstanceAccelerationStructureDescriptor {
         /// ``motionTransformCountBuffer`` references is less than or equal to this number.
         #[unsafe(method(maxMotionTransformCount))]
         #[unsafe(method_family = none)]
-        pub fn max_motion_transform_count(&self) -> NSUInteger;
+        pub fn max_motion_transform_count(&self) -> usize;
 
         /// Setter for [`maxMotionTransformCount`][Self::maxMotionTransformCount].
         #[unsafe(method(setMaxMotionTransformCount:))]
         #[unsafe(method_family = none)]
         pub fn set_max_motion_transform_count(
             &self,
-            max_motion_transform_count: NSUInteger,
+            max_motion_transform_count: usize,
         );
 
         /// Associates a buffer reference containing the number of motion transforms in the motion transform buffer, formatted as a
@@ -224,14 +224,14 @@ impl MTL4IndirectInstanceAccelerationStructureDescriptor {
         /// Defaults to `0`, indicating that transforms are tightly packed according to the motion transform type.
         #[unsafe(method(motionTransformStride))]
         #[unsafe(method_family = none)]
-        pub fn motion_transform_stride(&self) -> NSUInteger;
+        pub fn motion_transform_stride(&self) -> usize;
 
         /// Setter for [`motionTransformStride`][Self::motionTransformStride].
         #[unsafe(method(setMotionTransformStride:))]
         #[unsafe(method_family = none)]
         pub fn set_motion_transform_stride(
             &self,
-            motion_transform_stride: NSUInteger,
+            motion_transform_stride: usize,
         );
     );
 }

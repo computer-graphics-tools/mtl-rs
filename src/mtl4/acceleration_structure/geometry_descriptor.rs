@@ -2,7 +2,7 @@ use objc2::{
     extern_class, extern_conformance, extern_methods, msg_send,
     rc::{Allocated, Retained},
 };
-use objc2_foundation::{CopyingHelper, NSCopying, NSObject, NSObjectProtocol, NSString, NSUInteger};
+use objc2_foundation::{CopyingHelper, NSCopying, NSObject, NSObjectProtocol, NSString};
 
 use crate::*;
 
@@ -47,14 +47,14 @@ impl MTL4AccelerationStructureGeometryDescriptor {
         /// to retrieve and invoke the function at this index, allowing you to customize the intersection evaluation process.
         #[unsafe(method(intersectionFunctionTableOffset))]
         #[unsafe(method_family = none)]
-        pub fn intersection_function_table_offset(&self) -> NSUInteger;
+        pub fn intersection_function_table_offset(&self) -> usize;
 
         /// Setter for [`intersectionFunctionTableOffset`][Self::intersectionFunctionTableOffset].
         #[unsafe(method(setIntersectionFunctionTableOffset:))]
         #[unsafe(method_family = none)]
         pub fn set_intersection_function_table_offset(
             &self,
-            intersection_function_table_offset: NSUInteger,
+            intersection_function_table_offset: usize,
         );
 
         /// Provides a hint to Metal that this geometry is opaque, potentially accelerating the ray/primitive intersection process.
@@ -110,14 +110,14 @@ impl MTL4AccelerationStructureGeometryDescriptor {
         /// This property defaults to `0` bytes,  which indicates the stride is equal to ``primitiveDataElementSize``.
         #[unsafe(method(primitiveDataStride))]
         #[unsafe(method_family = none)]
-        pub fn primitive_data_stride(&self) -> NSUInteger;
+        pub fn primitive_data_stride(&self) -> usize;
 
         /// Setter for [`primitiveDataStride`][Self::primitiveDataStride].
         #[unsafe(method(setPrimitiveDataStride:))]
         #[unsafe(method_family = none)]
         pub fn set_primitive_data_stride(
             &self,
-            primitive_data_stride: NSUInteger,
+            primitive_data_stride: usize,
         );
 
         /// Sets the size, in bytes, of the data for each primitive in the primitive data buffer ``primitiveDataBuffer`` references.
@@ -127,14 +127,14 @@ impl MTL4AccelerationStructureGeometryDescriptor {
         /// This property defaults to 0 bytes.
         #[unsafe(method(primitiveDataElementSize))]
         #[unsafe(method_family = none)]
-        pub fn primitive_data_element_size(&self) -> NSUInteger;
+        pub fn primitive_data_element_size(&self) -> usize;
 
         /// Setter for [`primitiveDataElementSize`][Self::primitiveDataElementSize].
         #[unsafe(method(setPrimitiveDataElementSize:))]
         #[unsafe(method_family = none)]
         pub fn set_primitive_data_element_size(
             &self,
-            primitive_data_element_size: NSUInteger,
+            primitive_data_element_size: usize,
         );
     );
 }

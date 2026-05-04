@@ -3,7 +3,7 @@ use core::ops::Range;
 use objc2::{Message, extern_protocol, msg_send, runtime::ProtocolObject};
 use objc2_foundation::NSRange;
 
-use crate::util::option_ref_ptr_cast_const;
+use crate::util::opt_ref_slice_as_ptr;
 use crate::{MTLFunctionHandle, MTLResource, MTLResourceID};
 
 extern_protocol!(
@@ -33,7 +33,7 @@ pub trait MTLVisibleFunctionTableExt: MTLVisibleFunctionTable + Message {
     ) where
         Self: Sized,
     {
-        let ptr = option_ref_ptr_cast_const(functions.as_ptr());
+        let ptr = opt_ref_slice_as_ptr(functions);
         unsafe { msg_send![self, setFunctions: ptr, withRange: NSRange::from(range)] }
     }
 }

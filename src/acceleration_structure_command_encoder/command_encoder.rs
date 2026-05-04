@@ -1,6 +1,6 @@
 use objc2::{Message, extern_protocol, msg_send, runtime::ProtocolObject};
 
-use crate::util::ref_ptr_cast_const;
+use crate::util::ref_slice_as_ptr;
 use crate::{
     MTLAccelerationStructure, MTLBuffer, MTLCommandEncoder, MTLCounterSampleBuffer, MTLDataType, MTLFence, MTLHeap,
     MTLResource, MTLResourceUsage,
@@ -290,7 +290,7 @@ pub trait MTLAccelerationStructureCommandEncoderExt: MTLAccelerationStructureCom
     ) where
         Self: Sized,
     {
-        let ptr = ref_ptr_cast_const(resources.as_ptr());
+        let ptr = ref_slice_as_ptr(resources);
         unsafe { msg_send![self, useResources: ptr, count: resources.len(), usage: usage] }
     }
 
@@ -302,7 +302,7 @@ pub trait MTLAccelerationStructureCommandEncoderExt: MTLAccelerationStructureCom
     where
         Self: Sized,
     {
-        let ptr = ref_ptr_cast_const(heaps.as_ptr());
+        let ptr = ref_slice_as_ptr(heaps);
         unsafe { msg_send![self, useHeaps: ptr, count: heaps.len()] }
     }
 }

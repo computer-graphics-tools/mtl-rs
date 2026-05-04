@@ -1,8 +1,9 @@
 use core::ops::Range;
 
 use objc2::{Message, extern_protocol, msg_send, rc::Retained, runtime::ProtocolObject};
-use objc2_foundation::{NSObjectProtocol, NSRange, NSString, NSUInteger};
+use objc2_foundation::{NSObjectProtocol, NSRange, NSString};
 
+use crate::util::ref_slice_as_ptr;
 use crate::*;
 
 extern_protocol!(
@@ -74,19 +75,6 @@ extern_protocol!(
             residency_set: &ProtocolObject<dyn MTLResidencySet>,
         );
 
-        /// Marks an array of residency sets as part of the command buffer's execution.
-        ///
-        /// # Safety
-        ///
-        /// `residency_sets` must be a valid pointer.
-        #[unsafe(method(useResidencySets:count:))]
-        #[unsafe(method_family = none)]
-        fn use_residency_sets_count(
-            &self,
-            residency_sets: core::ptr::NonNull<core::ptr::NonNull<ProtocolObject<dyn MTLResidencySet>>>,
-            count: NSUInteger,
-        );
-
         /// Pops the latest string from the stack of debug groups for this command buffer.
         #[unsafe(method(popDebugGroup))]
         #[unsafe(method_family = none)]
@@ -98,7 +86,7 @@ extern_protocol!(
         fn write_timestamp_into_heap_at_index(
             &self,
             counter_heap: &ProtocolObject<dyn MTL4CounterHeap>,
-            index: NSUInteger,
+            index: usize,
         );
     }
 );
@@ -132,6 +120,8 @@ pub trait MTL4CommandBufferExt: MTL4CommandBuffer + Message {
         fence_to_wait: Option<&ProtocolObject<dyn MTLFence>>,
         fence_to_update: Option<&ProtocolObject<dyn MTLFence>>,
     );
+    /// Marks an array of residency sets as part of the command buffer's execution.
+    fn use_residency_sets(&self, residency_sets: &[&ProtocolObject<dyn MTLResidencySet>]);
 }
 
 impl MTL4CommandBufferExt for ProtocolObject<dyn MTL4CommandBuffer> {
@@ -189,6 +179,13 @@ impl MTL4CommandBufferExt for ProtocolObject<dyn MTL4CommandBuffer> {
                 waitFence: fence_to_wait,
                 updateFence: fence_to_update
             ];
+        }
+    }
+
+    fn use_residency_sets(&self, residency_sets: &[&ProtocolObject<dyn MTLResidencySet>]) {
+        let ptr = ref_slice_as_ptr(residency_sets);
+        unsafe {
+            let _: () = msg_send![self, useResidencySets: ptr, count: residency_sets.len()];
         }
     }
 }

@@ -1,5 +1,4 @@
 use objc2::encode::{Encode, Encoding, RefEncode};
-use objc2_foundation::NSUInteger;
 
 /// Memory consistency options for synchronization commands.
 ///
@@ -7,9 +6,9 @@ use objc2_foundation::NSUInteger;
 /// NS_OPTIONS
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord)]
-pub struct MTL4VisibilityOptions(pub NSUInteger);
+pub struct MTL4VisibilityOptions(pub usize);
 bitflags::bitflags! {
-    impl MTL4VisibilityOptions: NSUInteger {
+    impl MTL4VisibilityOptions: usize {
         /// Don't flush caches. When you use this option on a barrier, it turns it into an execution barrier.
         #[doc(alias = "MTL4VisibilityOptionNone")]
         const None = 0;
@@ -26,7 +25,7 @@ bitflags::bitflags! {
 }
 
 unsafe impl Encode for MTL4VisibilityOptions {
-    const ENCODING: Encoding = NSUInteger::ENCODING;
+    const ENCODING: Encoding = usize::ENCODING;
 }
 
 unsafe impl RefEncode for MTL4VisibilityOptions {

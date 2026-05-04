@@ -1,7 +1,7 @@
 use objc2::{Message, extern_protocol, msg_send, rc::Retained, runtime::ProtocolObject};
 use objc2_foundation::{NSArray, NSObjectProtocol, NSString};
 
-use crate::util::ref_ptr_cast_const;
+use crate::util::ref_slice_as_ptr;
 use crate::{MTLAllocation, MTLDevice};
 
 extern_protocol!(
@@ -89,7 +89,7 @@ pub trait MTLResidencySetExt: MTLResidencySet + Message {
     where
         Self: Sized,
     {
-        let ptr = ref_ptr_cast_const(allocations.as_ptr());
+        let ptr = ref_slice_as_ptr(allocations);
         unsafe { msg_send![self, addAllocations: ptr, count: allocations.len()] }
     }
 
@@ -98,7 +98,7 @@ pub trait MTLResidencySetExt: MTLResidencySet + Message {
     where
         Self: Sized,
     {
-        let ptr = ref_ptr_cast_const(allocations.as_ptr());
+        let ptr = ref_slice_as_ptr(allocations);
         unsafe { msg_send![self, removeAllocations: ptr, count: allocations.len()] }
     }
 }

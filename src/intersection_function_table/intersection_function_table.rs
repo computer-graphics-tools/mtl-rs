@@ -3,7 +3,7 @@ use core::ops::Range;
 use objc2::{Message, extern_protocol, msg_send, runtime::ProtocolObject};
 use objc2_foundation::NSRange;
 
-use crate::util::option_ref_ptr_cast_const;
+use crate::util::opt_ref_slice_as_ptr;
 use super::MTLIntersectionFunctionSignature;
 use crate::{MTLBuffer, MTLFunctionHandle, MTLResource, MTLVisibleFunctionTable, types::MTLResourceID};
 
@@ -89,7 +89,7 @@ pub trait MTLIntersectionFunctionTableExt: MTLIntersectionFunctionTable + Messag
         Self: Sized,
     {
         assert_eq!(buffers.len(), offsets.len());
-        let ptr = option_ref_ptr_cast_const(buffers.as_ptr());
+        let ptr = opt_ref_slice_as_ptr(buffers);
         unsafe { msg_send![self, setBuffers: ptr, offsets: offsets.as_ptr(), withRange: NSRange::from(range)] }
     }
 
@@ -101,7 +101,7 @@ pub trait MTLIntersectionFunctionTableExt: MTLIntersectionFunctionTable + Messag
     ) where
         Self: Sized,
     {
-        let ptr = option_ref_ptr_cast_const(functions.as_ptr());
+        let ptr = opt_ref_slice_as_ptr(functions);
         unsafe { msg_send![self, setFunctions: ptr, withRange: NSRange::from(range)] }
     }
 
@@ -113,7 +113,7 @@ pub trait MTLIntersectionFunctionTableExt: MTLIntersectionFunctionTable + Messag
     ) where
         Self: Sized,
     {
-        let ptr = option_ref_ptr_cast_const(tables.as_ptr());
+        let ptr = opt_ref_slice_as_ptr(tables);
         unsafe { msg_send![self, setVisibleFunctionTables: ptr, withBufferRange: NSRange::from(range)] }
     }
 }

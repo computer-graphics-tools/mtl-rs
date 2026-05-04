@@ -1,5 +1,5 @@
 use objc2::encode::{Encode, Encoding, RefEncode};
-use objc2_foundation::{NSErrorDomain, NSInteger, NSRange, NSUInteger};
+use objc2_foundation::{NSErrorDomain, NSInteger, NSRange};
 
 use crate::*;
 
@@ -53,9 +53,9 @@ unsafe extern "C" {
 pub struct MTL4UpdateSparseTextureMappingOperation {
     pub mode: MTLSparseTextureMappingMode,
     pub texture_region: MTLRegion,
-    pub texture_level: NSUInteger,
-    pub texture_slice: NSUInteger,
-    pub heap_offset: NSUInteger,
+    pub texture_level: usize,
+    pub texture_slice: usize,
+    pub heap_offset: usize,
 }
 
 unsafe impl Encode for MTL4UpdateSparseTextureMappingOperation {
@@ -64,9 +64,9 @@ unsafe impl Encode for MTL4UpdateSparseTextureMappingOperation {
         &[
             <MTLSparseTextureMappingMode>::ENCODING,
             <MTLRegion>::ENCODING,
-            <NSUInteger>::ENCODING,
-            <NSUInteger>::ENCODING,
-            <NSUInteger>::ENCODING,
+            <usize>::ENCODING,
+            <usize>::ENCODING,
+            <usize>::ENCODING,
         ],
     );
 }
@@ -80,11 +80,11 @@ unsafe impl RefEncode for MTL4UpdateSparseTextureMappingOperation {
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct MTL4CopySparseTextureMappingOperation {
     pub source_region: MTLRegion,
-    pub source_level: NSUInteger,
-    pub source_slice: NSUInteger,
+    pub source_level: usize,
+    pub source_slice: usize,
     pub destination_origin: MTLOrigin,
-    pub destination_level: NSUInteger,
-    pub destination_slice: NSUInteger,
+    pub destination_level: usize,
+    pub destination_slice: usize,
 }
 
 unsafe impl Encode for MTL4CopySparseTextureMappingOperation {
@@ -92,11 +92,11 @@ unsafe impl Encode for MTL4CopySparseTextureMappingOperation {
         "?",
         &[
             <MTLRegion>::ENCODING,
-            <NSUInteger>::ENCODING,
-            <NSUInteger>::ENCODING,
+            <usize>::ENCODING,
+            <usize>::ENCODING,
             <MTLOrigin>::ENCODING,
-            <NSUInteger>::ENCODING,
-            <NSUInteger>::ENCODING,
+            <usize>::ENCODING,
+            <usize>::ENCODING,
         ],
     );
 }
@@ -111,12 +111,12 @@ unsafe impl RefEncode for MTL4CopySparseTextureMappingOperation {
 pub struct MTL4UpdateSparseBufferMappingOperation {
     pub mode: MTLSparseTextureMappingMode,
     pub buffer_range: NSRange,
-    pub heap_offset: NSUInteger,
+    pub heap_offset: usize,
 }
 
 unsafe impl Encode for MTL4UpdateSparseBufferMappingOperation {
     const ENCODING: Encoding =
-        Encoding::Struct("?", &[<MTLSparseTextureMappingMode>::ENCODING, <NSRange>::ENCODING, <NSUInteger>::ENCODING]);
+        Encoding::Struct("?", &[<MTLSparseTextureMappingMode>::ENCODING, <NSRange>::ENCODING, <usize>::ENCODING]);
 }
 
 unsafe impl RefEncode for MTL4UpdateSparseBufferMappingOperation {
@@ -128,11 +128,11 @@ unsafe impl RefEncode for MTL4UpdateSparseBufferMappingOperation {
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct MTL4CopySparseBufferMappingOperation {
     pub source_range: NSRange,
-    pub destination_offset: NSUInteger,
+    pub destination_offset: usize,
 }
 
 unsafe impl Encode for MTL4CopySparseBufferMappingOperation {
-    const ENCODING: Encoding = Encoding::Struct("?", &[<NSRange>::ENCODING, <NSUInteger>::ENCODING]);
+    const ENCODING: Encoding = Encoding::Struct("?", &[<NSRange>::ENCODING, <usize>::ENCODING]);
 }
 
 unsafe impl RefEncode for MTL4CopySparseBufferMappingOperation {

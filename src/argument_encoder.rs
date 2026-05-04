@@ -3,7 +3,7 @@ use core::{ffi::c_void, ops::Range, ptr::NonNull};
 use objc2::{Message, extern_protocol, msg_send, rc::Retained, runtime::ProtocolObject};
 use objc2_foundation::{NSObjectProtocol, NSRange, NSString};
 
-use crate::util::option_ref_ptr_cast_const;
+use crate::util::opt_ref_slice_as_ptr;
 use crate::{
     MTLAccelerationStructure, MTLBuffer, MTLComputePipelineState, MTLDepthStencilState, MTLDevice,
     MTLIndirectCommandBuffer, MTLIntersectionFunctionTable, MTLRenderPipelineState, MTLSamplerState, MTLTexture,
@@ -209,7 +209,7 @@ pub trait MTLArgumentEncoderExt: MTLArgumentEncoder + Message {
         Self: Sized,
     {
         assert_eq!(buffers.len(), offsets.len());
-        let ptr = option_ref_ptr_cast_const(buffers.as_ptr());
+        let ptr = opt_ref_slice_as_ptr(buffers);
         unsafe { msg_send![self, setBuffers: ptr, offsets: offsets.as_ptr(), withRange: NSRange::from(range)] }
     }
 
@@ -221,7 +221,7 @@ pub trait MTLArgumentEncoderExt: MTLArgumentEncoder + Message {
     ) where
         Self: Sized,
     {
-        let ptr = option_ref_ptr_cast_const(textures.as_ptr());
+        let ptr = opt_ref_slice_as_ptr(textures);
         unsafe { msg_send![self, setTextures: ptr, withRange: NSRange::from(range)] }
     }
 
@@ -233,7 +233,7 @@ pub trait MTLArgumentEncoderExt: MTLArgumentEncoder + Message {
     ) where
         Self: Sized,
     {
-        let ptr = option_ref_ptr_cast_const(samplers.as_ptr());
+        let ptr = opt_ref_slice_as_ptr(samplers);
         unsafe { msg_send![self, setSamplerStates: ptr, withRange: NSRange::from(range)] }
     }
 
@@ -247,7 +247,7 @@ pub trait MTLArgumentEncoderExt: MTLArgumentEncoder + Message {
     ) where
         Self: Sized,
     {
-        let ptr = option_ref_ptr_cast_const(pipelines.as_ptr());
+        let ptr = opt_ref_slice_as_ptr(pipelines);
         unsafe { msg_send![self, setRenderPipelineStates: ptr, withRange: NSRange::from(range)] }
     }
 
@@ -261,7 +261,7 @@ pub trait MTLArgumentEncoderExt: MTLArgumentEncoder + Message {
     ) where
         Self: Sized,
     {
-        let ptr = option_ref_ptr_cast_const(pipelines.as_ptr());
+        let ptr = opt_ref_slice_as_ptr(pipelines);
         unsafe { msg_send![self, setComputePipelineStates: ptr, withRange: NSRange::from(range)] }
     }
 
@@ -275,7 +275,7 @@ pub trait MTLArgumentEncoderExt: MTLArgumentEncoder + Message {
     ) where
         Self: Sized,
     {
-        let ptr = option_ref_ptr_cast_const(buffers.as_ptr());
+        let ptr = opt_ref_slice_as_ptr(buffers);
         unsafe { msg_send![self, setIndirectCommandBuffers: ptr, withRange: NSRange::from(range)] }
     }
 
@@ -289,7 +289,7 @@ pub trait MTLArgumentEncoderExt: MTLArgumentEncoder + Message {
     ) where
         Self: Sized,
     {
-        let ptr = option_ref_ptr_cast_const(tables.as_ptr());
+        let ptr = opt_ref_slice_as_ptr(tables);
         unsafe { msg_send![self, setVisibleFunctionTables: ptr, withRange: NSRange::from(range)] }
     }
 
@@ -303,7 +303,7 @@ pub trait MTLArgumentEncoderExt: MTLArgumentEncoder + Message {
     ) where
         Self: Sized,
     {
-        let ptr = option_ref_ptr_cast_const(tables.as_ptr());
+        let ptr = opt_ref_slice_as_ptr(tables);
         unsafe { msg_send![self, setIntersectionFunctionTables: ptr, withRange: NSRange::from(range)] }
     }
 
@@ -317,7 +317,7 @@ pub trait MTLArgumentEncoderExt: MTLArgumentEncoder + Message {
     ) where
         Self: Sized,
     {
-        let ptr = option_ref_ptr_cast_const(states.as_ptr());
+        let ptr = opt_ref_slice_as_ptr(states);
         unsafe { msg_send![self, setDepthStencilStates: ptr, withRange: NSRange::from(range)] }
     }
 }

@@ -2,7 +2,7 @@ use objc2::{
     extern_class, extern_conformance, extern_methods,
     rc::{Allocated, Retained},
 };
-use objc2_foundation::{CopyingHelper, NSCopying, NSObject, NSObjectProtocol, NSUInteger};
+use objc2_foundation::{CopyingHelper, NSCopying, NSObject, NSObjectProtocol};
 
 use crate::*;
 
@@ -53,14 +53,14 @@ impl MTL4AccelerationStructureCurveGeometryDescriptor {
         /// Declares the number of control points in the control point buffer.
         #[unsafe(method(controlPointCount))]
         #[unsafe(method_family = none)]
-        pub fn control_point_count(&self) -> NSUInteger;
+        pub fn control_point_count(&self) -> usize;
 
         /// Setter for [`controlPointCount`][Self::controlPointCount].
         #[unsafe(method(setControlPointCount:))]
         #[unsafe(method_family = none)]
         pub fn set_control_point_count(
             &self,
-            control_point_count: NSUInteger,
+            control_point_count: usize,
         );
 
         /// Sets the stride, in bytes, between control points in the control point buffer the control point buffer references.
@@ -71,14 +71,14 @@ impl MTL4AccelerationStructureCurveGeometryDescriptor {
         /// This property defaults to `0`, indicating that the control points are tightly-packed.
         #[unsafe(method(controlPointStride))]
         #[unsafe(method_family = none)]
-        pub fn control_point_stride(&self) -> NSUInteger;
+        pub fn control_point_stride(&self) -> usize;
 
         /// Setter for [`controlPointStride`][Self::controlPointStride].
         #[unsafe(method(setControlPointStride:))]
         #[unsafe(method_family = none)]
         pub fn set_control_point_stride(
             &self,
-            control_point_stride: NSUInteger,
+            control_point_stride: usize,
         );
 
         /// Declares the format of the control points the control point buffer references.
@@ -136,14 +136,14 @@ impl MTL4AccelerationStructureCurveGeometryDescriptor {
         /// This property defaults to `0` bytes, indicating that the radii are tightly packed.
         #[unsafe(method(radiusStride))]
         #[unsafe(method_family = none)]
-        pub fn radius_stride(&self) -> NSUInteger;
+        pub fn radius_stride(&self) -> usize;
 
         /// Setter for [`radiusStride`][Self::radiusStride].
         #[unsafe(method(setRadiusStride:))]
         #[unsafe(method_family = none)]
         pub fn set_radius_stride(
             &self,
-            radius_stride: NSUInteger,
+            radius_stride: usize,
         );
 
         /// Assigns an optional index buffer containing references to control points in the control point buffer.
@@ -178,14 +178,14 @@ impl MTL4AccelerationStructureCurveGeometryDescriptor {
         /// Declares the number of curve segments.
         #[unsafe(method(segmentCount))]
         #[unsafe(method_family = none)]
-        pub fn segment_count(&self) -> NSUInteger;
+        pub fn segment_count(&self) -> usize;
 
         /// Setter for [`segmentCount`][Self::segmentCount].
         #[unsafe(method(setSegmentCount:))]
         #[unsafe(method_family = none)]
         pub fn set_segment_count(
             &self,
-            segment_count: NSUInteger,
+            segment_count: usize,
         );
 
         /// Declares the number of control points per curve segment.
@@ -193,14 +193,14 @@ impl MTL4AccelerationStructureCurveGeometryDescriptor {
         /// Valid values for this property are `2`, `3`, or `4`.
         #[unsafe(method(segmentControlPointCount))]
         #[unsafe(method_family = none)]
-        pub fn segment_control_point_count(&self) -> NSUInteger;
+        pub fn segment_control_point_count(&self) -> usize;
 
         /// Setter for [`segmentControlPointCount`][Self::segmentControlPointCount].
         #[unsafe(method(setSegmentControlPointCount:))]
         #[unsafe(method_family = none)]
         pub fn set_segment_control_point_count(
             &self,
-            segment_control_point_count: NSUInteger,
+            segment_control_point_count: usize,
         );
 
         /// Controls the curve type.
