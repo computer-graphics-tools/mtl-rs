@@ -72,7 +72,7 @@ impl MTLTextureViewDescriptor {
 
     pub fn level_range(&self) -> Range<usize> {
         let ns_range: NSRange = unsafe { msg_send![self, levelRange] };
-        ns_range.location..ns_range.location.saturating_add(ns_range.length)
+        ns_range.into()
     }
 
     pub fn set_level_range(
@@ -86,7 +86,7 @@ impl MTLTextureViewDescriptor {
 
     pub fn slice_range(&self) -> Range<usize> {
         let ns_range: NSRange = unsafe { msg_send![self, sliceRange] };
-        ns_range.location..ns_range.location.saturating_add(ns_range.length)
+        ns_range.into()
     }
 
     pub fn set_slice_range(

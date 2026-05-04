@@ -5,7 +5,7 @@ use objc2::{
     rc::{Allocated, Retained},
     runtime::ProtocolObject,
 };
-use objc2_foundation::{CopyingHelper, NSArray, NSCopying, NSInteger, NSObject, NSObjectProtocol, NSRange, NSString};
+use objc2_foundation::{CopyingHelper, NSArray, NSCopying, NSObject, NSObjectProtocol, NSRange, NSString};
 
 use crate::*;
 
@@ -57,7 +57,7 @@ impl MTL4MachineLearningPipelineDescriptor {
         pub fn set_input_dimensions_at_buffer_index(
             &self,
             dimensions: Option<&MTLTensorExtents>,
-            buffer_index: NSInteger,
+            buffer_index: isize,
         );
 
         /// Obtains the dimensions of the input tensor at `bufferIndex` if set, `nil` otherwise.
@@ -65,7 +65,7 @@ impl MTL4MachineLearningPipelineDescriptor {
         #[unsafe(method_family = none)]
         pub fn input_dimensions_at_buffer_index(
             &self,
-            buffer_index: NSInteger,
+            buffer_index: isize,
         ) -> Option<Retained<MTLTensorExtents>>;
 
         /// Resets the descriptor to its default values.
@@ -125,10 +125,7 @@ impl MTL4MachineLearningPipelineDescriptor {
         range: Range<usize>,
     ) {
         let dimensions = NSArray::from_slice(dimensions);
-        let ns_range = NSRange {
-            location: range.start,
-            length: range.end.saturating_sub(range.start),
-        };
+        let ns_range = NSRange::from(range);
         unsafe {
             let _: () = msg_send![self, setInputDimensions: &*dimensions, withRange: ns_range];
         }

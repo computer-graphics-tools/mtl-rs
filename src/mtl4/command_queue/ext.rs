@@ -1,6 +1,5 @@
 use objc2::{Message, msg_send, runtime::ProtocolObject};
 
-use super::types::*;
 use crate::util::ref_slice_as_ptr;
 use crate::*;
 

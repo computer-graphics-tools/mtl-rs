@@ -1,4 +1,6 @@
-use objc2::{extern_protocol, rc::Retained, runtime::ProtocolObject};
+use core::ops::Range;
+
+use objc2::{Message, extern_protocol, msg_send, rc::Retained, runtime::ProtocolObject};
 use objc2_foundation::{NSObjectProtocol, NSRange, NSString};
 
 use crate::{MTLDevice, MTLResourceID};
@@ -25,15 +27,30 @@ extern_protocol!(
         #[unsafe(method(label))]
         #[unsafe(method_family = none)]
         fn label(&self) -> Option<Retained<NSString>>;
-
-        /// Copies a range of resource views from a source view pool to a destination location in this view pool.
-        #[unsafe(method(copyResourceViewsFromPool:sourceRange:destinationIndex:))]
-        #[unsafe(method_family = none)]
-        fn copy_resource_views_from_pool(
-            &self,
-            source_pool: &ProtocolObject<dyn MTLResourceViewPool>,
-            source_range: NSRange,
-            destination_index: usize,
-        ) -> MTLResourceID;
     }
 );
+
+#[allow(unused)]
+pub trait MTLResourceViewPoolExt: MTLResourceViewPool + Message {
+    /// Copies a range of resource views from a source view pool to a destination location in this view pool.
+    fn copy_resource_views_from_pool(
+        &self,
+        source_pool: &ProtocolObject<dyn MTLResourceViewPool>,
+        source_range: Range<usize>,
+        destination_index: usize,
+    ) -> MTLResourceID
+    where
+        Self: Sized,
+    {
+        unsafe {
+            msg_send![
+                self,
+                copyResourceViewsFromPool: source_pool,
+                sourceRange: NSRange::from(source_range),
+                destinationIndex: destination_index
+            ]
+        }
+    }
+}
+
+impl<T: MTLResourceViewPool + Message> MTLResourceViewPoolExt for T {}

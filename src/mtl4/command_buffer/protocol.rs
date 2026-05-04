@@ -166,10 +166,7 @@ impl MTL4CommandBufferExt for ProtocolObject<dyn MTL4CommandBuffer> {
         fence_to_wait: Option<&ProtocolObject<dyn MTLFence>>,
         fence_to_update: Option<&ProtocolObject<dyn MTLFence>>,
     ) {
-        let ns_range = NSRange {
-            location: range.start,
-            length: range.end.saturating_sub(range.start),
-        };
+        let ns_range = NSRange::from(range);
         unsafe {
             let _: () = msg_send![
                 self,

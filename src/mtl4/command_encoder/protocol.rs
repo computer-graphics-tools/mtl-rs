@@ -1,7 +1,7 @@
 use objc2::{Message, extern_protocol, msg_send, rc::Retained, runtime::ProtocolObject};
 use objc2_foundation::{NSObjectProtocol, NSString};
 
-use super::types::MTL4VisibilityOptions;
+use super::visibility_options::MTL4VisibilityOptions;
 use crate::*;
 
 extern_protocol!(

@@ -6,7 +6,7 @@ use objc2::{
     extern_class, extern_conformance, extern_methods, extern_protocol, msg_send,
     rc::{Allocated, Retained},
 };
-use objc2_foundation::{CopyingHelper, NSCopying, NSData, NSInteger, NSObject, NSObjectProtocol, NSRange, NSString};
+use objc2_foundation::{CopyingHelper, NSCopying, NSData, NSObject, NSObjectProtocol, NSRange, NSString};
 
 /// Represents a timestamp data entry in a counter heap of type `MTL4CounterHeapTypeTimestamp`.
 ///
@@ -31,7 +31,7 @@ unsafe impl RefEncode for MTL4TimestampHeapEntry {
 // NS_ENUM
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord)]
-pub struct MTL4CounterHeapType(pub NSInteger);
+pub struct MTL4CounterHeapType(pub isize);
 impl MTL4CounterHeapType {
     /// Specifies that ``MTL4CounterHeap`` entries contain invalid data.
     #[doc(alias = "MTL4CounterHeapTypeInvalid")]
@@ -42,7 +42,7 @@ impl MTL4CounterHeapType {
 }
 
 unsafe impl Encode for MTL4CounterHeapType {
-    const ENCODING: Encoding = NSInteger::ENCODING;
+    const ENCODING: Encoding = isize::ENCODING;
 }
 
 unsafe impl RefEncode for MTL4CounterHeapType {
@@ -59,7 +59,7 @@ unsafe impl RefEncode for MTL4CounterHeapType {
 // NS_ENUM
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord)]
-pub struct MTL4TimestampGranularity(pub NSInteger);
+pub struct MTL4TimestampGranularity(pub isize);
 impl MTL4TimestampGranularity {
     /// A minimally-invasive timestamp which may be less precise.
     ///
@@ -75,7 +75,7 @@ impl MTL4TimestampGranularity {
 }
 
 unsafe impl Encode for MTL4TimestampGranularity {
-    const ENCODING: Encoding = NSInteger::ENCODING;
+    const ENCODING: Encoding = isize::ENCODING;
 }
 
 unsafe impl RefEncode for MTL4TimestampGranularity {
@@ -199,10 +199,7 @@ pub trait MTL4CounterHeapExt: MTL4CounterHeap + Message {
         &self,
         range: Range<usize>,
     ) -> Option<Retained<NSData>> {
-        let ns_range = NSRange {
-            location: range.start,
-            length: range.end.saturating_sub(range.start),
-        };
+        let ns_range = NSRange::from(range);
         unsafe { msg_send![self, resolveCounterRange: ns_range] }
     }
 
@@ -218,10 +215,7 @@ pub trait MTL4CounterHeapExt: MTL4CounterHeap + Message {
         &self,
         range: Range<usize>,
     ) {
-        let ns_range = NSRange {
-            location: range.start,
-            length: range.end.saturating_sub(range.start),
-        };
+        let ns_range = NSRange::from(range);
         unsafe { msg_send![self, invalidateCounterRange: ns_range] }
     }
 }

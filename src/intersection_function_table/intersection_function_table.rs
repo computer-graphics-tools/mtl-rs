@@ -44,28 +44,12 @@ extern_protocol!(
             index: usize,
         );
 
-        #[unsafe(method(setOpaqueTriangleIntersectionFunctionWithSignature:withRange:))]
-        #[unsafe(method_family = none)]
-        fn set_opaque_triangle_intersection_function_with_signature_with_range(
-            &self,
-            signature: MTLIntersectionFunctionSignature,
-            range: NSRange,
-        );
-
         #[unsafe(method(setOpaqueCurveIntersectionFunctionWithSignature:atIndex:))]
         #[unsafe(method_family = none)]
         fn set_opaque_curve_intersection_function_with_signature_at_index(
             &self,
             signature: MTLIntersectionFunctionSignature,
             index: usize,
-        );
-
-        #[unsafe(method(setOpaqueCurveIntersectionFunctionWithSignature:withRange:))]
-        #[unsafe(method_family = none)]
-        fn set_opaque_curve_intersection_function_with_signature_with_range(
-            &self,
-            signature: MTLIntersectionFunctionSignature,
-            range: NSRange,
         );
 
         #[unsafe(method(setVisibleFunctionTable:atBufferIndex:))]
@@ -115,6 +99,40 @@ pub trait MTLIntersectionFunctionTableExt: MTLIntersectionFunctionTable + Messag
     {
         let ptr = opt_ref_slice_as_ptr(tables);
         unsafe { msg_send![self, setVisibleFunctionTables: ptr, withBufferRange: NSRange::from(range)] }
+    }
+
+    /// Set the opaque triangle intersection function for an index range.
+    fn set_opaque_triangle_intersection_function_with_signature(
+        &self,
+        signature: MTLIntersectionFunctionSignature,
+        range: Range<usize>,
+    ) where
+        Self: Sized,
+    {
+        unsafe {
+            msg_send![
+                self,
+                setOpaqueTriangleIntersectionFunctionWithSignature: signature,
+                withRange: NSRange::from(range)
+            ]
+        }
+    }
+
+    /// Set the opaque curve intersection function for an index range.
+    fn set_opaque_curve_intersection_function_with_signature(
+        &self,
+        signature: MTLIntersectionFunctionSignature,
+        range: Range<usize>,
+    ) where
+        Self: Sized,
+    {
+        unsafe {
+            msg_send![
+                self,
+                setOpaqueCurveIntersectionFunctionWithSignature: signature,
+                withRange: NSRange::from(range)
+            ]
+        }
     }
 }
 

@@ -6,7 +6,7 @@ use objc2::{
     extern_protocol, msg_send,
     runtime::ProtocolObject,
 };
-use objc2_foundation::{NSInteger, NSRange};
+use objc2_foundation::{NSRange};
 
 use crate::*;
 
@@ -507,7 +507,7 @@ extern_protocol!(
             index_buffer: MTLGPUAddress,
             index_buffer_length: usize,
             instance_count: usize,
-            base_vertex: NSInteger,
+            base_vertex: isize,
             base_instance: usize,
         );
 
@@ -821,10 +821,7 @@ pub trait MTL4RenderCommandEncoderExt: MTL4RenderCommandEncoder + Message {
         indirect_command_buffer: &ProtocolObject<dyn MTLIndirectCommandBuffer>,
         execution_range: Range<usize>,
     ) {
-        let execution_range = NSRange {
-            location: execution_range.start,
-            length: execution_range.end.saturating_sub(execution_range.start),
-        };
+        let execution_range = NSRange::from(execution_range);
         unsafe {
             let _: () = msg_send![
                 self,

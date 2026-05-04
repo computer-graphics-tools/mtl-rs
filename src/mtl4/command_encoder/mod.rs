@@ -1,5 +1,5 @@
 mod protocol;
-mod types;
+mod visibility_options;
 
 pub use protocol::*;
-pub use types::*;
+pub use visibility_options::*;

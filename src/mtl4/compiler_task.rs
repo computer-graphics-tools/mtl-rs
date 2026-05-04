@@ -4,7 +4,7 @@ use objc2::{
     rc::Retained,
     runtime::ProtocolObject,
 };
-use objc2_foundation::{NSInteger, NSObjectProtocol};
+use objc2_foundation::{NSObjectProtocol};
 
 use crate::*;
 
@@ -14,7 +14,7 @@ use crate::*;
 // NS_ENUM
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord)]
-pub struct MTL4CompilerTaskStatus(pub NSInteger);
+pub struct MTL4CompilerTaskStatus(pub isize);
 impl MTL4CompilerTaskStatus {
     /// No status.
     #[doc(alias = "MTL4CompilerTaskStatusNone")]
@@ -31,7 +31,7 @@ impl MTL4CompilerTaskStatus {
 }
 
 unsafe impl Encode for MTL4CompilerTaskStatus {
-    const ENCODING: Encoding = NSInteger::ENCODING;
+    const ENCODING: Encoding = isize::ENCODING;
 }
 
 unsafe impl RefEncode for MTL4CompilerTaskStatus {

@@ -857,10 +857,7 @@ pub trait MTL4ComputeCommandEncoderExt: MTL4ComputeCommandEncoder + Message {
         indirect_command_buffer: &ProtocolObject<dyn MTLIndirectCommandBuffer>,
         execution_range: Range<usize>,
     ) {
-        let execution_range = NSRange {
-            location: execution_range.start,
-            length: execution_range.end.saturating_sub(execution_range.start),
-        };
+        let execution_range = NSRange::from(execution_range);
         unsafe {
             let _: () = msg_send![
                 self,
@@ -883,10 +880,7 @@ pub trait MTL4ComputeCommandEncoderExt: MTL4ComputeCommandEncoder + Message {
         range: Range<usize>,
         value: u8,
     ) {
-        let range = NSRange {
-            location: range.start,
-            length: range.end.saturating_sub(range.start),
-        };
+        let range = NSRange::from(range);
         unsafe {
             let _: () = msg_send![self, fillBuffer: buffer, range: range, value: value];
         }
@@ -902,10 +896,7 @@ pub trait MTL4ComputeCommandEncoderExt: MTL4ComputeCommandEncoder + Message {
         buffer: &ProtocolObject<dyn MTLIndirectCommandBuffer>,
         range: Range<usize>,
     ) {
-        let range = NSRange {
-            location: range.start,
-            length: range.end.saturating_sub(range.start),
-        };
+        let range = NSRange::from(range);
         unsafe {
             let _: () = msg_send![self, resetCommandsInBuffer: buffer, withRange: range];
         }
@@ -928,10 +919,7 @@ pub trait MTL4ComputeCommandEncoderExt: MTL4ComputeCommandEncoder + Message {
         destination: &ProtocolObject<dyn MTLIndirectCommandBuffer>,
         destination_index: usize,
     ) {
-        let source_range = NSRange {
-            location: source_range.start,
-            length: source_range.end.saturating_sub(source_range.start),
-        };
+        let source_range = NSRange::from(source_range);
         unsafe {
             let _: () = msg_send![
                 self,
@@ -953,10 +941,7 @@ pub trait MTL4ComputeCommandEncoderExt: MTL4ComputeCommandEncoder + Message {
         indirect_command_buffer: &ProtocolObject<dyn MTLIndirectCommandBuffer>,
         range: Range<usize>,
     ) {
-        let range = NSRange {
-            location: range.start,
-            length: range.end.saturating_sub(range.start),
-        };
+        let range = NSRange::from(range);
         unsafe {
             let _: () = msg_send![
                 self,

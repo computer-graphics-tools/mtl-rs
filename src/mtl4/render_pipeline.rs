@@ -4,7 +4,7 @@ use objc2::{
     rc::{Allocated, Retained},
     runtime::ProtocolObject,
 };
-use objc2_foundation::{CopyingHelper, NSArray, NSCopying, NSInteger, NSObject, NSObjectProtocol};
+use objc2_foundation::{CopyingHelper, NSArray, NSCopying, NSObject, NSObjectProtocol};
 
 use crate::*;
 
@@ -14,7 +14,7 @@ use crate::*;
 // NS_ENUM
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord)]
-pub struct MTL4LogicalToPhysicalColorAttachmentMappingState(pub NSInteger);
+pub struct MTL4LogicalToPhysicalColorAttachmentMappingState(pub isize);
 impl MTL4LogicalToPhysicalColorAttachmentMappingState {
     /// Treats the logical color attachment descriptor array for render and tile render pipelines to match the physical one.
     ///
@@ -30,7 +30,7 @@ impl MTL4LogicalToPhysicalColorAttachmentMappingState {
 }
 
 unsafe impl Encode for MTL4LogicalToPhysicalColorAttachmentMappingState {
-    const ENCODING: Encoding = NSInteger::ENCODING;
+    const ENCODING: Encoding = isize::ENCODING;
 }
 
 unsafe impl RefEncode for MTL4LogicalToPhysicalColorAttachmentMappingState {

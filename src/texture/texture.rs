@@ -240,18 +240,6 @@ extern_protocol!(
             pixel_format: MTLPixelFormat,
         ) -> Option<Retained<ProtocolObject<dyn MTLTexture>>>;
 
-        /// Create a new texture which shares the same storage as the source texture, but with a different (but compatible) pixel format, texture type, levels, slices and swizzle.
-        #[unsafe(method(newTextureViewWithPixelFormat:textureType:levels:slices:swizzle:))]
-        #[unsafe(method_family = new)]
-        fn new_texture_view_with_pixel_format_texture_type_levels_slices_swizzle(
-            &self,
-            pixel_format: MTLPixelFormat,
-            texture_type: MTLTextureType,
-            level_range: NSRange,
-            slice_range: NSRange,
-            swizzle: MTLTextureSwizzleChannels,
-        ) -> Option<Retained<ProtocolObject<dyn MTLTexture>>>;
-
         /// Create a new texture handle, that can be shared across process addres space boundaries.
         #[unsafe(method(newSharedTextureHandle))]
         #[unsafe(method_family = new)]
@@ -293,6 +281,16 @@ pub trait TextureExt: MTLTexture + Message {
         level_range: Range<usize>,
         slice_range: Range<usize>,
     ) -> Option<Retained<ProtocolObject<dyn MTLTexture>>>;
+
+    /// Create a new texture which shares the same storage as the source texture, but with a different (but compatible) pixel format, texture type, levels, slices and swizzle.
+    fn new_texture_view_with_pixel_format_texture_type_levels_slices_swizzle(
+        &self,
+        pixel_format: MTLPixelFormat,
+        texture_type: MTLTextureType,
+        level_range: Range<usize>,
+        slice_range: Range<usize>,
+        swizzle: MTLTextureSwizzleChannels,
+    ) -> Option<Retained<ProtocolObject<dyn MTLTexture>>>;
 }
 
 impl TextureExt for ProtocolObject<dyn MTLTexture> {
@@ -310,6 +308,26 @@ impl TextureExt for ProtocolObject<dyn MTLTexture> {
                 textureType: texture_type,
                 levels: Into::<NSRange>::into(level_range),
                 slices: Into::<NSRange>::into(slice_range),
+            ]
+        }
+    }
+
+    fn new_texture_view_with_pixel_format_texture_type_levels_slices_swizzle(
+        &self,
+        pixel_format: MTLPixelFormat,
+        texture_type: MTLTextureType,
+        level_range: Range<usize>,
+        slice_range: Range<usize>,
+        swizzle: MTLTextureSwizzleChannels,
+    ) -> Option<Retained<ProtocolObject<dyn MTLTexture>>> {
+        unsafe {
+            msg_send![
+                self,
+                newTextureViewWithPixelFormat: pixel_format,
+                textureType: texture_type,
+                levels: Into::<NSRange>::into(level_range),
+                slices: Into::<NSRange>::into(slice_range),
+                swizzle: swizzle,
             ]
         }
     }

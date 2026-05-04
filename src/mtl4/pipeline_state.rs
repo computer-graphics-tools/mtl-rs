@@ -3,7 +3,7 @@ use objc2::{
     extern_class, extern_conformance, extern_methods, msg_send,
     rc::{Allocated, Retained},
 };
-use objc2_foundation::{CopyingHelper, NSCopying, NSInteger, NSObject, NSObjectProtocol, NSString};
+use objc2_foundation::{CopyingHelper, NSCopying, NSObject, NSObjectProtocol, NSString};
 
 use crate::*;
 
@@ -42,7 +42,7 @@ unsafe impl RefEncode for MTL4ShaderReflection {
 // NS_ENUM
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord)]
-pub struct MTL4AlphaToOneState(pub NSInteger);
+pub struct MTL4AlphaToOneState(pub isize);
 impl MTL4AlphaToOneState {
     /// Disables alpha-to-one.
     #[doc(alias = "MTL4AlphaToOneStateDisabled")]
@@ -53,7 +53,7 @@ impl MTL4AlphaToOneState {
 }
 
 unsafe impl Encode for MTL4AlphaToOneState {
-    const ENCODING: Encoding = NSInteger::ENCODING;
+    const ENCODING: Encoding = isize::ENCODING;
 }
 
 unsafe impl RefEncode for MTL4AlphaToOneState {
@@ -66,7 +66,7 @@ unsafe impl RefEncode for MTL4AlphaToOneState {
 // NS_ENUM
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord)]
-pub struct MTL4AlphaToCoverageState(pub NSInteger);
+pub struct MTL4AlphaToCoverageState(pub isize);
 impl MTL4AlphaToCoverageState {
     /// Disables alpha-to-coverage.
     #[doc(alias = "MTL4AlphaToCoverageStateDisabled")]
@@ -77,7 +77,7 @@ impl MTL4AlphaToCoverageState {
 }
 
 unsafe impl Encode for MTL4AlphaToCoverageState {
-    const ENCODING: Encoding = NSInteger::ENCODING;
+    const ENCODING: Encoding = isize::ENCODING;
 }
 
 unsafe impl RefEncode for MTL4AlphaToCoverageState {
@@ -90,7 +90,7 @@ unsafe impl RefEncode for MTL4AlphaToCoverageState {
 // NS_ENUM
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord)]
-pub struct MTL4BlendState(pub NSInteger);
+pub struct MTL4BlendState(pub isize);
 impl MTL4BlendState {
     /// Disables blending.
     #[doc(alias = "MTL4BlendStateDisabled")]
@@ -106,7 +106,7 @@ impl MTL4BlendState {
 }
 
 unsafe impl Encode for MTL4BlendState {
-    const ENCODING: Encoding = NSInteger::ENCODING;
+    const ENCODING: Encoding = isize::ENCODING;
 }
 
 unsafe impl RefEncode for MTL4BlendState {
@@ -119,7 +119,7 @@ unsafe impl RefEncode for MTL4BlendState {
 // NS_ENUM
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord)]
-pub struct MTL4IndirectCommandBufferSupportState(pub NSInteger);
+pub struct MTL4IndirectCommandBufferSupportState(pub isize);
 impl MTL4IndirectCommandBufferSupportState {
     /// Disables support for indirect command buffers.
     #[doc(alias = "MTL4IndirectCommandBufferSupportStateDisabled")]
@@ -130,7 +130,7 @@ impl MTL4IndirectCommandBufferSupportState {
 }
 
 unsafe impl Encode for MTL4IndirectCommandBufferSupportState {
-    const ENCODING: Encoding = NSInteger::ENCODING;
+    const ENCODING: Encoding = isize::ENCODING;
 }
 
 unsafe impl RefEncode for MTL4IndirectCommandBufferSupportState {
