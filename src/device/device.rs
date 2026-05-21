@@ -10,17 +10,23 @@ use crate::{
     MTL4CommandAllocatorDescriptor, MTL4CommandQueueDescriptor, MTL4CompilerDescriptor, MTL4CounterHeap,
     MTL4CounterHeapDescriptor, MTL4CounterHeapType, MTL4PipelineDataSetSerializer,
     MTL4PipelineDataSetSerializerDescriptor, MTLAccelerationStructure, MTLArgumentBuffersTier, MTLArgumentEncoder,
-    MTLBuffer, MTLCommandQueue, MTLCompileOptions, MTLComputePipelineDescriptor, MTLComputePipelineState,
+    MTLBinaryArchive, MTLBinaryArchiveDescriptor, MTLBuffer, MTLBufferBinding, MTLCommandQueue,
+    MTLCommandQueueDescriptor, MTLCompileOptions, MTLComputePipelineDescriptor, MTLComputePipelineState,
     MTLCounterSampleBuffer, MTLCounterSampleBufferDescriptor, MTLCounterSamplingPoint, MTLCounterSet,
     MTLDepthStencilDescriptor, MTLDepthStencilState, MTLDeviceLocation, MTLDynamicLibrary, MTLEvent, MTLFeatureSet,
-    MTLFence, MTLFunction, MTLFunctionHandle, MTLGPUFamily, MTLHeap, MTLHeapDescriptor, MTLIOCommandQueue,
-    MTLIOCommandQueueDescriptor, MTLLibrary, MTLLogState, MTLLogStateDescriptor, MTLPipelineOption, MTLPixelFormat,
-    MTLReadWriteTextureTier, MTLRenderPipelineDescriptor, MTLRenderPipelineState, MTLResidencySet,
-    MTLResidencySetDescriptor, MTLResourceOptions, MTLResourceViewPoolDescriptor, MTLSamplerDescriptor,
-    MTLSamplerState, MTLSharedEvent, MTLSharedEventHandle, MTLSize, MTLSparsePageSize, MTLTensor,
-    MTLTensorDescriptor, MTLTexture, MTLTextureDescriptor, MTLTextureViewPool,
-    acceleration_structure::MTLAccelerationStructureDescriptor, argument::MTLArgumentDescriptor,
-    compute_pipeline::MTLComputePipelineReflection, function_stitching::MTLStitchedLibraryDescriptor,
+    MTLFence, MTLFunction, MTLFunctionHandle, MTLGPUFamily, MTLHeap, MTLHeapDescriptor,
+    MTLIOCommandQueue, MTLIOCommandQueueDescriptor, MTLIOCompressionMethod, MTLIOFileHandle,
+    MTLIndirectCommandBuffer, MTLIndirectCommandBufferDescriptor, MTLLibrary, MTLLogState, MTLLogStateDescriptor,
+    MTLPipelineOption, MTLPixelFormat, MTLRasterizationRateMap, MTLRasterizationRateMapDescriptor,
+    MTLReadWriteTextureTier, MTLRenderPipelineDescriptor, MTLRenderPipelineReflection, MTLRenderPipelineState,
+    MTLResidencySet, MTLResidencySetDescriptor, MTLResourceOptions, MTLResourceViewPoolDescriptor,
+    MTLSamplePosition, MTLSamplerDescriptor, MTLSamplerState, MTLSharedEvent, MTLSharedEventHandle,
+    MTLSharedTextureHandle, MTLSize, MTLSparsePageSize, MTLTensor, MTLTensorDescriptor, MTLTexture,
+    MTLTextureDescriptor, MTLTextureType, MTLTextureViewPool,
+    acceleration_structure::{MTLAccelerationStructureDescriptor, MTLAccelerationStructureSizes},
+    argument::MTLArgumentDescriptor, compute_pipeline::MTLComputePipelineReflection,
+    function_stitching::MTLStitchedLibraryDescriptor,
+    render_pipeline::MTLTileRenderPipelineDescriptor,
 };
 
 extern_protocol!(
@@ -187,6 +193,253 @@ extern_protocol!(
         #[unsafe(method(currentAllocatedSize))]
         #[unsafe(method_family = none)]
         fn current_allocated_size(&self) -> usize;
+
+        /// Whether this GPU is removable.
+        #[unsafe(method(isRemovable))]
+        #[unsafe(method_family = none)]
+        fn is_removable(&self) -> bool;
+
+        /// Whether the device supports filtering 32-bit Float textures (R32Float, RG32Float, RGBA32Float).
+        #[unsafe(method(supports32BitFloatFiltering))]
+        #[unsafe(method_family = none)]
+        fn supports_32bit_float_filtering(&self) -> bool;
+
+        /// Whether the device supports 32-bit MSAA texture allocation and resolve.
+        #[unsafe(method(supports32BitMSAA))]
+        #[unsafe(method_family = none)]
+        fn supports_32bit_msaa(&self) -> bool;
+
+        /// Maximum number of unique argument buffer samplers per app.
+        #[unsafe(method(maxArgumentBufferSamplerCount))]
+        #[unsafe(method_family = none)]
+        fn max_argument_buffer_sampler_count(&self) -> usize;
+
+        /// Whether the device supports programmable sample positions.
+        #[unsafe(method(areProgrammableSamplePositionsSupported))]
+        #[unsafe(method_family = none)]
+        fn are_programmable_sample_positions_supported(&self) -> bool;
+
+        /// Unique identifier for the peer group this device belongs to.
+        #[unsafe(method(peerGroupID))]
+        #[unsafe(method_family = none)]
+        fn peer_group_id(&self) -> u64;
+
+        /// Unique index of this device within its peer group.
+        #[unsafe(method(peerIndex))]
+        #[unsafe(method_family = none)]
+        fn peer_index(&self) -> u32;
+
+        /// Total number of devices in the peer group this device belongs to.
+        #[unsafe(method(peerCount))]
+        #[unsafe(method_family = none)]
+        fn peer_count(&self) -> u32;
+
+        /// Number of bytes required to map one sparse texture tile.
+        #[unsafe(method(sparseTileSizeInBytes))]
+        #[unsafe(method_family = none)]
+        fn sparse_tile_size_in_bytes(&self) -> usize;
+
+        /// Whether the device supports creating and using dynamic libraries in a compute pipeline.
+        #[unsafe(method(supportsDynamicLibraries))]
+        #[unsafe(method_family = none)]
+        fn supports_dynamic_libraries(&self) -> bool;
+
+        /// Whether the device supports creating and using dynamic libraries in render pipeline stages.
+        #[unsafe(method(supportsRenderDynamicLibraries))]
+        #[unsafe(method_family = none)]
+        fn supports_render_dynamic_libraries(&self) -> bool;
+
+        /// Whether the device supports placement sparse resources.
+        #[unsafe(method(supportsPlacementSparse))]
+        #[unsafe(method_family = none)]
+        fn supports_placement_sparse(&self) -> bool;
+
+        /// Whether the device supports ray tracing from compute pipelines.
+        #[unsafe(method(supportsRaytracing))]
+        #[unsafe(method_family = none)]
+        fn supports_raytracing(&self) -> bool;
+
+        /// Whether the device supports function pointers from compute pipelines.
+        #[unsafe(method(supportsFunctionPointers))]
+        #[unsafe(method_family = none)]
+        fn supports_function_pointers(&self) -> bool;
+
+        /// Whether the device supports function pointers from render pipeline stages.
+        #[unsafe(method(supportsFunctionPointersFromRender))]
+        #[unsafe(method_family = none)]
+        fn supports_function_pointers_from_render(&self) -> bool;
+
+        /// Whether the device supports ray tracing from render pipeline stages.
+        #[unsafe(method(supportsRaytracingFromRender))]
+        #[unsafe(method_family = none)]
+        fn supports_raytracing_from_render(&self) -> bool;
+
+        /// Whether the device supports ray tracing primitive motion blur.
+        #[unsafe(method(supportsPrimitiveMotionBlur))]
+        #[unsafe(method_family = none)]
+        fn supports_primitive_motion_blur(&self) -> bool;
+
+        /// Whether this device should use additional CPU threads for compilation tasks.
+        #[unsafe(method(shouldMaximizeConcurrentCompilation))]
+        #[unsafe(method_family = none)]
+        fn should_maximize_concurrent_compilation(&self) -> bool;
+
+        /// Setter for `shouldMaximizeConcurrentCompilation`.
+        #[unsafe(method(setShouldMaximizeConcurrentCompilation:))]
+        #[unsafe(method_family = none)]
+        fn set_should_maximize_concurrent_compilation(
+            &self,
+            value: bool,
+        );
+
+        /// Maximum count of concurrent executing compilation tasks.
+        #[unsafe(method(maximumConcurrentCompilationTaskCount))]
+        #[unsafe(method_family = none)]
+        fn maximum_concurrent_compilation_task_count(&self) -> usize;
+
+        /// Whether the device supports a variable rasterization rate map with the given layer count.
+        #[unsafe(method(supportsRasterizationRateMapWithLayerCount:))]
+        #[unsafe(method_family = none)]
+        fn supports_rasterization_rate_map_with_layer_count(
+            &self,
+            layer_count: usize,
+        ) -> bool;
+
+        /// Whether the device supports vertex amplification with the given count.
+        #[unsafe(method(supportsVertexAmplificationCount:))]
+        #[unsafe(method_family = none)]
+        fn supports_vertex_amplification_count(
+            &self,
+            count: usize,
+        ) -> bool;
+
+        /// Tile size for sparse texture with the given type, pixel format, and sample count.
+        #[unsafe(method(sparseTileSizeWithTextureType:pixelFormat:sampleCount:))]
+        #[unsafe(method_family = none)]
+        fn sparse_tile_size(
+            &self,
+            texture_type: MTLTextureType,
+            pixel_format: MTLPixelFormat,
+            sample_count: usize,
+        ) -> MTLSize;
+
+        /// Number of bytes required to map one sparse texture tile for the given sparse page size.
+        #[unsafe(method(sparseTileSizeInBytesForSparsePageSize:))]
+        #[unsafe(method_family = none)]
+        fn sparse_tile_size_in_bytes_for_sparse_page_size(
+            &self,
+            sparse_page_size: MTLSparsePageSize,
+        ) -> usize;
+
+        /// Tile size for a sparse texture for the given type, pixel format, sample count, and sparse page size.
+        #[unsafe(method(sparseTileSizeWithTextureType:pixelFormat:sampleCount:sparsePageSize:))]
+        #[unsafe(method_family = none)]
+        fn sparse_tile_size_with_page_size(
+            &self,
+            texture_type: MTLTextureType,
+            pixel_format: MTLPixelFormat,
+            sample_count: usize,
+            sparse_page_size: MTLSparsePageSize,
+        ) -> MTLSize;
+
+        /// Byte size of a texture when sub-allocated from a heap.
+        #[unsafe(method(heapTextureSizeAndAlignWithDescriptor:))]
+        #[unsafe(method_family = none)]
+        fn heap_texture_size_and_align(
+            &self,
+            descriptor: &MTLTextureDescriptor,
+        ) -> MTLSizeAndAlign;
+
+        /// Byte size of a buffer when sub-allocated from a heap.
+        #[unsafe(method(heapBufferSizeAndAlignWithLength:options:))]
+        #[unsafe(method_family = none)]
+        fn heap_buffer_size_and_align(
+            &self,
+            length: usize,
+            options: MTLResourceOptions,
+        ) -> MTLSizeAndAlign;
+
+        /// Byte size of an acceleration structure when sub-allocated from a heap.
+        #[unsafe(method(heapAccelerationStructureSizeAndAlignWithSize:))]
+        #[unsafe(method_family = none)]
+        fn heap_acceleration_structure_size_and_align_with_size(
+            &self,
+            size: usize,
+        ) -> MTLSizeAndAlign;
+
+        /// Byte size of an acceleration structure when sub-allocated from a heap, computed from a descriptor.
+        #[unsafe(method(heapAccelerationStructureSizeAndAlignWithDescriptor:))]
+        #[unsafe(method_family = none)]
+        fn heap_acceleration_structure_size_and_align_with_descriptor(
+            &self,
+            descriptor: &MTLAccelerationStructureDescriptor,
+        ) -> MTLSizeAndAlign;
+
+        /// Returns the memory sizes required for an acceleration structure built from the given descriptor.
+        #[unsafe(method(accelerationStructureSizesWithDescriptor:))]
+        #[unsafe(method_family = none)]
+        fn acceleration_structure_sizes_with_descriptor(
+            &self,
+            descriptor: &MTLAccelerationStructureDescriptor,
+        ) -> MTLAccelerationStructureSizes;
+
+        /// Creates a `MTLCommandQueue` configured by a descriptor.
+        #[unsafe(method(newCommandQueueWithDescriptor:))]
+        #[unsafe(method_family = new)]
+        fn new_command_queue_with_descriptor(
+            &self,
+            descriptor: &MTLCommandQueueDescriptor,
+        ) -> Option<Retained<ProtocolObject<dyn MTLCommandQueue>>>;
+
+        /// Creates a new texture that can be shared across process boundaries.
+        #[unsafe(method(newSharedTextureWithDescriptor:))]
+        #[unsafe(method_family = new)]
+        fn new_shared_texture_with_descriptor(
+            &self,
+            descriptor: &MTLTextureDescriptor,
+        ) -> Option<Retained<ProtocolObject<dyn MTLTexture>>>;
+
+        /// Recreates a shared texture from a previously created shared texture handle.
+        #[unsafe(method(newSharedTextureWithHandle:))]
+        #[unsafe(method_family = new)]
+        fn new_shared_texture_with_handle(
+            &self,
+            shared_handle: &MTLSharedTextureHandle,
+        ) -> Option<Retained<ProtocolObject<dyn MTLTexture>>>;
+
+        /// Creates a new variable rasterization rate map with the given descriptor.
+        #[unsafe(method(newRasterizationRateMapWithDescriptor:))]
+        #[unsafe(method_family = new)]
+        fn new_rasterization_rate_map_with_descriptor(
+            &self,
+            descriptor: &MTLRasterizationRateMapDescriptor,
+        ) -> Option<Retained<ProtocolObject<dyn MTLRasterizationRateMap>>>;
+
+        /// Creates a new indirect command buffer.
+        #[unsafe(method(newIndirectCommandBufferWithDescriptor:maxCommandCount:options:))]
+        #[unsafe(method_family = new)]
+        fn new_indirect_command_buffer_with_descriptor(
+            &self,
+            descriptor: &MTLIndirectCommandBufferDescriptor,
+            max_count: usize,
+            options: MTLResourceOptions,
+        ) -> Option<Retained<ProtocolObject<dyn MTLIndirectCommandBuffer>>>;
+
+        /// Creates a `MTLBinaryArchive` using the given descriptor.
+        #[unsafe(method(newBinaryArchiveWithDescriptor:error:_))]
+        #[unsafe(method_family = none)]
+        fn new_binary_archive_with_descriptor(
+            &self,
+            descriptor: &MTLBinaryArchiveDescriptor,
+        ) -> Result<Retained<ProtocolObject<dyn MTLBinaryArchive>>, Retained<NSError>>;
+
+        /// Creates an argument encoder for a buffer binding from shader reflection.
+        #[unsafe(method(newArgumentEncoderWithBufferBinding:))]
+        #[unsafe(method_family = new)]
+        fn new_argument_encoder_with_buffer_binding(
+            &self,
+            buffer_binding: &ProtocolObject<dyn MTLBufferBinding>,
+        ) -> Retained<ProtocolObject<dyn MTLArgumentEncoder>>;
     }
 );
 
@@ -249,6 +502,13 @@ pub trait MTLDeviceExt: MTLDevice + Message {
     fn size_of_counter_heap_entry(&self, counter_heap_type: MTL4CounterHeapType) -> usize;
     fn query_timestamp_frequency(&self) -> u64;
     fn function_handle_with_binary_function(&self, function: &ProtocolObject<dyn MTL4BinaryFunction>) -> Option<Retained<ProtocolObject<dyn MTLFunctionHandle>>>;
+    fn default_sample_positions(&self, sample_count: usize) -> Box<[MTLSamplePosition]>;
+    fn get_default_sample_positions(&self, positions: &mut [MTLSamplePosition]);
+    fn new_io_file_handle_with_url(&self, path: &Path) -> Result<Retained<ProtocolObject<dyn MTLIOFileHandle>>, Retained<NSError>>;
+    fn new_io_file_handle_with_url_compression_method(&self, path: &Path, compression_method: MTLIOCompressionMethod) -> Result<Retained<ProtocolObject<dyn MTLIOFileHandle>>, Retained<NSError>>;
+    fn new_render_pipeline_state_with_descriptor_options(&self, descriptor: &MTLRenderPipelineDescriptor, options: MTLPipelineOption) -> Result<(Retained<ProtocolObject<dyn MTLRenderPipelineState>>, Option<Retained<MTLRenderPipelineReflection>>), Retained<NSError>>;
+    fn new_compute_pipeline_state_with_function_options(&self, function: &ProtocolObject<dyn MTLFunction>, options: MTLPipelineOption) -> Result<(Retained<ProtocolObject<dyn MTLComputePipelineState>>, Option<Retained<MTLComputePipelineReflection>>), Retained<NSError>>;
+    fn new_render_pipeline_state_with_tile_descriptor(&self, descriptor: &MTLTileRenderPipelineDescriptor, options: MTLPipelineOption) -> Result<(Retained<ProtocolObject<dyn MTLRenderPipelineState>>, Option<Retained<MTLRenderPipelineReflection>>), Retained<NSError>>;
 }
 
 impl MTLDeviceExt for ProtocolObject<dyn MTLDevice> {
@@ -633,6 +893,156 @@ impl MTLDeviceExt for ProtocolObject<dyn MTLDevice> {
         function: &ProtocolObject<dyn MTL4BinaryFunction>,
     ) -> Option<Retained<ProtocolObject<dyn MTLFunctionHandle>>> {
         unsafe { msg_send![self, functionHandleWithBinaryFunction: function] }
+    }
+
+    fn default_sample_positions(
+        &self,
+        sample_count: usize,
+    ) -> Box<[MTLSamplePosition]> {
+        let mut positions: Box<[MTLSamplePosition]> =
+            vec![MTLSamplePosition { x: 0.0, y: 0.0 }; sample_count].into_boxed_slice();
+        unsafe {
+            let _: () = msg_send![
+                self,
+                getDefaultSamplePositions: positions.as_mut_ptr(),
+                count: sample_count
+            ];
+        }
+        positions
+    }
+
+    fn get_default_sample_positions(
+        &self,
+        positions: &mut [MTLSamplePosition],
+    ) {
+        let count = positions.len();
+        unsafe {
+            let _: () = msg_send![
+                self,
+                getDefaultSamplePositions: positions.as_mut_ptr(),
+                count: count
+            ];
+        }
+    }
+
+    fn new_io_file_handle_with_url(
+        &self,
+        path: &Path,
+    ) -> Result<Retained<ProtocolObject<dyn MTLIOFileHandle>>, Retained<NSError>> {
+        let url = NSURL::from_file_path(path).expect("path must be a valid file URL path");
+        unsafe { msg_send![self, newIOFileHandleWithURL: &*url, error: _] }
+    }
+
+    fn new_io_file_handle_with_url_compression_method(
+        &self,
+        path: &Path,
+        compression_method: MTLIOCompressionMethod,
+    ) -> Result<Retained<ProtocolObject<dyn MTLIOFileHandle>>, Retained<NSError>> {
+        let url = NSURL::from_file_path(path).expect("path must be a valid file URL path");
+        unsafe {
+            msg_send![
+                self,
+                newIOFileHandleWithURL: &*url,
+                compressionMethod: compression_method,
+                error: _
+            ]
+        }
+    }
+
+    fn new_render_pipeline_state_with_descriptor_options(
+        &self,
+        descriptor: &MTLRenderPipelineDescriptor,
+        options: MTLPipelineOption,
+    ) -> Result<
+        (Retained<ProtocolObject<dyn MTLRenderPipelineState>>, Option<Retained<MTLRenderPipelineReflection>>),
+        Retained<NSError>,
+    > {
+        let mut reflection: *mut MTLRenderPipelineReflection = std::ptr::null_mut();
+        let mut error: *mut NSError = std::ptr::null_mut();
+        let result: Option<Retained<ProtocolObject<dyn MTLRenderPipelineState>>> = unsafe {
+            msg_send![
+                self,
+                newRenderPipelineStateWithDescriptor: descriptor,
+                options: options,
+                reflection: &mut reflection,
+                error: &mut error
+            ]
+        };
+        match result {
+            Some(pso) => {
+                let reflection_obj = if reflection.is_null() {
+                    None
+                } else {
+                    unsafe { Retained::retain(reflection) }
+                };
+                Ok((pso, reflection_obj))
+            },
+            None => Err(unsafe { Retained::retain(error).unwrap() }),
+        }
+    }
+
+    fn new_compute_pipeline_state_with_function_options(
+        &self,
+        function: &ProtocolObject<dyn MTLFunction>,
+        options: MTLPipelineOption,
+    ) -> Result<
+        (Retained<ProtocolObject<dyn MTLComputePipelineState>>, Option<Retained<MTLComputePipelineReflection>>),
+        Retained<NSError>,
+    > {
+        let mut reflection: *mut MTLComputePipelineReflection = std::ptr::null_mut();
+        let mut error: *mut NSError = std::ptr::null_mut();
+        let result: Option<Retained<ProtocolObject<dyn MTLComputePipelineState>>> = unsafe {
+            msg_send![
+                self,
+                newComputePipelineStateWithFunction: function,
+                options: options,
+                reflection: &mut reflection,
+                error: &mut error
+            ]
+        };
+        match result {
+            Some(pso) => {
+                let reflection_obj = if reflection.is_null() {
+                    None
+                } else {
+                    unsafe { Retained::retain(reflection) }
+                };
+                Ok((pso, reflection_obj))
+            },
+            None => Err(unsafe { Retained::retain(error).unwrap() }),
+        }
+    }
+
+    fn new_render_pipeline_state_with_tile_descriptor(
+        &self,
+        descriptor: &MTLTileRenderPipelineDescriptor,
+        options: MTLPipelineOption,
+    ) -> Result<
+        (Retained<ProtocolObject<dyn MTLRenderPipelineState>>, Option<Retained<MTLRenderPipelineReflection>>),
+        Retained<NSError>,
+    > {
+        let mut reflection: *mut MTLRenderPipelineReflection = std::ptr::null_mut();
+        let mut error: *mut NSError = std::ptr::null_mut();
+        let result: Option<Retained<ProtocolObject<dyn MTLRenderPipelineState>>> = unsafe {
+            msg_send![
+                self,
+                newRenderPipelineStateWithTileDescriptor: descriptor,
+                options: options,
+                reflection: &mut reflection,
+                error: &mut error
+            ]
+        };
+        match result {
+            Some(pso) => {
+                let reflection_obj = if reflection.is_null() {
+                    None
+                } else {
+                    unsafe { Retained::retain(reflection) }
+                };
+                Ok((pso, reflection_obj))
+            },
+            None => Err(unsafe { Retained::retain(error).unwrap() }),
+        }
     }
 }
 
