@@ -6,26 +6,30 @@ use objc2_foundation::{NSArray, NSError, NSObjectProtocol, NSString, NSURL};
 
 use super::{MTLArchitecture, MTLSizeAndAlign};
 use crate::{
-    MTL4Archive, MTL4ArgumentTable, MTL4ArgumentTableDescriptor, MTL4BinaryFunction,
-    MTL4CommandAllocatorDescriptor, MTL4CommandQueueDescriptor, MTL4CompilerDescriptor, MTL4CounterHeap,
-    MTL4CounterHeapDescriptor, MTL4CounterHeapType, MTL4PipelineDataSetSerializer,
-    MTL4PipelineDataSetSerializerDescriptor, MTLAccelerationStructure, MTLArgumentBuffersTier, MTLArgumentEncoder,
-    MTLBinaryArchive, MTLBinaryArchiveDescriptor, MTLBuffer, MTLBufferBinding, MTLCommandQueue,
-    MTLCommandQueueDescriptor, MTLCompileOptions, MTLComputePipelineDescriptor, MTLComputePipelineState,
-    MTLCounterSampleBuffer, MTLCounterSampleBufferDescriptor, MTLCounterSamplingPoint, MTLCounterSet,
-    MTLDepthStencilDescriptor, MTLDepthStencilState, MTLDeviceLocation, MTLDynamicLibrary, MTLEvent, MTLFeatureSet,
-    MTLFence, MTLFunction, MTLFunctionHandle, MTLGPUFamily, MTLHeap, MTLHeapDescriptor,
-    MTLIOCommandQueue, MTLIOCommandQueueDescriptor, MTLIOCompressionMethod, MTLIOFileHandle,
+    MTL4Archive, MTL4ArgumentTable, MTL4ArgumentTableDescriptor, MTL4BinaryFunction, MTL4CommandAllocatorDescriptor,
+    MTL4CommandQueueDescriptor, MTL4CompilerDescriptor, MTL4CounterHeap, MTL4CounterHeapDescriptor,
+    MTL4CounterHeapType, MTL4PipelineDataSetSerializer, MTL4PipelineDataSetSerializerDescriptor,
+    MTLAccelerationStructure, MTLArgumentBuffersTier, MTLArgumentEncoder, MTLBinaryArchive, MTLBinaryArchiveDescriptor,
+    MTLBuffer, MTLBufferBinding, MTLCommandQueue, MTLCommandQueueDescriptor, MTLCompileOptions,
+    MTLComputePipelineDescriptor, MTLComputePipelineState, MTLCounterSampleBuffer, MTLCounterSampleBufferDescriptor,
+    MTLCounterSamplingPoint, MTLCounterSet, MTLDepthStencilDescriptor, MTLDepthStencilState, MTLDeviceLocation,
+    MTLDynamicLibrary, MTLEvent, MTLFeatureSet, MTLFence, MTLFunction, MTLFunctionHandle, MTLGPUFamily, MTLHeap,
+    MTLHeapDescriptor, MTLIOCommandQueue, MTLIOCommandQueueDescriptor, MTLIOCompressionMethod, MTLIOFileHandle,
     MTLIndirectCommandBuffer, MTLIndirectCommandBufferDescriptor, MTLLibrary, MTLLogState, MTLLogStateDescriptor,
     MTLPipelineOption, MTLPixelFormat, MTLRasterizationRateMap, MTLRasterizationRateMapDescriptor,
     MTLReadWriteTextureTier, MTLRenderPipelineDescriptor, MTLRenderPipelineReflection, MTLRenderPipelineState,
-    MTLResidencySet, MTLResidencySetDescriptor, MTLResourceOptions, MTLResourceViewPoolDescriptor,
-    MTLSamplePosition, MTLSamplerDescriptor, MTLSamplerState, MTLSharedEvent, MTLSharedEventHandle,
-    MTLSharedTextureHandle, MTLSize, MTLSparsePageSize, MTLTensor, MTLTensorDescriptor, MTLTexture,
-    MTLTextureDescriptor, MTLTextureType, MTLTextureViewPool,
+    MTLResidencySet, MTLResidencySetDescriptor, MTLResourceOptions, MTLResourceViewPoolDescriptor, MTLSamplePosition,
+    MTLSamplerDescriptor, MTLSamplerState, MTLSharedEvent, MTLSharedEventHandle, MTLSharedTextureHandle, MTLSize,
+    MTLSparsePageSize, MTLTensor, MTLTensorDescriptor, MTLTexture, MTLTextureDescriptor, MTLTextureType,
+    MTLTextureViewPool,
     acceleration_structure::{MTLAccelerationStructureDescriptor, MTLAccelerationStructureSizes},
-    argument::MTLArgumentDescriptor, compute_pipeline::MTLComputePipelineReflection,
+    argument::MTLArgumentDescriptor,
+    compute_pipeline::{
+        MTLComputePipelineReflection, NewComputePipelineStateCompletionHandler,
+        NewComputePipelineStateWithReflectionCompletionHandler,
+    },
     function_stitching::MTLStitchedLibraryDescriptor,
+    library::NewLibraryCompletionHandler,
     render_pipeline::MTLTileRenderPipelineDescriptor,
 };
 
@@ -455,60 +459,247 @@ pub trait MTLDeviceExt: MTLDevice + Message {
 
     // -- Methods (header order) --
 
-    fn new_log_state_with_descriptor(&self, descriptor: &MTLLogStateDescriptor) -> Result<Retained<ProtocolObject<dyn MTLLogState>>, Retained<NSError>>;
+    fn new_log_state_with_descriptor(
+        &self,
+        descriptor: &MTLLogStateDescriptor,
+    ) -> Result<Retained<ProtocolObject<dyn MTLLogState>>, Retained<NSError>>;
     fn new_command_queue(&self) -> Option<Retained<ProtocolObject<dyn MTLCommandQueue>>>;
-    fn new_command_queue_with_max_command_buffer_count(&self, max_count: usize) -> Option<Retained<ProtocolObject<dyn MTLCommandQueue>>>;
-    fn new_heap_with_descriptor(&self, descriptor: &MTLHeapDescriptor) -> Option<Retained<ProtocolObject<dyn MTLHeap>>>;
-    fn new_buffer(&self, length: usize, options: MTLResourceOptions) -> Option<Retained<ProtocolObject<dyn MTLBuffer>>>;
-    fn new_buffer_with_data(&self, data: &[u8], options: MTLResourceOptions) -> Option<Retained<ProtocolObject<dyn MTLBuffer>>>;
-    fn new_buffer_with_bytes_no_copy(&self, ptr: NonNull<c_void>, length: usize, options: MTLResourceOptions) -> Option<Retained<ProtocolObject<dyn MTLBuffer>>>;
-    fn new_texture_with_descriptor(&self, descriptor: &MTLTextureDescriptor) -> Option<Retained<ProtocolObject<dyn MTLTexture>>>;
-    fn new_sampler_state_with_descriptor(&self, descriptor: &MTLSamplerDescriptor) -> Option<Retained<ProtocolObject<dyn MTLSamplerState>>>;
+    fn new_command_queue_with_max_command_buffer_count(
+        &self,
+        max_count: usize,
+    ) -> Option<Retained<ProtocolObject<dyn MTLCommandQueue>>>;
+    fn new_heap_with_descriptor(
+        &self,
+        descriptor: &MTLHeapDescriptor,
+    ) -> Option<Retained<ProtocolObject<dyn MTLHeap>>>;
+    fn new_buffer(
+        &self,
+        length: usize,
+        options: MTLResourceOptions,
+    ) -> Option<Retained<ProtocolObject<dyn MTLBuffer>>>;
+    fn new_buffer_with_data(
+        &self,
+        data: &[u8],
+        options: MTLResourceOptions,
+    ) -> Option<Retained<ProtocolObject<dyn MTLBuffer>>>;
+    fn new_buffer_with_bytes_no_copy(
+        &self,
+        ptr: NonNull<c_void>,
+        length: usize,
+        options: MTLResourceOptions,
+    ) -> Option<Retained<ProtocolObject<dyn MTLBuffer>>>;
+    fn new_texture_with_descriptor(
+        &self,
+        descriptor: &MTLTextureDescriptor,
+    ) -> Option<Retained<ProtocolObject<dyn MTLTexture>>>;
+    fn new_sampler_state_with_descriptor(
+        &self,
+        descriptor: &MTLSamplerDescriptor,
+    ) -> Option<Retained<ProtocolObject<dyn MTLSamplerState>>>;
     fn new_default_library(&self) -> Option<Retained<ProtocolObject<dyn MTLLibrary>>>;
-    fn new_library_with_path(&self, path: &Path) -> Result<Retained<ProtocolObject<dyn MTLLibrary>>, Retained<NSError>>;
-    fn new_library_with_data(&self, data: &[u8]) -> Result<Retained<ProtocolObject<dyn MTLLibrary>>, Retained<NSError>>;
-    fn new_library_with_source(&self, source: &str, options: Option<&MTLCompileOptions>) -> Result<Retained<ProtocolObject<dyn MTLLibrary>>, Retained<NSError>>;
-    fn new_library_with_stitched_descriptor(&self, descriptor: &MTLStitchedLibraryDescriptor) -> Result<Retained<ProtocolObject<dyn MTLLibrary>>, Retained<NSError>>;
-    fn new_render_pipeline_state_with_descriptor(&self, descriptor: &MTLRenderPipelineDescriptor) -> Result<Retained<ProtocolObject<dyn MTLRenderPipelineState>>, Retained<NSError>>;
-    fn new_compute_pipeline_state_with_function(&self, function: &ProtocolObject<dyn MTLFunction>) -> Result<Retained<ProtocolObject<dyn MTLComputePipelineState>>, Retained<NSError>>;
-    fn new_compute_pipeline_state_with_descriptor(&self, descriptor: &MTLComputePipelineDescriptor, options: MTLPipelineOption) -> Result<(Retained<ProtocolObject<dyn MTLComputePipelineState>>, Option<Retained<MTLComputePipelineReflection>>), Retained<NSError>>;
+    fn new_library_with_path(
+        &self,
+        path: &Path,
+    ) -> Result<Retained<ProtocolObject<dyn MTLLibrary>>, Retained<NSError>>;
+    fn new_library_with_data(
+        &self,
+        data: &[u8],
+    ) -> Result<Retained<ProtocolObject<dyn MTLLibrary>>, Retained<NSError>>;
+    fn new_library_with_source(
+        &self,
+        source: &str,
+        options: Option<&MTLCompileOptions>,
+    ) -> Result<Retained<ProtocolObject<dyn MTLLibrary>>, Retained<NSError>>;
+    fn new_library_with_stitched_descriptor(
+        &self,
+        descriptor: &MTLStitchedLibraryDescriptor,
+    ) -> Result<Retained<ProtocolObject<dyn MTLLibrary>>, Retained<NSError>>;
+    fn new_render_pipeline_state_with_descriptor(
+        &self,
+        descriptor: &MTLRenderPipelineDescriptor,
+    ) -> Result<Retained<ProtocolObject<dyn MTLRenderPipelineState>>, Retained<NSError>>;
+    fn new_compute_pipeline_state_with_function(
+        &self,
+        function: &ProtocolObject<dyn MTLFunction>,
+    ) -> Result<Retained<ProtocolObject<dyn MTLComputePipelineState>>, Retained<NSError>>;
+    fn new_compute_pipeline_state_with_descriptor(
+        &self,
+        descriptor: &MTLComputePipelineDescriptor,
+        options: MTLPipelineOption,
+    ) -> Result<
+        (Retained<ProtocolObject<dyn MTLComputePipelineState>>, Option<Retained<MTLComputePipelineReflection>>),
+        Retained<NSError>,
+    >;
     fn new_fence(&self) -> Option<Retained<ProtocolObject<dyn MTLFence>>>;
-    fn supports_feature_set(&self, feature_set: MTLFeatureSet) -> bool;
-    fn new_argument_encoder_with_arguments(&self, arguments: &[&MTLArgumentDescriptor]) -> Option<Retained<ProtocolObject<dyn MTLArgumentEncoder>>>;
+    fn supports_feature_set(
+        &self,
+        feature_set: MTLFeatureSet,
+    ) -> bool;
+    fn new_argument_encoder_with_arguments(
+        &self,
+        arguments: &[&MTLArgumentDescriptor],
+    ) -> Option<Retained<ProtocolObject<dyn MTLArgumentEncoder>>>;
     fn new_event(&self) -> Option<Retained<ProtocolObject<dyn MTLEvent>>>;
     fn new_shared_event(&self) -> Option<Retained<ProtocolObject<dyn MTLSharedEvent>>>;
-    fn new_shared_event_with_handle(&self, handle: &MTLSharedEventHandle) -> Option<Retained<ProtocolObject<dyn MTLSharedEvent>>>;
-    fn new_io_command_queue_with_descriptor(&self, descriptor: &MTLIOCommandQueueDescriptor) -> Result<Retained<ProtocolObject<dyn MTLIOCommandQueue>>, Retained<NSError>>;
-    fn new_dynamic_library(&self, library: &ProtocolObject<dyn MTLLibrary>) -> Result<Retained<ProtocolObject<dyn MTLDynamicLibrary>>, Retained<NSError>>;
-    fn new_dynamic_library_with_path(&self, path: &Path) -> Result<Retained<ProtocolObject<dyn MTLDynamicLibrary>>, Retained<NSError>>;
-    fn new_acceleration_structure_with_size(&self, size: usize) -> Option<Retained<ProtocolObject<dyn MTLAccelerationStructure>>>;
-    fn new_acceleration_structure_with_descriptor(&self, descriptor: &MTLAccelerationStructureDescriptor) -> Option<Retained<ProtocolObject<dyn MTLAccelerationStructure>>>;
-    fn new_residency_set_with_descriptor(&self, descriptor: &MTLResidencySetDescriptor) -> Result<Retained<ProtocolObject<dyn MTLResidencySet>>, Retained<NSError>>;
-    fn tensor_size_and_align_with_descriptor(&self, descriptor: &MTLTensorDescriptor) -> MTLSizeAndAlign;
-    fn new_tensor_with_descriptor(&self, descriptor: &MTLTensorDescriptor) -> Result<Retained<ProtocolObject<dyn MTLTensor>>, Retained<NSError>>;
-    fn function_handle_with_function(&self, function: &ProtocolObject<dyn MTLFunction>) -> Option<Retained<ProtocolObject<dyn MTLFunctionHandle>>>;
+    fn new_shared_event_with_handle(
+        &self,
+        handle: &MTLSharedEventHandle,
+    ) -> Option<Retained<ProtocolObject<dyn MTLSharedEvent>>>;
+    fn new_io_command_queue_with_descriptor(
+        &self,
+        descriptor: &MTLIOCommandQueueDescriptor,
+    ) -> Result<Retained<ProtocolObject<dyn MTLIOCommandQueue>>, Retained<NSError>>;
+    fn new_dynamic_library(
+        &self,
+        library: &ProtocolObject<dyn MTLLibrary>,
+    ) -> Result<Retained<ProtocolObject<dyn MTLDynamicLibrary>>, Retained<NSError>>;
+    fn new_dynamic_library_with_path(
+        &self,
+        path: &Path,
+    ) -> Result<Retained<ProtocolObject<dyn MTLDynamicLibrary>>, Retained<NSError>>;
+    fn new_acceleration_structure_with_size(
+        &self,
+        size: usize,
+    ) -> Option<Retained<ProtocolObject<dyn MTLAccelerationStructure>>>;
+    fn new_acceleration_structure_with_descriptor(
+        &self,
+        descriptor: &MTLAccelerationStructureDescriptor,
+    ) -> Option<Retained<ProtocolObject<dyn MTLAccelerationStructure>>>;
+    fn new_residency_set_with_descriptor(
+        &self,
+        descriptor: &MTLResidencySetDescriptor,
+    ) -> Result<Retained<ProtocolObject<dyn MTLResidencySet>>, Retained<NSError>>;
+    fn tensor_size_and_align_with_descriptor(
+        &self,
+        descriptor: &MTLTensorDescriptor,
+    ) -> MTLSizeAndAlign;
+    fn new_tensor_with_descriptor(
+        &self,
+        descriptor: &MTLTensorDescriptor,
+    ) -> Result<Retained<ProtocolObject<dyn MTLTensor>>, Retained<NSError>>;
+    fn function_handle_with_function(
+        &self,
+        function: &ProtocolObject<dyn MTLFunction>,
+    ) -> Option<Retained<ProtocolObject<dyn MTLFunctionHandle>>>;
     fn new_command_allocator(&self) -> Option<Retained<ProtocolObject<dyn crate::MTL4CommandAllocator>>>;
-    fn new_command_allocator_with_descriptor(&self, descriptor: &MTL4CommandAllocatorDescriptor) -> Result<Retained<ProtocolObject<dyn crate::MTL4CommandAllocator>>, Retained<NSError>>;
+    fn new_command_allocator_with_descriptor(
+        &self,
+        descriptor: &MTL4CommandAllocatorDescriptor,
+    ) -> Result<Retained<ProtocolObject<dyn crate::MTL4CommandAllocator>>, Retained<NSError>>;
     fn new_mtl4_command_queue(&self) -> Option<Retained<ProtocolObject<dyn crate::MTL4CommandQueue>>>;
-    fn new_mtl4_command_queue_with_descriptor(&self, descriptor: &MTL4CommandQueueDescriptor) -> Result<Retained<ProtocolObject<dyn crate::MTL4CommandQueue>>, Retained<NSError>>;
+    fn new_mtl4_command_queue_with_descriptor(
+        &self,
+        descriptor: &MTL4CommandQueueDescriptor,
+    ) -> Result<Retained<ProtocolObject<dyn crate::MTL4CommandQueue>>, Retained<NSError>>;
     fn new_mtl4_command_buffer(&self) -> Option<Retained<ProtocolObject<dyn crate::MTL4CommandBuffer>>>;
-    fn new_argument_table_with_descriptor(&self, descriptor: &MTL4ArgumentTableDescriptor) -> Result<Retained<ProtocolObject<dyn MTL4ArgumentTable>>, Retained<NSError>>;
-    fn new_texture_view_pool_with_descriptor(&self, descriptor: &MTLResourceViewPoolDescriptor) -> Result<Retained<ProtocolObject<dyn MTLTextureViewPool>>, Retained<NSError>>;
-    fn new_compiler_with_descriptor(&self, descriptor: &MTL4CompilerDescriptor) -> Result<Retained<ProtocolObject<dyn crate::MTL4Compiler>>, Retained<NSError>>;
-    fn new_archive_with_url(&self, url: &NSURL) -> Result<Retained<ProtocolObject<dyn MTL4Archive>>, Retained<NSError>>;
-    fn new_pipeline_data_set_serializer_with_descriptor(&self, descriptor: &MTL4PipelineDataSetSerializerDescriptor) -> Retained<ProtocolObject<dyn MTL4PipelineDataSetSerializer>>;
-    fn new_buffer_with_length_options_placement_sparse_page_size(&self, length: usize, options: MTLResourceOptions, placement_sparse_page_size: MTLSparsePageSize) -> Option<Retained<ProtocolObject<dyn MTLBuffer>>>;
-    fn new_counter_heap_with_descriptor(&self, descriptor: &MTL4CounterHeapDescriptor) -> Result<Retained<ProtocolObject<dyn MTL4CounterHeap>>, Retained<NSError>>;
-    fn size_of_counter_heap_entry(&self, counter_heap_type: MTL4CounterHeapType) -> usize;
+    fn new_argument_table_with_descriptor(
+        &self,
+        descriptor: &MTL4ArgumentTableDescriptor,
+    ) -> Result<Retained<ProtocolObject<dyn MTL4ArgumentTable>>, Retained<NSError>>;
+    fn new_texture_view_pool_with_descriptor(
+        &self,
+        descriptor: &MTLResourceViewPoolDescriptor,
+    ) -> Result<Retained<ProtocolObject<dyn MTLTextureViewPool>>, Retained<NSError>>;
+    fn new_compiler_with_descriptor(
+        &self,
+        descriptor: &MTL4CompilerDescriptor,
+    ) -> Result<Retained<ProtocolObject<dyn crate::MTL4Compiler>>, Retained<NSError>>;
+    fn new_archive_with_url(
+        &self,
+        url: &NSURL,
+    ) -> Result<Retained<ProtocolObject<dyn MTL4Archive>>, Retained<NSError>>;
+    fn new_pipeline_data_set_serializer_with_descriptor(
+        &self,
+        descriptor: &MTL4PipelineDataSetSerializerDescriptor,
+    ) -> Retained<ProtocolObject<dyn MTL4PipelineDataSetSerializer>>;
+    fn new_buffer_with_length_options_placement_sparse_page_size(
+        &self,
+        length: usize,
+        options: MTLResourceOptions,
+        placement_sparse_page_size: MTLSparsePageSize,
+    ) -> Option<Retained<ProtocolObject<dyn MTLBuffer>>>;
+    fn new_counter_heap_with_descriptor(
+        &self,
+        descriptor: &MTL4CounterHeapDescriptor,
+    ) -> Result<Retained<ProtocolObject<dyn MTL4CounterHeap>>, Retained<NSError>>;
+    fn size_of_counter_heap_entry(
+        &self,
+        counter_heap_type: MTL4CounterHeapType,
+    ) -> usize;
     fn query_timestamp_frequency(&self) -> u64;
-    fn function_handle_with_binary_function(&self, function: &ProtocolObject<dyn MTL4BinaryFunction>) -> Option<Retained<ProtocolObject<dyn MTLFunctionHandle>>>;
-    fn default_sample_positions(&self, sample_count: usize) -> Box<[MTLSamplePosition]>;
-    fn get_default_sample_positions(&self, positions: &mut [MTLSamplePosition]);
-    fn new_io_file_handle_with_url(&self, path: &Path) -> Result<Retained<ProtocolObject<dyn MTLIOFileHandle>>, Retained<NSError>>;
-    fn new_io_file_handle_with_url_compression_method(&self, path: &Path, compression_method: MTLIOCompressionMethod) -> Result<Retained<ProtocolObject<dyn MTLIOFileHandle>>, Retained<NSError>>;
-    fn new_render_pipeline_state_with_descriptor_options(&self, descriptor: &MTLRenderPipelineDescriptor, options: MTLPipelineOption) -> Result<(Retained<ProtocolObject<dyn MTLRenderPipelineState>>, Option<Retained<MTLRenderPipelineReflection>>), Retained<NSError>>;
-    fn new_compute_pipeline_state_with_function_options(&self, function: &ProtocolObject<dyn MTLFunction>, options: MTLPipelineOption) -> Result<(Retained<ProtocolObject<dyn MTLComputePipelineState>>, Option<Retained<MTLComputePipelineReflection>>), Retained<NSError>>;
-    fn new_render_pipeline_state_with_tile_descriptor(&self, descriptor: &MTLTileRenderPipelineDescriptor, options: MTLPipelineOption) -> Result<(Retained<ProtocolObject<dyn MTLRenderPipelineState>>, Option<Retained<MTLRenderPipelineReflection>>), Retained<NSError>>;
+    fn function_handle_with_binary_function(
+        &self,
+        function: &ProtocolObject<dyn MTL4BinaryFunction>,
+    ) -> Option<Retained<ProtocolObject<dyn MTLFunctionHandle>>>;
+    fn default_sample_positions(
+        &self,
+        sample_count: usize,
+    ) -> Box<[MTLSamplePosition]>;
+    fn get_default_sample_positions(
+        &self,
+        positions: &mut [MTLSamplePosition],
+    );
+    fn new_io_file_handle_with_url(
+        &self,
+        path: &Path,
+    ) -> Result<Retained<ProtocolObject<dyn MTLIOFileHandle>>, Retained<NSError>>;
+    fn new_io_file_handle_with_url_compression_method(
+        &self,
+        path: &Path,
+        compression_method: MTLIOCompressionMethod,
+    ) -> Result<Retained<ProtocolObject<dyn MTLIOFileHandle>>, Retained<NSError>>;
+    fn new_render_pipeline_state_with_descriptor_options(
+        &self,
+        descriptor: &MTLRenderPipelineDescriptor,
+        options: MTLPipelineOption,
+    ) -> Result<
+        (Retained<ProtocolObject<dyn MTLRenderPipelineState>>, Option<Retained<MTLRenderPipelineReflection>>),
+        Retained<NSError>,
+    >;
+    fn new_compute_pipeline_state_with_function_options(
+        &self,
+        function: &ProtocolObject<dyn MTLFunction>,
+        options: MTLPipelineOption,
+    ) -> Result<
+        (Retained<ProtocolObject<dyn MTLComputePipelineState>>, Option<Retained<MTLComputePipelineReflection>>),
+        Retained<NSError>,
+    >;
+    fn new_render_pipeline_state_with_tile_descriptor(
+        &self,
+        descriptor: &MTLTileRenderPipelineDescriptor,
+        options: MTLPipelineOption,
+    ) -> Result<
+        (Retained<ProtocolObject<dyn MTLRenderPipelineState>>, Option<Retained<MTLRenderPipelineReflection>>),
+        Retained<NSError>,
+    >;
+    fn new_library_with_source_completion_handler(
+        &self,
+        source: &str,
+        options: Option<&MTLCompileOptions>,
+        completion_handler: NewLibraryCompletionHandler,
+    );
+    fn new_library_with_stitched_descriptor_completion_handler(
+        &self,
+        descriptor: &MTLStitchedLibraryDescriptor,
+        completion_handler: NewLibraryCompletionHandler,
+    );
+    fn new_compute_pipeline_state_with_function_completion_handler(
+        &self,
+        function: &ProtocolObject<dyn MTLFunction>,
+        completion_handler: NewComputePipelineStateCompletionHandler,
+    );
+    fn new_compute_pipeline_state_with_function_options_completion_handler(
+        &self,
+        function: &ProtocolObject<dyn MTLFunction>,
+        options: MTLPipelineOption,
+        completion_handler: NewComputePipelineStateWithReflectionCompletionHandler,
+    );
+    fn new_compute_pipeline_state_with_descriptor_options_completion_handler(
+        &self,
+        descriptor: &MTLComputePipelineDescriptor,
+        options: MTLPipelineOption,
+        completion_handler: NewComputePipelineStateWithReflectionCompletionHandler,
+    );
 }
 
 impl MTLDeviceExt for ProtocolObject<dyn MTLDevice> {
@@ -705,7 +896,10 @@ impl MTLDeviceExt for ProtocolObject<dyn MTLDevice> {
         unsafe { msg_send![self, newFence] }
     }
 
-    fn supports_feature_set(&self, feature_set: MTLFeatureSet) -> bool {
+    fn supports_feature_set(
+        &self,
+        feature_set: MTLFeatureSet,
+    ) -> bool {
         unsafe { msg_send![self, supportsFeatureSet: feature_set] }
     }
 
@@ -880,7 +1074,10 @@ impl MTLDeviceExt for ProtocolObject<dyn MTLDevice> {
         unsafe { msg_send![self, newCounterHeapWithDescriptor: descriptor, error: _] }
     }
 
-    fn size_of_counter_heap_entry(&self, counter_heap_type: MTL4CounterHeapType) -> usize {
+    fn size_of_counter_heap_entry(
+        &self,
+        counter_heap_type: MTL4CounterHeapType,
+    ) -> usize {
         unsafe { msg_send![self, sizeOfCounterHeapEntry: counter_heap_type] }
     }
 
@@ -899,8 +1096,14 @@ impl MTLDeviceExt for ProtocolObject<dyn MTLDevice> {
         &self,
         sample_count: usize,
     ) -> Box<[MTLSamplePosition]> {
-        let mut positions: Box<[MTLSamplePosition]> =
-            vec![MTLSamplePosition { x: 0.0, y: 0.0 }; sample_count].into_boxed_slice();
+        let mut positions: Box<[MTLSamplePosition]> = vec![
+            MTLSamplePosition {
+                x: 0.0,
+                y: 0.0
+            };
+            sample_count
+        ]
+        .into_boxed_slice();
         unsafe {
             let _: () = msg_send![
                 self,
@@ -1042,6 +1245,83 @@ impl MTLDeviceExt for ProtocolObject<dyn MTLDevice> {
                 Ok((pso, reflection_obj))
             },
             None => Err(unsafe { Retained::retain(error).unwrap() }),
+        }
+    }
+
+    fn new_library_with_source_completion_handler(
+        &self,
+        source: &str,
+        options: Option<&MTLCompileOptions>,
+        completion_handler: NewLibraryCompletionHandler,
+    ) {
+        let source = NSString::from_str(source);
+        unsafe {
+            let _: () = msg_send![
+                self,
+                newLibraryWithSource: &*source,
+                options: options,
+                completionHandler: &*completion_handler
+            ];
+        }
+    }
+
+    fn new_library_with_stitched_descriptor_completion_handler(
+        &self,
+        descriptor: &MTLStitchedLibraryDescriptor,
+        completion_handler: NewLibraryCompletionHandler,
+    ) {
+        unsafe {
+            let _: () = msg_send![
+                self,
+                newLibraryWithStitchedDescriptor: descriptor,
+                completionHandler: &*completion_handler
+            ];
+        }
+    }
+
+    fn new_compute_pipeline_state_with_function_completion_handler(
+        &self,
+        function: &ProtocolObject<dyn MTLFunction>,
+        completion_handler: NewComputePipelineStateCompletionHandler,
+    ) {
+        unsafe {
+            let _: () = msg_send![
+                self,
+                newComputePipelineStateWithFunction: function,
+                completionHandler: &*completion_handler
+            ];
+        }
+    }
+
+    fn new_compute_pipeline_state_with_function_options_completion_handler(
+        &self,
+        function: &ProtocolObject<dyn MTLFunction>,
+        options: MTLPipelineOption,
+        completion_handler: NewComputePipelineStateWithReflectionCompletionHandler,
+    ) {
+        unsafe {
+            let _: () = msg_send![
+                self,
+                newComputePipelineStateWithFunction: function,
+                options: options,
+                completionHandler: &*completion_handler
+            ];
+        }
+    }
+
+    fn new_compute_pipeline_state_with_descriptor_options_completion_handler(
+        &self,
+        descriptor: &MTLComputePipelineDescriptor,
+        options: MTLPipelineOption,
+        completion_handler: NewComputePipelineStateWithReflectionCompletionHandler,
+    ) {
+        unsafe {
+            let _: () = msg_send![
+                self,
+                newComputePipelineStateWithDescriptor: descriptor,
+                options: options,
+                completionHandler: &*completion_handler
+            ];
         }
     }
 }

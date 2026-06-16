@@ -10,6 +10,7 @@ mod library_error;
 mod library_type;
 mod math_floating_point_functions;
 mod math_mode;
+mod new_library_completion_handler;
 mod optimization_level;
 
 pub use compile_options::{MTLCompileOptions, MTLPreprocessorMacroValue};
@@ -24,4 +25,5 @@ pub use library_error::MTLLibraryError;
 pub use library_type::MTLLibraryType;
 pub use math_floating_point_functions::MTLMathFloatingPointFunctions;
 pub use math_mode::MTLMathMode;
+pub use new_library_completion_handler::NewLibraryCompletionHandler;
 pub use optimization_level::MTLLibraryOptimizationLevel;
