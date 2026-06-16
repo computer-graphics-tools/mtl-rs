@@ -2,8 +2,9 @@ use objc2::{Message, extern_protocol, msg_send, rc::Retained, runtime::ProtocolO
 use objc2_foundation::{NSError, NSObjectProtocol, NSString};
 
 use crate::{
-    MTLCommandBufferHandler, MTLCommandBufferStatus, MTLCommandQueue, MTLDevice, MTLDrawable, MTLEvent,
-    MTLLogContainer, MTLRenderCommandEncoder, MTLRenderPassDescriptor,
+    MTLBlitCommandEncoder, MTLCommandBufferHandler, MTLCommandBufferStatus, MTLCommandQueue, MTLComputeCommandEncoder,
+    MTLDevice, MTLDispatchType, MTLDrawable, MTLEvent, MTLLogContainer, MTLRenderCommandEncoder,
+    MTLRenderPassDescriptor,
 };
 
 extern_protocol!(
@@ -112,12 +113,19 @@ extern_protocol!(
         /// Returns a compute command encoder to encode into this command buffer.
         #[unsafe(method(computeCommandEncoder))]
         #[unsafe(method_family = none)]
-        fn compute_command_encoder(&self) -> Option<Retained<ProtocolObject<dyn crate::MTLComputeCommandEncoder>>>;
+        fn compute_command_encoder(&self) -> Option<Retained<ProtocolObject<dyn MTLComputeCommandEncoder>>>;
+
+        #[unsafe(method(computeCommandEncoderWithDispatchType:))]
+        #[unsafe(method_family = none)]
+        fn compute_command_encoder_with_dispatch_type(
+            &self,
+            dispatch_type: MTLDispatchType,
+        ) -> Option<Retained<ProtocolObject<dyn MTLComputeCommandEncoder>>>;
 
         /// Returns a blit command encoder to encode into this command buffer.
         #[unsafe(method(blitCommandEncoder))]
         #[unsafe(method_family = none)]
-        fn blit_command_encoder(&self) -> Option<Retained<ProtocolObject<dyn crate::MTLBlitCommandEncoder>>>;
+        fn blit_command_encoder(&self) -> Option<Retained<ProtocolObject<dyn MTLBlitCommandEncoder>>>;
     }
 );
 
