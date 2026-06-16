@@ -2,8 +2,10 @@ use objc2::{Message, extern_protocol, msg_send, rc::Retained, runtime::ProtocolO
 use objc2_foundation::{NSError, NSObjectProtocol, NSString};
 
 use crate::{
-    MTLCommandBufferHandler, MTLCommandBufferStatus, MTLCommandQueue, MTLDevice, MTLDrawable, MTLEvent,
-    MTLLogContainer, MTLRenderCommandEncoder, MTLRenderPassDescriptor,
+    MTLAccelerationStructureCommandEncoder, MTLAccelerationStructurePassDescriptor, MTLBlitCommandEncoder,
+    MTLBlitPassDescriptor, MTLCommandBufferHandler, MTLCommandBufferStatus, MTLCommandQueue, MTLComputeCommandEncoder,
+    MTLComputePassDescriptor, MTLDevice, MTLDispatchType, MTLDrawable, MTLEvent, MTLLogContainer,
+    MTLRenderCommandEncoder, MTLRenderPassDescriptor, MTLResourceStateCommandEncoder, MTLResourceStatePassDescriptor,
 };
 
 extern_protocol!(
@@ -112,12 +114,65 @@ extern_protocol!(
         /// Returns a compute command encoder to encode into this command buffer.
         #[unsafe(method(computeCommandEncoder))]
         #[unsafe(method_family = none)]
-        fn compute_command_encoder(&self) -> Option<Retained<ProtocolObject<dyn crate::MTLComputeCommandEncoder>>>;
+        fn compute_command_encoder(&self) -> Option<Retained<ProtocolObject<dyn MTLComputeCommandEncoder>>>;
+
+        #[unsafe(method(computeCommandEncoderWithDispatchType:))]
+        #[unsafe(method_family = none)]
+        fn compute_command_encoder_with_dispatch_type(
+            &self,
+            dispatch_type: MTLDispatchType,
+        ) -> Option<Retained<ProtocolObject<dyn MTLComputeCommandEncoder>>>;
 
         /// Returns a blit command encoder to encode into this command buffer.
         #[unsafe(method(blitCommandEncoder))]
         #[unsafe(method_family = none)]
-        fn blit_command_encoder(&self) -> Option<Retained<ProtocolObject<dyn crate::MTLBlitCommandEncoder>>>;
+        fn blit_command_encoder(&self) -> Option<Retained<ProtocolObject<dyn MTLBlitCommandEncoder>>>;
+
+        /// Returns a compute command encoder configured by the given descriptor.
+        #[unsafe(method(computeCommandEncoderWithDescriptor:))]
+        #[unsafe(method_family = none)]
+        fn compute_command_encoder_with_descriptor(
+            &self,
+            compute_pass_descriptor: &MTLComputePassDescriptor,
+        ) -> Option<Retained<ProtocolObject<dyn MTLComputeCommandEncoder>>>;
+
+        /// Returns a blit command encoder configured by the given descriptor.
+        #[unsafe(method(blitCommandEncoderWithDescriptor:))]
+        #[unsafe(method_family = none)]
+        fn blit_command_encoder_with_descriptor(
+            &self,
+            blit_pass_descriptor: &MTLBlitPassDescriptor,
+        ) -> Option<Retained<ProtocolObject<dyn MTLBlitCommandEncoder>>>;
+
+        /// Returns a resource state command encoder to encode into this command buffer.
+        #[unsafe(method(resourceStateCommandEncoder))]
+        #[unsafe(method_family = none)]
+        fn resource_state_command_encoder(
+            &self
+        ) -> Option<Retained<ProtocolObject<dyn MTLResourceStateCommandEncoder>>>;
+
+        /// Returns a resource state command encoder configured by the given descriptor.
+        #[unsafe(method(resourceStateCommandEncoderWithDescriptor:))]
+        #[unsafe(method_family = none)]
+        fn resource_state_command_encoder_with_descriptor(
+            &self,
+            resource_state_pass_descriptor: &MTLResourceStatePassDescriptor,
+        ) -> Option<Retained<ProtocolObject<dyn MTLResourceStateCommandEncoder>>>;
+
+        /// Returns an acceleration structure command encoder to encode into this command buffer.
+        #[unsafe(method(accelerationStructureCommandEncoder))]
+        #[unsafe(method_family = none)]
+        fn acceleration_structure_command_encoder(
+            &self
+        ) -> Option<Retained<ProtocolObject<dyn MTLAccelerationStructureCommandEncoder>>>;
+
+        /// Returns an acceleration structure command encoder configured by the given descriptor.
+        #[unsafe(method(accelerationStructureCommandEncoderWithDescriptor:))]
+        #[unsafe(method_family = none)]
+        fn acceleration_structure_command_encoder_with_descriptor(
+            &self,
+            descriptor: &MTLAccelerationStructurePassDescriptor,
+        ) -> Option<Retained<ProtocolObject<dyn MTLAccelerationStructureCommandEncoder>>>;
     }
 );
 

@@ -2,8 +2,8 @@ use objc2::{Message, extern_protocol, msg_send, rc::Retained, runtime::ProtocolO
 use objc2_foundation::{NSObjectProtocol, NSString};
 
 use crate::{
-    MTLDevice, MTLIntersectionFunctionTableDescriptor, MTLResourceID, MTLVisibleFunctionTable,
-    MTLVisibleFunctionTableDescriptor,
+    MTLDevice, MTLFunctionHandle, MTLIntersectionFunctionTableDescriptor, MTLResourceID, MTLSize,
+    MTLVisibleFunctionTable, MTLVisibleFunctionTableDescriptor,
 };
 
 extern_protocol!(
@@ -55,6 +55,22 @@ extern_protocol!(
             &self,
             descriptor: &MTLIntersectionFunctionTableDescriptor,
         ) -> Option<Retained<ProtocolObject<dyn crate::MTLIntersectionFunctionTable>>>;
+
+        /// Returns a handle to the named function in this pipeline, for use with function tables.
+        #[unsafe(method(functionHandleWithName:))]
+        #[unsafe(method_family = none)]
+        fn function_handle_with_name(
+            &self,
+            name: &NSString,
+        ) -> Option<Retained<ProtocolObject<dyn MTLFunctionHandle>>>;
+
+        /// Returns the length, in bytes, of imageblock memory for the given dimensions.
+        #[unsafe(method(imageblockMemoryLengthForDimensions:))]
+        #[unsafe(method_family = none)]
+        fn imageblock_memory_length_for_dimensions(
+            &self,
+            imageblock_dimensions: MTLSize,
+        ) -> usize;
     }
 );
 

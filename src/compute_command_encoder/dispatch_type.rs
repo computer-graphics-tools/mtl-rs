@@ -7,6 +7,11 @@ use objc2::{Encode, Encoding, RefEncode};
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord)]
 pub struct MTLDispatchType(pub u64);
 
+impl MTLDispatchType {
+    pub const SERIAL: Self = Self(0);
+    pub const CONCURRENT: Self = Self(1);
+}
+
 unsafe impl Encode for MTLDispatchType {
     const ENCODING: Encoding = u64::ENCODING;
 }
