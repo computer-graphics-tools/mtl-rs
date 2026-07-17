@@ -12,7 +12,11 @@ extern_protocol!(
     /// A serial list of commands for the device to execute.
     ///
     /// Availability: macOS 10.11+, iOS 8.0+
-    pub unsafe trait MTLCommandBuffer: NSObjectProtocol {
+    ///
+    /// Thread safety: command buffers are thread-safe — `commit`, `waitUntilCompleted`,
+    /// status queries, and completion handlers may be called from any thread
+    /// (unlike command *encoders*, which are confined to a single thread).
+    pub unsafe trait MTLCommandBuffer: NSObjectProtocol + Send + Sync {
         /// The device this resource was created against.
         #[unsafe(method(device))]
         #[unsafe(method_family = none)]
