@@ -1,6 +1,6 @@
 [package]
 name = "mtl-rs"
-version = "0.2.2"
+version = "0.3.0"
 edition = "2024"
 license = "MIT"
 authors = ["Eugene Bokhan <eugenebokhan@icloud.com>"]
@@ -45,3 +45,11 @@ raw-window-handle = "0.6"
 [lib]
 name = "metal"
 path = "src/lib.rs"
+
+[lints.clippy]
+# Objective-C bindings by design: protocol modules named after their type, selectors with many
+# arguments, deeply generic Retained/ProtocolObject types, and unsafe protocol traits.
+module_inception = "allow"
+missing_safety_doc = "allow"
+too_many_arguments = "allow"
+type_complexity = "allow"

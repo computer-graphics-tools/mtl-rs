@@ -1,5 +1,5 @@
 use objc2::{
-    extern_class, extern_conformance, extern_methods,
+    extern_class, extern_conformance, extern_methods, msg_send,
     rc::{Allocated, Retained},
     runtime::NSObject,
 };
@@ -19,22 +19,23 @@ extern_conformance!(
 );
 
 impl MTLBufferLayoutDescriptorArray {
-    extern_methods!(
-        #[unsafe(method(objectAtIndexedSubscript:))]
-        #[unsafe(method_family = none)]
-        pub fn object_at_indexed_subscript(
-            &self,
-            index: usize,
-        ) -> Retained<MTLBufferLayoutDescriptor>;
-
-        #[unsafe(method(setObject:atIndexedSubscript:))]
-        #[unsafe(method_family = none)]
-        pub fn set_object_at_indexed_subscript(
-            &self,
-            buffer_desc: Option<&MTLBufferLayoutDescriptor>,
-            index: usize,
-        );
-    );
+    /// Returns the buffer layout descriptor at `index`.
+    pub fn get(
+        &self,
+        index: usize,
+    ) -> Retained<MTLBufferLayoutDescriptor> {
+        unsafe { msg_send![self, objectAtIndexedSubscript: index] }
+    }
+    /// Sets the buffer layout descriptor at `index`; `None` resets it to default values.
+    pub fn set(
+        &self,
+        index: usize,
+        layout: Option<&MTLBufferLayoutDescriptor>,
+    ) {
+        unsafe {
+            let _: () = msg_send![self, setObject: layout, atIndexedSubscript: index];
+        }
+    }
 }
 
 /// Methods declared on superclass `NSObject`.

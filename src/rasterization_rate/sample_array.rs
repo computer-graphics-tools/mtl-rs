@@ -17,10 +17,8 @@ extern_conformance!(
 );
 
 impl MTLRasterizationRateSampleArray {
-    /// Retrieves the single-precision sample value at `index`.
-    ///
-    /// Metal returns `0.0` when `index` is out of range.
-    pub fn object_at_indexed_subscript(
+    /// Retrieves the sample value at `index`, or `0.0` if the index is out of range.
+    pub fn get(
         &self,
         index: usize,
     ) -> f32 {
@@ -28,11 +26,13 @@ impl MTLRasterizationRateSampleArray {
         value.as_f32()
     }
 
-    /// Stores a sample value at `index`.
-    pub fn set_object_at_indexed_subscript(
+    /// Stores `value` as the sample at `index`.
+    ///
+    /// Metal keeps the sample as a single-precision floating point value.
+    pub fn set(
         &self,
-        value: f32,
         index: usize,
+        value: f32,
     ) {
         let value = NSNumber::new_f32(value);
         unsafe {

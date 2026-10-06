@@ -1,4 +1,4 @@
-use objc2::{extern_class, extern_conformance, extern_methods, rc::Retained, runtime::NSObject};
+use objc2::{extern_class, extern_conformance, msg_send, rc::Retained, runtime::NSObject};
 use objc2_foundation::NSObjectProtocol;
 
 use super::MTLRenderPipelineColorAttachmentDescriptor;
@@ -15,20 +15,24 @@ extern_conformance!(
 );
 
 impl MTLRenderPipelineColorAttachmentDescriptorArray {
-    extern_methods!(
-        #[unsafe(method(objectAtIndexedSubscript:))]
-        #[unsafe(method_family = none)]
-        pub fn object_at_indexed_subscript(
-            &self,
-            attachment_index: usize,
-        ) -> Retained<MTLRenderPipelineColorAttachmentDescriptor>;
-
-        #[unsafe(method(setObject:atIndexedSubscript:))]
-        #[unsafe(method_family = none)]
-        pub fn set_object_at_indexed_subscript(
-            &self,
-            attachment: Option<&MTLRenderPipelineColorAttachmentDescriptor>,
-            attachment_index: usize,
-        );
-    );
+    /// Returns the attachment descriptor at `attachment_index` for individual attachment state access.
+    pub fn get(
+        &self,
+        attachment_index: usize,
+    ) -> Retained<MTLRenderPipelineColorAttachmentDescriptor> {
+        unsafe { msg_send![self, objectAtIndexedSubscript: attachment_index] }
+    }
+    /// Sets the attachment descriptor at `attachment_index`.
+    ///
+    /// This always uses copy semantics. It is safe to pass `None` at any legal index, which resets that
+    /// attachment descriptor's state to default values.
+    pub fn set(
+        &self,
+        attachment_index: usize,
+        attachment: Option<&MTLRenderPipelineColorAttachmentDescriptor>,
+    ) {
+        unsafe {
+            let _: () = msg_send![self, setObject: attachment, atIndexedSubscript: attachment_index];
+        }
+    }
 }

@@ -1,5 +1,5 @@
 use objc2::{
-    extern_class, extern_conformance, extern_methods,
+    extern_class, extern_conformance, extern_methods, msg_send,
     rc::{Allocated, Retained},
     runtime::NSObject,
 };
@@ -126,22 +126,23 @@ extern_conformance!(
 );
 
 impl MTLVertexAttributeDescriptorArray {
-    extern_methods!(
-        #[unsafe(method(objectAtIndexedSubscript:))]
-        #[unsafe(method_family = none)]
-        pub fn object_at_indexed_subscript(
-            &self,
-            index: usize,
-        ) -> Retained<MTLVertexAttributeDescriptor>;
-
-        #[unsafe(method(setObject:atIndexedSubscript:))]
-        #[unsafe(method_family = none)]
-        pub fn set_object_at_indexed_subscript(
-            &self,
-            attribute_desc: Option<&MTLVertexAttributeDescriptor>,
-            index: usize,
-        );
-    );
+    /// Returns the vertex attribute descriptor at `index`.
+    pub fn get(
+        &self,
+        index: usize,
+    ) -> Retained<MTLVertexAttributeDescriptor> {
+        unsafe { msg_send![self, objectAtIndexedSubscript: index] }
+    }
+    /// Sets the vertex attribute descriptor at `index`; `None` resets it to default values.
+    pub fn set(
+        &self,
+        index: usize,
+        attribute: Option<&MTLVertexAttributeDescriptor>,
+    ) {
+        unsafe {
+            let _: () = msg_send![self, setObject: attribute, atIndexedSubscript: index];
+        }
+    }
 }
 
 /// Methods declared on superclass `NSObject`.

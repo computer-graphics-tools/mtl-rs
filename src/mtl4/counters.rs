@@ -154,7 +154,7 @@ extern_protocol!(
     /// The data instances that this type stores correspond to the ``MTL4CounterHeapType`` heap type that you assign at creation time.
     ///
     /// See also [Apple's documentation](https://developer.apple.com/documentation/metal/mtl4counterheap?language=objc)
-    pub unsafe trait MTL4CounterHeap: NSObjectProtocol {
+    pub unsafe trait MTL4CounterHeap: NSObjectProtocol + Send + Sync {
         /// Queries the number of entries in the heap.
         #[unsafe(method(count))]
         #[unsafe(method_family = none)]

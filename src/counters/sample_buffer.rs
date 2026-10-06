@@ -8,7 +8,7 @@ use crate::MTLDevice;
 extern_protocol!(
     /// The Counter Sample Buffer contains opaque counter samples as well
     /// as state needed to request a sample from the API.
-    pub unsafe trait MTLCounterSampleBuffer: NSObjectProtocol {
+    pub unsafe trait MTLCounterSampleBuffer: NSObjectProtocol + Send + Sync {
         /// The device this sample buffer was created against.
         #[unsafe(method(device))]
         #[unsafe(method_family = none)]

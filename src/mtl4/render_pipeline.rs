@@ -200,6 +200,29 @@ impl MTL4RenderPipelineColorAttachmentDescriptor {
     );
 }
 
+impl MTL4RenderPipelineColorAttachmentDescriptorArray {
+    /// Accesses the color attachment at `attachment_index`.
+    pub fn get(
+        &self,
+        attachment_index: usize,
+    ) -> Retained<MTL4RenderPipelineColorAttachmentDescriptor> {
+        unsafe { msg_send![self, objectAtIndexedSubscript: attachment_index] }
+    }
+    /// Sets `attachment` as the descriptor of the attachment at `attachment_index` within the array.
+    ///
+    /// This method offers copy semantics. You can safely pass `None` at any legal index, which resets that
+    /// attachment descriptor's state to its default values.
+    pub fn set(
+        &self,
+        attachment_index: usize,
+        attachment: Option<&MTL4RenderPipelineColorAttachmentDescriptor>,
+    ) {
+        unsafe {
+            let _: () = msg_send![self, setObject: attachment, atIndexedSubscript: attachment_index];
+        }
+    }
+}
+
 /// Methods declared on superclass `NSObject`.
 impl MTL4RenderPipelineColorAttachmentDescriptor {
     extern_methods!(
@@ -236,34 +259,6 @@ extern_conformance!(
 
 impl MTL4RenderPipelineColorAttachmentDescriptorArray {
     extern_methods!(
-        /// Accesses a color attachment at a specific index.
-        ///
-        /// - Parameter attachmentIndex: Index of the attachment to access.
-        #[unsafe(method(objectAtIndexedSubscript:))]
-        #[unsafe(method_family = none)]
-        pub fn object_at_indexed_subscript(
-            &self,
-            attachment_index: usize,
-        ) -> Retained<MTL4RenderPipelineColorAttachmentDescriptor>;
-
-        /// Sets an attachment at an index.
-        ///
-        /// This function offers 'copy' semantics.
-        ///
-        /// You can safely set the color attachment at any legal index to nil. This has the effect of resetting that attachment
-        /// descriptor's state to its default values.
-        ///
-        /// - Parameters:
-        /// - attachment: the descriptor of the attachment to set.
-        /// - attachmentIndex: the index of the attachment within the array.
-        #[unsafe(method(setObject:atIndexedSubscript:))]
-        #[unsafe(method_family = none)]
-        pub fn set_object_at_indexed_subscript(
-            &self,
-            attachment: Option<&MTL4RenderPipelineColorAttachmentDescriptor>,
-            attachment_index: usize,
-        );
-
         /// Resets the elements of the descriptor array
         #[unsafe(method(reset))]
         #[unsafe(method_family = none)]

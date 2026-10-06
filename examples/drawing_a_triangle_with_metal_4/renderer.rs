@@ -73,10 +73,7 @@ impl TriangleRenderer {
         let pipeline_descriptor = MTLRenderPipelineDescriptor::new();
         pipeline_descriptor.set_vertex_function(Some(&vertex_function));
         pipeline_descriptor.set_fragment_function(Some(&fragment_function));
-        pipeline_descriptor
-            .color_attachments()
-            .object_at_indexed_subscript(0)
-            .set_pixel_format(MTLPixelFormat::BGRA8Unorm);
+        pipeline_descriptor.color_attachments().get(0).set_pixel_format(MTLPixelFormat::BGRA8Unorm);
         let render_pipeline_state = device
             .new_render_pipeline_state_with_descriptor(&pipeline_descriptor)
             .map_err(|error| error.to_string())?;
@@ -151,7 +148,7 @@ impl TriangleRenderer {
         let drawable_texture: Retained<ProtocolObject<dyn MTLTexture>> = unsafe { msg_send![&*drawable, texture] };
 
         let render_pass_descriptor = MTLRenderPassDescriptor::render_pass_descriptor();
-        let color_attachment = render_pass_descriptor.color_attachments().object_at_indexed_subscript(0);
+        let color_attachment = render_pass_descriptor.color_attachments().get(0);
 
         color_attachment.set_texture(Some(&drawable_texture));
         color_attachment.set_load_action(MTLLoadAction::Clear);

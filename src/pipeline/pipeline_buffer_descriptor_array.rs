@@ -1,4 +1,4 @@
-use objc2::{extern_class, extern_conformance, extern_methods, rc::Retained, runtime::NSObject};
+use objc2::{extern_class, extern_conformance, msg_send, rc::Retained, runtime::NSObject};
 use objc2_foundation::NSObjectProtocol;
 
 use super::MTLPipelineBufferDescriptor;
@@ -17,20 +17,24 @@ extern_conformance!(
 );
 
 impl MTLPipelineBufferDescriptorArray {
-    extern_methods!(
-        #[unsafe(method(objectAtIndexedSubscript:))]
-        #[unsafe(method_family = none)]
-        pub fn object_at_indexed_subscript(
-            &self,
-            buffer_index: usize,
-        ) -> Retained<MTLPipelineBufferDescriptor>;
-
-        #[unsafe(method(setObject:atIndexedSubscript:))]
-        #[unsafe(method_family = none)]
-        pub fn set_object_at_indexed_subscript(
-            &self,
-            buffer: Option<&MTLPipelineBufferDescriptor>,
-            buffer_index: usize,
-        );
-    );
+    /// Returns the buffer descriptor at `buffer_index` for individual buffer descriptor access.
+    pub fn get(
+        &self,
+        buffer_index: usize,
+    ) -> Retained<MTLPipelineBufferDescriptor> {
+        unsafe { msg_send![self, objectAtIndexedSubscript: buffer_index] }
+    }
+    /// Sets the buffer descriptor at `buffer_index`.
+    ///
+    /// This always uses copy semantics. It is safe to pass `None` at any legal index, which resets that buffer
+    /// descriptor to default values.
+    pub fn set(
+        &self,
+        buffer_index: usize,
+        buffer: Option<&MTLPipelineBufferDescriptor>,
+    ) {
+        unsafe {
+            let _: () = msg_send![self, setObject: buffer, atIndexedSubscript: buffer_index];
+        }
+    }
 }

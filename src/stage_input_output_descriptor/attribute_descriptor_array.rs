@@ -1,5 +1,5 @@
 use objc2::{
-    extern_class, extern_conformance, extern_methods,
+    extern_class, extern_conformance, extern_methods, msg_send,
     rc::{Allocated, Retained},
     runtime::NSObject,
 };
@@ -19,22 +19,23 @@ extern_conformance!(
 );
 
 impl MTLAttributeDescriptorArray {
-    extern_methods!(
-        #[unsafe(method(objectAtIndexedSubscript:))]
-        #[unsafe(method_family = none)]
-        pub fn object_at_indexed_subscript(
-            &self,
-            index: usize,
-        ) -> Retained<MTLAttributeDescriptor>;
-
-        #[unsafe(method(setObject:atIndexedSubscript:))]
-        #[unsafe(method_family = none)]
-        pub fn set_object_at_indexed_subscript(
-            &self,
-            attribute_desc: Option<&MTLAttributeDescriptor>,
-            index: usize,
-        );
-    );
+    /// Returns the attribute descriptor at `index`.
+    pub fn get(
+        &self,
+        index: usize,
+    ) -> Retained<MTLAttributeDescriptor> {
+        unsafe { msg_send![self, objectAtIndexedSubscript: index] }
+    }
+    /// Sets the attribute descriptor at `index`; `None` resets it to default values.
+    pub fn set(
+        &self,
+        index: usize,
+        attribute: Option<&MTLAttributeDescriptor>,
+    ) {
+        unsafe {
+            let _: () = msg_send![self, setObject: attribute, atIndexedSubscript: index];
+        }
+    }
 }
 
 /// Methods declared on superclass `NSObject`.

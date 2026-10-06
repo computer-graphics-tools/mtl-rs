@@ -1,5 +1,5 @@
 use objc2::{
-    extern_class, extern_conformance, extern_methods,
+    extern_class, extern_conformance, extern_methods, msg_send,
     rc::{Allocated, Retained},
     runtime::NSObject,
 };
@@ -19,24 +19,28 @@ extern_conformance!(
 );
 
 impl MTLRasterizationRateLayerArray {
-    extern_methods!(
-        /// Returns the layer descriptor for the given index, if any.
-        #[unsafe(method(objectAtIndexedSubscript:))]
-        #[unsafe(method_family = none)]
-        pub fn object_at_indexed_subscript(
-            &self,
-            layer_index: usize,
-        ) -> Option<Retained<MTLRasterizationRateLayerDescriptor>>;
+    /// Returns the layer descriptor for `layer_index`, or `None` if no layer has been set for this index.
+    ///
+    /// Use [`set`](Self::set) to set the layer.
+    pub fn get(
+        &self,
+        layer_index: usize,
+    ) -> Option<Retained<MTLRasterizationRateLayerDescriptor>> {
+        unsafe { msg_send![self, objectAtIndexedSubscript: layer_index] }
+    }
 
-        /// Sets the layer descriptor at the given index.
-        #[unsafe(method(setObject:atIndexedSubscript:))]
-        #[unsafe(method_family = none)]
-        pub fn set_object_at_indexed_subscript(
-            &self,
-            layer: Option<&MTLRasterizationRateLayerDescriptor>,
-            layer_index: usize,
-        );
-    );
+    /// Sets `layer` as the layer descriptor for `layer_index`.
+    ///
+    /// The previous layer at this index is overwritten; `None` removes it.
+    pub fn set(
+        &self,
+        layer_index: usize,
+        layer: Option<&MTLRasterizationRateLayerDescriptor>,
+    ) {
+        unsafe {
+            let _: () = msg_send![self, setObject: layer, atIndexedSubscript: layer_index];
+        }
+    }
 }
 
 /// Methods declared on superclass `NSObject`.
