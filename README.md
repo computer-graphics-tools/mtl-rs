@@ -40,6 +40,10 @@ Run with `cargo run --example <name>`:
 - `drawing_a_triangle_with_metal_4` — Render a rotating triangle using Metal
 - `compute_matmul` — Animate matrix multiplication on the GPU and verify every result against a CPU reference
 
+![GPU compute demo](assets/compute-matmul.gif)
+
+![Metal rendering example](assets/triangle.png)
+
 ### Platform requirements
 
 - macOS with a Metal-capable GPU
