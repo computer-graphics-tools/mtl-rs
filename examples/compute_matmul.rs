@@ -100,7 +100,7 @@ fn draw_matrices(
     println!("\x1b[2m╰{border}╯     ╰{border}╯     ╰{border}╯\x1b[0m");
     println!("\x1b[2m4×4 previews  ·  amber cells changed since the last dispatch\x1b[0m\n");
     println!("\x1b[1;38;2;134;239;172m✓ All {COUNT} GPU values match the CPU reference\x1b[0m");
-    println!("{runs} dispatches  ·  {} exact output checks", runs * COUNT);
+    println!("GPU dispatch {runs}  ·  {} exact output checks", runs * COUNT);
 }
 
 fn main() -> Result<(), DemoError> {
