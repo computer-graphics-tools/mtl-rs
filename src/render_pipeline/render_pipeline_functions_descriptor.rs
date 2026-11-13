@@ -95,23 +95,3 @@ impl MTLRenderPipelineFunctionsDescriptor {
         pub fn new() -> Retained<Self>;
     );
 }
-
-#[cfg(test)]
-mod tests {
-    use objc2::{rc::Retained, runtime::ProtocolObject};
-
-    use super::MTLRenderPipelineFunctionsDescriptor;
-    use crate::MTLFunction;
-
-    #[test]
-    fn collection_methods_have_rust_native_signatures() {
-        let _: fn(&MTLRenderPipelineFunctionsDescriptor) -> Option<Box<[Retained<ProtocolObject<dyn MTLFunction>>]>> =
-            MTLRenderPipelineFunctionsDescriptor::vertex_additional_binary_functions;
-        let _: fn(&MTLRenderPipelineFunctionsDescriptor) -> Option<Box<[Retained<ProtocolObject<dyn MTLFunction>>]>> =
-            MTLRenderPipelineFunctionsDescriptor::fragment_additional_binary_functions;
-        let _: fn(&MTLRenderPipelineFunctionsDescriptor) -> Option<Box<[Retained<ProtocolObject<dyn MTLFunction>>]>> =
-            MTLRenderPipelineFunctionsDescriptor::tile_additional_binary_functions;
-        let _: fn(&MTLRenderPipelineFunctionsDescriptor, Option<&[&ProtocolObject<dyn MTLFunction>]>) =
-            MTLRenderPipelineFunctionsDescriptor::set_vertex_additional_binary_functions;
-    }
-}

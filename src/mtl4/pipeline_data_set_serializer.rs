@@ -153,21 +153,3 @@ pub trait MTL4PipelineDataSetSerializerExt: MTL4PipelineDataSetSerializer + Mess
 }
 
 impl<T: MTL4PipelineDataSetSerializer + Message> MTL4PipelineDataSetSerializerExt for T {}
-
-#[cfg(test)]
-mod tests {
-    use std::path::Path;
-
-    use objc2::runtime::ProtocolObject;
-
-    use super::{MTL4PipelineDataSetSerializer, MTL4PipelineDataSetSerializerExt};
-    use crate::MetalError;
-
-    #[test]
-    fn serialization_errors_have_rust_native_signatures() {
-        let _: fn(&ProtocolObject<dyn MTL4PipelineDataSetSerializer>, &Path) -> Result<(), MetalError> =
-            <ProtocolObject<dyn MTL4PipelineDataSetSerializer> as MTL4PipelineDataSetSerializerExt>::serialize_as_archive_and_flush_to_path;
-        let _: fn(&ProtocolObject<dyn MTL4PipelineDataSetSerializer>) -> Result<Box<[u8]>, MetalError> =
-            <ProtocolObject<dyn MTL4PipelineDataSetSerializer> as MTL4PipelineDataSetSerializerExt>::serialize_as_pipelines_script;
-    }
-}

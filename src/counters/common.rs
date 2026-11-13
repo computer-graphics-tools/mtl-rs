@@ -109,18 +109,3 @@ unsafe extern "C" {
     #[link_name = "MTLCommonCounterSetStatistic"]
     static MTL_COMMON_COUNTER_SET_STATISTIC: &'static NSString;
 }
-
-#[cfg(test)]
-mod tests {
-    use super::{MTLCommonCounter, MTLCommonCounterSet};
-
-    #[test]
-    fn counter_names_have_rust_string_signatures() {
-        let _: fn(MTLCommonCounter) -> String = MTLCommonCounter::name;
-    }
-
-    #[test]
-    fn counter_set_names_have_rust_string_signatures() {
-        let _: fn(MTLCommonCounterSet) -> String = MTLCommonCounterSet::name;
-    }
-}

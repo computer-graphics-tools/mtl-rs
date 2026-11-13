@@ -7,6 +7,14 @@ extern_protocol!(
     /// Apple's documentation: `https://developer.apple.com/documentation/metal/mtlfunctionhandle?language=objc`
     ///
     /// Availability: macOS 11.0+, iOS 14.0+, tvOS 16.0+
+    ///
+    /// # Thread safety
+    ///
+    /// [Apple's declaration](https://developer.apple.com/documentation/metal/mtlfunctionhandle):
+    ///
+    /// > `protocol MTLFunctionHandle : NSObjectProtocol, Sendable`
+    ///
+    /// The `Send` and `Sync` bounds rely on this guarantee.
     pub unsafe trait MTLFunctionHandle: NSObjectProtocol + Send + Sync {
         /// The type of the function represented by this handle.
         ///

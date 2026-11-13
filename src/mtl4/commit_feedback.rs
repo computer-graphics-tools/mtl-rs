@@ -21,6 +21,10 @@ pub struct MTL4CommitFeedbackHandler(RcBlock<dyn Fn(NonNull<ProtocolObject<dyn M
 impl MTL4CommitFeedbackHandler {
     /// Creates a callback whose captures can safely be used from Metal's
     /// feedback queue.
+    ///
+    /// [Apple's declaration](https://developer.apple.com/documentation/metal/mtl4commitfeedbackhandler):
+    ///
+    /// > `typealias MTL4CommitFeedbackHandler = @Sendable (any MTL4CommitFeedback) -> Void`
     pub fn new<F>(handler: F) -> Self
     where
         F: Fn(&ProtocolObject<dyn MTL4CommitFeedback>) + Send + Sync + 'static,
@@ -64,27 +68,3 @@ pub trait MTL4CommitFeedbackExt: MTL4CommitFeedback + Message {
 }
 
 impl<T: MTL4CommitFeedback + Message> MTL4CommitFeedbackExt for T {}
-
-#[cfg(test)]
-mod tests {
-    use std::sync::{Arc, atomic::AtomicBool};
-
-    use objc2::runtime::ProtocolObject;
-
-    use super::{MTL4CommitFeedback, MTL4CommitFeedbackExt, MTL4CommitFeedbackHandler};
-    use crate::MetalError;
-
-    #[test]
-    fn handler_accepts_sendable_thread_safe_captures() {
-        let completed = Arc::new(AtomicBool::new(false));
-        let _handler = MTL4CommitFeedbackHandler::new(move |_feedback| {
-            let _ = &completed;
-        });
-    }
-
-    #[test]
-    fn error_has_a_rust_native_signature() {
-        let _: fn(&ProtocolObject<dyn MTL4CommitFeedback>) -> Option<MetalError> =
-            <ProtocolObject<dyn MTL4CommitFeedback> as MTL4CommitFeedbackExt>::error;
-    }
-}

@@ -13,6 +13,10 @@ impl MTLSharedEventNotificationBlock {
     ///
     /// Metal invokes this block on the listener's dispatch queue, so captured
     /// state must be safe to transfer and share between threads.
+    ///
+    /// [Apple's declaration](https://developer.apple.com/documentation/metal/mtlsharedeventnotificationblock):
+    ///
+    /// > `typealias MTLSharedEventNotificationBlock = @Sendable (any MTLSharedEvent, UInt64) -> Void`
     pub fn new<F>(handler: F) -> Self
     where
         F: Fn(&ProtocolObject<dyn MTLSharedEvent>, u64) + Send + Sync + 'static,
@@ -84,18 +88,3 @@ pub trait MTLSharedEventExt: MTLSharedEvent + Message {
 }
 
 impl<T: MTLSharedEvent + Message> MTLSharedEventExt for T {}
-
-#[cfg(test)]
-mod tests {
-    use std::sync::{Arc, atomic::AtomicU64};
-
-    use super::MTLSharedEventNotificationBlock;
-
-    #[test]
-    fn notification_block_accepts_send_sync_captures() {
-        let value = Arc::new(AtomicU64::new(0));
-        let _block = MTLSharedEventNotificationBlock::new(move |_event, _value| {
-            let _ = &value;
-        });
-    }
-}

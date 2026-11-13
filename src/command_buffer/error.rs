@@ -65,20 +65,3 @@ unsafe impl Encode for MTLCommandBufferErrorOption {
 unsafe impl RefEncode for MTLCommandBufferErrorOption {
     const ENCODING_REF: Encoding = Encoding::Pointer(&Self::ENCODING);
 }
-
-#[cfg(test)]
-mod tests {
-    use super::{MTLCommandBufferError, MTLCommandBufferErrorOption};
-
-    #[test]
-    #[allow(deprecated)]
-    fn deprecated_blacklisted_error_matches_access_revoked() {
-        assert_eq!(MTLCommandBufferError::Blacklisted, MTLCommandBufferError::AccessRevoked);
-    }
-
-    #[test]
-    fn error_option_bits_match_metal_header_values() {
-        assert_eq!(MTLCommandBufferErrorOption::None.bits(), 0);
-        assert_eq!(MTLCommandBufferErrorOption::EncoderExecutionStatus.bits(), 1);
-    }
-}

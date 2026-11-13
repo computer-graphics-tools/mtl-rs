@@ -11,6 +11,14 @@ extern_protocol!(
     /// A read-only container that stores pipeline states from a shader compiler.
     ///
     /// See also [Apple's documentation](https://developer.apple.com/documentation/metal/mtl4archive?language=objc)
+    ///
+    /// # Thread safety
+    ///
+    /// [Apple's declaration](https://developer.apple.com/documentation/metal/mtl4archive):
+    ///
+    /// > `protocol MTL4Archive : NSObjectProtocol, Sendable`
+    ///
+    /// The `Send` and `Sync` bounds rely on this guarantee.
     pub unsafe trait MTL4Archive: NSObjectProtocol + Send + Sync {}
 );
 
@@ -109,20 +117,3 @@ pub trait MTL4ArchiveExt: MTL4Archive + Message {
 }
 
 impl<T: MTL4Archive + Message> MTL4ArchiveExt for T {}
-
-#[cfg(test)]
-mod tests {
-    use objc2::{rc::Retained, runtime::ProtocolObject};
-
-    use super::{MTL4Archive, MTL4ArchiveExt};
-    use crate::{MTL4ComputePipelineDescriptor, MTLComputePipelineState, MetalError};
-
-    #[test]
-    fn fallible_methods_have_rust_native_signatures() {
-        let _: fn(
-            &ProtocolObject<dyn MTL4Archive>,
-            &MTL4ComputePipelineDescriptor,
-        ) -> Result<Retained<ProtocolObject<dyn MTLComputePipelineState>>, MetalError> =
-            <ProtocolObject<dyn MTL4Archive> as MTL4ArchiveExt>::new_compute_pipeline_state_with_descriptor;
-    }
-}

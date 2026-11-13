@@ -16,6 +16,10 @@ pub struct MTLIOCommandBufferHandler(RcBlock<dyn Fn(NonNull<ProtocolObject<dyn M
 impl MTLIOCommandBufferHandler {
     /// Creates an I/O-command-buffer completion callback with thread-safe
     /// captured state.
+    ///
+    /// [Apple's declaration](https://developer.apple.com/documentation/metal/mtliocommandbufferhandler):
+    ///
+    /// > `typealias MTLIOCommandBufferHandler = @Sendable (any MTLIOCommandBuffer) -> Void`
     pub fn new<F>(handler: F) -> Self
     where
         F: Fn(&ProtocolObject<dyn MTLIOCommandBuffer>) + Send + Sync + 'static,

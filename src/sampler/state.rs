@@ -5,6 +5,14 @@ use crate::{MTLDevice, MTLResourceID};
 
 extern_protocol!(
     /// An immutable collection of sampler state compiled for a single device.
+    ///
+    /// # Thread safety
+    ///
+    /// [Apple's declaration](https://developer.apple.com/documentation/metal/mtlsamplerstate):
+    ///
+    /// > `protocol MTLSamplerState : NSObjectProtocol, Sendable`
+    ///
+    /// The `Send` and `Sync` bounds rely on this guarantee.
     pub unsafe trait MTLSamplerState: NSObjectProtocol + Send + Sync {
         /// The device this resource was created against.
         #[unsafe(method(device))]

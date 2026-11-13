@@ -7,7 +7,15 @@ extern_protocol!(
     /// Provides a mechanism to manage and provide resource bindings for buffers, textures, sampler states and other Metal resources.
     ///
     /// See also [Apple's documentation](https://developer.apple.com/documentation/metal/mtl4argumenttable?language=objc)
-    pub unsafe trait MTL4ArgumentTable: NSObjectProtocol + Send + Sync {
+    ///
+    /// # Thread safety
+    ///
+    /// [Apple's declaration](https://developer.apple.com/documentation/metal/mtl4argumenttable) has no `Sendable` conformance:
+    ///
+    /// > `protocol MTL4ArgumentTable : NSObjectProtocol`
+    ///
+    /// These bindings do not promise `Send` or `Sync` for this mutable table.
+    pub unsafe trait MTL4ArgumentTable: NSObjectProtocol {
         /// Binds a GPU address to a buffer binding slot.
         #[unsafe(method(setAddress:atIndex:))]
         #[unsafe(method_family = none)]

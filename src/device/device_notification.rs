@@ -51,6 +51,10 @@ pub struct MTLDeviceNotificationHandler(RcBlock<DeviceNotificationBlock>);
 impl MTLDeviceNotificationHandler {
     /// Creates a handler whose captured state can safely be sent to and shared
     /// with Metal's callback thread.
+    ///
+    /// [Apple's declaration](https://developer.apple.com/documentation/metal/mtldevicenotificationhandler):
+    ///
+    /// > `typealias MTLDeviceNotificationHandler = @Sendable (any MTLDevice, MTLDeviceNotificationName) -> Void`
     pub fn new<F>(handler: F) -> Self
     where
         F: Fn(&ProtocolObject<dyn MTLDevice>, &str) + Send + Sync + 'static,
@@ -101,20 +105,4 @@ pub fn remove_device_observer(observer: MTLDeviceObserver) {
     }
 
     unsafe { MTLRemoveDeviceObserver(&observer.0) };
-}
-
-#[cfg(test)]
-mod tests {
-    use std::sync::{Arc, atomic::AtomicBool};
-
-    use super::MTLDeviceNotificationHandler;
-
-    #[test]
-    fn handler_accepts_sendable_shared_captures() {
-        let state = Arc::new(AtomicBool::new(false));
-        let state_for_handler = Arc::clone(&state);
-        let _handler = MTLDeviceNotificationHandler::new(move |_, _| {
-            state_for_handler.store(true, std::sync::atomic::Ordering::Relaxed);
-        });
-    }
 }

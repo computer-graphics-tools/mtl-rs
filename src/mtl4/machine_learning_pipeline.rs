@@ -142,8 +142,12 @@ extern_class!(
     pub struct MTL4MachineLearningPipelineReflection;
 );
 
+// SAFETY (Send + Sync): [Apple lists this class's conformances](https://developer.apple.com/documentation/metal/mtl4machinelearningpipelinereflection):
+//
+// > `Sendable`
+//
+// This permits transferring and concurrently sharing instances of this reference type.
 unsafe impl Send for MTL4MachineLearningPipelineReflection {}
-
 unsafe impl Sync for MTL4MachineLearningPipelineReflection {}
 
 extern_conformance!(
@@ -179,6 +183,14 @@ extern_protocol!(
     /// See ``MTL4MachineLearningCommandEncoder`` for more information.
     ///
     /// See also [Apple's documentation](https://developer.apple.com/documentation/metal/mtl4machinelearningpipelinestate?language=objc)
+    ///
+    /// # Thread safety
+    ///
+    /// [Apple's declaration](https://developer.apple.com/documentation/metal/mtl4machinelearningpipelinestate):
+    ///
+    /// > `protocol MTL4MachineLearningPipelineState : MTLAllocation, Sendable`
+    ///
+    /// The `Send` and `Sync` bounds rely on this guarantee.
     pub unsafe trait MTL4MachineLearningPipelineState: MTLAllocation + NSObjectProtocol + Send + Sync {
         /// Returns the device the pipeline state belongs to.
         #[unsafe(method(device))]

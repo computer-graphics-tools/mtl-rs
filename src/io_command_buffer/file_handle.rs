@@ -5,6 +5,14 @@ extern_protocol!(
     /// Represents a file handle usable as a source for IO commands.
     ///
     /// Availability: macOS 13.0+, iOS 16.0+
+    ///
+    /// # Thread safety
+    ///
+    /// [Apple's declaration](https://developer.apple.com/documentation/metal/mtliofilehandle):
+    ///
+    /// > `protocol MTLIOFileHandle : NSObjectProtocol, Sendable`
+    ///
+    /// The `Send` and `Sync` bounds rely on this guarantee.
     pub unsafe trait MTLIOFileHandle: NSObjectProtocol + Send + Sync {}
 );
 

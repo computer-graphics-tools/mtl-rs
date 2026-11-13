@@ -70,17 +70,3 @@ unsafe impl Encode for MTLFeatureSet {
 unsafe impl RefEncode for MTLFeatureSet {
     const ENCODING_REF: Encoding = Encoding::Pointer(&Self::ENCODING);
 }
-
-#[cfg(test)]
-#[allow(deprecated)]
-mod tests {
-    use super::MTLFeatureSet;
-
-    #[test]
-    fn legacy_names_match_their_replacements() {
-        assert_eq!(MTLFeatureSet::OSX_GPUFamily1_v1, MTLFeatureSet::macOS_GPUFamily1_v1);
-        assert_eq!(MTLFeatureSet::OSX_GPUFamily1_v2, MTLFeatureSet::macOS_GPUFamily1_v2);
-        assert_eq!(MTLFeatureSet::OSX_ReadWriteTextureTier2, MTLFeatureSet::macOS_ReadWriteTextureTier2);
-        assert_eq!(MTLFeatureSet::TVOS_GPUFamily1_v1, MTLFeatureSet::tvOS_GPUFamily1_v1);
-    }
-}

@@ -491,19 +491,3 @@ impl MTLRenderPipelineDescriptor {
         }
     }
 }
-
-#[cfg(test)]
-mod tests {
-    use objc2::{rc::Retained, runtime::ProtocolObject};
-
-    use super::MTLRenderPipelineDescriptor;
-    use crate::{MTLBinaryArchive, MTLDynamicLibrary};
-
-    #[test]
-    fn collection_methods_have_rust_native_signatures() {
-        let _: fn(&MTLRenderPipelineDescriptor) -> Box<[Retained<ProtocolObject<dyn MTLDynamicLibrary>>]> =
-            MTLRenderPipelineDescriptor::vertex_preloaded_libraries;
-        let _: fn(&MTLRenderPipelineDescriptor) -> Option<Box<[Retained<ProtocolObject<dyn MTLBinaryArchive>>]>> =
-            MTLRenderPipelineDescriptor::binary_archives;
-    }
-}

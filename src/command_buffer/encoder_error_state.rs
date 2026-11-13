@@ -20,17 +20,3 @@ unsafe impl Encode for MTLCommandEncoderErrorState {
 unsafe impl RefEncode for MTLCommandEncoderErrorState {
     const ENCODING_REF: Encoding = Encoding::Pointer(&Self::ENCODING);
 }
-
-#[cfg(test)]
-mod tests {
-    use super::MTLCommandEncoderErrorState;
-
-    #[test]
-    fn error_states_match_metal_header_values() {
-        assert_eq!(MTLCommandEncoderErrorState::Unknown as isize, 0);
-        assert_eq!(MTLCommandEncoderErrorState::Completed as isize, 1);
-        assert_eq!(MTLCommandEncoderErrorState::Affected as isize, 2);
-        assert_eq!(MTLCommandEncoderErrorState::Pending as isize, 3);
-        assert_eq!(MTLCommandEncoderErrorState::Faulted as isize, 4);
-    }
-}

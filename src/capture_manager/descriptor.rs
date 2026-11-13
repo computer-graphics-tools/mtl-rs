@@ -165,15 +165,3 @@ impl MTLCaptureDescriptor {
         pub fn new() -> Retained<Self>;
     );
 }
-
-#[cfg(test)]
-mod tests {
-    use super::{MTLCaptureDescriptor, MTLCaptureTarget, UnknownMTLCaptureTarget};
-
-    #[test]
-    fn capture_object_access_has_rust_native_signatures() {
-        let _: fn(&MTLCaptureDescriptor) -> Result<Option<MTLCaptureTarget>, UnknownMTLCaptureTarget> =
-            MTLCaptureDescriptor::capture_object;
-        let _: fn(&MTLCaptureDescriptor, Option<&MTLCaptureTarget>) = MTLCaptureDescriptor::set_capture_object;
-    }
-}

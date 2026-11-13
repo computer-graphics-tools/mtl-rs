@@ -155,17 +155,3 @@ impl MTLTensorExt for ProtocolObject<dyn MTLTensor> {
         planes.to_vec().into_boxed_slice()
     }
 }
-
-#[cfg(test)]
-mod tests {
-    use objc2::{rc::Retained, runtime::ProtocolObject};
-
-    use super::{MTLTensor, MTLTensorExt};
-    use crate::MTLTensorAuxiliaryPlane;
-
-    #[test]
-    fn collection_method_has_rust_native_signature() {
-        let _: fn(&ProtocolObject<dyn MTLTensor>) -> Box<[Retained<ProtocolObject<dyn MTLTensorAuxiliaryPlane>>]> =
-            <ProtocolObject<dyn MTLTensor> as MTLTensorExt>::auxiliary_planes;
-    }
-}

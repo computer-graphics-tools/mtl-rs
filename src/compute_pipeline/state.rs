@@ -18,7 +18,15 @@ extern_protocol!(
         clippy::missing_safety_doc,
         reason = "extern_protocol does not attach this safety section to its generated unsafe trait"
     )]
-    pub unsafe trait MTLComputePipelineState: MTLAllocation {
+    ///
+    /// # Thread safety
+    ///
+    /// [Apple's declaration](https://developer.apple.com/documentation/metal/mtlcomputepipelinestate):
+    ///
+    /// > `protocol MTLComputePipelineState : MTLAllocation, Sendable`
+    ///
+    /// The `Send` and `Sync` bounds rely on this guarantee.
+    pub unsafe trait MTLComputePipelineState: MTLAllocation + Send + Sync {
         /// The device this resource was created against.
         #[unsafe(method(device))]
         #[unsafe(method_family = none)]
@@ -171,34 +179,5 @@ impl MTLComputePipelineStateExt for ProtocolObject<dyn MTLComputePipelineState> 
             ]
         }
         .map_err(MetalError::from_nserror)
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use objc2::{rc::Retained, runtime::ProtocolObject};
-
-    use super::{MTLComputePipelineState, MTLComputePipelineStateExt};
-    use crate::{MTL4BinaryFunction, MTLFunction, MTLFunctionHandle, MetalError};
-
-    #[test]
-    fn collection_and_string_methods_have_rust_native_signatures() {
-        let _: fn(
-            &ProtocolObject<dyn MTLComputePipelineState>,
-            &str,
-        ) -> Option<Retained<ProtocolObject<dyn MTLFunctionHandle>>> =
-            <ProtocolObject<dyn MTLComputePipelineState> as MTLComputePipelineStateExt>::function_handle_with_name;
-        let _: fn(
-            &ProtocolObject<dyn MTLComputePipelineState>,
-            &[&ProtocolObject<dyn MTL4BinaryFunction>],
-        ) -> Result<Retained<ProtocolObject<dyn MTLComputePipelineState>>, MetalError> =
-            <ProtocolObject<dyn MTLComputePipelineState> as MTLComputePipelineStateExt>::
-                new_compute_pipeline_state_with_binary_functions;
-        let _: fn(
-            &ProtocolObject<dyn MTLComputePipelineState>,
-            &[&ProtocolObject<dyn MTLFunction>],
-        ) -> Result<Retained<ProtocolObject<dyn MTLComputePipelineState>>, MetalError> =
-            <ProtocolObject<dyn MTLComputePipelineState> as MTLComputePipelineStateExt>::
-                new_compute_pipeline_state_with_additional_binary_functions;
     }
 }

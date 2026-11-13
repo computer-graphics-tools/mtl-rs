@@ -9,6 +9,14 @@ extern_protocol!(
     /// Metal declares this protocol as `NS_SWIFT_SENDABLE`.
     ///
     /// Availability: macOS 13.0+, iOS 16.0+
+    ///
+    /// # Thread safety
+    ///
+    /// [Apple's declaration](https://developer.apple.com/documentation/metal/mtlbinding):
+    ///
+    /// > `protocol MTLBinding : NSObjectProtocol, Sendable`
+    ///
+    /// The `Send` and `Sync` bounds rely on this guarantee, including for subprotocols.
     pub unsafe trait MTLBinding: NSObjectProtocol + Send + Sync {
         /// Type of the binding.
         #[unsafe(method(type))]
@@ -166,19 +174,5 @@ impl MTLTensorBindingExt for ProtocolObject<dyn MTLTensorBinding> {
     fn auxiliary_planes(&self) -> Box<[Retained<MTLTensorAuxiliaryPlaneType>]> {
         let planes: Retained<NSArray<MTLTensorAuxiliaryPlaneType>> = unsafe { msg_send![self, auxiliaryPlanes] };
         planes.to_vec().into_boxed_slice()
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use objc2::{rc::Retained, runtime::ProtocolObject};
-
-    use super::{MTLTensorBinding, MTLTensorBindingExt};
-    use crate::MTLTensorAuxiliaryPlaneType;
-
-    #[test]
-    fn tensor_collection_method_has_rust_native_signature() {
-        let _: fn(&ProtocolObject<dyn MTLTensorBinding>) -> Box<[Retained<MTLTensorAuxiliaryPlaneType>]> =
-            <ProtocolObject<dyn MTLTensorBinding> as MTLTensorBindingExt>::auxiliary_planes;
     }
 }

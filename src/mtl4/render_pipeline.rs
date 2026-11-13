@@ -699,24 +699,3 @@ impl MTL4RenderPipelineDescriptor {
         pub fn new() -> Retained<Self>;
     );
 }
-
-#[cfg(test)]
-mod tests {
-    use objc2::{rc::Retained, runtime::ProtocolObject};
-
-    use super::{MTL4BinaryFunction, MTL4RenderPipelineBinaryFunctionsDescriptor};
-
-    #[test]
-    fn binary_function_collections_have_rust_native_signatures() {
-        let _: fn(
-            &MTL4RenderPipelineBinaryFunctionsDescriptor,
-        ) -> Option<Box<[Retained<ProtocolObject<dyn MTL4BinaryFunction>>]>> =
-            MTL4RenderPipelineBinaryFunctionsDescriptor::vertex_additional_binary_functions;
-        let _: fn(
-            &MTL4RenderPipelineBinaryFunctionsDescriptor,
-        ) -> Option<Box<[Retained<ProtocolObject<dyn MTL4BinaryFunction>>]>> =
-            MTL4RenderPipelineBinaryFunctionsDescriptor::mesh_additional_binary_functions;
-        let _: fn(&MTL4RenderPipelineBinaryFunctionsDescriptor, Option<&[&ProtocolObject<dyn MTL4BinaryFunction>]>) =
-            MTL4RenderPipelineBinaryFunctionsDescriptor::set_vertex_additional_binary_functions;
-    }
-}

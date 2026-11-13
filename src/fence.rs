@@ -5,6 +5,14 @@ use crate::MTLDevice;
 
 extern_protocol!(
     /// Apple's documentation: `https://developer.apple.com/documentation/metal/mtlfence?language=objc`
+    ///
+    /// # Thread safety
+    ///
+    /// [Apple's declaration](https://developer.apple.com/documentation/metal/mtlfence):
+    ///
+    /// > `protocol MTLFence : NSObjectProtocol, Sendable`
+    ///
+    /// The `Send` and `Sync` bounds rely on this guarantee.
     pub unsafe trait MTLFence: NSObjectProtocol + Send + Sync {
         #[unsafe(method(device))]
         #[unsafe(method_family = none)]

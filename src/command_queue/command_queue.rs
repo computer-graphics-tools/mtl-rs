@@ -5,6 +5,14 @@ use crate::{MTLCommandBuffer, MTLCommandBufferDescriptor, MTLDevice};
 
 extern_protocol!(
     /// A serial queue of command buffers to be executed by the device.
+    ///
+    /// # Thread safety
+    ///
+    /// [Apple's documentation](https://developer.apple.com/documentation/metal/mtlcommandqueue):
+    ///
+    /// > Each command queue is thread-safe and allows you to encode commands in multiple command buffers simultaneously.
+    ///
+    /// The `Send` and `Sync` bounds rely on this guarantee.
     pub unsafe trait MTLCommandQueue: NSObjectProtocol + Send + Sync {
         /// The device this queue will submit to.
         #[unsafe(method(device))]

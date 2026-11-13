@@ -11,6 +11,14 @@ extern_protocol!(
     /// Availability: macOS 11.0+, iOS 14.0+
     ///
     /// Mirrors `MTLDynamicLibrary`.
+    ///
+    /// # Thread safety
+    ///
+    /// [Apple's declaration](https://developer.apple.com/documentation/metal/mtldynamiclibrary):
+    ///
+    /// > `protocol MTLDynamicLibrary : NSObjectProtocol, Sendable`
+    ///
+    /// The `Send` and `Sync` bounds rely on this guarantee.
     pub unsafe trait MTLDynamicLibrary: NSObjectProtocol + Send + Sync {
         /// The device this resource was created against. This resource can only be used with this device.
         #[unsafe(method(device))]

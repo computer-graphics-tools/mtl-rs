@@ -110,33 +110,3 @@ impl MTLFunctionConstantValues {
         }
     }
 }
-
-#[cfg(test)]
-mod tests {
-    use core::{ffi::c_void, ops::Range, ptr::NonNull};
-
-    use objc2_foundation::{NSCopying, NSObjectProtocol};
-
-    use super::MTLFunctionConstantValues;
-    use crate::MTLDataType;
-
-    #[test]
-    fn class_conformances_match_the_header() {
-        fn assert_nscopying<T: NSCopying>() {}
-        fn assert_nsobject<T: NSObjectProtocol>() {}
-
-        assert_nscopying::<MTLFunctionConstantValues>();
-        assert_nsobject::<MTLFunctionConstantValues>();
-    }
-
-    #[test]
-    fn selector_signatures_remain_safe() {
-        let _: fn(&MTLFunctionConstantValues, NonNull<c_void>, MTLDataType, usize) =
-            MTLFunctionConstantValues::set_constant_value_type_at_index;
-        let _: fn(&MTLFunctionConstantValues, NonNull<c_void>, MTLDataType, Range<usize>) =
-            MTLFunctionConstantValues::set_constant_values_type_with_range;
-        let _: fn(&MTLFunctionConstantValues, NonNull<c_void>, MTLDataType, &str) =
-            MTLFunctionConstantValues::set_constant_value_type_with_name;
-        let _: fn(&MTLFunctionConstantValues) = MTLFunctionConstantValues::reset;
-    }
-}

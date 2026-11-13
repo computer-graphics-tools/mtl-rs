@@ -11,9 +11,14 @@ use crate::MetalError;
 pub struct LibraryFunctionCompletionHandler(RcBlock<dyn Fn(*mut ProtocolObject<dyn MTLFunction>, *mut NSError)>);
 
 impl LibraryFunctionCompletionHandler {
+    /// Creates a callback with captures that can be transferred and shared with Metal's worker threads.
+    ///
+    /// [Apple's callback declaration](https://developer.apple.com/documentation/metal/mtllibrary/makefunction(name:constantvalues:completionhandler:)) includes:
+    ///
+    /// > `completionHandler: @escaping @Sendable`
     pub fn new<F>(handler: F) -> Self
     where
-        F: Fn(Option<Retained<ProtocolObject<dyn MTLFunction>>>, Option<MetalError>) + 'static,
+        F: Fn(Option<Retained<ProtocolObject<dyn MTLFunction>>>, Option<MetalError>) + Send + Sync + 'static,
     {
         Self(RcBlock::new(move |function_ptr: *mut ProtocolObject<dyn MTLFunction>, error: *mut NSError| {
             let function = unsafe { Retained::retain(function_ptr) };

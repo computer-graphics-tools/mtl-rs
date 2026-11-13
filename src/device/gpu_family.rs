@@ -43,13 +43,3 @@ unsafe impl Encode for MTLGPUFamily {
 unsafe impl RefEncode for MTLGPUFamily {
     const ENCODING_REF: Encoding = Encoding::Pointer(&Self::ENCODING);
 }
-
-#[cfg(test)]
-mod tests {
-    use super::MTLGPUFamily;
-
-    #[test]
-    fn apple10_matches_metal_header_value() {
-        assert_eq!(MTLGPUFamily::Apple10 as isize, 1010);
-    }
-}

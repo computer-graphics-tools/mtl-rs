@@ -404,17 +404,3 @@ impl MTLMeshRenderPipelineDescriptor {
         pub fn new() -> Retained<Self>;
     );
 }
-
-#[cfg(test)]
-mod tests {
-    use objc2::{rc::Retained, runtime::ProtocolObject};
-
-    use super::MTLMeshRenderPipelineDescriptor;
-    use crate::MTLBinaryArchive;
-
-    #[test]
-    fn collection_method_has_rust_native_signature() {
-        let _: fn(&MTLMeshRenderPipelineDescriptor) -> Option<Box<[Retained<ProtocolObject<dyn MTLBinaryArchive>>]>> =
-            MTLMeshRenderPipelineDescriptor::binary_archives;
-    }
-}

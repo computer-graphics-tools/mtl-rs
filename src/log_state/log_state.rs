@@ -7,6 +7,14 @@ extern_protocol!(
     /// Log state for handling GPU log messages.
     ///
     /// Availability: macOS 15.0+, iOS 18.0+
+    ///
+    /// # Thread safety
+    ///
+    /// [Apple's declaration](https://developer.apple.com/documentation/metal/mtllogstate):
+    ///
+    /// > `protocol MTLLogState : NSObjectProtocol, Sendable`
+    ///
+    /// The `Send` and `Sync` bounds rely on this guarantee.
     pub unsafe trait MTLLogState: NSObjectProtocol + Send + Sync {}
 );
 

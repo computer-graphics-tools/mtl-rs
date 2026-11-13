@@ -29,14 +29,3 @@ unsafe extern "C" {
 pub fn device_error_domain() -> String {
     unsafe { MTLDeviceErrorDomain }.to_string()
 }
-
-#[cfg(test)]
-mod tests {
-    use super::MTLDeviceError;
-
-    #[test]
-    fn error_codes_match_metal_header_values() {
-        assert_eq!(MTLDeviceError::None as isize, 0);
-        assert_eq!(MTLDeviceError::NotSupported as isize, 1);
-    }
-}

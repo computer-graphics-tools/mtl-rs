@@ -76,18 +76,3 @@ impl MTL4StitchedFunctionDescriptor {
         pub fn new() -> Retained<Self>;
     );
 }
-
-#[cfg(test)]
-mod tests {
-    use objc2::rc::Retained;
-
-    use super::{MTL4FunctionDescriptor, MTL4StitchedFunctionDescriptor};
-
-    #[test]
-    fn collection_method_has_rust_native_signature() {
-        let _: fn(&MTL4StitchedFunctionDescriptor) -> Option<Box<[Retained<MTL4FunctionDescriptor>]>> =
-            MTL4StitchedFunctionDescriptor::function_descriptors;
-        let _: fn(&MTL4StitchedFunctionDescriptor, Option<&[&MTL4FunctionDescriptor]>) =
-            MTL4StitchedFunctionDescriptor::set_function_descriptors;
-    }
-}

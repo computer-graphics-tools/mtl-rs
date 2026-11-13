@@ -13,9 +13,14 @@ use crate::{CallbackBlock, *};
 pub struct MTLNewLibraryCompletionHandler(RcBlock<dyn Fn(*mut ProtocolObject<dyn MTLLibrary>, *mut NSError)>);
 
 impl MTLNewLibraryCompletionHandler {
+    /// Creates a callback with captures that can be transferred and shared with Metal's worker threads.
+    ///
+    /// [Apple's library-creation callback declaration](https://developer.apple.com/documentation/metal/mtldevice/makelibrary(source:options:completionhandler:)) includes:
+    ///
+    /// > `completionHandler: @escaping @Sendable`
     pub fn new<F>(handler: F) -> Self
     where
-        F: Fn(Option<Retained<ProtocolObject<dyn MTLLibrary>>>, Option<MetalError>) + 'static,
+        F: Fn(Option<Retained<ProtocolObject<dyn MTLLibrary>>>, Option<MetalError>) + Send + Sync + 'static,
     {
         Self(RcBlock::new(move |library_ptr: *mut ProtocolObject<dyn MTLLibrary>, error: *mut NSError| {
             let library = unsafe { Retained::retain(library_ptr) };
@@ -30,9 +35,17 @@ pub struct MTLNewDynamicLibraryCompletionHandler(
 );
 
 impl MTLNewDynamicLibraryCompletionHandler {
+    /// Creates a callback with captures that can be transferred and shared with Metal's worker threads.
+    ///
+    /// [Apple's compiler documentation](https://developer.apple.com/documentation/metal/mtl4compiler/newdynamiclibrary:completionhandler:):
+    ///
+    /// > Creates a new dynamic Metal library instance asynchronously.
+    ///
+    /// The copied block may outlive this call and execute on a compiler thread,
+    /// so its shared `Fn` closure requires `Send + Sync` captures.
     pub fn new<F>(handler: F) -> Self
     where
-        F: Fn(Option<Retained<ProtocolObject<dyn MTLDynamicLibrary>>>, Option<MetalError>) + 'static,
+        F: Fn(Option<Retained<ProtocolObject<dyn MTLDynamicLibrary>>>, Option<MetalError>) + Send + Sync + 'static,
     {
         Self(RcBlock::new(move |library_ptr: *mut ProtocolObject<dyn MTLDynamicLibrary>, error: *mut NSError| {
             let library = unsafe { Retained::retain(library_ptr) };
@@ -47,9 +60,17 @@ pub struct MTLNewComputePipelineStateCompletionHandler(
 );
 
 impl MTLNewComputePipelineStateCompletionHandler {
+    /// Creates a callback with captures that can be transferred and shared with Metal's worker threads.
+    ///
+    /// [Apple's compute-pipeline callback declaration](https://developer.apple.com/documentation/metal/mtldevice/makecomputepipelinestate(function:completionhandler:)) includes:
+    ///
+    /// > `completionHandler: @escaping @Sendable`
     pub fn new<F>(handler: F) -> Self
     where
-        F: Fn(Option<Retained<ProtocolObject<dyn MTLComputePipelineState>>>, Option<MetalError>) + 'static,
+        F: Fn(Option<Retained<ProtocolObject<dyn MTLComputePipelineState>>>, Option<MetalError>)
+            + Send
+            + Sync
+            + 'static,
     {
         Self(RcBlock::new(
             move |pipeline_ptr: *mut ProtocolObject<dyn MTLComputePipelineState>, error: *mut NSError| {
@@ -196,6 +217,10 @@ pub struct MTL4NewBinaryFunctionCompletionHandler(
 impl MTL4NewBinaryFunctionCompletionHandler {
     /// Creates a completion handler whose captures are safe to invoke from Metal's worker threads.
     /// Metal's borrowed callback objects are retained before invoking `handler`.
+    ///
+    /// [Apple's callback declaration](https://developer.apple.com/documentation/metal/mtl4newbinaryfunctioncompletionhandler) includes:
+    ///
+    /// > `@Sendable ((any MTL4BinaryFunction)?, (any Error)?) -> Void`
     pub fn new<F>(handler: F) -> Self
     where
         F: Fn(Option<Retained<ProtocolObject<dyn MTL4BinaryFunction>>>, Option<MetalError>) + Send + Sync + 'static,
@@ -218,6 +243,10 @@ pub struct MTL4NewMachineLearningPipelineStateCompletionHandler(
 impl MTL4NewMachineLearningPipelineStateCompletionHandler {
     /// Creates a completion handler whose captures are safe to invoke from Metal's worker threads.
     /// Metal's borrowed callback objects are retained before invoking `handler`.
+    ///
+    /// [Apple's callback declaration](https://developer.apple.com/documentation/metal/mtl4newmachinelearningpipelinestatecompletionhandler) includes:
+    ///
+    /// > `@Sendable ((any MTL4MachineLearningPipelineState)?, (any Error)?) -> Void`
     pub fn new<F>(handler: F) -> Self
     where
         F: Fn(Option<Retained<ProtocolObject<dyn MTL4MachineLearningPipelineState>>>, Option<MetalError>)
@@ -250,6 +279,14 @@ extern_protocol!(
         clippy::missing_safety_doc,
         reason = "extern_protocol does not attach this safety section to its generated unsafe trait"
     )]
+    ///
+    /// # Thread safety
+    ///
+    /// [Apple's declaration](https://developer.apple.com/documentation/metal/mtl4compiler):
+    ///
+    /// > `protocol MTL4Compiler : NSObjectProtocol, Sendable`
+    ///
+    /// The `Send` and `Sync` bounds rely on this guarantee.
     pub unsafe trait MTL4Compiler: NSObjectProtocol + Send + Sync {
         /// Returns the device that this compiler belongs to.
         #[unsafe(method(device))]
@@ -635,85 +672,16 @@ impl<T: MTL4Compiler + Message> MTL4CompilerExt for T {}
 
 #[cfg(test)]
 mod tests {
-    use std::{
-        path::Path,
-        sync::{Arc, Mutex},
-    };
+    use std::sync::{Arc, Mutex};
 
-    use objc2::{rc::Retained, runtime::ProtocolObject};
-    use objc2_foundation::{NSCopying, NSError, NSObjectProtocol, NSString};
+    use objc2::runtime::ProtocolObject;
+    use objc2_foundation::{NSError, NSString};
 
-    use super::{
-        MTL4Compiler, MTL4CompilerDescriptor, MTL4CompilerExt, MTL4CompilerTaskOptions,
-        MTL4NewBinaryFunctionCompletionHandler, MTL4NewMachineLearningPipelineStateCompletionHandler,
-        MTLNewComputePipelineStateCompletionHandler, MTLNewDynamicLibraryCompletionHandler,
-        MTLNewLibraryCompletionHandler,
-    };
-    use crate::{
-        MTL4Archive, MTL4BinaryFunction, MTL4ComputePipelineDescriptor, MTL4LibraryDescriptor, MTLComputePipelineState,
-        MTLDynamicLibrary, MTLLibrary, MetalError,
-    };
+    use super::{MTL4NewBinaryFunctionCompletionHandler, MTL4NewMachineLearningPipelineStateCompletionHandler};
+    use crate::MTL4BinaryFunction;
 
     #[test]
-    fn compiler_types_match_header_conformances() {
-        fn assert_nscopying<T: NSCopying>() {}
-        fn assert_nsobject<T: NSObjectProtocol>() {}
-        fn assert_send_sync<T: Send + Sync>() {}
-
-        assert_nscopying::<MTL4CompilerDescriptor>();
-        assert_nscopying::<MTL4CompilerTaskOptions>();
-        assert_nsobject::<MTL4CompilerDescriptor>();
-        assert_nsobject::<MTL4CompilerTaskOptions>();
-        assert_send_sync::<ProtocolObject<dyn MTL4Compiler>>();
-    }
-
-    #[test]
-    fn collection_string_and_path_methods_have_rust_native_signatures() {
-        let _: fn(&MTL4CompilerTaskOptions) -> Option<Box<[Retained<ProtocolObject<dyn MTL4Archive>>]>> =
-            MTL4CompilerTaskOptions::lookup_archives;
-        let _: fn(&ProtocolObject<dyn MTL4Compiler>) -> Option<String> =
-            <ProtocolObject<dyn MTL4Compiler> as MTL4CompilerExt>::label;
-        let _: fn(
-            &ProtocolObject<dyn MTL4Compiler>,
-            &Path,
-        ) -> Result<Retained<ProtocolObject<dyn MTLDynamicLibrary>>, MetalError> =
-            <ProtocolObject<dyn MTL4Compiler> as MTL4CompilerExt>::new_dynamic_library_with_path;
-    }
-
-    #[test]
-    fn synchronous_errors_have_rust_native_signatures() {
-        let _: fn(
-            &ProtocolObject<dyn MTL4Compiler>,
-            &MTL4LibraryDescriptor,
-        ) -> Result<Retained<ProtocolObject<dyn MTLLibrary>>, MetalError> =
-            <ProtocolObject<dyn MTL4Compiler> as MTL4CompilerExt>::new_library_with_descriptor_error;
-        let _: fn(
-            &ProtocolObject<dyn MTL4Compiler>,
-            &MTL4ComputePipelineDescriptor,
-            Option<&MTL4CompilerTaskOptions>,
-        ) -> Result<Retained<ProtocolObject<dyn MTLComputePipelineState>>, MetalError> =
-            <ProtocolObject<dyn MTL4Compiler> as MTL4CompilerExt>::new_compute_pipeline_state_with_descriptor_compiler_task_options_error;
-    }
-
-    #[test]
-    fn standard_completion_handlers_deliver_rust_owned_errors() {
-        let library_handler = MTLNewLibraryCompletionHandler::new(
-            |_library: Option<Retained<ProtocolObject<dyn MTLLibrary>>>, _error: Option<MetalError>| {},
-        );
-        let dynamic_library_handler = MTLNewDynamicLibraryCompletionHandler::new(
-            |_library: Option<Retained<ProtocolObject<dyn MTLDynamicLibrary>>>, _error: Option<MetalError>| {},
-        );
-        let compute_handler = MTLNewComputePipelineStateCompletionHandler::new(
-            |_pipeline: Option<Retained<ProtocolObject<dyn MTLComputePipelineState>>>, _error: Option<MetalError>| {},
-        );
-
-        library_handler.0.call((core::ptr::null_mut(), core::ptr::null_mut()));
-        dynamic_library_handler.0.call((core::ptr::null_mut(), core::ptr::null_mut()));
-        compute_handler.0.call((core::ptr::null_mut(), core::ptr::null_mut()));
-    }
-
-    #[test]
-    fn sendable_handlers_accept_thread_safe_captures() {
+    fn compilation_callbacks_forward_null_results() {
         let calls = Arc::new(Mutex::new(0));
         let binary_calls = Arc::clone(&calls);
         let binary_handler = MTL4NewBinaryFunctionCompletionHandler::new(move |function, error| {

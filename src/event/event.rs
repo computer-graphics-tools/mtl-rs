@@ -5,6 +5,14 @@ extern_protocol!(
     /// Bridged protocol for `MTLEvent`.
     ///
     /// Availability: macOS 10.14+, iOS 12.0+
+    ///
+    /// # Thread safety
+    ///
+    /// [Apple's declaration](https://developer.apple.com/documentation/metal/mtlevent):
+    ///
+    /// > `protocol MTLEvent : NSObjectProtocol, Sendable`
+    ///
+    /// The `Send` and `Sync` bounds rely on this guarantee, also inherited by `MTLSharedEvent`.
     pub unsafe trait MTLEvent: NSObjectProtocol + Send + Sync {
         /// The device this event can be used with. Will be nil when the event is shared across devices.
         #[unsafe(method(device))]

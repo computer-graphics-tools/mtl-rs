@@ -17,9 +17,12 @@ extern_class!(
     pub struct MTLArgument;
 );
 
-// SAFETY: Metal declares `MTLArgument` as `NS_SWIFT_SENDABLE`.
+// SAFETY (Send + Sync): [Apple lists this class's conformances](https://developer.apple.com/documentation/metal/mtlargument):
+//
+// > `Sendable`
+//
+// This permits transferring and concurrently sharing instances of this reference type.
 unsafe impl Send for MTLArgument {}
-// SAFETY: Metal declares `MTLArgument` as `NS_SWIFT_SENDABLE`.
 unsafe impl Sync for MTLArgument {}
 
 impl MTLArgument {

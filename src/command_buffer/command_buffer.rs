@@ -15,15 +15,20 @@ extern_protocol!(
     ///
     /// Availability: macOS 10.11+, iOS 8.0+
     ///
-    /// Thread safety: command buffers are thread-safe. Commit, completion,
-    /// status, and wait operations may be used from different threads; command
-    /// encoders remain single-threaded.
+    /// # Thread safety
+    ///
+    /// [Apple's Metal Programming Guide](https://developer.apple.com/library/archive/documentation/Miscellaneous/Conceptual/MetalProgrammingGuide/Cmd-Submiss/Cmd-Submiss.html):
+    ///
+    /// > Only one CPU thread can access a command buffer at time.
+    ///
+    /// This protocol does not promise `Send` or `Sync`. Its completion handlers
+    /// have separate requirements for their captured state.
     ///
     /// # Safety
     ///
     /// Implementors must be Objective-C objects that conform to the
-    /// `MTLCommandBuffer` protocol and uphold its thread-safety contract.
-    pub unsafe trait MTLCommandBuffer: NSObjectProtocol + Send + Sync {
+    /// `MTLCommandBuffer` protocol.
+    pub unsafe trait MTLCommandBuffer: NSObjectProtocol {
         /// The device this resource was created against.
         #[unsafe(method(device))]
         #[unsafe(method_family = none)]
@@ -373,17 +378,5 @@ impl MTLCommandBufferExt for ProtocolObject<dyn MTLCommandBuffer> {
 
     fn gpu_end_time(&self) -> f64 {
         unsafe { msg_send![self, GPUEndTime] }
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::MTLCommandBuffer;
-
-    fn assert_send_sync<T: ?Sized + Send + Sync>() {}
-
-    #[test]
-    fn command_buffer_is_send_and_sync() {
-        assert_send_sync::<dyn MTLCommandBuffer>();
     }
 }

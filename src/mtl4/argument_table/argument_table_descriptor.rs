@@ -10,13 +10,15 @@ extern_class!(
     /// Argument tables provide resource bindings to your Metal pipeline states.
     ///
     /// See also [Apple's documentation](https://developer.apple.com/documentation/metal/mtl4argumenttabledescriptor?language=objc)
+    ///
+    /// # Thread safety
+    ///
+    /// This mutable descriptor has no documented `Sendable` conformance, so these
+    /// bindings do not implement `Send` or `Sync`.
     #[unsafe(super(NSObject))]
     #[derive(Debug, PartialEq, Eq, Hash)]
     pub struct MTL4ArgumentTableDescriptor;
 );
-
-unsafe impl Send for MTL4ArgumentTableDescriptor {}
-unsafe impl Sync for MTL4ArgumentTableDescriptor {}
 
 extern_conformance!(
     unsafe impl NSCopying for MTL4ArgumentTableDescriptor {}

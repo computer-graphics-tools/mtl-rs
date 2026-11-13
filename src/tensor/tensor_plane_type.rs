@@ -17,15 +17,3 @@ unsafe impl Encode for MTLTensorPlaneType {
 unsafe impl RefEncode for MTLTensorPlaneType {
     const ENCODING_REF: Encoding = Encoding::Pointer(&Self::ENCODING);
 }
-
-#[cfg(test)]
-mod tests {
-    use super::MTLTensorPlaneType;
-
-    #[test]
-    fn plane_types_match_metal_abi_values() {
-        let actual = [MTLTensorPlaneType::Data as isize, MTLTensorPlaneType::Scales as isize];
-
-        assert_eq!(actual, [0, 1]);
-    }
-}

@@ -15,6 +15,11 @@ extern_class!(
     pub struct MTLSharedEventListener;
 );
 
+// SAFETY (Send + Sync): [Apple lists this class's conformances](https://developer.apple.com/documentation/metal/mtlsharedeventlistener):
+//
+// > `Sendable`
+//
+// This permits transferring and concurrently sharing instances of this reference type.
 unsafe impl Send for MTLSharedEventListener {}
 unsafe impl Sync for MTLSharedEventListener {}
 

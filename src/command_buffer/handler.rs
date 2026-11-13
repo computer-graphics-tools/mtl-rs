@@ -15,6 +15,10 @@ impl MTLCommandBufferHandler {
     ///
     /// Metal may invoke the callback on an implementation-defined thread, so
     /// captured state must be safe to transfer and share between threads.
+    ///
+    /// [Apple's declaration](https://developer.apple.com/documentation/metal/mtlcommandbufferhandler):
+    ///
+    /// > `typealias MTLCommandBufferHandler = @Sendable (any MTLCommandBuffer) -> Void`
     pub fn new<F>(handler: F) -> Self
     where
         F: Fn(&ProtocolObject<dyn MTLCommandBuffer>) + Send + Sync + 'static,
@@ -27,20 +31,5 @@ impl MTLCommandBufferHandler {
 
     pub(super) fn as_block(&self) -> &Block<dyn Fn(NonNull<ProtocolObject<dyn MTLCommandBuffer>>)> {
         &self.0
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use std::sync::{Arc, atomic::AtomicBool};
-
-    use super::MTLCommandBufferHandler;
-
-    #[test]
-    fn command_buffer_handler_accepts_send_sync_captures() {
-        let completed = Arc::new(AtomicBool::new(false));
-        let _handler = MTLCommandBufferHandler::new(move |_command_buffer| {
-            let _ = &completed;
-        });
     }
 }

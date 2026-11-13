@@ -6,6 +6,14 @@ use crate::*;
 extern_protocol!(
     /// An abstraction representing a command queue that you use to commit and synchronize command
     /// buffers and to perform other GPU operations.
+    ///
+    /// # Thread safety
+    ///
+    /// [Apple's declaration](https://developer.apple.com/documentation/metal/mtl4commandqueue):
+    ///
+    /// > `protocol MTL4CommandQueue : NSObjectProtocol, Sendable`
+    ///
+    /// The `Send` and `Sync` bounds rely on this guarantee.
     pub unsafe trait MTL4CommandQueue: NSObjectProtocol + Send + Sync {
         /// Returns the GPU device that the command queue belongs to.
         #[unsafe(method(device))]

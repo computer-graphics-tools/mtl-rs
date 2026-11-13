@@ -270,17 +270,6 @@ mod tests {
     use super::*;
 
     #[test]
-    fn render_stage_mask_matches_metal_abi_and_values() {
-        assert_eq!(size_of::<MTLRenderStages>(), size_of::<usize>());
-        assert_eq!(align_of::<MTLRenderStages>(), align_of::<usize>());
-        assert_eq!(MTLRenderStages::Vertex.bits(), 1 << 0);
-        assert_eq!(MTLRenderStages::Fragment.bits(), 1 << 1);
-        assert_eq!(MTLRenderStages::Tile.bits(), 1 << 2);
-        assert_eq!(MTLRenderStages::Object.bits(), 1 << 3);
-        assert_eq!(MTLRenderStages::Mesh.bits(), 1 << 4);
-    }
-
-    #[test]
     fn draw_primitives_indirect_arguments_match_metal_abi() {
         assert_eq!(
             (

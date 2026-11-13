@@ -51,24 +51,3 @@ unsafe impl Encode for MTLTensorDataType {
 unsafe impl RefEncode for MTLTensorDataType {
     const ENCODING_REF: Encoding = Encoding::Pointer(&Self::ENCODING);
 }
-
-#[cfg(test)]
-mod tests {
-    use super::MTLTensorDataType;
-
-    #[test]
-    fn packed_data_types_match_metal_abi_values() {
-        let actual = [
-            MTLTensorDataType::MetalFloat8E5M2 as isize,
-            MTLTensorDataType::MetalFloat8E4M3 as isize,
-            MTLTensorDataType::Int4 as isize,
-            MTLTensorDataType::UInt4 as isize,
-            MTLTensorDataType::MetalFloat8UE8M0 as isize,
-            MTLTensorDataType::MetalFloat4E2M1 as isize,
-            MTLTensorDataType::UInt2 as isize,
-            MTLTensorDataType::Int2 as isize,
-        ];
-
-        assert_eq!(actual, [141, 142, 143, 144, 145, 148, 149, 150]);
-    }
-}

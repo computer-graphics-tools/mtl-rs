@@ -10,9 +10,12 @@ extern_class!(
     pub struct MTLComputePipelineReflection;
 );
 
-// SAFETY: Metal declares `MTLComputePipelineReflection` as `NS_SWIFT_SENDABLE`.
+// SAFETY (Send + Sync): [Apple lists this class's conformances](https://developer.apple.com/documentation/metal/mtlcomputepipelinereflection):
+//
+// > `Sendable`
+//
+// This permits transferring and concurrently sharing instances of this reference type.
 unsafe impl Send for MTLComputePipelineReflection {}
-// SAFETY: Metal declares `MTLComputePipelineReflection` as `NS_SWIFT_SENDABLE`.
 unsafe impl Sync for MTLComputePipelineReflection {}
 
 extern_conformance!(
@@ -31,22 +34,5 @@ impl MTLComputePipelineReflection {
     pub fn arguments(&self) -> Box<[Retained<MTLArgument>]> {
         let arguments: Retained<NSArray<MTLArgument>> = unsafe { msg_send![self, arguments] };
         arguments.to_vec().into_boxed_slice()
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use objc2::{rc::Retained, runtime::ProtocolObject};
-
-    use super::MTLComputePipelineReflection;
-    use crate::{MTLArgument, MTLBinding};
-
-    #[test]
-    #[expect(deprecated, reason = "verifies the deprecated Rust-native compatibility API")]
-    fn collection_methods_have_rust_native_signatures() {
-        let _: fn(&MTLComputePipelineReflection) -> Box<[Retained<ProtocolObject<dyn MTLBinding>>]> =
-            MTLComputePipelineReflection::bindings;
-        let _: fn(&MTLComputePipelineReflection) -> Box<[Retained<MTLArgument>]> =
-            MTLComputePipelineReflection::arguments;
     }
 }

@@ -14,9 +14,17 @@ pub struct NewComputePipelineStateCompletionHandler(
 );
 
 impl NewComputePipelineStateCompletionHandler {
+    /// Creates a callback with captures that can be transferred and shared with Metal's worker threads.
+    ///
+    /// [Apple's callback declaration](https://developer.apple.com/documentation/metal/mtldevice/makecomputepipelinestate(function:completionhandler:)) includes:
+    ///
+    /// > `completionHandler: @escaping @Sendable`
     pub fn new<F>(handler: F) -> Self
     where
-        F: Fn(Option<Retained<ProtocolObject<dyn MTLComputePipelineState>>>, Option<MetalError>) + 'static,
+        F: Fn(Option<Retained<ProtocolObject<dyn MTLComputePipelineState>>>, Option<MetalError>)
+            + Send
+            + Sync
+            + 'static,
     {
         Self(RcBlock::new(move |state_ptr: *mut ProtocolObject<dyn MTLComputePipelineState>, error: *mut NSError| {
             let state = unsafe { Retained::retain(state_ptr) };
@@ -44,13 +52,20 @@ pub struct NewComputePipelineStateWithReflectionCompletionHandler(
 );
 
 impl NewComputePipelineStateWithReflectionCompletionHandler {
+    /// Creates a callback with captures that can be transferred and shared with Metal's worker threads.
+    ///
+    /// [Apple's callback declaration](https://developer.apple.com/documentation/metal/mtldevice/makecomputepipelinestate(function:options:completionhandler:)) includes:
+    ///
+    /// > `completionHandler: @escaping @Sendable`
     pub fn new<F>(handler: F) -> Self
     where
         F: Fn(
                 Option<Retained<ProtocolObject<dyn MTLComputePipelineState>>>,
                 Option<Retained<MTLComputePipelineReflection>>,
                 Option<MetalError>,
-            ) + 'static,
+            ) + Send
+            + Sync
+            + 'static,
     {
         Self(RcBlock::new(
             move |state_ptr: *mut ProtocolObject<dyn MTLComputePipelineState>,

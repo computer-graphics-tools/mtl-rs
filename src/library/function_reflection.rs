@@ -14,6 +14,11 @@ extern_class!(
     pub struct MTLFunctionReflection;
 );
 
+// SAFETY (Send + Sync): [Apple lists this class's conformances](https://developer.apple.com/documentation/metal/mtlfunctionreflection):
+//
+// > `Sendable`
+//
+// This permits transferring and concurrently sharing instances of this reference type.
 unsafe impl Send for MTLFunctionReflection {}
 unsafe impl Sync for MTLFunctionReflection {}
 

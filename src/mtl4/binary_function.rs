@@ -9,6 +9,14 @@ extern_protocol!(
     /// A binary function is a shader that you precompile from Metal IR to GPU machine code.
     ///
     /// See also [Apple's documentation](https://developer.apple.com/documentation/metal/mtl4binaryfunction?language=objc)
+    ///
+    /// # Thread safety
+    ///
+    /// [Apple's declaration](https://developer.apple.com/documentation/metal/mtl4binaryfunction):
+    ///
+    /// > `protocol MTL4BinaryFunction : NSObjectProtocol, Sendable`
+    ///
+    /// The `Send` and `Sync` bounds rely on this guarantee.
     pub unsafe trait MTL4BinaryFunction: NSObjectProtocol + Send + Sync {
         /// Describes the type of this binary function.
         #[unsafe(method(functionType))]

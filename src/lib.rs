@@ -1,3 +1,24 @@
+//! Rust bindings for Apple's Metal API.
+//!
+//! # Thread safety
+//!
+//! These bindings use Apple's documented thread-safety guarantees and Swift
+//! `Sendable` conformances when declaring Rust `Send` and `Sync`.
+//! [Apple defines `Sendable`](https://developer.apple.com/documentation/swift/sendable) as:
+//!
+//! > A thread-safe type whose values can be shared across arbitrary concurrent
+//! > contexts without introducing a risk of data races.
+//!
+//! A retained Objective-C handle can be cloned without copying its underlying
+//! object. Moving one handle does not establish exclusive access, so the absence
+//! of a sharing guarantee is not worked around with a `Send`-only declaration.
+//! Resource allocation and GPU synchronization alone do not establish CPU thread
+//! safety. In particular, `MTLAllocation` and `MTLResource` do not confer `Send`
+//! or `Sync` on their subprotocols.
+//!
+//! Asynchronous callbacks have a separate contract: their captured state must be
+//! `Send + Sync` even when a callback argument is not a thread-safe object.
+
 use block2::Block;
 
 trait CallbackBlock {

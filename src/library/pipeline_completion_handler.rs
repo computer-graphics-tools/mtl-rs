@@ -17,9 +17,14 @@ pub type MTLNewComputePipelineStateWithReflectionCompletionHandler =
 pub struct MTLNewRenderPipelineStateCompletionHandler(RcBlock<RenderPipelineStateBlock>);
 
 impl MTLNewRenderPipelineStateCompletionHandler {
+    /// Creates a callback with captures that can be transferred and shared with Metal's worker threads.
+    ///
+    /// [Apple's callback declaration](https://developer.apple.com/documentation/metal/mtldevice/makerenderpipelinestate(descriptor:completionhandler:)) includes:
+    ///
+    /// > `completionHandler: @escaping @Sendable`
     pub fn new<F>(handler: F) -> Self
     where
-        F: Fn(Option<Retained<ProtocolObject<dyn MTLRenderPipelineState>>>, Option<MetalError>) + 'static,
+        F: Fn(Option<Retained<ProtocolObject<dyn MTLRenderPipelineState>>>, Option<MetalError>) + Send + Sync + 'static,
     {
         Self(RcBlock::new(move |pipeline_ptr: *mut ProtocolObject<dyn MTLRenderPipelineState>, error: *mut NSError| {
             let pipeline = unsafe { Retained::retain(pipeline_ptr) };
@@ -42,13 +47,22 @@ impl CallbackBlock for MTLNewRenderPipelineStateCompletionHandler {
 pub struct MTLNewRenderPipelineStateWithReflectionCompletionHandler(RcBlock<RenderPipelineStateWithReflectionBlock>);
 
 impl MTLNewRenderPipelineStateWithReflectionCompletionHandler {
+    /// Creates a callback with captures that can be transferred and shared with Metal's worker threads.
+    ///
+    /// Like the [render-pipeline callback](https://developer.apple.com/documentation/metal/mtldevice/makerenderpipelinestate(descriptor:completionhandler:)), which Apple declares with:
+    ///
+    /// > `completionHandler: @escaping @Sendable`
+    ///
+    /// This reflection variant runs after asynchronous compilation and requires `Send + Sync` captures.
     pub fn new<F>(handler: F) -> Self
     where
         F: Fn(
                 Option<Retained<ProtocolObject<dyn MTLRenderPipelineState>>>,
                 Option<Retained<MTLRenderPipelineReflection>>,
                 Option<MetalError>,
-            ) + 'static,
+            ) + Send
+            + Sync
+            + 'static,
     {
         Self(RcBlock::new(
             move |state_ptr: *mut ProtocolObject<dyn MTLRenderPipelineState>,

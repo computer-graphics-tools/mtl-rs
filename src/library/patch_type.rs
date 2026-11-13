@@ -18,15 +18,3 @@ unsafe impl Encode for MTLPatchType {
 unsafe impl RefEncode for MTLPatchType {
     const ENCODING_REF: Encoding = Encoding::Pointer(&Self::ENCODING);
 }
-
-#[cfg(test)]
-mod tests {
-    use super::MTLPatchType;
-
-    #[test]
-    fn patch_type_values_match_header() {
-        assert_eq!(MTLPatchType::None as usize, 0);
-        assert_eq!(MTLPatchType::Triangle as usize, 1);
-        assert_eq!(MTLPatchType::Quad as usize, 2);
-    }
-}

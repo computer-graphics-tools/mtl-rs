@@ -8,7 +8,15 @@ extern_protocol!(
     /// by a command buffer or command queue in order to ensure that resources and heaps are resident.
     /// Resources and heaps are added and removed uncommitted and a subsequent commit call applies all
     /// of the changes in bulk.
-    pub unsafe trait MTLResidencySet: NSObjectProtocol + Send + Sync {
+    ///
+    /// # Thread safety
+    ///
+    /// [Apple's documentation](https://developer.apple.com/documentation/metal/mtlresidencyset):
+    ///
+    /// > Residency sets don’t support sparse heaps or sparse textures, and their methods aren’t thread-safe.
+    ///
+    /// These bindings therefore do not promise `Send` or `Sync`.
+    pub unsafe trait MTLResidencySet: NSObjectProtocol {
         /// The device that created the residency set.
         #[unsafe(method(device))]
         #[unsafe(method_family = none)]

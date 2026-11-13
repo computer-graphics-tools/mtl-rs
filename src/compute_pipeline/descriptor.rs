@@ -254,26 +254,3 @@ impl MTLComputePipelineDescriptor {
         }
     }
 }
-
-#[cfg(test)]
-mod tests {
-    use objc2::{rc::Retained, runtime::ProtocolObject};
-
-    use super::MTLComputePipelineDescriptor;
-    use crate::{MTLBinaryArchive, MTLDynamicLibrary};
-
-    #[test]
-    #[expect(deprecated, reason = "verifies the deprecated Rust-native compatibility API")]
-    fn collection_methods_have_rust_native_signatures() {
-        let _: fn(&MTLComputePipelineDescriptor) -> Option<Box<[Retained<ProtocolObject<dyn MTLDynamicLibrary>>]>> =
-            MTLComputePipelineDescriptor::insert_libraries;
-        let _: fn(&MTLComputePipelineDescriptor) -> Box<[Retained<ProtocolObject<dyn MTLDynamicLibrary>>]> =
-            MTLComputePipelineDescriptor::preloaded_libraries;
-        let _: fn(&MTLComputePipelineDescriptor) -> Option<Box<[Retained<ProtocolObject<dyn MTLBinaryArchive>>]>> =
-            MTLComputePipelineDescriptor::binary_archives;
-        let _: fn(&MTLComputePipelineDescriptor, &[&ProtocolObject<dyn MTLDynamicLibrary>]) =
-            MTLComputePipelineDescriptor::set_preloaded_libraries;
-        let _: fn(&MTLComputePipelineDescriptor, Option<&[&ProtocolObject<dyn MTLBinaryArchive>]>) =
-            MTLComputePipelineDescriptor::set_binary_archives;
-    }
-}

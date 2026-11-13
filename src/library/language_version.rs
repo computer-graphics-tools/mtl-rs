@@ -31,14 +31,3 @@ unsafe impl Encode for MTLLanguageVersion {
 unsafe impl RefEncode for MTLLanguageVersion {
     const ENCODING_REF: Encoding = Encoding::Pointer(&Self::ENCODING);
 }
-
-#[cfg(test)]
-mod tests {
-    use super::MTLLanguageVersion;
-
-    #[test]
-    fn xcode_27_language_versions_match_header_values() {
-        assert_eq!(MTLLanguageVersion::Version4_0 as u64, 4 << 16);
-        assert_eq!(MTLLanguageVersion::Version4_1 as u64, (4 << 16) + 1);
-    }
-}

@@ -9,7 +9,16 @@ extern_protocol!(
     /// Records a sequence of GPU commands.
     ///
     /// See also [Apple's documentation](https://developer.apple.com/documentation/metal/mtl4commandbuffer?language=objc)
-    pub unsafe trait MTL4CommandBuffer: NSObjectProtocol + Send + Sync {
+    ///
+    /// # Thread safety
+    ///
+    /// [Apple's declaration](https://developer.apple.com/documentation/metal/mtl4commandbuffer):
+    ///
+    /// > `protocol MTL4CommandBuffer : NSObjectProtocol`
+    ///
+    /// Apple does not declare this mutable protocol `Sendable`. These bindings
+    /// therefore do not promise `Send` or `Sync`.
+    pub unsafe trait MTL4CommandBuffer: NSObjectProtocol {
         /// Returns the GPU device that this command buffer belongs to.
         #[unsafe(method(device))]
         #[unsafe(method_family = none)]

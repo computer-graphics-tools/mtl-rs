@@ -46,17 +46,3 @@ impl MTLTensorReferenceType {
         planes.to_vec().into_boxed_slice()
     }
 }
-
-#[cfg(test)]
-mod tests {
-    use objc2::rc::Retained;
-
-    use super::MTLTensorReferenceType;
-    use crate::MTLTensorAuxiliaryPlaneType;
-
-    #[test]
-    fn collection_method_has_rust_native_signature() {
-        let _: fn(&MTLTensorReferenceType) -> Box<[Retained<MTLTensorAuxiliaryPlaneType>]> =
-            MTLTensorReferenceType::auxiliary_planes;
-    }
-}

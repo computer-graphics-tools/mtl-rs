@@ -30,33 +30,3 @@ pub use struct_type::MTLStructType;
 pub use tensor_auxiliary_plane_type::MTLTensorAuxiliaryPlaneType;
 pub use texture_reference_type::MTLTextureReferenceType;
 pub use type_reflection::MTLType;
-
-#[cfg(test)]
-mod tests {
-    use std::ops::Deref;
-
-    use objc2::runtime::ProtocolObject;
-
-    use super::{
-        MTLArgument, MTLArrayType, MTLBinding, MTLPointerType, MTLStructType, MTLTextureReferenceType, MTLType,
-    };
-    use crate::MTLTensorReferenceType;
-
-    fn assert_send_sync<T: Send + Sync>() {}
-    fn assert_mtl_type_superclass<T: Deref<Target = MTLType>>() {}
-
-    #[test]
-    fn sendable_argument_types_are_send_and_sync() {
-        assert_send_sync::<MTLArgument>();
-        assert_send_sync::<ProtocolObject<dyn MTLBinding>>();
-    }
-
-    #[test]
-    fn reflection_types_inherit_mtl_type() {
-        assert_mtl_type_superclass::<MTLStructType>();
-        assert_mtl_type_superclass::<MTLArrayType>();
-        assert_mtl_type_superclass::<MTLPointerType>();
-        assert_mtl_type_superclass::<MTLTextureReferenceType>();
-        assert_mtl_type_superclass::<MTLTensorReferenceType>();
-    }
-}

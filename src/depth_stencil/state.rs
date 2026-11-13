@@ -7,6 +7,14 @@ extern_protocol!(
     /// Device-specific compiled depth/stencil state object.
     ///
     /// Availability: macOS 10.11+, iOS 8.0+
+    ///
+    /// # Thread safety
+    ///
+    /// [Apple's declaration](https://developer.apple.com/documentation/metal/mtldepthstencilstate):
+    ///
+    /// > `protocol MTLDepthStencilState : NSObjectProtocol, Sendable`
+    ///
+    /// The `Send` and `Sync` bounds rely on this guarantee.
     pub unsafe trait MTLDepthStencilState: NSObjectProtocol + Send + Sync {
         /// The device this resource was created against.
         #[unsafe(method(device))]

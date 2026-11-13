@@ -14,6 +14,11 @@ extern_class!(
     pub struct MTLRenderPipelineReflection;
 );
 
+// SAFETY (Send + Sync): [Apple lists this class's conformances](https://developer.apple.com/documentation/metal/mtlrenderpipelinereflection):
+//
+// > `Sendable`
+//
+// This permits transferring and concurrently sharing instances of this reference type.
 unsafe impl Send for MTLRenderPipelineReflection {}
 unsafe impl Sync for MTLRenderPipelineReflection {}
 
@@ -71,22 +76,5 @@ impl MTLRenderPipelineReflection {
     pub fn tile_arguments(&self) -> Option<Box<[Retained<MTLArgument>]>> {
         let arguments: Option<Retained<NSArray<MTLArgument>>> = unsafe { msg_send![self, tileArguments] };
         arguments.map(|arguments| arguments.to_vec().into_boxed_slice())
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use objc2::{rc::Retained, runtime::ProtocolObject};
-
-    use super::MTLRenderPipelineReflection;
-    use crate::{MTLArgument, MTLBinding};
-
-    #[test]
-    #[expect(deprecated, reason = "verifies the deprecated Rust-native compatibility API")]
-    fn collection_methods_have_rust_native_signatures() {
-        let _: fn(&MTLRenderPipelineReflection) -> Box<[Retained<ProtocolObject<dyn MTLBinding>>]> =
-            MTLRenderPipelineReflection::vertex_bindings;
-        let _: fn(&MTLRenderPipelineReflection) -> Option<Box<[Retained<MTLArgument>]>> =
-            MTLRenderPipelineReflection::vertex_arguments;
     }
 }

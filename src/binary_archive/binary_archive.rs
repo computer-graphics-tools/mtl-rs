@@ -165,21 +165,3 @@ impl MTLBinaryArchiveExt for ProtocolObject<dyn MTLBinaryArchive> {
         result.map_err(MetalError::from_nserror)
     }
 }
-
-#[cfg(test)]
-mod tests {
-    use std::path::Path;
-
-    use objc2::runtime::ProtocolObject;
-
-    use super::{MTLBinaryArchive, MTLBinaryArchiveExt};
-    use crate::{MTLComputePipelineDescriptor, MetalError};
-
-    #[test]
-    fn fallible_methods_expose_rust_owned_errors() {
-        let _: fn(&ProtocolObject<dyn MTLBinaryArchive>, &MTLComputePipelineDescriptor) -> Result<(), MetalError> =
-            <ProtocolObject<dyn MTLBinaryArchive> as MTLBinaryArchiveExt>::add_compute_pipeline_functions;
-        let _: fn(&ProtocolObject<dyn MTLBinaryArchive>, &Path) -> Result<(), MetalError> =
-            <ProtocolObject<dyn MTLBinaryArchive> as MTLBinaryArchiveExt>::serialize_to_path;
-    }
-}

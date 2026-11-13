@@ -8,6 +8,14 @@ use crate::{
 
 extern_protocol!(
     /// Metal library interface.
+    ///
+    /// # Thread safety
+    ///
+    /// [Apple's declaration](https://developer.apple.com/documentation/metal/mtllibrary):
+    ///
+    /// > `protocol MTLLibrary : NSObjectProtocol, Sendable`
+    ///
+    /// The `Send` and `Sync` bounds rely on this guarantee.
     pub unsafe trait MTLLibrary: NSObjectProtocol + Send + Sync {
         /// The device this resource was created against.
         #[unsafe(method(device))]

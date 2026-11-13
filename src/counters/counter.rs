@@ -3,6 +3,14 @@ use objc2_foundation::{NSObjectProtocol, NSString};
 
 extern_protocol!(
     /// A descriptor for a single counter.
+    ///
+    /// # Thread safety
+    ///
+    /// [Apple's declaration](https://developer.apple.com/documentation/metal/mtlcounter):
+    ///
+    /// > `protocol MTLCounter : NSObjectProtocol, Sendable`
+    ///
+    /// The `Send` and `Sync` bounds rely on this guarantee.
     pub unsafe trait MTLCounter: NSObjectProtocol + Send + Sync {}
 );
 

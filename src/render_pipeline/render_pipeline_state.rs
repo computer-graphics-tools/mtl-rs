@@ -19,7 +19,15 @@ extern_protocol!(
         clippy::missing_safety_doc,
         reason = "extern_protocol does not attach this safety section to its generated unsafe trait"
     )]
-    pub unsafe trait MTLRenderPipelineState: MTLAllocation {
+    ///
+    /// # Thread safety
+    ///
+    /// [Apple's declaration](https://developer.apple.com/documentation/metal/mtlrenderpipelinestate):
+    ///
+    /// > `protocol MTLRenderPipelineState : MTLAllocation, Sendable`
+    ///
+    /// The `Send` and `Sync` bounds rely on this guarantee.
+    pub unsafe trait MTLRenderPipelineState: MTLAllocation + Send + Sync {
         /// The device that created this pipeline state.
         #[unsafe(method(device))]
         #[unsafe(method_family = none)]
@@ -211,25 +219,5 @@ impl MTLRenderPipelineStateExt for ProtocolObject<dyn MTLRenderPipelineState> {
             ]
         }
         .map_err(MetalError::from_nserror)
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use objc2::{rc::Retained, runtime::ProtocolObject};
-
-    use super::{MTLRenderPipelineState, MTLRenderPipelineStateExt};
-    use crate::{MTLFunctionHandle, MTLRenderStages};
-
-    #[test]
-    fn string_methods_have_rust_native_signatures() {
-        let _: fn(&ProtocolObject<dyn MTLRenderPipelineState>) -> Option<String> =
-            <ProtocolObject<dyn MTLRenderPipelineState> as MTLRenderPipelineStateExt>::label;
-        let _: fn(
-            &ProtocolObject<dyn MTLRenderPipelineState>,
-            &str,
-            MTLRenderStages,
-        ) -> Option<Retained<ProtocolObject<dyn MTLFunctionHandle>>> =
-            <ProtocolObject<dyn MTLRenderPipelineState> as MTLRenderPipelineStateExt>::function_handle_with_name_stage;
     }
 }

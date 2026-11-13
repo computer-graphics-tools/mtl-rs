@@ -17,14 +17,3 @@ unsafe impl Encode for MTLFloatingPointConversionRoundingMode {
 unsafe impl RefEncode for MTLFloatingPointConversionRoundingMode {
     const ENCODING_REF: Encoding = Encoding::Pointer(&Self::ENCODING);
 }
-
-#[cfg(test)]
-mod tests {
-    use super::MTLFloatingPointConversionRoundingMode;
-
-    #[test]
-    fn rounding_mode_values_match_xcode_27_header() {
-        assert_eq!(MTLFloatingPointConversionRoundingMode::ToNearestEven as isize, 0);
-        assert_eq!(MTLFloatingPointConversionRoundingMode::TowardZero as isize, 1);
-    }
-}

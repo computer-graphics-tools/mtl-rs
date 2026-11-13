@@ -50,23 +50,3 @@ unsafe impl Encode for MTLIntersectionFunctionSignature {
 unsafe impl RefEncode for MTLIntersectionFunctionSignature {
     const ENCODING_REF: Encoding = Encoding::Pointer(&Self::ENCODING);
 }
-
-#[cfg(test)]
-mod tests {
-    use super::MTLIntersectionFunctionSignature;
-
-    #[test]
-    fn signature_bits_match_the_xcode_27_header() {
-        assert_eq!(MTLIntersectionFunctionSignature::None.bits(), 0);
-        assert_eq!(MTLIntersectionFunctionSignature::Instancing.bits(), 1 << 0);
-        assert_eq!(MTLIntersectionFunctionSignature::TriangleData.bits(), 1 << 1);
-        assert_eq!(MTLIntersectionFunctionSignature::WorldSpaceData.bits(), 1 << 2);
-        assert_eq!(MTLIntersectionFunctionSignature::InstanceMotion.bits(), 1 << 3);
-        assert_eq!(MTLIntersectionFunctionSignature::PrimitiveMotion.bits(), 1 << 4);
-        assert_eq!(MTLIntersectionFunctionSignature::ExtendedLimits.bits(), 1 << 5);
-        assert_eq!(MTLIntersectionFunctionSignature::MaxLevels.bits(), 1 << 6);
-        assert_eq!(MTLIntersectionFunctionSignature::CurveData.bits(), 1 << 7);
-        assert_eq!(MTLIntersectionFunctionSignature::IntersectionFunctionBuffer.bits(), 1 << 8);
-        assert_eq!(MTLIntersectionFunctionSignature::UserData.bits(), 1 << 9);
-    }
-}

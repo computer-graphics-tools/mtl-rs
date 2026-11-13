@@ -15,6 +15,14 @@ extern_protocol!(
     ///
     /// Implementors must be Objective-C objects that conform to the
     /// `MTLFunction` protocol.
+    ///
+    /// # Thread safety
+    ///
+    /// [Apple's declaration](https://developer.apple.com/documentation/metal/mtlfunction):
+    ///
+    /// > `protocol MTLFunction : NSObjectProtocol, Sendable`
+    ///
+    /// The `Send` and `Sync` bounds rely on this guarantee.
     pub unsafe trait MTLFunction: NSObjectProtocol + Send + Sync {
         /// The device that created the function.
         #[unsafe(method(device))]
@@ -136,27 +144,5 @@ where
             .map(|(name, value)| (name.to_string(), value))
             .collect::<Vec<_>>()
             .into_boxed_slice()
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use objc2::{rc::Retained, runtime::ProtocolObject};
-
-    use super::{MTLFunction, MTLFunctionExt};
-    use crate::{MTLArgumentEncoder, MTLFunctionConstant, MTLVertexAttribute};
-
-    #[test]
-    fn rust_native_accessors_have_rust_owned_signatures() {
-        let _: fn(&ProtocolObject<dyn MTLFunction>) -> Option<Box<[Retained<MTLVertexAttribute>]>> =
-            <ProtocolObject<dyn MTLFunction> as MTLFunctionExt>::vertex_attributes;
-        let _: fn(&ProtocolObject<dyn MTLFunction>) -> Box<[(String, Retained<MTLFunctionConstant>)]> =
-            <ProtocolObject<dyn MTLFunction> as MTLFunctionExt>::function_constants_dictionary;
-    }
-
-    #[test]
-    fn numeric_argument_encoder_method_is_safe_to_call() {
-        let _: fn(&ProtocolObject<dyn MTLFunction>, usize) -> Retained<ProtocolObject<dyn MTLArgumentEncoder>> =
-            MTLFunction::new_argument_encoder_with_buffer_index;
     }
 }

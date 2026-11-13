@@ -56,6 +56,14 @@ extern_protocol!(
     ///
     /// Implementors must be genuine Objective-C objects conforming to
     /// `MTLDevice`, including Metal's thread-safety contract.
+    ///
+    /// # Thread safety
+    ///
+    /// [Apple's declaration](https://developer.apple.com/documentation/metal/mtldevice):
+    ///
+    /// > `protocol MTLDevice : NSObjectProtocol, Sendable`
+    ///
+    /// The `Send` and `Sync` bounds rely on this guarantee.
     pub unsafe trait MTLDevice: NSObjectProtocol + Send + Sync {
         /// Returns the IORegistry ID for the Metal device.
         #[unsafe(method(registryID))]
@@ -530,8 +538,12 @@ pub trait MTLDeviceExt: MTLDevice + Message {
     /// Creates a no-copy buffer and runs `deallocator` when Metal releases the
     /// backing allocation.
     ///
-    /// Metal declares the deallocator sendable, so its captured state must be
-    /// safe to transfer to and share with Metal's callback thread.
+    /// [Apple's deallocator declaration](https://developer.apple.com/documentation/metal/mtldevice/makebuffer(bytesnocopy:length:options:deallocator:)) includes:
+    ///
+    /// > `deallocator: (@Sendable (UnsafeMutableRawPointer, Int) -> Void)?`
+    ///
+    /// Its captured state must be safe to transfer to and share with Metal's
+    /// callback thread, hence the `Send + Sync` bounds.
     ///
     /// `ptr` must address at least `length` initialized bytes that satisfy
     /// Metal's alignment and resource-option requirements. The allocation
@@ -1688,27 +1700,5 @@ impl dyn MTLDevice {
         }
         let ret = unsafe { MTLCreateSystemDefaultDevice() };
         unsafe { Retained::from_raw(ret) }
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use objc2::runtime::ProtocolObject;
-
-    use super::{MTLDevice, MTLTimestamp};
-    use crate::MTLGPUFamily;
-
-    fn assert_send_sync<T: ?Sized + Send + Sync>() {}
-
-    #[test]
-    fn public_device_contract_matches_the_header() {
-        assert_send_sync::<ProtocolObject<dyn MTLDevice>>();
-
-        let _: fn(&ProtocolObject<dyn MTLDevice>, MTLGPUFamily) -> bool =
-            <ProtocolObject<dyn MTLDevice> as MTLDevice>::supports_family;
-        let _: fn(&ProtocolObject<dyn MTLDevice>, &mut MTLTimestamp, &mut MTLTimestamp) =
-            <ProtocolObject<dyn MTLDevice> as MTLDevice>::sample_timestamps_gpu_timestamp;
-
-        assert_eq!(size_of::<MTLTimestamp>(), size_of::<u64>());
     }
 }

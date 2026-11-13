@@ -5,6 +5,14 @@ use super::MTLCounter;
 
 extern_protocol!(
     /// A collection of counters that the device can capture in a single pass.
+    ///
+    /// # Thread safety
+    ///
+    /// [Apple's declaration](https://developer.apple.com/documentation/metal/mtlcounterset):
+    ///
+    /// > `protocol MTLCounterSet : NSObjectProtocol, Sendable`
+    ///
+    /// The `Send` and `Sync` bounds rely on this guarantee.
     pub unsafe trait MTLCounterSet: NSObjectProtocol + Send + Sync {}
 );
 

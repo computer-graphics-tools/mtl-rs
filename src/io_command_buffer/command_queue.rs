@@ -7,6 +7,14 @@ extern_protocol!(
     /// Represents a queue that schedules IO command buffers.
     ///
     /// Availability: macOS 13.0+, iOS 16.0+
+    ///
+    /// # Thread safety
+    ///
+    /// [Apple's declaration](https://developer.apple.com/documentation/metal/mtliocommandqueue):
+    ///
+    /// > `protocol MTLIOCommandQueue : NSObjectProtocol, Sendable`
+    ///
+    /// The `Send` and `Sync` bounds rely on this guarantee.
     pub unsafe trait MTLIOCommandQueue: NSObjectProtocol + Send + Sync {
         /// Insert a barrier to order prior and subsequent command buffers.
         #[unsafe(method(enqueueBarrier))]

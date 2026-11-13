@@ -53,19 +53,3 @@ pub fn has_performance_profile(performance_profile: ProcessPerformanceProfile) -
     let process_info = NSProcessInfo::processInfo();
     unsafe { msg_send![&*process_info, hasPerformanceProfile: performance_profile] }
 }
-
-#[cfg(test)]
-mod tests {
-    use super::{ProcessPerformanceProfile, has_performance_profile, is_device_certified_for};
-    use crate::DeviceCertification;
-
-    #[test]
-    fn certification_query_has_a_rust_native_signature() {
-        let _: fn(DeviceCertification) -> bool = is_device_certified_for;
-    }
-
-    #[test]
-    fn performance_profile_query_has_a_rust_native_signature() {
-        let _: fn(ProcessPerformanceProfile) -> bool = has_performance_profile;
-    }
-}

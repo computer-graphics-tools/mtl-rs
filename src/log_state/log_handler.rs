@@ -19,6 +19,10 @@ pub struct LogMessage {
 impl MTLLogHandler {
     /// Creates a callback whose Foundation strings are copied into Rust-owned
     /// strings before invoking `handler`.
+    ///
+    /// [Apple's declaration](https://developer.apple.com/documentation/metal/mtllogstate/addloghandler(_:)):
+    ///
+    /// > `func addLogHandler(_ block: @escaping @Sendable (String?, String?, MTLLogLevel, String) -> Void)`
     pub fn new<F>(handler: F) -> Self
     where
         F: Fn(LogMessage) + Send + Sync + 'static,

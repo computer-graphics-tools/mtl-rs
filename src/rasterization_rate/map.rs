@@ -14,6 +14,14 @@ extern_protocol!(
         clippy::missing_safety_doc,
         reason = "extern_protocol does not attach this safety section to its generated unsafe trait"
     )]
+    ///
+    /// # Thread safety
+    ///
+    /// [Apple's declaration](https://developer.apple.com/documentation/metal/mtlrasterizationratemap):
+    ///
+    /// > `protocol MTLRasterizationRateMap : NSObjectProtocol, Sendable`
+    ///
+    /// The `Send` and `Sync` bounds rely on this guarantee.
     pub unsafe trait MTLRasterizationRateMap: NSObjectProtocol + Send + Sync {
         /// The device on which the rasterization rate map was created
         #[unsafe(method(device))]

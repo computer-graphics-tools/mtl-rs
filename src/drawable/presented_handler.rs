@@ -21,6 +21,10 @@ pub struct MTLDrawablePresentedHandler(RcBlock<DrawablePresentedBlock>);
 impl MTLDrawablePresentedHandler {
     /// Creates a presented callback whose captured state can safely be sent
     /// to and shared with Metal's callback thread.
+    ///
+    /// [Apple's declaration](https://developer.apple.com/documentation/metal/mtldrawablepresentedhandler):
+    ///
+    /// > `typealias MTLDrawablePresentedHandler = @Sendable (any MTLDrawable) -> Void`
     pub fn new<F>(handler: F) -> Self
     where
         F: Fn(&ProtocolObject<dyn MTLDrawable>) + Send + Sync + 'static,
